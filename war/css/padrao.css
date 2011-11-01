@@ -1,0 +1,21 @@
+body{
+    background: url(/img/fundo-body.jpg) repeat-x;
+    margin: 0px;
+    text-align: center;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+#rodape{
+    height: 71px;
+    line-height: 71px;
+    background: url(/img/fundo-rodape.jpg) repeat-x;
+    border-top: 1px solid #DEDEDE;
+    margin-top: 49px;
+    color: #B2B2B2;
+}
+
+#rodape a{
+    color: #B2D65D;
+    text-decoration: none;
+}
