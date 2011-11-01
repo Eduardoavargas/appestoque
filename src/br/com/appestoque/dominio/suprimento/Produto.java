@@ -1,4 +1,4 @@
-package br.com.appestoque.suprimento.dominio;
+package br.com.appestoque.dominio.suprimento;
 
 public class Produto {
 
