@@ -1,3 +1,12 @@
+
+h1{
+    font: 6em georgia, fantasy, serif bold;
+}
+
+h2{
+    font: 3em georgia, fantasy, serif bold;
+ }
+
 body{
     background: url(/img/fundo-body.jpg) repeat-x;
     margin: 0px;
@@ -6,6 +15,116 @@ body{
     font-size: 12px;
 }
 
+/* reset */
+a img{border: 0px;}
+form{margin:0px;}
+object{margin:0px}
+
+/* fixes */
+.clearfix{clear: both;overflow: hidden;}
+
+.round{
+    border-radius: 5px; /* CSS 3 */
+    -o-border-radius: 5px; /* Opera */
+    -icab-border-radius: 5px; /* iCab */
+    -khtml-border-radius: 5px; /* Konqueror */
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari */
+}
+
+/* inicio topo */
+#topo{
+    width: 950px;
+    margin: 0 auto;
+}
+
+/* links topo */
+#topo ul{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    height: 60px;
+    line-height: 60px;
+    float: left;
+}
+#topo ul li{
+    float: left;
+}
+#topo ul li a{
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+}
+#topo ul li a:hover{
+    text-decoration: underline;
+    color: #E0FF9A;
+}
+/* bot�o de login */
+#btnLogin{
+    display: block;
+    width: 249px;
+    height: 29px;
+    line-height: 29px;
+    color: #fff;
+    text-decoration: none;
+    background: url(/img/btnLogin.jpg) no-repeat;
+    float: right;
+    margin-top: 15px;
+}
+#btnLogin:hover{
+    text-decoration: underline;
+}
+
+/* logo senoide */
+#logo-senoide{
+    margin-top: 31px;
+}
+
+/***********************************/
+/* inicio do conteudo */
+#conteudo{
+    width: 950px;
+    margin: 0 auto;
+    padding-top: 75px;
+    text-align: left;
+    overflow: hidden;
+}
+
+#boxLeft{
+    width: 616px;
+    height: 437px;
+    overflow: hidden;
+    float: left;
+}
+
+.blocoExplicacao{
+    color: #676E70;
+    line-height: 19px;
+    margin-top: 22px;
+    margin-bottom: 33px;
+    font-size: 13px;
+}
+
+#btnCadastrar{
+    display: block;
+    float: right;
+}
+
+
+/* inicio sidebar */
+#boxSideBar{
+    width: 302px;
+    height: 437px;
+    overflow: hidden;
+    float: right;
+}
+
+#videoExp{
+    margin-top: 35px;
+    margin-bottom: 10px;
+}
+
+/* inicio rodap� */
 #rodape{
     height: 71px;
     line-height: 71px;
@@ -14,8 +133,251 @@ body{
     margin-top: 49px;
     color: #B2B2B2;
 }
-
 #rodape a{
     color: #B2D65D;
     text-decoration: none;
+}
+
+
+/***********************************/
+/* inicio página editar perfil */
+#mascara{
+    background: #000;
+    position:absolute;
+    z-index:50;
+    top:0; left: 0px;
+
+}
+#boxEditarPerfil{
+    width: 870px;
+    height: 387px;
+    background: #fff;
+    overflow: hidden;
+
+    position:absolute;
+    z-index:80;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+#fundo-perfil{
+    height: 51px;
+    background: url(/img/fundo-perfil-pp.jpg) repeat-x;
+    color: #FFFFFF;
+    font-weight: normal;
+    line-height: 51px;
+    padding-left: 27px;
+    font-size: 18px;
+    
+}
+#label-titulo{
+    float: left;
+}
+#fundo-perfil img{
+    float: right;
+    margin-right: 15px;
+    margin-top: 13px;
+    cursor: pointer;
+}
+
+#container-dados{
+    padding-top: 33px;
+    padding-left: 30px;
+}
+#boxIMG{
+    width: 246px;
+    height: 229px;
+    text-align: center;
+    float: left;
+}
+#img-perfil{
+    width: 240px;
+    height: 199px;
+    padding: 2px;
+    border: 1px solid #E9E9E9;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+#boxIMG a{
+    color: #303B3E;
+    text-decoration: none;
+    font-size: 14px;
+}
+#boxIMG a:hover{
+    text-decoration: underline;
+}
+
+#boxRightDados{
+    width: 549px;
+    float: right;
+    margin-right: 26px;
+    
+}
+#fundo-input{
+    width: 549px;
+    height: 55px;
+    background: url(/img/fundo-input.jpg) no-repeat;
+}
+#fundo-input input{
+    width: 528px;
+    height: 44px;
+    line-height: 44px;
+    border: 0px;
+    background: none;
+    color: #C9C9C9;
+    font-size: 17px;
+
+    margin-left: 10px;
+    margin-top: 6px;
+}
+
+#comboCidade{
+    width: 379px;
+    height: 46px;
+    line-height: 46px;
+    font-size: 20px;
+    margin-top: 24px;
+    margin-left: 5px;
+    float: left;
+    color: #C9C9C9;
+}
+#comboUF{
+    width: 119px;
+    height: 46px;
+    float: right;
+    margin-top: 24px;
+    margin-right: 5px;
+    font-size: 20px;
+    color: #C9C9C9;
+}
+
+#comboEstiloM{
+    width: 539px;
+    height: 46px;
+    margin-left: 5px;
+    margin-top: 24px;
+    font-size: 20px;
+    color: #C9C9C9;
+}
+#btnSalvar{
+    width: 120px;
+    height: 50px;
+    background: url(/img/btnSalvar.jpg) no-repeat;
+    border: 0px;
+    cursor: pointer;
+    float: right;
+    margin-top: 22px;
+    clear: both;
+}
+
+/* css lista de músicas */
+#boxMusicas{
+    width: 757px;
+    height: 246px;
+    margin-top: -5px;
+    /*overflow: hidden;*/
+}
+
+/* inicio lista de músicas */
+#labelMusicas{
+    
+    width: 757px;
+    height: 30px;
+    background: url(/img/labelMusicas.jpg) no-repeat;
+    
+    color: #FAFFF6;
+
+}
+#hackIEFirst{
+    padding-left: 32px;
+}
+
+#labelMusicas div{
+    margin-top: 5px;
+}
+#boxMusicaLista{
+    width: 757px;
+    height: 215px;
+    background: url(/img/boxMusicaLista.jpg) no-repeat;
+}
+
+#containerMusicas{
+    padding-top: 13px;
+    padding-left: 21px;
+}
+
+#listaMusica{
+    padding: 0px;
+    margin: 0px;
+    
+    width: 714px;
+    height: 181px;
+    list-style: none;
+    float: left;
+    overflow: auto;
+}
+#listaMusica li{
+    min-height: 25px;
+    background:#F7F7F7 url(/img/fundo-lista-musicas.jpg) repeat-x;
+    padding-left: 10px;
+    line-height: 25px;
+    color: #696F6F;
+    border: 1px solid #EEEEEE;
+    border-bottom: 0px;
+    
+}
+#listaMusica li a{
+    color: #696F6F;
+    text-decoration: none;
+    
+    
+}
+#listaMusica li a:hover{
+    text-decoration: underline;
+}
+
+.liMusica{
+    width: 280px;
+    
+    float: left;
+}
+.liAutor{
+    width:180px;
+    float: left;
+    text-align: center;
+}
+.liEstilo{
+    width: 158px;
+    float: left;
+    text-align: center;
+}
+.liTempo{
+    width: 50px;
+    float: left;
+    text-align: center;
+}
+
+legend{
+    font:1.8em helvetica, verdana, sans-serif lighter;
+}
+
+label{
+    display:block;
+    width:100%;
+    margin:5px;
+    font: 1.2em verdana, helvetica, serif;
+}
+
+input, textarea{
+    padding:10px;
+    border:1px solid gray;
+    -webkit-box-shadow: 1px 1px 1px #ccc;
+    width:100%;
+    -webkit-transition: background 200ms;
+    margin:5px;
+    margin-left:15px;
+}
+
+input:focus, textarea:focus{
+    background:rgba(0,0,0,0.2)
 }
