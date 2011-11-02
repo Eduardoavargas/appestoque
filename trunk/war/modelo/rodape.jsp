@@ -1,3 +1,3 @@
-<div id="rodape">
-	© 2010 Senóide, A rede social de música - <a href="" title="Política de Privacidade">Política de Privacidade</a>
-</div>
+<div id="rodape">© 2010 appestoque - <a href="" title="Política de Privacidade">Política de Privacidade</a></div>
+</body>
+</html>
