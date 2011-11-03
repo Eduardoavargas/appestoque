@@ -32,20 +32,28 @@
 	</div>
 
 	<div id="boxSideBar">
-	
-		<h1>Acesso</h1>
-		<fieldset>
-			<legend>Entre com seus dados</legend>
-			<label>
-				E-mail:
-				<input type="text"/>
-			</label>
-			<label>
-				Senha:
-				<input type="text"/>
-			</label>
-		</fieldset>
-		
+		<form id="login" action="/" method="post">
+			<h3><span>login</span></h3>
+			<fieldset>
+				<table width="100%">
+					<tr>
+						<td><label>E-mail</label></td>
+					</tr>	
+					<tr>	
+						<td><input type="text" name="email"/></td>
+					</tr>
+					<tr>
+						<td><label>Senha</label></td>
+					</tr>	
+					<tr>
+						<td><input type="password" name="senha" /></td>						
+					</tr>	
+					<tr>					
+						<td colspan="2" align="center" ><button type="submit">Acessar</button></td>
+					</tr>
+				</table>
+			</fieldset>
+		</form>
 	</div>
 
 </div>
