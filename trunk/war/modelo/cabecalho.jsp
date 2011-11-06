@@ -1,7 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+
 <html>
 <head>
 <link type="text/css" rel="stylesheet" href="/css/padrao.css" />
+<link type="text/css" href="/css/le-frog/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+<script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="/js/padrao.js"></script>
+
 </head>
 <body>
 	<div id="topo">
