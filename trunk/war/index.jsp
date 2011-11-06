@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <c:import url="/modelo/cabecalho.jsp" />
 
 <div id="conteudo">
@@ -32,7 +33,7 @@
 	</div>
 
 	<div id="boxSideBar">
-		<form id="login" action="/" method="post">
+		<form id="login" action="/menu.jsp" method="post">
 			<h3><span>login</span></h3>
 			<fieldset>
 				<table width="100%">
