@@ -1,8 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib tagdir="/WEB-INF/tags" prefix="appestoque"%>
+
 <c:import url="/modelo/cabecalho.jsp"></c:import>
 <div id="conteudo">
 	<div id=texto_explicativo>
-<!-- 		<a href="/menu.jsp"><span class="ui-icon ui-icon-circle-plus"></span></a> -->
+
+		<appestoque:botao id="teste" texto="Botão de Exemplo"/>
+		<appestoque:calendario id="teste1"/>
+	
 		<h2>O que é o appestoque ?</h2>
 		<p class="blocoExplicacao">Seguindo uma tendência que vem
 			crescendo nos últimos tempos, o Senóide baseia-se no que se conhece
