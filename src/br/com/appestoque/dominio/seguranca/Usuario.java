@@ -18,6 +18,12 @@ public class Usuario {
 	
 	@Persistent
 	private String senha;
+	
+	public Usuario(String email, String senha) {
+		super();
+		this.email = email;
+		this.senha = senha;
+	}
 
 	public Long getId() {
 		return id;
