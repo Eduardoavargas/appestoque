@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib tagdir="/WEB-INF/tags" prefix="appestoque"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="appestoque"%>
 
 <c:import url="/modelo/cabecalho.jsp"></c:import>
 <div id="conteudo">
