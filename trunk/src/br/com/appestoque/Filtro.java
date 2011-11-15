@@ -33,6 +33,8 @@ import javax.servlet.http.HttpSession;
 
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.dao.PMF;
+import br.com.appestoque.dao.seguranca.UsuarioDAO;
+import br.com.appestoque.dominio.seguranca.Usuario;
 
 public class Filtro implements Filter{
 
@@ -50,7 +52,9 @@ public class Filtro implements Filter{
         if ( autorizado == null || !autorizado ) {
         	String email = request.getParameter("email");
     		String senha = request.getParameter("senha");
-        	if(email.equals("andre.tricano@gmail.com")&&senha.equals("1234")){
+    		UsuarioDAO dao = new UsuarioDAO(PMF.get().getPersistenceManager());
+    		Usuario usuario = dao.pesquisar(email, senha);
+        	if(usuario!=null){
         		pm = PMF.get().getPersistenceManager();
         		request.setAttribute("pm",pm);
         		session.setAttribute("autorizado", new Boolean("true"));
