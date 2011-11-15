@@ -23,12 +23,12 @@ public class DAOGenerico <T, PK extends Serializable> implements IDAO<T, PK>{
 	}
 
 	@Override
-	public void incluir(T entidade) {
+	public void criar(T entidade) {
 		pm.makePersistent(entidade);
 	}
 	
 	@Override
-	public void excluir(T entidade) {
+	public void remover(T entidade) {
 		pm.deletePersistent(entidade);
 	}
 
