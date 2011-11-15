@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@include file="../../modelo/inicio.jspf" %>
+	<span class="title"><%=bundle.getString("usuario.pesquisar.titulo")%></span>
+	<p><a href="usuarioControle?acao=criar"/><%=bundle.getString("usuario.link.adicionar")%></a></p>
+	<form method="post" action="usuarioControle">
+		<input type="hidden" name="acao" value="pesquisar"/>
+		<span class="heading"><%=bundle.getString("usuario.filtro.nome")%></span>
+		<p/>
+		<input type="text" name="accountName" value="" style="width: 300px"/>
+		&nbsp
+		<input type="submit" value="Search"/>
+		&nbsp	
+	</form>
+<%@include file="../../modelo/fim.jspf" %>
 
-</body>
-</html>
