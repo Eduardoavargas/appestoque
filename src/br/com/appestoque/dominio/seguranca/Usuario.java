@@ -24,6 +24,11 @@ public class Usuario{
 		this.email = email;
 		this.senha = senha;
 	}
+	
+	public Usuario() {
+		super();
+	}
+
 
 	public Long getId() {
 		return id;
