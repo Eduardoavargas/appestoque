@@ -14,15 +14,19 @@ public class Usuario{
 	private Long id;
 	
 	@Persistent
+	private String nome;
+	
+	@Persistent
 	private String email;
 	
 	@Persistent
 	private String senha;
 	
-	public Usuario(String email, String senha) {
+	public Usuario(String nome, String email, String senha) {
 		super();
+		this.nome = nome;
 		this.email = email;
-		this.senha = senha;
+		this.senha = senha;		
 	}
 	
 	public Usuario() {
@@ -38,6 +42,14 @@ public class Usuario{
 		this.id = id;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
