@@ -4,7 +4,8 @@
 	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
-
+	
+	<!--filtro-->
 	<filter>
 		<filter-name>filtro</filter-name>
 		<filter-class>br.com.appestoque.Filtro</filter-class>
@@ -13,14 +14,33 @@
 		<filter-name>filtro</filter-name>
 		<url-pattern>/menu.jsp</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
+		<url-pattern>/usuarioControle/*</url-pattern>
+	</filter-mapping>
+
+	<!--servlet-->	
+	<servlet>
+		<servlet-name>UsuarioRest</servlet-name>
+		<servlet-class>br.com.appstoque.rest.UsuarioRest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UsuarioRest</servlet-name>
+		<url-pattern>/rest/UsuarioRest</url-pattern>
+	</servlet-mapping>
 	
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>loginControle</servlet-name> -->
-<!-- 		<servlet-class>br.com.appestoque.controle.seguranca.LoginControle</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>loginControle</servlet-name> -->
-<!-- 		<url-pattern>/login</url-pattern> -->
-<!-- 	</servlet-mapping> -->
+	<servlet>
+		<servlet-name>UsuarioControle</servlet-name>
+		<servlet-class>br.com.appestoque.controle.seguranca.UsuarioControle</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UsuarioControle</servlet-name>
+		<url-pattern>/usuarioControle</url-pattern>
+	</servlet-mapping>
+    
+    <!--inicio-->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
 </web-app>
