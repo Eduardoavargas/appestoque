@@ -1,12 +1,29 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.io.*,java.net.*,java.util.*" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page import="java.io.*,java.net.*,java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<link rel="stylesheet" type="text/css" href="/css/padrao_app.css"/>
-	<title><%=bundle.getString("app.titulo")%></title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="/css/padrao_app.css" />
+
+<link type="text/css" href="/css/le-frog/jquery-ui-1.8.16.custom.css"
+	rel="stylesheet" />
+<script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
+
+<title><%=bundle.getString("app.titulo")%></title>
 </head>
 <body>
+	<%if(((String)request.getParameter("mensagem"))!=null){ %>
+		<div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+				<p>
+					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Ops!</strong>
+					<%=request.getParameter("mensagem")%>
+				</p>
+			</div>
+		</div>
+		</p>
+	<%}%>
