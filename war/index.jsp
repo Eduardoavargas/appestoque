@@ -5,8 +5,10 @@
 <div id="conteudo">
 	<div id=texto_explicativo>
 
+		<!--  
 		<appestoque:botao id="teste" texto="Botão de Exemplo"/>
 		<appestoque:calendario id="teste1"/>
+		-->
 	
 		<h2>O que é o appestoque ?</h2>
 		<p class="blocoExplicacao">Seguindo uma tendência que vem
