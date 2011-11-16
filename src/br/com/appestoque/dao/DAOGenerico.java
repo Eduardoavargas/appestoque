@@ -44,7 +44,15 @@ public class DAOGenerico<T, PK extends Serializable> implements IDAO<T, PK> {
 
 	@Override
 	public void remover(T entidade) {
-		pm.deletePersistent(entidade);
+		try {
+			pm.currentTransaction().begin();
+			pm.deletePersistent(entidade);
+			pm.currentTransaction().commit();
+		} finally {
+			if (pm.currentTransaction().isActive()) {
+				pm.currentTransaction().rollback();
+			}
+		}
 	}
 
 	@Override
