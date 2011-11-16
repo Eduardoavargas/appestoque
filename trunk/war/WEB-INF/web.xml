@@ -42,6 +42,15 @@
 		<servlet-name>UsuarioControle</servlet-name>
 		<url-pattern>/usuarioControle</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SincRest</servlet-name>
+		<servlet-class>br.com.appstoque.rest.SincRest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SincRest</servlet-name>
+		<url-pattern>/rest/sincRest</url-pattern>
+	</servlet-mapping>
     
     <!--inicio-->
     <welcome-file-list>
