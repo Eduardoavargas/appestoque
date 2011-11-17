@@ -16,12 +16,12 @@
 <title><%=bundle.getString("app.titulo")%></title>
 </head>
 <body>
-	<%if(((String)request.getParameter("mensagem"))!=null){ %>
+	<%if(request.getAttribute("mensagem")!=null){ %>
 		<div class="ui-widget">
 			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
 				<p>
 					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Ops!</strong>
-					<%=request.getParameter("mensagem")%>
+					<%=request.getAttribute("mensagem")%>
 				</p>
 			</div>
 		</div>
