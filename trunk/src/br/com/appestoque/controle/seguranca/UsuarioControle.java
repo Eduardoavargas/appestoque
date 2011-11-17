@@ -48,7 +48,8 @@ public class UsuarioControle extends HttpServlet {
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
 			request.setAttribute("mensagem",bundle.getString("app.mensagem.sucesso"));
-			response.sendRedirect(Pagina.PAGINA_USUARIO_PESQUISAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
+			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));			
 			Usuario usuario = dao.pesquisar(new Long(request.getParameter("id")));
