@@ -10,6 +10,7 @@
 
 <link type="text/css" href="/css/le-frog/jquery-ui-1.8.16.custom.css"
 	rel="stylesheet" />
+<script type="text/javascript" src="/js/padrao.js"></script>	
 <script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
 
@@ -27,3 +28,26 @@
 		</div>
 		</p>
 	<%}%>
+
+<ul id="sddm">
+	<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Cadastro</a>
+		<div id="m1" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
+			<a href="/cadastro/empresa/editar.jsp">Empresa</a>
+		</div>
+	</li>
+	<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Segurança</a>
+		<div id="m1" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
+			<a href="/seguranca/usuario/listar.jsp">Usuário</a>
+			<a href="/seguranca/perfil/listar.jsp">Perfil</a>
+			<a href="/seguranca/papel/listar.jsp">Papel</a>
+		</div>
+	</li>
+	<li><a href="#" onmouseover="mopen('m3')" onmouseout="mclosetime()">Suprimento</a>
+		<div id="m1" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
+			<a href="/suprimento/produto/listar.jsp">Produto</a>
+		</div>
+	</li>
+</ul>
+<div style="clear:both"></div>
+
+<div style="clear:both"></div>	
