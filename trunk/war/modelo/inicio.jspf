@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="/css/padrao_app.css" />
+<link rel="stylesheet" type="text/css" href="/css/padrao.css" />
 
 <link type="text/css" href="/css/le-frog/jquery-ui-1.8.16.custom.css"
 	rel="stylesheet" />
