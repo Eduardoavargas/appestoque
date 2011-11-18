@@ -4,8 +4,17 @@
 	<span class="title"><%=bundle.getString("usuario.editar.titulo")%></span>
 	<p/>
 	<p><a href="/seguranca/usuario/listar.jsp"/><%=bundle.getString("link.retornar")%></a></p>
-	<form method="post" action="/usuarioControle?acao=modificar">
+	<form id="form_editar" method="post" action="/usuarioControle?acao=modificar">
 		<input type="hidden" name="id" value="<%=objeto.getId()!=null?objeto.getId():""%>"/>
+		<hr><br/>
+		
+			Nome:<br/><input type="input" name="nome" value="<%=objeto.getNome()!=null?objeto.getNome():""%>"></p>
+			E-mail:<br/><input type="input" name="email" value="<%=objeto.getEmail()!=null?objeto.getEmail():""%>"></p>
+			Senha:<br/><input type="input" name="senha" value="<%=objeto.getSenha()!=null?objeto.getSenha():""%>"></p>
+		
+		<hr>
+		
+		<!--  
 		<table border="0" cellspacing="0" cellpadding="5" bgcolor="#CCCCCC" width="100%">
 			<tr bgcolor="#5aae00"  >
 				<td style="color: #ffffff; font-weight: bold;">Nome</td>
@@ -23,5 +32,6 @@
 				<td colspan="2" bgcolor="#ffffff" align="center"><input type="submit" value="<%=bundle.getString("botao.confirmar")%>"></td>
 			</tr>
 		</table>
+		-->
 	</form>
 <%@include file="../../modelo/fim.jspf" %>
