@@ -120,7 +120,7 @@ h2 {
 	border: 1px solid #111;
 	background: #282828 url(/img/form_input.gif) repeat-x;
 	color: #fff;
-	width: 100%;
+	width: 95%;
 }
 
 #form_login button  {
@@ -131,8 +131,8 @@ h2 {
 	background: #5aae00 url(/img/form_button.gif) repeat-x;
 	color: #fff;
 	cursor: pointer;
-	text-align: center;	
-	width: 100%;	
+	text-align: center;
+	width: 95%;
 }
 
 </style>
@@ -156,7 +156,7 @@ h2 {
 				<form id="form_login" action="/menu.jsp" method="post">
 					<h3><span>Login</span></h3>
 					<fieldset>
-						<table width="100%">
+						<table width="240px">
 							<tr>
 								<td><label>E-mail</label></td>
 							</tr>	
