@@ -26,6 +26,7 @@ public class UsuarioControle extends HttpServlet {
 			String email = request.getParameter("email")==null||request.getParameter("email").equals("")?null:request.getParameter("email");
 			List<Usuario> usuarios = dao.pesquisar(email);
 			request.setAttribute("objetos", usuarios);
+			request.setAttribute("email", email);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
