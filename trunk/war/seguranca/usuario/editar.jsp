@@ -2,36 +2,16 @@
 <%@include file="../../modelo/inicio.jspf" %>
 	<%Usuario objeto = (Usuario)request.getAttribute("objeto");%>
 	<span class="title"><%=bundle.getString("usuario.editar.titulo")%></span>
-	<p/>
-	<p><a href="/seguranca/usuario/listar.jsp"/><%=bundle.getString("link.retornar")%></a></p>
-	<form id="form_editar" method="post" action="/usuarioControle?acao=modificar">
+	<form id="formEditar" method="post" action="/usuarioControle?acao=modificar">
+		<p>
+		<a href="/seguranca/usuario/listar.jsp" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-arrowreturnthick-1-w"></span><%=bundle.getString("link.retornar")%></a>
+		<a href="#" onclick="formEditar.submit();" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-disk"></span><%=bundle.getString("link.salvar")%></a>
+		</p>
 		<input type="hidden" name="id" value="<%=objeto.getId()!=null?objeto.getId():""%>"/>
 		<hr><br/>
-		
 			Nome:<br/><input type="input" name="nome" value="<%=objeto.getNome()!=null?objeto.getNome():""%>"></p>
 			E-mail:<br/><input type="input" name="email" value="<%=objeto.getEmail()!=null?objeto.getEmail():""%>"></p>
 			Senha:<br/><input type="input" name="senha" value="<%=objeto.getSenha()!=null?objeto.getSenha():""%>"></p>
-		
 		<hr>
-		
-		<!--  
-		<table border="0" cellspacing="0" cellpadding="5" bgcolor="#CCCCCC" width="100%">
-			<tr bgcolor="#5aae00"  >
-				<td style="color: #ffffff; font-weight: bold;">Nome</td>
-				<td bgcolor="#ffffff"><input type="input" name="nome" value="<%=objeto.getNome()!=null?objeto.getNome():""%>"></td>
-			</tr>
-			<tr bgcolor="#5aae00">
-				<td style="color: #ffffff; font-weight: bold;">E-mail</td>
-				<td bgcolor="#ffffff"><input type="input" name="email" value="<%=objeto.getEmail()!=null?objeto.getEmail():""%>"></td>
-			</tr>
-			<tr bgcolor="#5aae00">
-				<td style="color: #ffffff; font-weight: bold;">Senha</td>
-				<td bgcolor="#ffffff"><input type="input" name="senha" value="<%=objeto.getSenha()!=null?objeto.getSenha():""%>"></td>
-			</tr>
-			<tr>
-				<td colspan="2" bgcolor="#ffffff" align="center"><input type="submit" value="<%=bundle.getString("botao.confirmar")%>"></td>
-			</tr>
-		</table>
-		-->
 	</form>
 <%@include file="../../modelo/fim.jspf" %>
