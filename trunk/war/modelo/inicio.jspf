@@ -17,6 +17,7 @@
 <title><%=bundle.getString("app.titulo")%></title>
 </head>
 <body>
+
 	<%if(request.getAttribute("mensagem")!=null){ %>
 		<div class="ui-widget">
 			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
@@ -36,18 +37,18 @@
 		</div>
 	</li>
 	<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Segurança</a>
-		<div id="m1" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
+		<div id="m2" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
 			<a href="/seguranca/usuario/listar.jsp">Usuário</a>
 			<a href="/seguranca/perfil/listar.jsp">Perfil</a>
 			<a href="/seguranca/papel/listar.jsp">Papel</a>
 		</div>
 	</li>
 	<li><a href="#" onmouseover="mopen('m3')" onmouseout="mclosetime()">Suprimento</a>
-		<div id="m1" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
+		<div id="m3" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
 			<a href="/suprimento/produto/listar.jsp">Produto</a>
 		</div>
 	</li>
 </ul>
 <div style="clear:both"></div>
-
-<div style="clear:both"></div>	
+<div style="clear:both"></div>
+</p>	
