@@ -52,6 +52,16 @@ public class UsuarioControle extends BaseControle {
 				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
+			}else if(request.getParameter("paginar").equals("ultimo")){
+				primeiroRegistro = totalRegistros - ((totalRegistros % Constantes.REGISTROS_POR_PAGINA != 0) ? totalRegistros % Constantes.REGISTROS_POR_PAGINA : Constantes.REGISTROS_POR_PAGINA);
+				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				paginar(primeiroRegistro);
+				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
+			}else if(request.getParameter("paginar").equals("primeiro")){
+				primeiroRegistro = 0;
+				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				paginar(primeiroRegistro);
+				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
 			request.setAttribute("objetos", usuarios);
 			request.setAttribute("email", email);
@@ -77,6 +87,9 @@ public class UsuarioControle extends BaseControle {
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
 			request.setAttribute("mensagem",bundle.getString("app.mensagem.sucesso"));
+			request.setAttribute("primeiroRegistro",0);
+			request.setAttribute("totalRegistros",0);
+			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
