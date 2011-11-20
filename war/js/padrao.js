@@ -1,3 +1,4 @@
+
 var timeout = 500;
 var closetimer = 0;
 var ddmenuitem = 0;
@@ -40,19 +41,20 @@ document.onclick = mclose;
 // -->
 
 function paginar(obj, primeiroRegistro, registrosPorPagina, totalRegistros){
+	var msg = 'Procedimento nao permitido';
 	if ((obj.name == 'primeiro') && (parseInt(primeiroRegistro) == 0)) {
-		alert('Desculpe, mas não será possível ir para a primeira página.');
+		alert(msg);
 		return false;
 	} if ((obj.name == 'anterior') && (parseInt(primeiroRegistro) == 0)) {
-		alert('Desculpe, mas não será possível ir para a página anterior.');
+		alert(msg);
 		return false;
 	} if ((obj.name == 'proximo')
 			&& ((parseInt(primeiroRegistro) + parseInt(registrosPorPagina)) >= parseInt(totalRegistros))) {
-		alert('Desculpe, mas não será possível ir para a próxima página.');
+		alert(msg);
 		return false;
 	} if ((obj.name == 'ultimo')
 			&& ((parseInt(primeiroRegistro) + parseInt(registrosPorPagina)) >= parseInt(totalRegistros))) {
-		alert('Desculpe, mas não será possível ir para a última página.');
+		alert(msg);
 		return false;
 	} else {
 		return true;
