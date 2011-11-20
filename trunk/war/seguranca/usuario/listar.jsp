@@ -6,9 +6,9 @@
 <%@include file="../../modelo/inicio.jspf" %>
 	<span class="title"><%=bundle.getString("usuario.pesquisar.titulo")%></span>
 	<form id="formListar" method="post" action="/usuarioControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
-		<input type="hidden" name="primeiroRegistro" value="<%=request.getAttribute("primeiroRegistro")%>"/>
-		<input type="hidden" name="totalRegistros" value="<%=request.getAttribute("totalRegistros")%>"/>
-		<input type="hidden" name="registrosPorPagina" value="<%=request.getAttribute("registrosPorPagina")%>"/>
+		<input type="hidden" id="primeiroRegistro" name="primeiroRegistro" value="<%=request.getAttribute("primeiroRegistro")%>"/>
+		<input type="hidden" id="totalRegistros" name="totalRegistros" value="<%=request.getAttribute("totalRegistros")%>"/>
+		<input type="hidden" id="registrosPorPagina" name="registrosPorPagina" value="<%=request.getAttribute("registrosPorPagina")%>"/>
 		<p/>
 			<a href="#" onclick="document.forms['formListar'].submit();" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-search"></span><%=bundle.getString("link.buscar")%></a>			
 			<a href="/usuarioControle?acao=criar" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-document"></span><%=bundle.getString("link.adicionar")%></a>
