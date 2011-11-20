@@ -47,7 +47,7 @@
 		<p/>	
 		<a name="primeiro" 
 		   onclick="return paginar(this,document.getElementById('primeiroRegistro').value,document.getElementById('registrosPorPagina').value,document.getElementById('totalRegistros').value);"
-		   href="/usuarioControle?acao=pesquisar&paginar=primeiro" 
+		   href="/usuarioControle?acao=pesquisar&paginar=primeiro&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>" 
 		   class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-prev">
 		   </span><%=bundle.getString("link.primeiro")%></a>
 		<a name="anterior" 
@@ -62,7 +62,7 @@
 		   </span><%=bundle.getString("link.proximo")%></a>
 		<a name="ultimo" 
 		   onclick="return paginar(this,document.getElementById('primeiroRegistro').value,document.getElementById('registrosPorPagina').value,document.getElementById('totalRegistros').value);" 
-		   href="/usuarioControle?acao=pesquisar&paginar=ultimo" 
+		   href="/usuarioControle?acao=pesquisar&paginar=ultimo&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>" 
 		   class="ui-state-default ui-corner-all">
 		   <span class="ui-icon ui-icon-seek-next"></span><%=bundle.getString("link.ultimo")%></a>
 	<% } else { %>
