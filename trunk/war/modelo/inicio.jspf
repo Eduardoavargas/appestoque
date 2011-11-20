@@ -38,7 +38,7 @@
 	</li>
 	<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Segurança</a>
 		<div id="m2" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
-			<a href="/seguranca/usuario/listar.jsp">Usuário</a>
+			<a href="/usuarioControle?acao=iniciar">Usuário</a>
 			<a href="/seguranca/perfil/listar.jsp">Perfil</a>
 			<a href="/seguranca/papel/listar.jsp">Papel</a>
 		</div>
