@@ -14,6 +14,16 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 		this.setPm(pm);
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public Usuario pesquisar(String email, String senha){
+		Query query = getPm().newQuery(Usuario.class);
+		query.setFilter("email == p_email && senha == p_senha");
+		query.declareParameters("String p_email , String p_senha");
+		List usuarios = (List) query.execute(email,senha);
+		Usuario usuario = (Usuario) usuarios.get(0);
+		return usuario;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Usuario> pesquisar(String email){
 		Query query = getPm().newQuery(Usuario.class);
@@ -26,16 +36,6 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 			usuarios = (List<Usuario>) query.execute();
 		}	
 		return usuarios;
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public Usuario pesquisar(String email, String senha){
-		Query query = getPm().newQuery(Usuario.class);
-		query.setFilter("email == p_email && senha == p_senha");
-		query.declareParameters("String p_email , String p_senha");
-		List usuarios = (List) query.execute(email,senha);
-		Usuario usuario = (Usuario) usuarios.get(0);
-		return usuario;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -51,6 +51,16 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 			usuarios = (List<Usuario>) query.execute();
 		}	
 		return usuarios;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public int contar(String email){
+		Query query = getPm().newQuery(Usuario.class);
+		if(email!=null){
+			query.setFilter("email == p_email");
+			query.declareParameters("String p_email");
+		}	
+		return ((List<Usuario>) query.execute()).size();
 	}
 	
 }
