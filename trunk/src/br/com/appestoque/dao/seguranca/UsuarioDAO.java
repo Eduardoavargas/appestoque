@@ -38,4 +38,19 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 		return usuario;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> pesquisar(String email, long ini, long qtd){
+		Query query = getPm().newQuery(Usuario.class);
+		query.setRange(ini, qtd);
+		List<Usuario> usuarios = null;
+		if(email!=null){
+			query.setFilter("email == p_email");
+			query.declareParameters("String p_email");
+			usuarios = (List<Usuario>) query.execute(email);
+		}else {
+			usuarios = (List<Usuario>) query.execute();
+		}	
+		return usuarios;
+	}
+	
 }
