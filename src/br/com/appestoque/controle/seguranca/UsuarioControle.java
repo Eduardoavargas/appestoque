@@ -7,45 +7,41 @@ import java.util.ResourceBundle;
 import javax.jdo.PersistenceManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
+import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.seguranca.UsuarioDAO;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
 @SuppressWarnings("serial")
-public class UsuarioControle extends HttpServlet {
+public class UsuarioControle extends BaseControle {
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-	throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		UsuarioDAO dao = null;
-		Long registroAnterior = 0L;
-		Long registroPosterior = 0L;
-		Long registroCorrente = 0L;
+		
 		if(request.getParameter("acao").equals("pesquisar")) {
 			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));
 			String email = request.getParameter("email")==null||request.getParameter("email").equals("")?null:request.getParameter("email");
-			registroCorrente = new Long(request.getParameter("registroCorrente"));
+			int primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
 			List<Usuario> usuarios = null;
 			if(request.getParameter("paginar")==null){
-				registroCorrente = 0L;
-				registroAnterior = registroCorrente;
-				registroPosterior += Constantes.REGISTRO_POR_PAGINA;
-				usuarios = dao.pesquisar(email,registroCorrente.longValue(),Constantes.REGISTRO_POR_PAGINA);
-				request.setAttribute("registroCorrente",registroCorrente);
+				totalRegistros = dao.contar(email);
+				usuarios = dao.pesquisar(email,primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
+				request.setAttribute("primeiroRegistro",primeiroRegistro);				
 			}else if(request.getParameter("paginar").equals("proximo")){
-				registroAnterior = registroCorrente; 
-				registroPosterior += Constantes.REGISTRO_POR_PAGINA;
-				usuarios = dao.pesquisar(email,registroAnterior.longValue(),registroPosterior.longValue());
-				request.setAttribute("registroCorrente", registroPosterior);
+				primeiroRegistro += Constantes.REGISTROS_POR_PAGINA;
+				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				paginar(primeiroRegistro);
+				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("anterior")){
-				registroAnterior = registroCorrente;
-				registroPosterior -= Constantes.REGISTRO_POR_PAGINA;
-				usuarios = dao.pesquisar(email,registroAnterior.longValue(),registroPosterior.longValue());
-				request.setAttribute("rgc", registroAnterior);
+				primeiroRegistro -= Constantes.REGISTROS_POR_PAGINA;
+				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				paginar(primeiroRegistro);
+				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
 			request.setAttribute("objetos", usuarios);
 			request.setAttribute("email", email);
