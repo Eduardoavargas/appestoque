@@ -23,15 +23,25 @@ public class UsuarioControle extends BaseControle {
 		
 		UsuarioDAO dao = null;
 		
-		if(request.getParameter("acao").equals("pesquisar")) {
+		if(request.getParameter("acao").equals("iniciar")) {
+			request.setAttribute("primeiroRegistro",0);
+			request.setAttribute("totalRegistros",0);
+			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
+			dispatcher.forward(request, response);
+		}else if(request.getParameter("acao").equals("pesquisar")) {
+			request.setAttribute("primeiroRegistro",request.getParameter("primeiroRegistro"));
+			request.setAttribute("totalRegistros",request.getParameter("totalRegistros"));
+			request.setAttribute("registrosPorPagina",request.getParameter("registrosPorPagina"));
 			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));
 			String email = request.getParameter("email")==null||request.getParameter("email").equals("")?null:request.getParameter("email");
 			int primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
 			List<Usuario> usuarios = null;
 			if(request.getParameter("paginar")==null){
-				totalRegistros = dao.contar(email);
+				totalRegistros = dao.contar(email);				
 				usuarios = dao.pesquisar(email,primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
-				request.setAttribute("primeiroRegistro",primeiroRegistro);				
+				request.setAttribute("totalRegistros",totalRegistros);
+				request.setAttribute("primeiroRegistro",primeiroRegistro);
 			}else if(request.getParameter("paginar").equals("proximo")){
 				primeiroRegistro += Constantes.REGISTROS_POR_PAGINA;
 				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
