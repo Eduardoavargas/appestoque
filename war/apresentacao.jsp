@@ -42,7 +42,6 @@ body {
 
 #texto_explicativo {
 	width: 616px;
-	height: 230px;
 	overflow: hidden;
 	float: left;
 }
@@ -143,14 +142,11 @@ h2 {
 			<img style="position: relative; top: 50px;" src="img/logo.jpg" />
 		</div>
 		<div id="conteudo">
-			<div id=texto_explicativo>
+			<div id="texto_explicativo">
 				<h2>O que é o appestoque ?</h2>
-				<p class="blocoExplicacao">O appestoque é um projeto de software
-				que foi concebido com o intuito de atender as necessidades de uma 
-				pequena empresa em seus processos administrativos.</p>
+				<p class="blocoExplicacao">O appestoque é um controle de estoque na web.</p>
 				<h2>Para que serve o appestoque ?</h2>
-				<p class="blocoExplicacao">O appestoque serve para controlar produtos 
-				de uma pequena empresa.</p>
+				<p class="blocoExplicacao">O appestoque é utilizado para controlar produtos de uma pequena empresa.</p>
 			</div>
 			<div id="login">
 				<form id="form_login" action="/menu.jsp" method="post">
