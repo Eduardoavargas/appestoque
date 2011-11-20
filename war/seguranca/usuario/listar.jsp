@@ -5,10 +5,12 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
 <%@include file="../../modelo/inicio.jspf" %>
 	<span class="title"><%=bundle.getString("usuario.pesquisar.titulo")%></span>
-	<form id="formListar" method="post" action="/usuarioControle?acao=pesquisar">
-		<input type="hidden" name="primeiroRegistro" value="<%=request.getAttribute("primeiroRegistro")!=null?request.getAttribute("primeiroRegistro"):0%>"/>
+	<form id="formListar" method="post" action="/usuarioControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
+		<input type="hidden" name="primeiroRegistro" value="<%=request.getAttribute("primeiroRegistro")%>"/>
+		<input type="hidden" name="totalRegistros" value="<%=request.getAttribute("totalRegistros")%>"/>
+		<input type="hidden" name="registrosPorPagina" value="<%=request.getAttribute("registrosPorPagina")%>"/>
 		<p/>
-			<a href="#" onclick="formListar.submit();" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-search"></span><%=bundle.getString("link.buscar")%></a>			
+			<a href="#" onclick="document.forms['formListar'].submit();" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-search"></span><%=bundle.getString("link.buscar")%></a>			
 			<a href="/usuarioControle?acao=criar" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-document"></span><%=bundle.getString("link.adicionar")%></a>
 		<p/>
 		<span class="heading"><%=bundle.getString("usuario.filtro.nome")%></span><br/>
@@ -21,7 +23,6 @@
 	%>
 	<p/>	
 	<% if (objetos.size() > 0) { %>
-		<span class="heading"><%= objetos.size() %> usuários correspondentes aos seus critérios de buscas:</span>
 		<p/>
 		<table border="0" cellspacing="1" cellpadding="5" class="ui-widget" width="100%">
 		<tr class="ui-widget-header ">
@@ -44,10 +45,26 @@
 		<% } %>
 		</table>
 		<p/>	
-		<a href="/usuarioControle?acao=pesquisar&paginar=primeiro" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-prev"></span><%=bundle.getString("link.primeiro")%></a>
-		<a href="/usuarioControle?acao=pesquisar&paginar=anterior&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")!=null?request.getAttribute("primeiroRegistro"):0%>" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-first"></span><%=bundle.getString("link.anterior")%></a>
-		<a href="/usuarioControle?acao=pesquisar&paginar=proximo&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")!=null?request.getAttribute("primeiroRegistro"):0%>" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-end"></span><%=bundle.getString("link.proximo")%></a>
-		<a href="/usuarioControle?acao=pesquisar&paginar=ultimo" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-next"></span><%=bundle.getString("link.ultimo")%></a>
+		<a name="primeiro" 
+		   onclick="return paginar(this,document.getElementById('primeiroRegistro').value,document.getElementById('registrosPorPagina').value,document.getElementById('totalRegistros').value);"
+		   href="/usuarioControle?acao=pesquisar&paginar=primeiro" 
+		   class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-prev">
+		   </span><%=bundle.getString("link.primeiro")%></a>
+		<a name="anterior" 
+		   onclick="return paginar(this,document.getElementById('primeiroRegistro').value,document.getElementById('registrosPorPagina').value,document.getElementById('totalRegistros').value);"
+		   href="/usuarioControle?acao=pesquisar&paginar=anterior&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>"
+		   class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-first">
+		   </span><%=bundle.getString("link.anterior")%></a>
+		<a name="proximo" 
+		   onclick="return paginar(this,document.getElementById('primeiroRegistro').value,document.getElementById('registrosPorPagina').value,document.getElementById('totalRegistros').value);" 
+		   href="/usuarioControle?acao=pesquisar&paginar=proximo&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>" 
+		   class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-end">
+		   </span><%=bundle.getString("link.proximo")%></a>
+		<a name="ultimo" 
+		   onclick="return paginar(this,document.getElementById('primeiroRegistro').value,document.getElementById('registrosPorPagina').value,document.getElementById('totalRegistros').value);" 
+		   href="/usuarioControle?acao=pesquisar&paginar=ultimo" 
+		   class="ui-state-default ui-corner-all">
+		   <span class="ui-icon ui-icon-seek-next"></span><%=bundle.getString("link.ultimo")%></a>
 	<% } else { %>
 		<span class="heading">Nenhum usuário correspondente foi encontrado.</span>
 	<% } %>
