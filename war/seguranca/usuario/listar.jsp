@@ -6,6 +6,7 @@
 <%@include file="../../modelo/inicio.jspf" %>
 	<span class="title"><%=bundle.getString("usuario.pesquisar.titulo")%></span>
 	<form id="formListar" method="post" action="/usuarioControle?acao=pesquisar">
+		<input type="hidden" name="primeiroRegistro" value="<%=request.getAttribute("primeiroRegistro")!=null?request.getAttribute("primeiroRegistro"):0%>"/>
 		<p/>
 			<a href="#" onclick="formListar.submit();" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-search"></span><%=bundle.getString("link.buscar")%></a>			
 			<a href="/usuarioControle?acao=criar" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-document"></span><%=bundle.getString("link.adicionar")%></a>
@@ -43,10 +44,10 @@
 		<% } %>
 		</table>
 		<p/>	
-		<a href="/usuarioControle?acao=criar" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-prev"></span><%=bundle.getString("link.primeiro")%></a>
-		<a href="/usuarioControle?acao=criar" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-first"></span><%=bundle.getString("link.anterior")%></a>
-		<a href="/usuarioControle?acao=criar" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-end"></span><%=bundle.getString("link.proximo")%></a>
-		<a href="/usuarioControle?acao=criar" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-next"></span><%=bundle.getString("link.ultimo")%></a>
+		<a href="/usuarioControle?acao=pesquisar&paginar=primeiro" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-prev"></span><%=bundle.getString("link.primeiro")%></a>
+		<a href="/usuarioControle?acao=pesquisar&paginar=anterior&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")!=null?request.getAttribute("primeiroRegistro"):0%>" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-first"></span><%=bundle.getString("link.anterior")%></a>
+		<a href="/usuarioControle?acao=pesquisar&paginar=proximo&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")!=null?request.getAttribute("primeiroRegistro"):0%>" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-end"></span><%=bundle.getString("link.proximo")%></a>
+		<a href="/usuarioControle?acao=pesquisar&paginar=ultimo" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-next"></span><%=bundle.getString("link.ultimo")%></a>
 	<% } else { %>
 		<span class="heading">Nenhum usuário correspondente foi encontrado.</span>
 	<% } %>
