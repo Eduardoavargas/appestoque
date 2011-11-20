@@ -56,11 +56,15 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 	@SuppressWarnings("unchecked")
 	public int contar(String email){
 		Query query = getPm().newQuery(Usuario.class);
+		List<Usuario> usuarios = null;
 		if(email!=null){
 			query.setFilter("email == p_email");
 			query.declareParameters("String p_email");
-		}	
-		return ((List<Usuario>) query.execute()).size();
+			usuarios = (List<Usuario>) query.execute(email);
+		}else{
+			usuarios = (List<Usuario>) query.execute();
+		}
+		return usuarios.size();
 	}
 	
 }
