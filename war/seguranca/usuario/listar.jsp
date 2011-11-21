@@ -6,13 +6,8 @@
 <%@include file="../../modelo/inicio.jspf" %>
 	<span class="title"><%=bundle.getString("usuario.pesquisar.titulo")%></span>
 	<form id="formListar" method="post" action="/usuarioControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
-		<input type="hidden" id="primeiroRegistro" name="primeiroRegistro" value="<%=request.getAttribute("primeiroRegistro")%>"/>
-		<input type="hidden" id="totalRegistros" name="totalRegistros" value="<%=request.getAttribute("totalRegistros")%>"/>
-		<input type="hidden" id="registrosPorPagina" name="registrosPorPagina" value="<%=request.getAttribute("registrosPorPagina")%>"/>
-		<p/>
-			<a href="#" onclick="document.forms['formListar'].submit();" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-search"></span><%=bundle.getString("link.buscar")%></a>			
-			<a href="/usuarioControle?acao=criar" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-document"></span><%=bundle.getString("link.adicionar")%></a>
-		<p/>
+		<app:parametrosListar/>
+		<app:barraListar acao="/usuarioControle"/>
 		<span class="heading"><%=bundle.getString("usuario.filtro.nome")%></span><br/>
 		<input type="text" name="email" style="width: 300px" value="<%=request.getAttribute("email")!=null?request.getAttribute("email"):""%>"/>	
 	<%
@@ -45,28 +40,9 @@
 		<% } %>
 		</table>
 		<p/>	
-		<a name="primeiro" 
-		   onclick="return paginar(this,document.getElementById('primeiroRegistro').value,document.getElementById('registrosPorPagina').value,document.getElementById('totalRegistros').value);"
-		   href="/usuarioControle?acao=pesquisar&paginar=primeiro&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>" 
-		   class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-prev">
-		   </span><%=bundle.getString("link.primeiro")%></a>
-		<a name="anterior" 
-		   onclick="return paginar(this,document.getElementById('primeiroRegistro').value,document.getElementById('registrosPorPagina').value,document.getElementById('totalRegistros').value);"
-		   href="/usuarioControle?acao=pesquisar&paginar=anterior&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>"
-		   class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-first">
-		   </span><%=bundle.getString("link.anterior")%></a>
-		<a name="proximo" 
-		   onclick="return paginar(this,document.getElementById('primeiroRegistro').value,document.getElementById('registrosPorPagina').value,document.getElementById('totalRegistros').value);" 
-		   href="/usuarioControle?acao=pesquisar&paginar=proximo&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>" 
-		   class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-seek-end">
-		   </span><%=bundle.getString("link.proximo")%></a>
-		<a name="ultimo" 
-		   onclick="return paginar(this,document.getElementById('primeiroRegistro').value,document.getElementById('registrosPorPagina').value,document.getElementById('totalRegistros').value);" 
-		   href="/usuarioControle?acao=pesquisar&paginar=ultimo&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>" 
-		   class="ui-state-default ui-corner-all">
-		   <span class="ui-icon ui-icon-seek-next"></span><%=bundle.getString("link.ultimo")%></a>
+		<app:paginacao acao="/usuarioControle"/>
 	<% } else { %>
-		<span class="heading">Nenhum usuário correspondente foi encontrado.</span>
+		<span class="heading">Nenhum informação foi encontrado.</span>
 	<% } %>
 	</form>
 <%@include file="../../modelo/fim.jspf" %>
