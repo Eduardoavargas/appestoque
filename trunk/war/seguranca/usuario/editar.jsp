@@ -4,10 +4,7 @@
 	<%Usuario objeto = (Usuario)request.getAttribute("objeto");%>
 	<span class="title"><%=bundle.getString("usuario.editar.titulo")%></span>
 	<form id="formEditar" method="post" action="/usuarioControle?acao=modificar">
-		<p>
-		<a href="/usuarioControle?acao=iniciar" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-arrowreturnthick-1-w"></span><%=bundle.getString("link.retornar")%></a>
-		<a href="#" onclick="document.forms['formEditar'].submit();" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-disk"></span><%=bundle.getString("link.salvar")%></a>
-		</p>
+		<app:barraEditar acao="/usuarioControle"/>
 		<input type="hidden" name="id" value="<%=objeto.getId()!=null?objeto.getId():""%>"/>
 		<hr><br/>
 			Nome:<br/><app:texto nome="nome" valor="<%=objeto.getNome()%>"/></p>
