@@ -31,8 +31,6 @@ body {
 #sddm {
 	margin: 0;
 	padding: 0;
-	z-index: 30;
-	padding: 0;
 }
 
 #sddm li {
@@ -41,7 +39,7 @@ body {
 	list-style: none;
 	float: left;
 	font: bold 11px arial;
-	width: 100px;
+	width: 150px;
 }
 
 #sddm li a {
@@ -55,17 +53,18 @@ body {
 }
 
 #sddm li a:hover {
-	background: #5aae00
+	background: #5aae00;
 }
 
 #sddm div {
-	width: 100px;
+	z-index:2;
+	width: 149px;
 	position: absolute;
 	visibility: hidden;
 	margin: 0;
 	padding: 0;
 	background: #EAEBD8;
-	border: 1px solid #5aae00;
+	border: 0px solid #5aae00;
 }
 
 #sddm div a {
@@ -83,8 +82,8 @@ body {
 }
 
 #sddm div a:hover {
-	background: #5aae00;
-	color: #FFF
+	font-weight: normal;
+	margin: -1px;
 }
 
 form a{
