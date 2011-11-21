@@ -20,9 +20,7 @@ import br.com.appestoque.dominio.seguranca.Usuario;
 public class UsuarioControle extends BaseControle {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		UsuarioDAO dao = null;
-		
 		if(request.getParameter("acao").equals("iniciar")) {
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
@@ -101,7 +99,6 @@ public class UsuarioControle extends BaseControle {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
 			dispatcher.forward(request, response);
 		}
-		
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
