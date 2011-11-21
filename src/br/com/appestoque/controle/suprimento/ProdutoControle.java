@@ -13,74 +13,74 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
-import br.com.appestoque.dao.seguranca.UsuarioDAO;
-import br.com.appestoque.dominio.seguranca.Usuario;
+import br.com.appestoque.dao.suprimento.ProdutoDAO;
+import br.com.appestoque.dominio.suprimento.Produto;
 
 @SuppressWarnings("serial")
 public class ProdutoControle extends BaseControle{
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UsuarioDAO dao = null;
+		ProdutoDAO dao = null;
 		if(request.getParameter("acao").equals("iniciar")) {
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_PESQUISAR);
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("pesquisar")) {
 			request.setAttribute("primeiroRegistro",request.getParameter("primeiroRegistro"));
 			request.setAttribute("totalRegistros",request.getParameter("totalRegistros"));
 			request.setAttribute("registrosPorPagina",request.getParameter("registrosPorPagina"));
-			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));
-			String email = request.getParameter("email")==null||request.getParameter("email").equals("")?null:request.getParameter("email");
+			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));
+			String numero = request.getParameter("numero")==null||request.getParameter("numero").equals("")?null:request.getParameter("numero");
 			int primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
-			List<Usuario> usuarios = null;
+			List<Produto> Produtos = null;
 			if(request.getParameter("paginar")==null){
-				totalRegistros = dao.contar(email);				
-				usuarios = dao.pesquisar(email,primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
+				totalRegistros = dao.contar(numero);				
+				Produtos = dao.pesquisar(numero,primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
 				request.setAttribute("totalRegistros",totalRegistros);
 				request.setAttribute("primeiroRegistro",primeiroRegistro);
 			}else if(request.getParameter("paginar").equals("proximo")){
 				primeiroRegistro += Constantes.REGISTROS_POR_PAGINA;
-				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				Produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("anterior")){
 				primeiroRegistro -= Constantes.REGISTROS_POR_PAGINA;
-				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				Produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("ultimo")){
 				primeiroRegistro = totalRegistros - ((totalRegistros % Constantes.REGISTROS_POR_PAGINA != 0) ? totalRegistros % Constantes.REGISTROS_POR_PAGINA : Constantes.REGISTROS_POR_PAGINA);
-				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				Produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("primeiro")){
 				primeiroRegistro = 0;
-				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				Produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
-			request.setAttribute("objetos", usuarios);
-			request.setAttribute("email", email);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
+			request.setAttribute("objetos",Produtos);
+			request.setAttribute("email",numero);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_PESQUISAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
-			request.setAttribute("objeto", new Usuario());
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_EDITAR);
+			request.setAttribute("objeto", new Produto());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
-			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));			
-			Usuario usuario = dao.pesquisar(new Long(request.getParameter("id")));
-			request.setAttribute("objeto",usuario);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_EDITAR);
+			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));			
+			Produto Produto = dao.pesquisar(new Long(request.getParameter("id")));
+			request.setAttribute("objeto",Produto);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
-			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));
+			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));
 			String nome = request.getParameter("nome");
-			String email = request.getParameter("email");
-			String senha = request.getParameter("senha");			
-			Usuario objeto = new Usuario(nome,email,senha);
+			String numero = request.getParameter("numero");
+			Double preco = new Double(request.getParameter("preco"));			
+			Produto objeto = new Produto(nome,numero,preco);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
@@ -88,15 +88,15 @@ public class ProdutoControle extends BaseControle{
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_PESQUISAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
-			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));			
-			Usuario usuario = dao.pesquisar(new Long(request.getParameter("id")));
-			dao.remover(usuario);
-			List<Usuario> usuarios = dao.listar();
-			request.setAttribute("objetos", usuarios);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
+			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));			
+			Produto Produto = dao.pesquisar(new Long(request.getParameter("id")));
+			dao.remover(Produto);
+			List<Produto> Produtos = dao.listar();
+			request.setAttribute("objetos", Produtos);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_PESQUISAR);
 			dispatcher.forward(request, response);
 		}
 	}
