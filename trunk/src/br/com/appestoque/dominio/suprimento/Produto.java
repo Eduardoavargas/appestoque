@@ -21,7 +21,11 @@ public class Produto {
 	
 	@Persistent
 	private Double preco;
-
+	
+	public Produto(){
+		super();
+	}
+	
 	public Produto(String nome, String numero, Double preco) {
 		super();
 		this.nome = nome;
