@@ -33,19 +33,17 @@
 <ul id="sddm">
 	<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Cadastro</a>
 		<div id="m1" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
-			<a href="/cadastro/empresa/editar.jsp">Empresa</a>
+			<a href="/empresaControle?acao=iniciar">Empresa</a>
 		</div>
 	</li>
 	<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Segurança</a>
 		<div id="m2" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
 			<a href="/usuarioControle?acao=iniciar">Usuário</a>
-			<a href="/seguranca/perfil/listar.jsp">Perfil</a>
-			<a href="/seguranca/papel/listar.jsp">Papel</a>
 		</div>
 	</li>
 	<li><a href="#" onmouseover="mopen('m3')" onmouseout="mclosetime()">Suprimento</a>
 		<div id="m3" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
-			<a href="/suprimento/produto/listar.jsp">Produto</a>
+			<a href="/produtoControle?acao=iniciar">Produto</a>
 		</div>
 	</li>
 </ul>
