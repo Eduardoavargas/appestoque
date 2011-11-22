@@ -8,8 +8,11 @@
 		<input type="hidden" name="id" value="<%=objeto.getId()!=null?objeto.getId():""%>"/>
 		<hr><br/>
 			Nome:<br/><app:texto nome="nome" valor="<%=objeto.getNome()%>"/></p>
-			Número:<br/><app:texto nome="email" valor="<%=objeto.getNumero()%>"/></p>
-			Preço:<br/><app:texto nome="senha" valor="<%=objeto.getPreco()%>"/></p>
+			Número:<br/><app:texto nome="numero" valor="<%=objeto.getNumero()%>"/></p>
+			Preço<br/><input type="input" name="Preço" value="<%=objeto.getPreco()%>" class="text ui-widget-content ui-corner-all"></input>
+<%-- 			Preço:<input type="input" name="preco" valor="<%=objeto.getPreco()%>"/> --%>
+<%-- 			Preço:<br/><app:texto nome="preco" valor="<%=objeto.getPreco()%>"/></p>			 --%>
+<%-- 			<fmt:formatNumber value="<%=objeto.getPreco()%>"/></input> --%>
 		<hr>
 	</form>
 <%@include file="../../modelo/fim.jspf" %>
