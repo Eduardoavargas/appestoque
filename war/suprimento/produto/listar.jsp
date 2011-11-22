@@ -4,8 +4,8 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
 <%@include file="../../modelo/inicio.jspf" %>
-	<span class="title"><%=bundle.getString("usuario.pesquisar.titulo")%></span>
-	<form id="formListar" method="post" action="/usuarioControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
+	<span class="title"><%=bundle.getString("produto.pesquisar.titulo")%></span>
+	<form id="formListar" method="post" action="/produtoControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
 		<app:parametrosListar/>
 		<app:barraListar acao="/produtoControle"/>
 		<span class="heading"><%=bundle.getString("produto.filtro.numero")%></span><br/>
