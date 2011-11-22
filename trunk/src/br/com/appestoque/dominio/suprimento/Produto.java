@@ -20,7 +20,7 @@ public class Produto {
 	private String numero;
 	
 	@Persistent
-	private Double preco;
+	private Double preco = new Double(0);
 	
 	public Produto(){
 		super();
