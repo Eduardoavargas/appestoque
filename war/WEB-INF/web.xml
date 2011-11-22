@@ -24,7 +24,7 @@
 	</filter-mapping>
 	
 
-	<!--servlet-->	
+	<!--rest-->	
 	<servlet>
 		<servlet-name>UsuarioRest</servlet-name>
 		<servlet-class>br.com.appstoque.rest.UsuarioRest</servlet-class>
@@ -35,6 +35,16 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>SincRest</servlet-name>
+		<servlet-class>br.com.appstoque.rest.SincRest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SincRest</servlet-name>
+		<url-pattern>/rest/sincRest</url-pattern>
+	</servlet-mapping>
+	
+	<!--segurança-->
+	<servlet>
 		<servlet-name>UsuarioControle</servlet-name>
 		<servlet-class>br.com.appestoque.controle.seguranca.UsuarioControle</servlet-class>
 	</servlet>
@@ -43,13 +53,14 @@
 		<url-pattern>/usuarioControle</url-pattern>
 	</servlet-mapping>
 	
+	<!--suprimeiro-->
 	<servlet>
-		<servlet-name>SincRest</servlet-name>
-		<servlet-class>br.com.appstoque.rest.SincRest</servlet-class>
+		<servlet-name>ProdutoControle</servlet-name>
+		<servlet-class>br.com.appestoque.controle.suprimento.ProdutoControle</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>SincRest</servlet-name>
-		<url-pattern>/rest/sincRest</url-pattern>
+		<servlet-name>ProdutoControle</servlet-name>
+		<url-pattern>/produtoControle</url-pattern>
 	</servlet-mapping>
     
     <welcome-file-list>
