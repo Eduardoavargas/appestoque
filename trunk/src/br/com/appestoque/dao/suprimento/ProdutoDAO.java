@@ -34,8 +34,8 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long> {
 		Query query = getPm().newQuery(Produto.class);
 		List<Produto> produtos = null;
 		if(numero!=null){
-			query.setFilter("email == p_email");
-			query.declareParameters("String p_email");
+			query.setFilter("numero == p_numero");
+			query.declareParameters("String p_numero");
 			produtos = (List<Produto>) query.execute(numero);
 		}else{
 			produtos = (List<Produto>) query.execute();
