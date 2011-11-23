@@ -21,13 +21,17 @@ public class Empresa {
 	
 	@Persistent
 	private Endereco endereco;
+	
+	@Persistent
+	private String uid;
 
-	public Empresa(Long id, String nome, Integer cnpj, Endereco endereco) {
+	public Empresa(Long id, String nome, Integer cnpj, Endereco endereco, String uid) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cnpj = cnpj;
 		this.endereco = endereco;
+		this.uid = uid;
 	}
 	
 	public Empresa() {
@@ -64,6 +68,14 @@ public class Empresa {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 }
