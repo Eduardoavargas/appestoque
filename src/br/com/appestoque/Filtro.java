@@ -41,28 +41,29 @@ public class Filtro implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, 
 			FilterChain filterChain) throws IOException, ServletException {
-		/*
-		 * buscando informação sobre a requisição
-		 */
 		HttpServletRequest req = (HttpServletRequest) request;  
         HttpSession session = req.getSession();
         PersistenceManager pm = null;
-        
         Boolean autorizado = (Boolean) session.getAttribute("autorizado");   
         if ( autorizado == null || !autorizado ) {
         	String email = request.getParameter("email");
     		String senha = request.getParameter("senha");
-    		UsuarioDAO dao = new UsuarioDAO(PMF.get().getPersistenceManager());
-    		Usuario usuario = dao.pesquisar(email, senha);
-        	if(usuario!=null){
-        		pm = PMF.get().getPersistenceManager();
-        		request.setAttribute("pm",pm);
-        		session.setAttribute("autorizado", new Boolean("true"));
-        		filterChain.doFilter(request, response);
-        	}else{
-        		HttpServletResponse servletResponse = (HttpServletResponse) response;
-        		servletResponse.sendRedirect(Pagina.PAGINA_INICIAL);
-        	}
+    		if(email!=null&&senha!=null){
+    			UsuarioDAO dao = new UsuarioDAO(PMF.get().getPersistenceManager());
+        		Usuario usuario = dao.pesquisar(email, senha);
+            	if(usuario!=null){
+            		pm = PMF.get().getPersistenceManager();
+            		request.setAttribute("pm",pm);
+            		session.setAttribute("autorizado", new Boolean("true"));
+            		filterChain.doFilter(request, response);
+            	}else{
+            		HttpServletResponse servletResponse = (HttpServletResponse) response;
+            		servletResponse.sendRedirect(Pagina.PAGINA_APRESENTACAO);
+            	}
+    		}else{
+    			HttpServletResponse servletResponse = (HttpServletResponse) response;
+        		servletResponse.sendRedirect(Pagina.PAGINA_APRESENTACAO);
+    		}
         }else{
         	pm = PMF.get().getPersistenceManager();
     		request.setAttribute("pm",pm);
