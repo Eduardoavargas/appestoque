@@ -1,3 +1,4 @@
 <%@ attribute name="nome" required="true" %>
 <%@ attribute name="valor" required="true" %>
-<input type="input" name="${nome}" value="${valor}" class="text ui-widget-content ui-corner-all"></input>
+<%@ attribute name="tamanho" required="false" %>
+<input type="input" size="${tamanho}" name="${nome}" value="${valor}" class="text ui-widget-content ui-corner-all"></input>
