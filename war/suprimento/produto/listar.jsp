@@ -1,4 +1,5 @@
 <%@ page isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="br.com.appestoque.dominio.suprimento.Produto" %>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
@@ -23,7 +24,7 @@
 		<tr class="ui-widget-header ">
 			<td>Nome</td>
 			<td>Número</td>
-			<td>Preço</td>
+			<td align="right">Preço</td>
 			<td/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
@@ -31,7 +32,7 @@
 			<tr>
 				<td><%=obj.getNome()%></td>
 				<td><%=obj.getNumero()%></a></td>
-				<td><%=obj.getPreco()%></td>
+				<td align="right"><fmt:formatNumber value="<%=obj.getPreco()%>" type="currency" pattern="##,###,##0.000" /></td>
 				<td align="center" >
 					<a href="/produtoControle?acao=editar&id=<%=obj.getId()%>"><img src="img/editar.png" style="border: 0px;"/></a>
 					<a href="/produtoControle?acao=remover&id=<%=obj.getId()%>"><img src="img/remover.png" style="border: 0px;"/></a>
