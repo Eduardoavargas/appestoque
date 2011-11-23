@@ -14,14 +14,14 @@
 		<filter-name>filtro</filter-name>
 		<url-pattern>/menu.jsp</url-pattern>
 	</filter-mapping>
+	
+	<!--  
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
-		<url-pattern>/seguranca/*</url-pattern>
+		<url-pattern>/empresaControle/*</url-pattern>
 	</filter-mapping>
-	<filter-mapping>
-		<filter-name>filtro</filter-name>
-		<url-pattern>/suprimento/*</url-pattern>
-	</filter-mapping>
+	-->
+	
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
 		<url-pattern>/usuarioControle/*</url-pattern>
@@ -73,6 +73,16 @@
 	<servlet-mapping>
 		<servlet-name>ProdutoControle</servlet-name>
 		<url-pattern>/produtoControle</url-pattern>
+	</servlet-mapping>
+	
+	<!--cadastro-->
+	<servlet>
+		<servlet-name>EmpresaControle</servlet-name>
+		<servlet-class>br.com.appestoque.controle.cadastro.EmpresaControle</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmpresaControle</servlet-name>
+		<url-pattern>/empresaControle</url-pattern>
 	</servlet-mapping>
     
     <servlet>
