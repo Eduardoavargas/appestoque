@@ -16,6 +16,14 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
+		<url-pattern>/seguranca/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
+		<url-pattern>/suprimento/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
 		<url-pattern>/usuarioControle/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
@@ -65,6 +73,15 @@
 	<servlet-mapping>
 		<servlet-name>ProdutoControle</servlet-name>
 		<url-pattern>/produtoControle</url-pattern>
+	</servlet-mapping>
+    
+    <servlet>
+		<servlet-name>Processo</servlet-name>
+		<servlet-class>br.com.appestoque.Processo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Processo</servlet-name>
+		<url-pattern>/processo</url-pattern>
 	</servlet-mapping>
     
     <welcome-file-list>
