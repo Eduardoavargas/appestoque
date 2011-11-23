@@ -47,6 +47,8 @@
 			<a href="/produtoControle?acao=iniciar">Produto</a>
 		</div>
 	</li>
+	<li><a href="/processo?acao=logoff">Sair</a>
+	</li>
 </ul>
 <div style="clear:both"></div>
 <div style="clear:both"></div>
