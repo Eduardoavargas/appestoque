@@ -22,6 +22,18 @@ public class Empresa {
 	@Persistent
 	private Endereco endereco;
 
+	public Empresa(Long id, String nome, Integer cnpj, Endereco endereco) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cnpj = cnpj;
+		this.endereco = endereco;
+	}
+	
+	public Empresa() {
+		super();
+	}
+
 	public Long getId() {
 		return id;
 	}

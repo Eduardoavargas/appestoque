@@ -24,6 +24,10 @@ public class Endereco {
 	@Persistent
 	private Integer cep;
 
+	public Endereco() {
+		super();
+	}
+
 	public Key getKey() {
 		return key;
 	}
