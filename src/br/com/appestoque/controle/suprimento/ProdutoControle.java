@@ -62,7 +62,7 @@ public class ProdutoControle extends BaseControle{
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
 			request.setAttribute("objetos",Produtos);
-			request.setAttribute("email",numero);
+			request.setAttribute("numero",numero);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_PESQUISAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
