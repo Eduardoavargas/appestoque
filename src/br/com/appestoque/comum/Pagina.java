@@ -12,5 +12,6 @@ public final class Pagina {
 	public static final String PAGINA_PRODUTO_EDITAR = "/suprimento/produto/editar.jsp";
 	
 	public static final String PAGINA_EMPRESA_EDITAR = "/cadastro/empresa/editar.jsp";
+	public static final String PAGINA_EMPRESA_CADASTRAR = "/publico/cadastro/empresa/cadastrar.jsp";
 	
 }

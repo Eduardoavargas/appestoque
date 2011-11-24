@@ -22,7 +22,7 @@ public class Endereco {
 	private Integer numero;
 	
 	@Persistent
-	private Integer cep;
+	private String cep;
 
 	public Endereco() {
 		super();
@@ -60,11 +60,11 @@ public class Endereco {
 		this.numero = numero;
 	}
 
-	public Integer getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(Integer cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
 	
