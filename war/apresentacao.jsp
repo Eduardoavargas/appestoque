@@ -1,6 +1,7 @@
 <html>
 <head>
 <title></title>
+
 <style type="text/css">
 
 #topo {
@@ -138,7 +139,7 @@ h2 {
 </head>
 <body>
 		<div id="topo">
-			<a href="/empresaControle?acao=criar" id="btnCadastrar">Clique aqui para cadastrar sua empresa</a> 
+			<a href="/processo?acao=cadastrar" id="btnCadastrar">Clique aqui para cadastrar sua empresa</a> 
 			<img style="position: relative; top: 50px;" src="img/logo.jpg" />
 		</div>
 		<div id="conteudo">
