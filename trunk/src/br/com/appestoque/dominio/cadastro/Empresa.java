@@ -17,7 +17,7 @@ public class Empresa {
 	private String nome;
 	
 	@Persistent
-	private Integer cnpj;
+	private String cnpj;
 	
 	@Persistent
 	private Endereco endereco;
@@ -25,7 +25,7 @@ public class Empresa {
 	@Persistent
 	private String uid;
 
-	public Empresa(Long id, String nome, Integer cnpj, Endereco endereco, String uid) {
+	public Empresa(Long id, String nome, String cnpj, Endereco endereco, String uid) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -54,15 +54,18 @@ public class Empresa {
 		this.nome = nome;
 	}
 
-	public Integer getCnpj() {
+	public String getCnpj() {
 		return cnpj;
 	}
 
-	public void setCnpj(Integer cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
 
 	public Endereco getEndereco() {
+		if(this.endereco==null){
+			this.endereco = new Endereco();
+		}
 		return endereco;
 	}
 
