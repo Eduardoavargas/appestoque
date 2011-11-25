@@ -15,7 +15,7 @@ public class SincRest  extends HttpServlet{
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Usuario usuario = new Usuario("André Tricano","appestoque@gmail.com","1234");
+		Usuario usuario = new Usuario("André Tricano","appestoque@gmail.com","1234",1L);
 		try {
 			pm.currentTransaction().begin();
 			pm.makePersistent(usuario);
