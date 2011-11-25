@@ -6,51 +6,41 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import br.com.appestoque.dao.DAOGenerico;
-import br.com.appestoque.dominio.seguranca.Usuario;
+import br.com.appestoque.dominio.cadastro.Empresa;
 
-public class EmpresaDAO extends DAOGenerico<Usuario, Long> {
+public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
 	
 	public EmpresaDAO(PersistenceManager pm) {
 		this.setPm(pm);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public Usuario pesquisar(String email, String senha){
-		Query query = getPm().newQuery(Usuario.class);
-		query.setFilter("email == p_email && senha == p_senha");
-		query.declareParameters("String p_email , String p_senha");
-		List usuarios = (List) query.execute(email,senha);
-		Usuario usuario = (Usuario) usuarios.get(0);
-		return usuario;
-	}
-	
 	@SuppressWarnings("unchecked")
-	public List<Usuario> pesquisar(String email, long ini, long qtd){
-		Query query = getPm().newQuery(Usuario.class);
+	public List<Empresa> pesquisar(String cnpj, long ini, long qtd){
+		Query query = getPm().newQuery(Empresa.class);
 		query.setRange(ini, qtd);
-		List<Usuario> usuarios = null;
-		if(email!=null){
-			query.setFilter("email == p_email");
-			query.declareParameters("String p_email");
-			usuarios = (List<Usuario>) query.execute(email);
+		List<Empresa> empresas = null;
+		if(cnpj!=null){
+			query.setFilter("cnpj == p_cnpj");
+			query.declareParameters("String p_cnpj");
+			empresas = (List<Empresa>) query.execute(cnpj);
 		}else {
-			usuarios = (List<Usuario>) query.execute();
+			empresas = (List<Empresa>) query.execute();
 		}	
-		return usuarios;
+		return empresas;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public int contar(String email){
-		Query query = getPm().newQuery(Usuario.class);
-		List<Usuario> usuarios = null;
-		if(email!=null){
-			query.setFilter("email == p_email");
-			query.declareParameters("String p_email");
-			usuarios = (List<Usuario>) query.execute(email);
+	public int contar(String cnpj){
+		Query query = getPm().newQuery(Empresa.class);
+		List<Empresa> empresas = null;
+		if(cnpj!=null){
+			query.setFilter("cnpj == p_cnpj");
+			query.declareParameters("String p_cnpj");
+			empresas = (List<Empresa>) query.execute(cnpj);
 		}else{
-			usuarios = (List<Usuario>) query.execute();
+			empresas = (List<Empresa>) query.execute();
 		}
-		return usuarios.size();
+		return empresas.size();
 	}
 	
 }
