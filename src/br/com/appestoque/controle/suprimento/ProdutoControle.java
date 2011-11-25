@@ -25,7 +25,7 @@ public class ProdutoControle extends BaseControle{
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_PESQUISAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("pesquisar")) {
 			request.setAttribute("primeiroRegistro",request.getParameter("primeiroRegistro"));
@@ -34,36 +34,36 @@ public class ProdutoControle extends BaseControle{
 			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));
 			String numero = request.getParameter("numero")==null||request.getParameter("numero").equals("")?null:request.getParameter("numero");
 			int primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
-			List<Produto> Produtos = null;
+			List<Produto> produtos = null;
 			if(request.getParameter("paginar")==null){
 				totalRegistros = dao.contar(numero);				
-				Produtos = dao.pesquisar(numero,primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
+				produtos = dao.pesquisar(numero,primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
 				request.setAttribute("totalRegistros",totalRegistros);
 				request.setAttribute("primeiroRegistro",primeiroRegistro);
 			}else if(request.getParameter("paginar").equals("proximo")){
 				primeiroRegistro += Constantes.REGISTROS_POR_PAGINA;
-				Produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("anterior")){
 				primeiroRegistro -= Constantes.REGISTROS_POR_PAGINA;
-				Produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("ultimo")){
 				primeiroRegistro = totalRegistros - ((totalRegistros % Constantes.REGISTROS_POR_PAGINA != 0) ? totalRegistros % Constantes.REGISTROS_POR_PAGINA : Constantes.REGISTROS_POR_PAGINA);
-				Produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("primeiro")){
 				primeiroRegistro = 0;
-				Produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
-			request.setAttribute("objetos",Produtos);
+			request.setAttribute("objetos",produtos);
 			request.setAttribute("numero",numero);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_PESQUISAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
 			request.setAttribute("objeto", new Produto());
@@ -88,7 +88,7 @@ public class ProdutoControle extends BaseControle{
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_PESQUISAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));			
@@ -96,7 +96,7 @@ public class ProdutoControle extends BaseControle{
 			dao.remover(Produto);
 			List<Produto> Produtos = dao.listar();
 			request.setAttribute("objetos", Produtos);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_PESQUISAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
 		}
 	}

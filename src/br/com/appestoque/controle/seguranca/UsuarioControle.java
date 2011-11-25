@@ -25,7 +25,7 @@ public class UsuarioControle extends BaseControle {
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_LISTAR);
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("pesquisar")) {
 			request.setAttribute("primeiroRegistro",request.getParameter("primeiroRegistro"));
@@ -63,7 +63,7 @@ public class UsuarioControle extends BaseControle {
 			}
 			request.setAttribute("objetos", usuarios);
 			request.setAttribute("email", email);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
 			request.setAttribute("objeto", new Usuario());
@@ -88,7 +88,7 @@ public class UsuarioControle extends BaseControle {
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));			
@@ -96,7 +96,7 @@ public class UsuarioControle extends BaseControle {
 			dao.remover(usuario);
 			List<Usuario> usuarios = dao.listar();
 			request.setAttribute("objetos", usuarios);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_PESQUISAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_LISTAR);
 			dispatcher.forward(request, response);
 		}
 	}
