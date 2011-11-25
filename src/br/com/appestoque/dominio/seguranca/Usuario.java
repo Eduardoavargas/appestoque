@@ -22,11 +22,15 @@ public class Usuario{
 	@Persistent
 	private String senha;
 	
-	public Usuario(String nome, String email, String senha) {
+	@Persistent
+	private Long idEmpresa;	
+	
+	public Usuario(String nome, String email, String senha, Long idEmpresa) {
 		super();
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;		
+		this.idEmpresa = idEmpresa; 
 	}
 	
 	public Usuario() {
@@ -64,6 +68,14 @@ public class Usuario{
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Long getIdEmpresa() {
+		return idEmpresa;
+	}
+
+	public void setIdEmpresa(Long idEmpresa) {
+		this.idEmpresa = idEmpresa;
 	}
 
 }

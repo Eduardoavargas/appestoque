@@ -31,9 +31,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.dao.PMF;
 import br.com.appestoque.dao.seguranca.UsuarioDAO;
+import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
 public class Filtro implements Filter{
@@ -54,6 +58,10 @@ public class Filtro implements Filter{
             	if(usuario!=null){
             		pm = PMF.get().getPersistenceManager();
             		request.setAttribute("pm",pm);
+            		Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),usuario.getIdEmpresa());
+            		Empresa empresa = pm.getObjectById(Empresa.class,key);
+            		session.setAttribute("empresa", empresa);
+            		session.setAttribute("usuario", usuario);
             		session.setAttribute("autorizado", new Boolean("true"));
             		filterChain.doFilter(request, response);
             	}else{
