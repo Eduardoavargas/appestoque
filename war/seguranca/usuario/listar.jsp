@@ -27,14 +27,14 @@
 			<td/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
-			<% Usuario obj = (Usuario) objetos.get(i); %>
+			<% Usuario objeto = (Usuario) objetos.get(i); %>
 			<tr>
-				<td><%=obj.getNome()%></td>
-				<td><%=obj.getEmail()%></a></td>
-				<td><%=obj.getSenha()%></td>
+				<td><%=objeto.getNome()%></td>
+				<td><%=objeto.getEmail()%></a></td>
+				<td><%=objeto.getSenha()%></td>
 				<td align="center" >
-					<a href="/usuarioControle?acao=editar&id=<%=obj.getId()%>"><img src="img/editar.png" style="border: 0px;"/></a>
-					<a href="/usuarioControle?acao=remover&id=<%=obj.getId()%>"><img src="img/remover.png" style="border: 0px;"/></a>
+					<a href="/usuarioControle?acao=editar&id=<%=objeto.getId()%>"><img src="img/editar.png" style="border: 0px;"/></a>
+					<a href="/usuarioControle?acao=remover&id=<%=objeto.getId()%>"><img src="img/remover.png" style="border: 0px;"/></a>
 				</td>
 			</tr>
 		<% } %>
