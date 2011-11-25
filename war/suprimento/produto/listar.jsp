@@ -28,14 +28,14 @@
 			<td/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
-			<% Produto obj = (Produto) objetos.get(i); %>
+			<% Produto objeto = (Produto) objetos.get(i); %>
 			<tr>
-				<td><%=obj.getNome()%></td>
-				<td><%=obj.getNumero()%></a></td>
-				<td align="right"><fmt:formatNumber value="<%=obj.getPreco()%>" type="currency" pattern="##,###,##0.000" /></td>
+				<td><%=objeto.getNome()%></td>
+				<td><%=objeto.getNumero()%></a></td>
+				<td align="right"><fmt:formatNumber value="<%=objeto.getPreco()%>" type="currency" pattern="##,###,##0.000" /></td>
 				<td align="center" >
-					<a href="/produtoControle?acao=editar&id=<%=obj.getId()%>"><img src="img/editar.png" style="border: 0px;"/></a>
-					<a href="/produtoControle?acao=remover&id=<%=obj.getId()%>"><img src="img/remover.png" style="border: 0px;"/></a>
+					<a href="/produtoControle?acao=editar&id=<%=objeto.getId()%>"><img src="img/editar.png" style="border: 0px;"/></a>
+					<a href="/produtoControle?acao=remover&id=<%=objeto.getId()%>"><img src="img/remover.png" style="border: 0px;"/></a>
 				</td>
 			</tr>
 		<% } %>
