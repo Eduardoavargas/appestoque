@@ -32,6 +32,10 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
+		<url-pattern>/empresaControle/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
 		<url-pattern>/rest/UsuarioRest/*</url-pattern>
 	</filter-mapping>
 	
