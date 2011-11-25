@@ -22,15 +22,19 @@ public class Produto {
 	@Persistent
 	private Double preco = new Double(0);
 	
+	@Persistent
+	private Long idEmpresa;
+	
 	public Produto(){
 		super();
 	}
 	
-	public Produto(String nome, String numero, Double preco) {
+	public Produto(String nome, String numero, Double preco, Long idEmpresa) {
 		super();
 		this.nome = nome;
 		this.numero = numero;
 		this.preco = preco;
+		this.idEmpresa = idEmpresa;
 	}
 
 	public Long getId() {
@@ -63,6 +67,14 @@ public class Produto {
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}
+
+	public Long getIdEmpresa() {
+		return idEmpresa;
+	}
+
+	public void setIdEmpresa(Long idEmpresa) {
+		this.idEmpresa = idEmpresa;
 	}
 	
 }

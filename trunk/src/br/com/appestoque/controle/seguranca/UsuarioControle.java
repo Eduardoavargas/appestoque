@@ -9,11 +9,13 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.seguranca.UsuarioDAO;
+import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
 @SuppressWarnings("serial")
@@ -79,8 +81,8 @@ public class UsuarioControle extends BaseControle {
 			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));
 			String nome = request.getParameter("nome");
 			String email = request.getParameter("email");
-			String senha = request.getParameter("senha");			
-			Usuario objeto = new Usuario(nome,email,senha);
+			String senha = request.getParameter("senha");
+			Usuario objeto = new Usuario(nome,email,senha,getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());

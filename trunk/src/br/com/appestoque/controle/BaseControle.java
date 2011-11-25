@@ -1,8 +1,11 @@
 package br.com.appestoque.controle;
 
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import br.com.appestoque.comum.Constantes;
+import br.com.appestoque.dominio.cadastro.Empresa;
 
 @SuppressWarnings("serial")
 public class BaseControle extends HttpServlet {
@@ -28,6 +31,12 @@ public class BaseControle extends HttpServlet {
 
 	public int getPrimeiroRegistro() {
 		return primeiroRegistro;
+	}
+	
+	public Long getId(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Empresa empresa = (Empresa) session.getAttribute("empresa");
+		return empresa.getId();
 	}
 
 }

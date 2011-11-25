@@ -7,17 +7,18 @@ import java.util.ResourceBundle;
 import javax.jdo.PersistenceManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.cadastro.EmpresaDAO;
-import br.com.appestoque.dao.suprimento.ProdutoDAO;
 import br.com.appestoque.dominio.cadastro.Empresa;
-import br.com.appestoque.dominio.suprimento.Produto;
+import br.com.appestoque.dominio.cadastro.Endereco;
 
 @SuppressWarnings("serial")
 public class EmpresaControle extends BaseControle {
@@ -69,7 +70,7 @@ public class EmpresaControle extends BaseControle {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
-			request.setAttribute("objeto", new Produto());
+			request.setAttribute("objeto", new Empresa());
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
@@ -81,9 +82,13 @@ public class EmpresaControle extends BaseControle {
 		} else if(request.getParameter("acao").equals("modificar")) {
 			dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));
 			String nome = request.getParameter("nome");
-			String numero = request.getParameter("numero");
-			Double preco = new Double(request.getParameter("preco"));			
-			Empresa objeto = new Empresa();
+			String cnpj = request.getParameter("cnpj");
+			String bairro = request.getParameter("bairro");
+			String cidade = request.getParameter("cidade");
+			String cep = request.getParameter("cep");
+			Integer numero = new Integer(request.getParameter("numero"));
+			Endereco endereco = new Endereco(cidade,bairro,numero,cep);
+			Empresa objeto = new Empresa(nome,cnpj,endereco);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());

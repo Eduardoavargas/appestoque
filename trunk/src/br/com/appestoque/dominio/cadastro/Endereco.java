@@ -1,16 +1,19 @@
 package br.com.appestoque.dominio.cadastro;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
+@PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class Endereco {
 	
 	@PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Key key;
+	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
+	private Key id;
 	
 	@Persistent
 	private String cidade;
@@ -28,12 +31,20 @@ public class Endereco {
 		super();
 	}
 
-	public Key getKey() {
-		return key;
+	public Endereco(String cidade, String bairro, Integer numero, String cep) {
+		super();
+		this.cidade = cidade;
+		this.bairro = bairro;
+		this.numero = numero;
+		this.cep = cep;
 	}
 
-	public void setKey(Key key) {
-		this.key = key;
+	public Key getId() {
+		return id;
+	}
+
+	public void setId(Key id) {
+		this.id = id;
 	}
 
 	public String getCidade() {

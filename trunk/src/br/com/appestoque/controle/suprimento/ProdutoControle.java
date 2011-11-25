@@ -80,7 +80,7 @@ public class ProdutoControle extends BaseControle{
 			String nome = request.getParameter("nome");
 			String numero = request.getParameter("numero");
 			Double preco = new Double(request.getParameter("preco"));			
-			Produto objeto = new Produto(nome,numero,preco);
+			Produto objeto = new Produto(nome,numero,preco,getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
