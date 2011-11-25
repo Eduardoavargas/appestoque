@@ -1,0 +1,56 @@
+package br.com.appestoque.dao.cadastro;
+
+import java.util.List;
+
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+
+import br.com.appestoque.dao.DAOGenerico;
+import br.com.appestoque.dominio.seguranca.Usuario;
+
+public class EmpresaDAO extends DAOGenerico<Usuario, Long> {
+	
+	public EmpresaDAO(PersistenceManager pm) {
+		this.setPm(pm);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Usuario pesquisar(String email, String senha){
+		Query query = getPm().newQuery(Usuario.class);
+		query.setFilter("email == p_email && senha == p_senha");
+		query.declareParameters("String p_email , String p_senha");
+		List usuarios = (List) query.execute(email,senha);
+		Usuario usuario = (Usuario) usuarios.get(0);
+		return usuario;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> pesquisar(String email, long ini, long qtd){
+		Query query = getPm().newQuery(Usuario.class);
+		query.setRange(ini, qtd);
+		List<Usuario> usuarios = null;
+		if(email!=null){
+			query.setFilter("email == p_email");
+			query.declareParameters("String p_email");
+			usuarios = (List<Usuario>) query.execute(email);
+		}else {
+			usuarios = (List<Usuario>) query.execute();
+		}	
+		return usuarios;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public int contar(String email){
+		Query query = getPm().newQuery(Usuario.class);
+		List<Usuario> usuarios = null;
+		if(email!=null){
+			query.setFilter("email == p_email");
+			query.declareParameters("String p_email");
+			usuarios = (List<Usuario>) query.execute(email);
+		}else{
+			usuarios = (List<Usuario>) query.execute();
+		}
+		return usuarios.size();
+	}
+	
+}
