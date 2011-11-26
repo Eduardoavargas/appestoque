@@ -1,5 +1,17 @@
 package br.com.appestoque;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import java.io.File;
+import java.io.PrintWriter;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import java.io.IOException;
 
 import javax.jdo.PersistenceManager;
@@ -39,11 +51,47 @@ public class Processo extends HttpServlet{
 	        session.setAttribute("empresa", empresa);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_MENU);
 			dispatcher.forward(request, response);
+		}else if(request.getParameter("acao").equals("noticia")) {
+			try{
+				//URL url = new URL("http://g1.globo.com/dynamo/brasil/rss2.xml");
+				URL url = new URL("http://feeds.folha.uol.com.br/folha/dinheiro/rss091.xml");				
+				HttpURLConnection httpSource = (HttpURLConnection)url.openConnection();
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(httpSource.getInputStream());
+				doc.getDocumentElement().normalize();
+				NodeList nList = doc.getElementsByTagName("item");
+				
+				PrintWriter out = response.getWriter();
+				
+				
+				for (int temp = 0; temp < nList.getLength(); temp++) {
+				   Node nNode = nList.item(temp);
+				   if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+				      Element eElement = (Element) nNode;
+				      out.print(getTagValue("title", eElement)+"<br/>");
+//				      System.out.println("Data de Publicação : " + getTagValue("pubDate", eElement));
+//				      System.out.println("Titulo : " + getTagValue("title", eElement));
+//				      System.out.println("link : " + getTagValue("link", eElement));
+//			          System.out.println("Descrição : " + getTagValue("description", eElement));
+				   }
+				}
+		  } catch (Exception e) {
+			e.printStackTrace();
+		  }
 		}
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+	
+	private static String getTagValue(String sTag, Element eElement) {
+		NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
+	 
+	        Node nValue = (Node) nlList.item(0);
+	 
+		return nValue.getNodeValue();
 	}
 	
 }
