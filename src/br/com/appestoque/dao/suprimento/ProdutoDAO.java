@@ -20,11 +20,14 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long> {
 		query.setRange(ini, qtd);
 		List<Produto> produtos = null;
 		if(numero!=null){
-			query.setFilter("numero == p_numero");
+			query.setFilter("numero == p_numero && idEmpresa == p_empresa ");
 			query.declareParameters("String p_numero");
-			produtos = (List<Produto>) query.execute(numero);
+			query.declareParameters("String p_empresa");
+			produtos = (List<Produto>) query.execute(numero,idEmpresa);
 		}else {
-			produtos = (List<Produto>) query.execute();
+			query.setFilter("idEmpresa == p_empresa ");
+			query.declareParameters("String p_empresa");
+			produtos = (List<Produto>) query.execute(idEmpresa);
 		}	
 		return produtos;
 	}
@@ -34,11 +37,14 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long> {
 		Query query = getPm().newQuery(Produto.class);
 		List<Produto> produtos = null;
 		if(numero!=null){
-			query.setFilter("numero == p_numero");
+			query.setFilter("numero == p_numero && idEmpresa == p_empresa ");
 			query.declareParameters("String p_numero");
-			produtos = (List<Produto>) query.execute(numero);
-		}else{
-			produtos = (List<Produto>) query.execute();
+			query.declareParameters("String p_empresa");
+			produtos = (List<Produto>) query.execute(numero,idEmpresa);
+		}else {
+			query.setFilter("idEmpresa == p_empresa ");
+			query.declareParameters("String p_empresa");
+			produtos = (List<Produto>) query.execute(idEmpresa);
 		}
 		return produtos.size();
 	}

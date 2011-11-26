@@ -30,11 +30,14 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 		query.setRange(ini, qtd);
 		List<Usuario> usuarios = null;
 		if(email!=null){
-			query.setFilter("email == p_email");
+			query.setFilter("email == p_email && idEmpresa == p_empresa");
 			query.declareParameters("String p_email");
-			usuarios = (List<Usuario>) query.execute(email);
+			query.declareParameters("String p_empresa");
+			usuarios = (List<Usuario>) query.execute(email,idEmpresa);
 		}else {
-			usuarios = (List<Usuario>) query.execute();
+			query.setFilter("idEmpresa == p_empresa");
+			query.declareParameters("String p_empresa");
+			usuarios = (List<Usuario>) query.execute(idEmpresa);
 		}	
 		return usuarios;
 	}
@@ -44,11 +47,14 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 		Query query = getPm().newQuery(Usuario.class);
 		List<Usuario> usuarios = null;
 		if(email!=null){
-			query.setFilter("email == p_email");
+			query.setFilter("email == p_email && idEmpresa == p_empresa");
 			query.declareParameters("String p_email");
-			usuarios = (List<Usuario>) query.execute(email);
-		}else{
-			usuarios = (List<Usuario>) query.execute();
+			query.declareParameters("String p_empresa");
+			usuarios = (List<Usuario>) query.execute(email,idEmpresa);
+		}else {
+			query.setFilter("idEmpresa == p_empresa");
+			query.declareParameters("String p_empresa");
+			usuarios = (List<Usuario>) query.execute(idEmpresa);
 		}
 		return usuarios.size();
 	}
