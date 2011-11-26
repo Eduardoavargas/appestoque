@@ -25,6 +25,8 @@
 </head>
 <body>
 
+	<div id="conteudo">
+
 	<div align="center" style="width: 100%;" ><img src="img/logo.jpg"/></div>
 
 	<span class="heading" title="clique aqui para sair" ><a href="/processo?acao=logoff"><%=((Usuario)request.getSession().getAttribute("usuario")).getNome()%> - <%=((Empresa)request.getSession().getAttribute("empresa")).getNome()%></a></span>
