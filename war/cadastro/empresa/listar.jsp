@@ -25,7 +25,10 @@
 		<% for (int i = 0;i<objetos.size();i++) { %>
 			<% Empresa objeto = (Empresa) objetos.get(i); %>
 			<tr>
+				<td><a href="/processo?acao=selecionar&id=<%=objeto.getId()%>"><%=objeto.getCnpj()%></a></td>
 				<td><%=objeto.getNome()%></td>
+				<td><%=objeto.getEndereco().getBairro()%></td>
+				<td><%=objeto.getEndereco().getCidade()%></td>
 				<td align="center" >
 					<a href="/empresaControle?acao=editar&id=<%=objeto.getId()%>"><img src="img/editar.png" style="border: 0px;"/></a>
 					<a href="/empresaControle?acao=remover&id=<%=objeto.getId()%>"><img src="img/remover.png" style="border: 0px;"/></a>
