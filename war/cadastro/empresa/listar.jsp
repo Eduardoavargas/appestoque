@@ -19,7 +19,10 @@
 		<p/>
 		<table border="0" cellspacing="1" cellpadding="5" class="ui-widget" width="100%">
 		<tr class="ui-widget-header ">
+			<td>CNPJ</td>
 			<td>Nome</td>
+			<td>Bairro</td>
+			<td>Cidade</td>
 			<td/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
