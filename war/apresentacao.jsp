@@ -140,7 +140,7 @@ h2 {
 <body>
 		<div id="topo">
 <!-- 			<a href="/processo?acao=cadastrar" id="btnCadastrar">Clique aqui para cadastrar sua empresa</a>  -->
-		<br/><br/>
+		<br/><br/><br/>
 			<img style="position: relative; top: 50px;" src="img/logo.jpg" />
 		</div>
 		<div id="conteudo">
