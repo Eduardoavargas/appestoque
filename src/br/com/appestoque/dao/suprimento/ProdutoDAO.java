@@ -15,7 +15,7 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Produto> pesquisar(String numero, long ini, long qtd){
+	public List<Produto> pesquisar(String numero, Long idEmpresa, long ini, long qtd){
 		Query query = getPm().newQuery(Produto.class);
 		query.setRange(ini, qtd);
 		List<Produto> produtos = null;
@@ -30,7 +30,7 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public int contar(String numero){
+	public int contar(String numero, Long idEmpresa ){
 		Query query = getPm().newQuery(Produto.class);
 		List<Produto> produtos = null;
 		if(numero!=null){

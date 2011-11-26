@@ -36,28 +36,28 @@ public class ProdutoControle extends BaseControle{
 			int primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
 			List<Produto> produtos = null;
 			if(request.getParameter("paginar")==null){
-				totalRegistros = dao.contar(numero);				
-				produtos = dao.pesquisar(numero,primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
+				totalRegistros = dao.contar(numero,getId(request));				
+				produtos = dao.pesquisar(numero,getId(request),primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
 				request.setAttribute("totalRegistros",totalRegistros);
 				request.setAttribute("primeiroRegistro",primeiroRegistro);
 			}else if(request.getParameter("paginar").equals("proximo")){
 				primeiroRegistro += Constantes.REGISTROS_POR_PAGINA;
-				produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				produtos = dao.pesquisar(numero,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("anterior")){
 				primeiroRegistro -= Constantes.REGISTROS_POR_PAGINA;
-				produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				produtos = dao.pesquisar(numero,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("ultimo")){
 				primeiroRegistro = totalRegistros - ((totalRegistros % Constantes.REGISTROS_POR_PAGINA != 0) ? totalRegistros % Constantes.REGISTROS_POR_PAGINA : Constantes.REGISTROS_POR_PAGINA);
-				produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				produtos = dao.pesquisar(numero,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("primeiro")){
 				primeiroRegistro = 0;
-				produtos = dao.pesquisar(numero,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				produtos = dao.pesquisar(numero,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
