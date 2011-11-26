@@ -33,7 +33,7 @@ public class Processo extends HttpServlet{
 		}else if (request.getParameter("acao").equals("selecionar")) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			EmpresaDAO dao = new EmpresaDAO(pm);
-			Long id = new Long(request.getParameter("cnpj"));
+			Long id = new Long(request.getParameter("id"));
 			Empresa empresa = dao.pesquisar(id);
 	        HttpSession session = request.getSession();
 	        session.setAttribute("empresa", empresa);
