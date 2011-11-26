@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="java.io.*,java.net.*,java.util.*"%>
+<%@ page import="br.com.appestoque.dominio.cadastro.Empresa"%>
+<%@ page import="br.com.appestoque.dominio.seguranca.Usuario"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());%>
@@ -23,12 +25,15 @@
 </head>
 <body>
 
+	<div align="center" style="width: 100%;" ><img src="img/logo.jpg"/></div>
+
+	<span class="heading" title="clique aqui para sair" ><a href="/processo?acao=logoff"><%=((Usuario)request.getSession().getAttribute("usuario")).getNome()%> - <%=((Empresa)request.getSession().getAttribute("empresa")).getNome()%></a></span>
 	<%if(request.getAttribute("mensagem")!=null){ %>
 		<div class="ui-widget">
 			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
 				<p>
 					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Ops!</strong>
-					<%=request.getAttribute("mensagem")%>
+					<%=request.getAttribute("mensagem")%>S
 				</p>
 			</div>
 		</div>
@@ -50,8 +55,6 @@
 		<div id="m3" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
 			<a href="/produtoControle?acao=iniciar">Produto</a>
 		</div>
-	</li>
-	<li><a href="/processo?acao=logoff">Sair</a>
 	</li>
 </ul>
 <div style="clear:both"></div>
