@@ -25,7 +25,7 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Usuario> pesquisar(String email, long ini, long qtd){
+	public List<Usuario> pesquisar(String email, Long idEmpresa, long ini, long qtd){
 		Query query = getPm().newQuery(Usuario.class);
 		query.setRange(ini, qtd);
 		List<Usuario> usuarios = null;
@@ -40,7 +40,7 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public int contar(String email){
+	public int contar(String email, Long idEmpresa ){
 		Query query = getPm().newQuery(Usuario.class);
 		List<Usuario> usuarios = null;
 		if(email!=null){

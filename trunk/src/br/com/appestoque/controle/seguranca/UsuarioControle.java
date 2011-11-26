@@ -38,28 +38,28 @@ public class UsuarioControle extends BaseControle {
 			int primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
 			List<Usuario> usuarios = null;
 			if(request.getParameter("paginar")==null){
-				totalRegistros = dao.contar(email);				
-				usuarios = dao.pesquisar(email,primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
+				totalRegistros = dao.contar(email,getId(request));				
+				usuarios = dao.pesquisar(email,getId(request),primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
 				request.setAttribute("totalRegistros",totalRegistros);
 				request.setAttribute("primeiroRegistro",primeiroRegistro);
 			}else if(request.getParameter("paginar").equals("proximo")){
 				primeiroRegistro += Constantes.REGISTROS_POR_PAGINA;
-				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				usuarios = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("anterior")){
 				primeiroRegistro -= Constantes.REGISTROS_POR_PAGINA;
-				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				usuarios = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("ultimo")){
 				primeiroRegistro = totalRegistros - ((totalRegistros % Constantes.REGISTROS_POR_PAGINA != 0) ? totalRegistros % Constantes.REGISTROS_POR_PAGINA : Constantes.REGISTROS_POR_PAGINA);
-				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				usuarios = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("primeiro")){
 				primeiroRegistro = 0;
-				usuarios = dao.pesquisar(email,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				usuarios = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
