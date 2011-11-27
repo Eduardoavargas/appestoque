@@ -53,23 +53,25 @@ public class Processo extends HttpServlet{
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("noticia")) {
 			try{
+				
+				HttpURLConnection httpSource = null;
+				
 				//URL url = new URL("http://g1.globo.com/dynamo/brasil/rss2.xml");
 				URL url = new URL("http://feeds.folha.uol.com.br/folha/dinheiro/rss091.xml");				
-				HttpURLConnection httpSource = (HttpURLConnection)url.openConnection();
+				httpSource = (HttpURLConnection)url.openConnection();
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 				Document doc = dBuilder.parse(httpSource.getInputStream());
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("item");
-				
 				PrintWriter out = response.getWriter();
-				
-				
-				for (int temp = 0; temp < nList.getLength(); temp++) {
+				response.setContentType("text/html");
+//				for (int temp = 0; temp < nList.getLength(); temp++) {
+				for (int temp = 0; temp < 3; temp++){
 				   Node nNode = nList.item(temp);
 				   if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				      Element eElement = (Element) nNode;
-				      out.print(getTagValue("title", eElement)+"<br/>");
+				      out.print(getTagValue("title", eElement)+"<br/><br/>");
 //				      System.out.println("Data de Publicação : " + getTagValue("pubDate", eElement));
 //				      System.out.println("Titulo : " + getTagValue("title", eElement));
 //				      System.out.println("link : " + getTagValue("link", eElement));
