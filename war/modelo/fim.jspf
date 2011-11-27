@@ -2,35 +2,43 @@
 
 <script type="text/javascript">
 	function showRSS(str){
-		alert('ALERTA1');
 		if (str.length==0)
 		  { 
 		  document.getElementById("noticia").innerHTML="";
 		  return;
 		  }
-		alert('ALERTA2');
 		if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
-		  xmlhttp=new XMLHttpRequest();
+		  	xmlhttp=new XMLHttpRequest();		  
 		}else{// code for IE6, IE5
-		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		alert('ALERTA3');
 		xmlhttp.onreadystatechange=function(){
 		  if (xmlhttp.readyState==4 && xmlhttp.status==200){
 		    document.getElementById("noticia").innerHTML=xmlhttp.responseText;
 		  }
 		}
-		alert('ALERTA4');
-		xmlhttp.open("GET","processar?acao=noticia",true);
-		alert('ALERTA5')
+		xmlhttp.open("GET","processo?acao=noticia",true);
 		xmlhttp.send();
 	}
 </script>
 	
 <div id="noticia">
-	<a href="#" onclick="showRSS('bla!')" >Clique</a>	
 </div>
 
+<script type="text/javascript">
+		if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+		  	xmlhttp=new XMLHttpRequest();		  
+		}else{// code for IE6, IE5
+		  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function(){
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		    document.getElementById("noticia").innerHTML=xmlhttp.responseText;
+		  }
+		}
+		xmlhttp.open("GET","processo?acao=noticia",true);
+		xmlhttp.send();
+</script>
 
 <div id="rodape" align="center" >© 2011 appestoque - <a href="" title="Política de Privacidade">Política de Privacidade</a></div>
 
