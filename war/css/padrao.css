@@ -94,16 +94,15 @@ form a span.ui-icon{
 
 #conteudo{
 	float: left;
-	margin: 0px 0px 0px 0px;
-	background-color: red;
+/* 	background-color: red; */
 	width: 85%;
 }	
 
 #noticia {
 	float: right;
-	margin: 0px 0px 0px 0px;
-	background-color: yellow;
+/* 	background-color: yellow; */
 	width: 15%;
+	height: 100%;
 }
 
 #rodape {
