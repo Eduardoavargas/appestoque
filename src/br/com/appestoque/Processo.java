@@ -6,8 +6,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
-import java.io.File;
 import java.io.PrintWriter;
+
+import com.pdfjet.*;
+import com.d_project.qrcode.*;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import javax.jdo.PersistenceManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,9 +56,7 @@ public class Processo extends HttpServlet{
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("noticia")) {
 			try{
-				
 				HttpURLConnection httpSource = null;
-				
 				//URL url = new URL("http://g1.globo.com/dynamo/brasil/rss2.xml");
 				URL url = new URL("http://feeds.folha.uol.com.br/folha/dinheiro/rss091.xml");				
 				httpSource = (HttpURLConnection)url.openConnection();
@@ -81,6 +82,37 @@ public class Processo extends HttpServlet{
 		  } catch (Exception e) {
 			e.printStackTrace();
 		  }
+		}else if(request.getParameter("acao").equals("pdf")) {
+			try {
+				ServletOutputStream servletOutputStream = response.getOutputStream();
+				PDF pdf = new PDF(servletOutputStream);
+				response.setHeader("Content-Disposition", "attachment; filename=qrcode.pdf");
+				response.setContentType("application/pdf");
+				Page page = new Page(pdf, Letter.PORTRAIT);
+				
+				QRCode qr = null;
+				
+				qr = new QRCode();
+				qr.setTypeNumber(Mode.MODE_8BIT_BYTE);
+		        qr.setErrorCorrectLevel(ErrorCorrectLevel.M);
+		        qr.addData("André Silva Tricano");
+		        qr.make();
+		        qr.setPosition(200, 100);
+		        qr.drawOn(page);
+		        
+		        qr = new QRCode();
+				qr.setTypeNumber(Mode.MODE_8BIT_BYTE);
+		        qr.setErrorCorrectLevel(ErrorCorrectLevel.M);
+		        qr.addData("Alan Silva Tricano");
+		        qr.make();
+		        qr.setPosition(400, 100);
+		        qr.drawOn(page);
+		        
+		        pdf.flush();
+		        servletOutputStream.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
