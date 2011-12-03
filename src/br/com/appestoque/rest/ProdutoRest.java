@@ -25,10 +25,9 @@ public class ProdutoRest extends HttpServlet{
 		ProdutoDAO produtoDAO = new ProdutoDAO(persistenceManager);
 		HttpSession httpSession = request.getSession();
 		Usuario usuario = (Usuario) httpSession.getAttribute("usuario");		
-		produtoDAO.listar(usuario.getIdEmpresa());
 		JSONArray objetos = new JSONArray();
 		try{
-			for(Produto produto : produtoDAO.listar()){
+			for(Produto produto : produtoDAO.listar(usuario.getIdEmpresa())){
 				JSONObject objeto = new JSONObject();
 				objeto.put("id",produto.getId());
 				objeto.put("nome",produto.getNome());
