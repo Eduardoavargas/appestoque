@@ -24,7 +24,10 @@ public class ProdutoRest extends HttpServlet{
 		try{
 			for(Produto produto : dao.listar()){
 				JSONObject objeto = new JSONObject();
-				objeto.put("nome", produto.getNome());
+				objeto.put("id",produto.getId());
+				objeto.put("nome",produto.getNome());
+				objeto.put("numero",produto.getNumero());
+				objeto.put("preco",produto.getPreco());
 				objetos.put(objeto);
 			}
 		}catch(JSONException e) {
