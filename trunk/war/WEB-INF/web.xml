@@ -42,6 +42,15 @@
 
 	<!--rest-->	
 	<servlet>
+		<servlet-name>ProdutoRest</servlet-name>
+		<servlet-class>br.com.appestoque.rest.ProdutoRest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>produtoRest</servlet-name>
+		<url-pattern>/rest/produtoRest</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>UsuarioRest</servlet-name>
 		<servlet-class>br.com.appstoque.rest.UsuarioRest</servlet-class>
 	</servlet>
@@ -58,6 +67,7 @@
 		<servlet-name>SincRest</servlet-name>
 		<url-pattern>/rest/sincRest</url-pattern>
 	</servlet-mapping>
+	<!--rest-->
 	
 	<!--segurança-->
 	<servlet>
