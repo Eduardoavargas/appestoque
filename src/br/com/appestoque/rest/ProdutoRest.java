@@ -7,22 +7,28 @@ import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.appengine.repackaged.org.json.JSONArray;
 import com.google.appengine.repackaged.org.json.JSONException;
 import com.google.appengine.repackaged.org.json.JSONObject;
 
 import br.com.appestoque.dao.suprimento.ProdutoDAO;
+import br.com.appestoque.dominio.seguranca.Usuario;
 import br.com.appestoque.dominio.suprimento.Produto;
 
 @SuppressWarnings("serial")
 public class ProdutoRest extends HttpServlet{
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		ProdutoDAO dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));
+		PersistenceManager persistenceManager = (PersistenceManager) request.getAttribute("pm");
+		ProdutoDAO produtoDAO = new ProdutoDAO(persistenceManager);
+		HttpSession httpSession = request.getSession();
+		Usuario usuario = (Usuario) httpSession.getAttribute("usuario");		
+		produtoDAO.listar(usuario.getIdEmpresa());
 		JSONArray objetos = new JSONArray();
 		try{
-			for(Produto produto : dao.listar()){
+			for(Produto produto : produtoDAO.listar()){
 				JSONObject objeto = new JSONObject();
 				objeto.put("id",produto.getId());
 				objeto.put("nome",produto.getNome());
