@@ -49,4 +49,11 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long> {
 		return produtos.size();
 	}
 	
+	public List<Produto> listar(Long idEmpresa){
+		Query query = getPm().newQuery(Produto.class);
+		query.setFilter("idEmpresa == p_empresa ");
+		query.declareParameters("String p_empresa");
+		return (List<Produto>) query.execute(idEmpresa);
+	}
+	
 }
