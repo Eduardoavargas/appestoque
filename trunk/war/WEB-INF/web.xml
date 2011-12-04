@@ -38,11 +38,15 @@
 		<filter-name>filtro</filter-name>
 		<url-pattern>/rest/UsuarioRest/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
+		<url-pattern>/rest/produtoRest/*</url-pattern>
+	</filter-mapping>
 	
 
 	<!--rest-->	
 	<servlet>
-		<servlet-name>ProdutoRest</servlet-name>
+		<servlet-name>produtoRest</servlet-name>
 		<servlet-class>br.com.appestoque.rest.ProdutoRest</servlet-class>
 	</servlet>
 	<servlet-mapping>
