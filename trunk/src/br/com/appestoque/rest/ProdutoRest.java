@@ -29,7 +29,7 @@ public class ProdutoRest extends HttpServlet{
 		try{
 			for(Produto produto : produtoDAO.listar(usuario.getIdEmpresa())){
 				JSONObject objeto = new JSONObject();
-				objeto.put("id",produto.getId());
+				objeto.put("_id",produto.getId());
 				objeto.put("nome",produto.getNome());
 				objeto.put("numero",produto.getNumero());
 				objeto.put("preco",produto.getPreco());
