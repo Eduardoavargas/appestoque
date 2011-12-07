@@ -93,17 +93,15 @@ form a span.ui-icon{
 }
 
 #conteudo{
-	float: left;
-/* 	background-color: red; */
-	width: 85%;
+/* 	float: left; */
+/* 	width: 85%; */
 }	
 
-#noticia {
-	float: right;
-/* 	background-color: yellow; */
-	width: 15%;
-	height: 100%;
-}
+/* #noticia { */
+/* 	float: right; */
+/* 	width: 15%; */
+/* 	height: 100%; */
+/* } */
 
 #rodape {
 	height: 10px;
