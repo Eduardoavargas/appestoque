@@ -71,6 +71,15 @@
 		<servlet-name>SincRest</servlet-name>
 		<url-pattern>/rest/sincRest</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EmpresaSinc</servlet-name>
+		<servlet-class>br.com.appestoque.rest.EmpresaSinc</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmpresaSinc</servlet-name>
+		<url-pattern>/rest/empresaSinc</url-pattern>
+	</servlet-mapping>
 	<!--rest-->
 	
 	<!--segurança-->
