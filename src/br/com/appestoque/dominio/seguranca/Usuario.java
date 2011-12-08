@@ -1,13 +1,16 @@
 package br.com.appestoque.dominio.seguranca;
 
+import java.io.Serializable;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+@SuppressWarnings("serial")
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-public class Usuario{
+public class Usuario implements Serializable{
 	
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
