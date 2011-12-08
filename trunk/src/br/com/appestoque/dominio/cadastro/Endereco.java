@@ -1,5 +1,7 @@
 package br.com.appestoque.dominio.cadastro;
 
+import java.io.Serializable;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -8,8 +10,9 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
+@SuppressWarnings("serial")
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-public class Endereco {
+public class Endereco implements Serializable{
 	
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
