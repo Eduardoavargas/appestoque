@@ -23,6 +23,9 @@ public class Produto {
 	private Double preco = new Double(0);
 	
 	@Persistent
+	private Double estoque = new Double(0);
+	
+	@Persistent
 	private Long idEmpresa;
 	
 	public Produto(){
@@ -67,6 +70,14 @@ public class Produto {
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}
+	
+	public Double getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(Double estoque) {
+		this.preco = estoque;
 	}
 
 	public Long getIdEmpresa() {

@@ -8,14 +8,20 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import br.com.appestoque.dao.suprimento.ProdutoDAO;
+import br.com.appestoque.dominio.seguranca.Usuario;
+import br.com.appestoque.dominio.suprimento.Produto;
+
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -32,6 +38,11 @@ public class FileUploadServlet extends HttpServlet{
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		PersistenceManager persistenceManager = (PersistenceManager) request.getAttribute("pm");
+		ProdutoDAO produtoDAO = new ProdutoDAO(persistenceManager);
+		HttpSession httpSession = request.getSession();
+		Usuario usuario = (Usuario) httpSession.getAttribute("usuario");
+		
 		try {
 			ServletFileUpload servletFileUpload = new ServletFileUpload();
 			FileItemIterator fileItemIterator = servletFileUpload.getItemIterator(request);
@@ -39,6 +50,8 @@ public class FileUploadServlet extends HttpServlet{
 				FileItemStream fileItemStream = fileItemIterator.next();				
 				if(fileItemStream.getName()!=null&&fileItemStream.getName().equals(ARQUIVO_PRODUTO)){				
 			        InputStream inputStream = fileItemStream.openStream();
+			        
+			        Produto produto = new Produto();
 			        
 			        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 					DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -51,7 +64,19 @@ public class FileUploadServlet extends HttpServlet{
 						Node node = nodeList.item(i);
 						if(node.getNodeType()==Node.ELEMENT_NODE){
 							Element element = (Element) node;
-							System.out.println(getTagValue("nome", element));
+							
+							try{
+								produto.setNome(getTagValue("nome", element)!=null?getTagValue("nome", element):"");
+								produto.setNumero(getTagValue("numero", element));
+								produto.setPreco(new Double(getTagValue("preco", element)));
+								produto.setEstoque(new Double(getTagValue("estoque", element)));
+								produto.setIdEmpresa(usuario.getIdEmpresa());
+								
+								produtoDAO.criar(produto);
+							}catch(NullPointerException e){
+								produto = null;
+							}
+							
 						}					
 					}
 				}
