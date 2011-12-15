@@ -15,12 +15,6 @@
 		<url-pattern>/menu.jsp</url-pattern>
 	</filter-mapping>
 	
-	<!--  
-	<filter-mapping>
-		<filter-name>filtro</filter-name>
-		<url-pattern>/empresaControle/*</url-pattern>
-	</filter-mapping>
-	-->
 	
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
@@ -42,6 +36,26 @@
 		<filter-name>filtro</filter-name>
 		<url-pattern>/rest/produtoRest/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
+		<url-pattern>/file_upload.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
+		<url-pattern>/upload</url-pattern>
+	</filter-mapping>
+
+	
+	<!--servlet-->
+	<servlet>
+		<servlet-name>upload</servlet-name>
+		<servlet-class>br.com.appestoque.servlet.FileUploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>upload</servlet-name>
+		<url-pattern>/upload</url-pattern>
+	</servlet-mapping>	
+	<!--servlet-->
 	
 
 	<!--rest-->	
