@@ -52,26 +52,31 @@ public class Filtro implements Filter{
         if ( autorizado == null || !autorizado ) {
         	String email = request.getParameter("email");
     		String senha = request.getParameter("senha");
-    		if(email!=null&&senha!=null){
-    			UsuarioDAO dao = new UsuarioDAO(PMF.get().getPersistenceManager());
-        		Usuario usuario = dao.pesquisar(email, senha);
-            	if(usuario!=null){
-            		pm = PMF.get().getPersistenceManager();
-            		request.setAttribute("pm",pm);
-            		Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),usuario.getIdEmpresa());
-            		Empresa empresa = pm.getObjectById(Empresa.class,key);
-            		session.setAttribute("empresa", empresa);
-            		session.setAttribute("usuario", usuario);
-            		session.setAttribute("autorizado", new Boolean("true"));
-            		filterChain.doFilter(request, response);
-            	}else{
-            		HttpServletResponse servletResponse = (HttpServletResponse) response;
-            		servletResponse.sendRedirect(Pagina.PAGINA_APRESENTACAO);
-            	}
-    		}else{
-    			HttpServletResponse servletResponse = (HttpServletResponse) response;
-        		servletResponse.sendRedirect(Pagina.PAGINA_APRESENTACAO);
-    		}
+			String serial = request.getParameter("serial");
+
+			UsuarioDAO dao = new UsuarioDAO(PMF.get().getPersistenceManager());
+			Usuario usuario = null;
+			if (email != null && senha != null) {
+				usuario = dao.pesquisar(email, senha);
+			} else if (serial != null) {
+				usuario = dao.pesquisar(serial);
+			}
+
+			if (usuario != null) {
+				pm = PMF.get().getPersistenceManager();
+				request.setAttribute("pm", pm);
+				Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),
+						usuario.getIdEmpresa());
+				Empresa empresa = pm.getObjectById(Empresa.class, key);
+				session.setAttribute("empresa", empresa);
+				session.setAttribute("usuario", usuario);
+				session.setAttribute("autorizado", new Boolean("true"));
+				filterChain.doFilter(request, response);
+			} else {
+				HttpServletResponse servletResponse = (HttpServletResponse) response;
+				servletResponse.sendRedirect(Pagina.PAGINA_APRESENTACAO);
+			}
+    			
         }else{
         	pm = PMF.get().getPersistenceManager();
     		request.setAttribute("pm",pm);
