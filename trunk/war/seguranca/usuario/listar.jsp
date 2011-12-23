@@ -24,6 +24,7 @@
 			<td>Nome</td>
 			<td>E-mail</td>
 			<td>Senha</td>
+			<td>Serial</td>
 			<td/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
