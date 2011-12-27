@@ -21,8 +21,7 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long> {
 		List<Produto> produtos = null;
 		if(numero!=null){
 			query.setFilter("numero == p_numero && idEmpresa == p_empresa ");
-			query.declareParameters("String p_numero");
-			query.declareParameters("String p_empresa");
+			query.declareParameters("String p_numero , Long p_empresa");
 			produtos = (List<Produto>) query.execute(numero,idEmpresa);
 		}else {
 			query.setFilter("idEmpresa == p_empresa ");
@@ -38,8 +37,7 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long> {
 		List<Produto> produtos = null;
 		if(numero!=null){
 			query.setFilter("numero == p_numero && idEmpresa == p_empresa ");
-			query.declareParameters("String p_numero");
-			query.declareParameters("String p_empresa");
+			query.declareParameters("String p_numero , Long p_empresa");
 			produtos = (List<Produto>) query.execute(numero,idEmpresa);
 		}else {
 			query.setFilter("idEmpresa == p_empresa ");
