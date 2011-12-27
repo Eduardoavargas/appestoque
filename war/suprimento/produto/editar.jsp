@@ -7,13 +7,10 @@
 		<app:barraEditar acao="/produtoControle"/>
 		<input type="hidden" name="id" value="<%=objeto.getId()!=null?objeto.getId():""%>"/>
 		<hr><br/>
-			Nome:<br/><app:texto nome="nome" valor="<%=objeto.getNome()%>"/></p>
+			Nome:<br/><app:texto nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/></p>
 			Número:<br/><app:texto nome="numero" valor="<%=objeto.getNumero()%>"/></p>
-			Preço<br/><input type="input" name="preco" value="<%=objeto.getPreco()%>" class="text ui-widget-content ui-corner-all"></input>
-<%-- 			Preço:<input type="input" name="preco" valor="<%=objeto.getPreco()%>"/> --%>
-<%-- 			Preço:<br/><app:texto nome="preco" valor="<%=objeto.getPreco()%>"/></p>			 --%>
-<%-- 			<fmt:formatNumber value="<%=objeto.getPreco()%>"/></input> --%>
-
+			Preço:<br/><app:texto nome="numero" tamanho="10" valor="<%=objeto.getPreco().toString()%>"/></p>
+			Estoque:<br/><app:texto nome="estoque" tamanho="10" valor="<%=objeto.getEstoque().toString()%>"/></p>
 		<hr>
 	</form>
 <%@include file="../../modelo/fim.jspf" %>
