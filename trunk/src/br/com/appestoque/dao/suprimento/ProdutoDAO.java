@@ -47,6 +47,7 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long> {
 		return produtos.size();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Produto> listar(Long idEmpresa){
 		Query query = getPm().newQuery(Produto.class);
 		query.setFilter("idEmpresa == p_empresa ");
