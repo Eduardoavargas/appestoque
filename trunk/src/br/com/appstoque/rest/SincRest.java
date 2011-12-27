@@ -16,6 +16,7 @@ import br.com.appestoque.dominio.suprimento.Produto;
 @SuppressWarnings("serial")
 public class SincRest  extends HttpServlet{
 
+	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
