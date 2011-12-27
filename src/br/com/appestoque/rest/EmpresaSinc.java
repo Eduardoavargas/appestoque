@@ -14,8 +14,10 @@ import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.cadastro.Endereco;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
+@SuppressWarnings("serial")
 public class EmpresaSinc extends HttpServlet{
 	
+	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
