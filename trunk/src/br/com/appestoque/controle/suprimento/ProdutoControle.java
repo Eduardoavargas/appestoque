@@ -79,8 +79,10 @@ public class ProdutoControle extends BaseControle{
 			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));
 			String nome = request.getParameter("nome");
 			String numero = request.getParameter("numero");
-			Double preco = new Double(request.getParameter("preco"));			
-			Produto objeto = new Produto(nome,numero,preco,getId(request));
+			Double preco = new Double(request.getParameter("preco"));
+			Double estoque = new Double(request.getParameter("estoque"));
+			String imagem = request.getParameter("imagem");
+			Produto objeto = new Produto(nome,numero,preco,estoque,imagem,getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
