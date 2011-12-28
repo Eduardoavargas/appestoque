@@ -19,12 +19,12 @@
 <script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="/js/jquery.maskedinput-1.3.min.js" ></script>
 
+<!--  
 <script type="text/javascript" src="/js/jquery.tooltip.js" ></script>
 <script type="text/javascript" src="/js/jquery.dimensions.js" ></script>
 <script type="text/javascript" src="/js/jquery.bgiframe.js" ></script>
 <script type="text/javascript" src="/js/jquery.delegate.js" ></script>
-
-
+-->
 
 <title><%=bundle.getString("app.titulo")%></title>
 </head>
