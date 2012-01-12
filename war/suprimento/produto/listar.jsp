@@ -57,7 +57,8 @@
 				<td align="center" >					
 					<a id="edt" href="/produtoControle?acao=editar&id=<%=objeto.getId()%>"><img src="img/editar.png" style="border: 0px;"/></a>
 					<a href="/produtoControle?acao=remover&id=<%=objeto.getId()%>"><img src="img/remover.png" style="border: 0px;"/></a>
-					<%if(objeto.getImagem()!=null){%>
+					<%if(objeto.getImagem1()!=null||objeto.getImagem2()!=null||objeto.getImagem3()!=null||
+							objeto.getImagem4()!=null||objeto.getImagem4()!=null){%>
 						<img id="<%=objeto.getId()%>" src="img/imagem.png" style="border: 0px;"/>
 					<%}else{%>
 						<img src="img/semimagem.png" style="border: 0px;"/>
