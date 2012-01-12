@@ -7,20 +7,15 @@
 		<app:barraEditar acao="/produtoControle"/>
 		<input type="hidden" name="id" value="<%=objeto.getId()!=null?objeto.getId():""%>"/>
 		<hr><br/>
-			<div style="width:100%; height: 250px;">
-				<div style="float:left; width: 50%;">
 					Nome:<br/><app:texto nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/></p>
 					Número:<br/><app:texto nome="numero" valor="<%=objeto.getNumero()%>"/></p>
 					Preço:<br/><app:texto nome="preco" tamanho="10" valor="<%=objeto.getPreco().toString()%>"/></p>
 					Estoque:<br/><app:texto nome="estoque" tamanho="10" valor="<%=objeto.getEstoque().toString()%>"/></p>
-					Imagem:<br/><app:texto nome="imagem" tamanho="50" valor="<%=objeto.getImagem()%>"/></p>
-				</div>
-				<%if(objeto.getImagem()!=null){%>
-				<div style="float:left; width: 50%;">
-					<img src="<%=objeto.getImagem()%>">
-				</div>
-				<%}%>
-			</div>			
+					Imagem 1:<br/><app:texto nome="imagem" tamanho="50" valor="<%=objeto.getImagem1()%>"/></p>
+					Imagem 2:<br/><app:texto nome="imagem" tamanho="50" valor="<%=objeto.getImagem2()%>"/></p>
+					Imagem 3:<br/><app:texto nome="imagem" tamanho="50" valor="<%=objeto.getImagem3()%>"/></p>
+					Imagem 4:<br/><app:texto nome="imagem" tamanho="50" valor="<%=objeto.getImagem4()%>"/></p>
+					Imagem 5:<br/><app:texto nome="imagem" tamanho="50" valor="<%=objeto.getImagem5()%>"/></p>
 		<hr>
 	</form>
 <%@include file="../../modelo/fim.jspf" %>
