@@ -58,7 +58,16 @@
 	<!--servlet-->
 	
 
-	<!--rest-->	
+	<!--rest-->
+	<servlet>
+		<servlet-name>cargaInicial</servlet-name>
+		<servlet-class>br.com.appestoque.rest.CargaInicial</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>cargaInicial</servlet-name>
+		<url-pattern>/rest/cargaInicial</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>produtoRest</servlet-name>
 		<servlet-class>br.com.appestoque.rest.ProdutoRest</servlet-class>
