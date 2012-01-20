@@ -2,6 +2,27 @@
 <head>
 <title></title>
 
+<script type="text/javascript">
+				function validar(){                            
+	        		if(document.getElementById('email').value.length==0){
+						alert('Desculpe, mas para prosseguir será necessário informar o e-mail.');
+	        			document.getElementById('email').focus();
+	        			return false;
+	        		}else if(document.getElementById('senha').value.length==0){
+						alert('Desculpe, mas para prosseguir será necessário informar senha.');
+	        			document.getElementById('senha').focus();
+	        			return false;
+	        		}else if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById('email').value))) {
+	        			alert('Desculpe, mas para prosseguir será necessário informar um e-mail válido.');
+	        			document.getElementById('email').focus();
+	        			return false;
+	        		}else{
+	        			return true;
+	        		}	        		
+	        	}
+</script>
+
+
 <style type="text/css">
 
 #topo {
@@ -136,6 +157,8 @@ h2 {
 }
 
 </style>
+
+
 </head>
 <body>
 		<div id="topo">
@@ -146,9 +169,11 @@ h2 {
 		<div id="conteudo">
 			<div id="texto_explicativo">
 				<h2>O que é o appestoque ?</h2>
-				<p class="blocoExplicacao">O appestoque é um controle de estoque na web.</p>
+				<p class="blocoExplicacao">É um aplicativo para atuar na força de vendas de uma empresa.</p>
+				<!--<p class="blocoExplicacao">O appestoque é um controle de estoque na web.</p>-->
 				<h2>Para que serve o appestoque ?</h2>
-				<p class="blocoExplicacao">O appestoque é utilizado para controlar produtos de uma pequena empresa.</p>
+				<p class="blocoExplicacao">É utilizado para controlar Clientes, Produtos e Pedidos de Venda.</p>
+				<!--<p class="blocoExplicacao">O appestoque é utilizado para controlar produtos de uma pequena empresa.</p>-->
 			</div>
 			<div id="login">
 				<form id="form_login" action="/menu.jsp" method="post">
@@ -159,22 +184,22 @@ h2 {
 								<td><label>E-mail</label></td>
 							</tr>	
 							<tr>	
-								<td><input type="text" name="email"/></td>
+								<td><input type="text" id="email" name="email"/></td>
 							</tr>
 							<tr>
 								<td><label>Senha</label></td>
 							</tr>	
 							<tr>
-								<td><input type="password" name="senha" /></td>						
+								<td><input type="password" id="senha" name="senha" /></td>						
 							</tr>	
 							<tr>					
-								<td colspan="2" align="center" ><button type="submit">Acessar</button></td>
+								<td colspan="2" align="center" ><button type="submit" onclick="return validar()">Acessar</button></td>
 							</tr>
 						</table>
 					</fieldset>
 				</form>
 			</div>
 		</div>
-	<div id="rodape">© 2011 appestoque - <a href="" title="Política de Privacidade">Política de Privacidade</a></div>
+	<div id="rodape">© 2011 appestoque - <a href="" title="Política de Privacidade" onclick="return false;">Política de Privacidade</a></div>
 </body>
 </html>
