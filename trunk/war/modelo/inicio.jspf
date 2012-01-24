@@ -19,12 +19,8 @@
 <script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="/js/jquery.maskedinput-1.3.min.js" ></script>
 
-<!--  
-<script type="text/javascript" src="/js/jquery.tooltip.js" ></script>
-<script type="text/javascript" src="/js/jquery.dimensions.js" ></script>
-<script type="text/javascript" src="/js/jquery.bgiframe.js" ></script>
-<script type="text/javascript" src="/js/jquery.delegate.js" ></script>
--->
+<script type="text/javascript" src="/js/jquery.maskMoney.js" ></script>
+
 
 <title><%=bundle.getString("app.titulo")%></title>
 </head>
@@ -48,11 +44,13 @@
 	<%}%>
 	
 <ul id="sddm">
+	<!--  
 	<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Cadastro</a>
 		<div id="m1" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
 			<a href="/empresaControle?acao=iniciar">Empresa</a>
 		</div>
 	</li>
+	-->
 	<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Segurança</a>
 		<div id="m2" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
 			<a href="/usuarioControle?acao=iniciar">Usuário</a>
