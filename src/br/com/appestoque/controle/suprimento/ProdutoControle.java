@@ -81,12 +81,8 @@ public class ProdutoControle extends BaseControle{
 			String numero = request.getParameter("numero");
 			Double preco = new Double(request.getParameter("preco"));
 			Double estoque = new Double(request.getParameter("estoque"));
-			String imagem1 = request.getParameter("imagem1");
-			String imagem2 = request.getParameter("imagem2");
-			String imagem3 = request.getParameter("imagem3");
-			String imagem4 = request.getParameter("imagem4");
-			String imagem5 = request.getParameter("imagem5");
-			Produto objeto = new Produto(nome,numero,preco,estoque,imagem1,imagem2,imagem3,imagem4,imagem5,getId(request));
+			String imagem = request.getParameter("imagem");
+			Produto objeto = new Produto(nome,numero,preco,estoque,imagem,getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());

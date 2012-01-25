@@ -34,11 +34,7 @@ public class ProdutoRest extends HttpServlet{
 				objeto.put("numero",produto.getNumero());
 				objeto.put("preco",produto.getPreco());
 				objeto.put("estoque",produto.getEstoque());
-				objeto.put("imagem1",produto.getImagem1()!=null?produto.getImagem1():"");
-				objeto.put("imagem2",produto.getImagem2()!=null?produto.getImagem2():"");
-				objeto.put("imagem3",produto.getImagem3()!=null?produto.getImagem3():"");
-				objeto.put("imagem4",produto.getImagem4()!=null?produto.getImagem4():"");
-				objeto.put("imagem5",produto.getImagem5()!=null?produto.getImagem5():"");
+				objeto.put("imagem1",produto.getImagem()!=null?produto.getImagem():"");
 				objetos.put(objeto);
 			}
 		}catch(JSONException e) {
