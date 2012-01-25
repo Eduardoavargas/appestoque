@@ -169,7 +169,7 @@ h2 {
 		<div id="conteudo">
 			<div id="texto_explicativo">
 				<h2>O que é o appestoque ?</h2>
-				<p class="blocoExplicacao">É um aplicativo para atuar na força de vendas de uma empresa.</p>
+				<p class="blocoExplicacao">É um aplicativo para atuar na força de venda de uma empresa.</p>
 				<!--<p class="blocoExplicacao">O appestoque é um controle de estoque na web.</p>-->
 				<h2>Para que serve o appestoque ?</h2>
 				<p class="blocoExplicacao">É utilizado para controlar Clientes, Produtos e Pedidos de Venda.</p>
@@ -200,6 +200,6 @@ h2 {
 				</form>
 			</div>
 		</div>
-	<div id="rodape">© 2011 appestoque - <a href="" title="Política de Privacidade" onclick="return false;">Política de Privacidade</a></div>
+	<div id="rodape">© 2012 appestoque - <a href="" title="Política de Privacidade" onclick="return false;">Política de Privacidade</a></div>
 </body>
 </html>
