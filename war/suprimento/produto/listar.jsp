@@ -1,28 +1,13 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="br.com.appestoque.dominio.suprimento.Produto" %>
+<%@ page import="br.com.appestoque.util.Constantes" %>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
 <%@include file="../../modelo/inicio.jspf" %>
 
-<!-- 	<script type="text/javascript"> -->
-<!-- 		$(function() { -->
-<!-- 			$('#quadro img').tooltip({ -->
-<!-- 				delay: 0, -->
-<!-- 				showURL: false, -->
-<!-- 				bodyHandler: function() { -->
-<!-- 					return $("<img/>").attr("src", this.src); -->
-<!-- 				} -->
-<!-- 			}); -->
-<!-- 		}); -->
-<!-- 	</script> -->
-
 <span class="title"><%=bundle.getString("produto.pesquisar.titulo")%></span>
-
-<!-- 	<div id="quadro"> -->
-<!-- 		<img src="img/image.png" style="border: 0px;"/> -->
-<!-- 	</div> -->
 
 	<form id="formListar" method="post" action="/produtoControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
 	
@@ -52,13 +37,12 @@
 			<tr>
 				<td><%=objeto.getNome()%></td>
 				<td><%=objeto.getNumero()%></a></td>
-				<td align="right"><fmt:formatNumber value="<%=objeto.getPreco()%>" type="currency" pattern="##,###,##0.000" /></td>
-				<td align="right"><fmt:formatNumber value="<%=objeto.getEstoque()%>" type="currency" pattern="##,###,##0.000" /></td>
+				<td align="right"><fmt:formatNumber value="<%=objeto.getPreco()%>" type="currency" pattern="<%=Constantes.MASCARA_PRECO%>"/></td>
+				<td align="right"><fmt:formatNumber value="<%=objeto.getEstoque()%>" type="currency" pattern="<%=Constantes.MASCARA_ESTOQUE%>"/></td>
 				<td align="center" >					
 					<a id="edt" href="/produtoControle?acao=editar&id=<%=objeto.getId()%>"><img src="img/editar.png" style="border: 0px;"/></a>
 					<a href="/produtoControle?acao=remover&id=<%=objeto.getId()%>"><img src="img/remover.png" style="border: 0px;"/></a>
-					<%if(objeto.getImagem1()!=null||objeto.getImagem2()!=null||objeto.getImagem3()!=null||
-							objeto.getImagem4()!=null||objeto.getImagem4()!=null){%>
+					<%if(objeto.getImagem()!=null){%>
 						<img id="<%=objeto.getId()%>" src="img/imagem.png" style="border: 0px;"/>
 					<%}else{%>
 						<img src="img/semimagem.png" style="border: 0px;"/>
