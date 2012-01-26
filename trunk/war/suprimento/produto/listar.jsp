@@ -26,10 +26,10 @@
 		<p/>
 		<table border="0" cellspacing="1" cellpadding="5" class="ui-widget" width="100%">
 		<tr class="ui-widget-header ">
-			<td>Nome</td>
-			<td>Número</td>
-			<td align="right">Preço</td>
-			<td align="right">Estoque</td>
+			<td><%=bundle.getString("produto.nome")%></td>
+			<td><%=bundle.getString("produto.numero")%></td>
+			<td align="right"><%=bundle.getString("produto.preco")%></td>
+			<td align="right"><%=bundle.getString("produto.estoque")%></td>
 			<td/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
@@ -54,7 +54,7 @@
 		<p/>	
 		<app:paginacao acao="/produtoControle"/>
 	<% } else { %>
-		<span class="heading">Nenhum informação foi encontrado.</span>
+		<span class="heading"><%=bundle.getString("pesquisa.nenhumresultado")%></span>
 	<% } %>
 	</form>
 	
