@@ -1,5 +1,7 @@
 <%@ page import="br.com.appestoque.dominio.suprimento.Produto"%>
-<%@ page import="br.com.appestoque.util.Constantes" %>
+<%@ page import="br.com.appestoque.util.Constantes"%>
+<%@ page import="java.text.DecimalFormat"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
 <%@include file="../../modelo/inicio.jspf"%>
 <%
@@ -8,20 +10,33 @@
 <span class="title"><%=bundle.getString("produto.editar.titulo")%></span>
 
 <script type="text/javascript">
-	function validar(){
-		alert('teste')
+	function submeterForm(){
 		if(document.getElementById('nome').value.length==0){
-			alert('Desculpe, mas será necessário informar o nome para prosseguir.');
+			alert('<%=bundle.getString("produto.mensagem.validar.nome")%>');
+			document.getElementById('nome').focus();
+		}else if(document.getElementById('numero').value.length==0){
+			alert('<%=bundle.getString("produto.mensagem.validar.numero")%>');
+			document.getElementById('numero').focus();
+		}else if(document.getElementById('preco').value.length==0){
+			alert('<%=bundle.getString("produto.mensagem.validar.preco")%>');
+			document.getElementById('preco').focus();
+		}else if(document.getElementById('estoque').value.length==0){
+			alert('<%=bundle.getString("produto.mensagem.validar.estoque")%>');
+			document.getElementById('estoque').focus();
+		}else{
+			document.forms[0].submit();	
 		}
-		return (document.getElementById('nome').value.length==0);
 	}
 </script>
 
-<form id="formEditar" onsubmit="return false;" method="post" action="/produtoControle?acao=modificar">
-	<app:barraEditar acao="/produtoControle" />
+<form id="formEditar" method="post" action="/produtoControle?acao=modificar">
+	<app:barraEditar acao="/produtoControle"/>
 	<input type="hidden" name="id"
 		value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
 	<hr>
+	
+	<fmt:formatNumber var="numeroFormatado" value="<%=objeto.getPreco()%>" type="currency" pattern="<%=Constantes.MASCARA_PRECO%>"/>
+	
 	<br /> <%=bundle.getString("produto.nome")%>:<br />
 	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>" />
 	</p>
@@ -29,7 +44,7 @@
 	<app:texto id="numero" nome="numero" valor="<%=objeto.getNumero()%>" />
 	</p>
 	<%=bundle.getString("produto.preco")%>:<br />
-	<app:dinheiro id="preco" nome="preco" tamanho="10" valor="<%=objeto.getPreco().toString()%>" precisao="<%=Constantes.PRECISAO_PRECO.toString()%>"/>	
+	<app:valor id="preco" nome="preco" tamanho="10" valor="<%=objeto.getPreco().toString()%>" precisao="<%=Constantes.PRECISAO_PRECO.toString()%>"/>	
 	</p>
 	<%=bundle.getString("produto.estoque")%>:<br />
 	<app:valor id="estoque" nome="estoque" tamanho="10" valor="<%=objeto.getEstoque().toString()%>" precisao="<%=Constantes.PRECISAO_ESTOQUE.toString()%>"/>
