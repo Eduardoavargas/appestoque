@@ -7,5 +7,7 @@ public final class Constantes {
 	
 	public static Integer PRECISAO_PRECO = 3;
 	public static Integer PRECISAO_ESTOQUE = 3;
+	
+	public static Integer PRECISAO_VALOR = 3;
 
 }
