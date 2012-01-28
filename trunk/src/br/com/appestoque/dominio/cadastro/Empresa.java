@@ -25,15 +25,11 @@ public class Empresa implements Serializable{
 	@Persistent
 	private Endereco endereco;
 	
-	@Persistent
-	private Long qtdProduto;
-	
-	public Empresa(String nome, String cnpj, Endereco endereco, Long qtdProduto) {
+	public Empresa(String nome, String cnpj, Endereco endereco) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
 		this.endereco = endereco;
-		this.qtdProduto = qtdProduto;
 	}
 	
 	public Empresa() {
@@ -75,12 +71,4 @@ public class Empresa implements Serializable{
 		this.endereco = endereco;
 	}
 	
-	public Long getQtdProduto() {
-		return qtdProduto;
-	}
-
-	public void setQtdProduto(Long qtdProduto) {
-		this.qtdProduto = qtdProduto;
-	}
-
 }
