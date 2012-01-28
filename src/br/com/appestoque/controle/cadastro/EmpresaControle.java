@@ -85,7 +85,7 @@ public class EmpresaControle extends BaseControle {
 			String cep = request.getParameter("cep");
 			Integer numero = new Integer(request.getParameter("numero"));
 			Endereco endereco = new Endereco(cidade,bairro,numero,cep);
-			Empresa objeto = new Empresa(nome,cnpj,endereco);
+			Empresa objeto = new Empresa(nome,cnpj,endereco,0L);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
