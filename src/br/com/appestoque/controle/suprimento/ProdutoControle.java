@@ -18,13 +18,32 @@ import br.com.appestoque.dominio.suprimento.Produto;
 
 @SuppressWarnings("serial")
 public class ProdutoControle extends BaseControle{
+	
+	private int primeiroRegistro = 0;
+	private String numero = null;
+	private List<Produto> produtos = null;
+	private ProdutoDAO dao = null;
+	private String nome = null;
+	private Double preco = null;
+	private Double estoque = null;
+	private String imagem = null;
+	private Produto objeto = null;
+	private List<Produto> objetos = null; 
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ProdutoDAO dao = null;
+		process(request, response);
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		process(request, response);
+	}
+	
+	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("acao").equals("iniciar")) {
-			request.setAttribute("primeiroRegistro",0);
-			request.setAttribute("totalRegistros",0);
-			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
+			primeiroRegistro = 0;
+			produtos = dao.pesquisar(numero,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+			paginar(primeiroRegistro);
+			request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("pesquisar")) {
@@ -32,9 +51,9 @@ public class ProdutoControle extends BaseControle{
 			request.setAttribute("totalRegistros",request.getParameter("totalRegistros"));
 			request.setAttribute("registrosPorPagina",request.getParameter("registrosPorPagina"));
 			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));
-			String numero = request.getParameter("numero")==null||request.getParameter("numero").equals("")?null:request.getParameter("numero");
-			int primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
-			List<Produto> produtos = null;
+			numero = request.getParameter("numero")==null||request.getParameter("numero").equals("")?null:request.getParameter("numero");
+			primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
+			produtos = null;
 			if(request.getParameter("paginar")==null){
 				totalRegistros = dao.contar(numero,getId(request));				
 				produtos = dao.pesquisar(numero,getId(request),primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
@@ -77,12 +96,12 @@ public class ProdutoControle extends BaseControle{
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
 			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));
-			String nome = request.getParameter("nome");
-			String numero = request.getParameter("numero");
-			Double preco = Double.parseDouble(request.getParameter("preco").replace(".", "").replace(",", "."));
-			Double estoque = Double.parseDouble(request.getParameter("estoque").replace(".", "").replace(",", "."));
-			String imagem = request.getParameter("imagem");
-			Produto objeto = new Produto(nome,numero,preco,estoque,imagem,getId(request));
+			nome = request.getParameter("nome");
+			numero = request.getParameter("numero");
+			preco = Double.parseDouble(request.getParameter("preco").replace(".", "").replace(",", "."));
+			estoque = Double.parseDouble(request.getParameter("estoque").replace(".", "").replace(",", "."));
+			imagem = request.getParameter("imagem");
+			objeto = new Produto(nome,numero,preco,estoque,imagem,getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
@@ -96,15 +115,11 @@ public class ProdutoControle extends BaseControle{
 			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));			
 			Produto Produto = dao.pesquisar(new Long(request.getParameter("id")));
 			dao.remover(Produto);
-			List<Produto> Produtos = dao.listar();
-			request.setAttribute("objetos", Produtos);
+			objetos = dao.listar();
+			request.setAttribute("objetos", objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
 		}
-	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 	
 }
