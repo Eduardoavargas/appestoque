@@ -7,6 +7,15 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
 <%@include file="../../modelo/inicio.jspf" %>
 
+<script>
+		$("#formListar").click(function() {
+			alert('executar buscas...');
+		});
+	</script>
+
+	<a id="buscar" href="#">teste</a>
+
+
 <span class="title"><%=bundle.getString("produto.pesquisar.titulo")%></span>
 
 	<form id="formListar" method="post" action="/produtoControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
