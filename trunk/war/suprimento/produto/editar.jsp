@@ -10,34 +10,35 @@
 %>
 <span class="title"><%=bundle.getString("produto.editar.titulo")%></span>
 
-<script type="text/javascript">
-	function submeterForm(){
-		if(document.getElementById('nome').value.length==0){
-			alert('<%=bundle.getString("produto.mensagem.validar.nome")%>');
-			document.getElementById('nome').focus();
-		}else if(document.getElementById('numero').value.length==0){
-			alert('<%=bundle.getString("produto.mensagem.validar.numero")%>');
-			document.getElementById('numero').focus();
-		}else if(document.getElementById('preco').value.length==0){
-			alert('<%=bundle.getString("produto.mensagem.validar.preco")%>');
-			document.getElementById('preco').focus();
-		}else if(document.getElementById('estoque').value.length==0){
-			alert('<%=bundle.getString("produto.mensagem.validar.estoque")%>');
-			document.getElementById('estoque').focus();
-		}else{
-			document.forms[0].submit();	
-		}
-	}
-</script>
-
 <%
-    NumberFormat numberFormat = NumberFormat.getInstance();
+	NumberFormat numberFormat = NumberFormat.getInstance();
 	numberFormat.setMaximumFractionDigits(Constantes.PRECISAO_VALOR);
 	numberFormat.setMinimumFractionDigits(Constantes.PRECISAO_VALOR);
 %>
 
 <form id="formEditar" method="post" action="/produtoControle?acao=modificar">
 	<app:barraEditar acao="/produtoControle"/>
+
+	<script>
+			$("#salvar").click(function () {
+				if(document.getElementById('nome').value.length==0){
+					alert('<%=bundle.getString("produto.mensagem.validar.nome")%>');
+					document.getElementById('nome').focus();
+				}else if(document.getElementById('numero').value.length==0){
+					alert('<%=bundle.getString("produto.mensagem.validar.numero")%>');
+					document.getElementById('numero').focus();
+				}else if(document.getElementById('preco').value.length==0){
+					alert('<%=bundle.getString("produto.mensagem.validar.preco")%>');
+					document.getElementById('preco').focus();
+				}else if(document.getElementById('estoque').value.length==0){
+					alert('<%=bundle.getString("produto.mensagem.validar.estoque")%>');
+					document.getElementById('estoque').focus();
+				}else{
+					document.forms[0].submit();	
+				}
+			});
+	</script>
+
 	<input type="hidden" name="id"
 		value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
 	<hr>

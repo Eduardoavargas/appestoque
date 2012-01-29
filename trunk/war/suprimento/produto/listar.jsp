@@ -7,23 +7,26 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
 <%@include file="../../modelo/inicio.jspf" %>
 
-<script>
-		$("#formListar").click(function() {
-			alert('executar buscas...');
-		});
-	</script>
-
-	<a id="buscar" href="#">teste</a>
-
-
 <span class="title"><%=bundle.getString("produto.pesquisar.titulo")%></span>
 
 	<form id="formListar" method="post" action="/produtoControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
 	
 		<app:parametrosListar/>
 		<app:barraListar acao="/produtoControle"/>
+		
+		<script>
+			$("#buscar").click(function () {
+		      if(document.getElementById('numero').value.length==0){
+		    	  alert('<%=bundle.getString("pesquisa.semFiltro")%>');
+		    	  document.getElementById('numero').focus();
+		      }else{
+		    	  document.forms[0].submit();		  
+		      }
+		    });
+	    </script>
+		
 		<span class="heading"><%=bundle.getString("produto.filtro.numero")%></span><br/>
-		<input type="text" name="numero" style="width: 300px" value="<%=request.getAttribute("numero")!=null?request.getAttribute("numero"):""%>"/>	
+		<input type="text" id="numero" name="numero" style="width: 300px" value="<%=request.getAttribute("numero")!=null?request.getAttribute("numero"):""%>"/>	
 	<%
 		List<Produto> objetos = new ArrayList<Produto>();
 		if(request.getAttribute("objetos")!=null){
@@ -49,8 +52,8 @@
 				<td align="right"><fmt:formatNumber value="<%=objeto.getPreco()%>" type="currency" pattern="<%=Constantes.MASCARA_PRECO%>"/></td>
 				<td align="right"><fmt:formatNumber value="<%=objeto.getEstoque()%>" type="currency" pattern="<%=Constantes.MASCARA_ESTOQUE%>"/></td>
 				<td align="center" >					
-					<a id="edt" href="/produtoControle?acao=editar&id=<%=objeto.getId()%>"><img src="img/editar.png" style="border: 0px;"/></a>
-					<a href="/produtoControle?acao=remover&id=<%=objeto.getId()%>"><img src="img/remover.png" style="border: 0px;"/></a>
+					<a id="edt" href="/produtoControle?acao=editar&id=<%=objeto.getId()%>"><img title="clique para editar" src="img/editar.png" style="border: 0px;"/></a>
+					<a href="/produtoControle?acao=remover&id=<%=objeto.getId()%>"><img title="clique para remover" src="img/remover.png" style="border: 0px;"/></a>
 					<%if(objeto.getImagem()!=null){%>
 						<img id="<%=objeto.getId()%>" src="img/imagem.png" style="border: 0px;"/>
 					<%}else{%>
