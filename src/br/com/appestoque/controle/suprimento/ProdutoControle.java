@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
-import br.com.appestoque.dao.cadastro.EmpresaDAO;
 import br.com.appestoque.dao.suprimento.ProdutoDAO;
 import br.com.appestoque.dominio.suprimento.Produto;
 
@@ -26,7 +25,6 @@ public class ProdutoControle extends BaseControle{
 	private String nome = null;
 	private Double preco = null;
 	private Double estoque = null;
-	private String imagem = null;
 	private Produto objeto = null;
 	private List<Produto> objetos = null; 
 
@@ -43,8 +41,10 @@ public class ProdutoControle extends BaseControle{
 		if(request.getParameter("acao").equals("iniciar")) {
 			primeiroRegistro = 0;
 			objetos = dao.pesquisar(numero,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
-			paginar(primeiroRegistro);
+			paginar(primeiroRegistro);			
 			request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
+			request.setAttribute("totalRegistros", objetos.size());
+			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
 			request.setAttribute("objetos",objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
@@ -102,8 +102,6 @@ public class ProdutoControle extends BaseControle{
 			numero = request.getParameter("numero");
 			preco = Double.parseDouble(request.getParameter("preco").replace(".", "").replace(",", "."));
 			estoque = Double.parseDouble(request.getParameter("estoque").replace(".", "").replace(",", "."));
-			imagem = request.getParameter("imagem");
-//			objeto = new Produto(nome,numero,preco,estoque,imagem,getId(request));
 			objeto = new Produto(nome,numero,preco,estoque,getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
