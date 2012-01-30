@@ -8,8 +8,18 @@
 	<form id="formListar" method="post" action="/usuarioControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
 		<app:parametrosListar/>
 		<app:barraListar acao="/usuarioControle"/>
+		<script>
+			$("#buscar").click(function () {
+		      if(document.getElementById('email').value.length==0){
+		    	  alert('<%=bundle.getString("pesquisa.semFiltro")%>');
+		    	  document.getElementById('email').focus();
+		      }else{
+		    	  document.forms[0].submit();		  
+		      }
+		    });
+	    </script>
 		<span class="heading"><%=bundle.getString("usuario.filtro.nome")%></span><br/>
-		<input type="text" name="email" style="width: 300px" value="<%=request.getAttribute("email")!=null?request.getAttribute("email"):""%>"/>	
+		<input type="text" id="email" name="email" style="width: 300px" value="<%=request.getAttribute("email")!=null?request.getAttribute("email"):""%>"/>	
 	<%
 		List<Usuario> objetos = new ArrayList<Usuario>();
 		if(request.getAttribute("objetos")!=null){
