@@ -54,9 +54,6 @@
 	<%=bundle.getString("produto.estoque")%>:<br />
 	<app:valor id="estoque" nome="estoque" tamanho="10" valor="<%=numberFormat.format(objeto.getEstoque())%>" precisao="<%=Constantes.PRECISAO_VALOR.toString()%>"/>
 	</p>
-	<%=bundle.getString("produto.imagem")%>:<br />
-	<app:texto nome="imagem" tamanho="50" valor="<%=objeto.getImagem()%>"/>
-	</p>
 	<hr>
 </form>
 <%@include file="../../modelo/fim.jspf"%>
