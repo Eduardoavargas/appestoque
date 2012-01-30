@@ -28,20 +28,16 @@ public class Produto {
 	@Persistent
 	private Long idEmpresa;
 	
-	@Persistent
-	private String imagem;
-	
 	public Produto(){
 		super();
 	}
 	
-	public Produto(String nome, String numero, Double preco, Double estoque, String imagem, Long idEmpresa) {
+	public Produto(String nome, String numero, Double preco, Double estoque, Long idEmpresa) {
 		super();
 		this.nome = nome;
 		this.numero = numero;
 		this.preco = preco;
 		this.estoque = estoque;
-		this.imagem = imagem;
 		this.idEmpresa = idEmpresa;
 	}
 
@@ -83,14 +79,6 @@ public class Produto {
 
 	public void setEstoque(Double estoque) {
 		this.preco = estoque;
-	}
-
-	public String getImagem() {
-		return imagem;
-	}
-
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
 	}
 
 	public Long getIdEmpresa() {

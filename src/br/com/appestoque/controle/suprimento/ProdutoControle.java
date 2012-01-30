@@ -103,7 +103,8 @@ public class ProdutoControle extends BaseControle{
 			preco = Double.parseDouble(request.getParameter("preco").replace(".", "").replace(",", "."));
 			estoque = Double.parseDouble(request.getParameter("estoque").replace(".", "").replace(",", "."));
 			imagem = request.getParameter("imagem");
-			objeto = new Produto(nome,numero,preco,estoque,imagem,getId(request));
+//			objeto = new Produto(nome,numero,preco,estoque,imagem,getId(request));
+			objeto = new Produto(nome,numero,preco,estoque,getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
