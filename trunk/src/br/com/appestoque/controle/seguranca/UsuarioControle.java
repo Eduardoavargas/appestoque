@@ -19,12 +19,30 @@ import br.com.appestoque.dominio.seguranca.Usuario;
 @SuppressWarnings("serial")
 public class UsuarioControle extends BaseControle {
 
+	private int primeiroRegistro = 0;
+	private String email = null;
+	private UsuarioDAO dao = null;	
+	private Usuario objeto = null;
+	private List<Usuario> objetos = null;
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UsuarioDAO dao = null;
+		process(request, response);
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		process(request, response);
+	}
+	
+	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 dao = null;
 		if(request.getParameter("acao").equals("iniciar")) {
-			request.setAttribute("primeiroRegistro",0);
-			request.setAttribute("totalRegistros",0);
+			primeiroRegistro = 0;
+			objetos = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+			paginar(primeiroRegistro);			
+			request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
+			request.setAttribute("totalRegistros", objetos.size());
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
+			request.setAttribute("objetos",objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_LISTAR);
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("pesquisar")) {
@@ -32,36 +50,36 @@ public class UsuarioControle extends BaseControle {
 			request.setAttribute("totalRegistros",request.getParameter("totalRegistros"));
 			request.setAttribute("registrosPorPagina",request.getParameter("registrosPorPagina"));
 			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));
-			String email = request.getParameter("email")==null||request.getParameter("email").equals("")?null:request.getParameter("email");
-			int primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
-			List<Usuario> usuarios = null;
+			email = request.getParameter("email")==null||request.getParameter("email").equals("")?null:request.getParameter("email");
+			primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
+			objetos = null;
 			if(request.getParameter("paginar")==null){
 				totalRegistros = dao.contar(email,getId(request));				
-				usuarios = dao.pesquisar(email,getId(request),primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(email,getId(request),primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
 				request.setAttribute("totalRegistros",totalRegistros);
 				request.setAttribute("primeiroRegistro",primeiroRegistro);
 			}else if(request.getParameter("paginar").equals("proximo")){
 				primeiroRegistro += Constantes.REGISTROS_POR_PAGINA;
-				usuarios = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("anterior")){
 				primeiroRegistro -= Constantes.REGISTROS_POR_PAGINA;
-				usuarios = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("ultimo")){
 				primeiroRegistro = totalRegistros - ((totalRegistros % Constantes.REGISTROS_POR_PAGINA != 0) ? totalRegistros % Constantes.REGISTROS_POR_PAGINA : Constantes.REGISTROS_POR_PAGINA);
-				usuarios = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("primeiro")){
 				primeiroRegistro = 0;
-				usuarios = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
-			request.setAttribute("objetos", usuarios);
+			request.setAttribute("objetos", objetos);
 			request.setAttribute("email", email);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_LISTAR);
 			dispatcher.forward(request, response);
@@ -71,8 +89,8 @@ public class UsuarioControle extends BaseControle {
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
 			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));			
-			Usuario usuario = dao.pesquisar(new Long(request.getParameter("id")));
-			request.setAttribute("objeto",usuario);
+			objeto = dao.pesquisar(new Long(request.getParameter("id")));
+			request.setAttribute("objeto",objeto);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
@@ -93,17 +111,13 @@ public class UsuarioControle extends BaseControle {
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));			
-			Usuario usuario = dao.pesquisar(new Long(request.getParameter("id")));
-			dao.remover(usuario);
-			List<Usuario> usuarios = dao.listar();
-			request.setAttribute("objetos", usuarios);
+			objeto = dao.pesquisar(new Long(request.getParameter("id")));
+			dao.remover(objeto);
+			objetos = dao.listar();
+			request.setAttribute("objetos", objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_USUARIO_LISTAR);
 			dispatcher.forward(request, response);
 		}
-	}
-	
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 	
 }
