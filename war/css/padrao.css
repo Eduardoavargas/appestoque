@@ -118,3 +118,14 @@ form a span.ui-icon{
 	color: #B2D65D;
 	text-decoration: none;
 }
+
+
+.tooltip {
+	background:transparent url(/img/seta_branca.png);
+	display:none;
+	font-size:12px;
+	height:70px;
+	width:160px;
+	padding:25px;
+	color:#000;	
+}
