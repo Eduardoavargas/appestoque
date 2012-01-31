@@ -15,14 +15,14 @@ public class ClienteDAO extends DAOGenerico<Cliente, Long>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Cliente> pesquisar(String numero, Long idEmpresa, long ini, long qtd){
+	public List<Cliente> pesquisar(String cnpj, Long idEmpresa, long ini, long qtd){
 		Query query = getPm().newQuery(Cliente.class);
 		query.setRange(ini, qtd);
 		List<Cliente> objetos = null;
-		if(numero!=null){
-			query.setFilter("numero == p_numero && idEmpresa == p_empresa ");
-			query.declareParameters("String p_numero , Long p_empresa");
-			objetos = (List<Cliente>) query.execute(numero,idEmpresa);
+		if(cnpj!=null){
+			query.setFilter("cnpj == p_cnpj && idEmpresa == p_empresa ");
+			query.declareParameters("String p_cnpj , Long p_empresa");
+			objetos = (List<Cliente>) query.execute(cnpj,idEmpresa);
 		}else {
 			query.setFilter("idEmpresa == p_empresa ");
 			query.declareParameters("String p_empresa");
@@ -32,13 +32,13 @@ public class ClienteDAO extends DAOGenerico<Cliente, Long>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public int contar(String numero, Long idEmpresa ){
+	public int contar(String cnpj, Long idEmpresa ){
 		Query query = getPm().newQuery(Cliente.class);
 		List<Cliente> objetos = null;
-		if(numero!=null){
-			query.setFilter("numero == p_numero && idEmpresa == p_empresa ");
-			query.declareParameters("String p_numero , Long p_empresa");
-			objetos = (List<Cliente>) query.execute(numero,idEmpresa);
+		if(cnpj!=null){
+			query.setFilter("cnpj == p_cnpj && idEmpresa == p_empresa ");
+			query.declareParameters("String p_cnpj , Long p_empresa");
+			objetos = (List<Cliente>) query.execute(cnpj,idEmpresa);
 		}else {
 			query.setFilter("idEmpresa == p_empresa ");
 			query.declareParameters("String p_empresa");
