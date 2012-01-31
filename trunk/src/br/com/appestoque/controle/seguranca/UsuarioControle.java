@@ -14,7 +14,6 @@ import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.seguranca.UsuarioDAO;
-import br.com.appestoque.dao.suprimento.ProdutoDAO;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
 @SuppressWarnings("serial")
