@@ -44,9 +44,13 @@ public class EmpresaControle extends BaseControle {
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
-			request.setAttribute("primeiroRegistro",0);
-			request.setAttribute("totalRegistros",0);
+			primeiroRegistro = 0;
+			objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+			paginar(primeiroRegistro);			
+			request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
+			request.setAttribute("totalRegistros", objetos.size());
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
+			request.setAttribute("objetos",objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_LISTAR);
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("pesquisar")) {
