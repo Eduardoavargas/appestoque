@@ -31,8 +31,7 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 		List<Usuario> usuarios = null;
 		if(email!=null){
 			query.setFilter("email == p_email && idEmpresa == p_empresa");
-			query.declareParameters("String p_email");
-			query.declareParameters("String p_empresa");
+			query.declareParameters("String p_email, Long p_empresa");
 			usuarios = (List<Usuario>) query.execute(email,idEmpresa);
 		}else {
 			query.setFilter("idEmpresa == p_empresa");
@@ -58,8 +57,7 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 		List<Usuario> usuarios = null;
 		if(email!=null){
 			query.setFilter("email == p_email && idEmpresa == p_empresa");
-			query.declareParameters("String p_email");
-			query.declareParameters("String p_empresa");
+			query.declareParameters("String p_email, Long p_empresa");
 			usuarios = (List<Usuario>) query.execute(email,idEmpresa);
 		}else {
 			query.setFilter("idEmpresa == p_empresa");
