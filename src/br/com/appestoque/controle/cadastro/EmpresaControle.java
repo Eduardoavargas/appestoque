@@ -20,8 +20,29 @@ import br.com.appestoque.dominio.cadastro.Endereco;
 @SuppressWarnings("serial")
 public class EmpresaControle extends BaseControle {
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-		EmpresaDAO dao = null;
+	private EmpresaDAO dao = null;
+	private String cnpj;
+	private int primeiroRegistro;
+	private List<Empresa> objetos = null;
+	
+	private String nome;
+	private String bairro;
+	private String cidade;
+	private String cep;
+	private Integer numero;
+	private Endereco endereco;
+	private Empresa objeto;
+	
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		process(request, response);
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		process(request, response);
+	}
+	
+	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
@@ -33,36 +54,36 @@ public class EmpresaControle extends BaseControle {
 			request.setAttribute("totalRegistros",request.getParameter("totalRegistros"));
 			request.setAttribute("registrosPorPagina",request.getParameter("registrosPorPagina"));
 			dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));
-			String cnpj = request.getParameter("cnpj")==null||request.getParameter("cnpj").equals("")?null:request.getParameter("cnpj");
-			int primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
-			List<Empresa> empresas = null;
+			cnpj = request.getParameter("cnpj")==null||request.getParameter("cnpj").equals("")?null:request.getParameter("cnpj");
+			primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
+			
 			if(request.getParameter("paginar")==null){
 				totalRegistros = dao.contar(cnpj);				
-				empresas = dao.pesquisar(cnpj,primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
 				request.setAttribute("totalRegistros",totalRegistros);
 				request.setAttribute("primeiroRegistro",primeiroRegistro);
 			}else if(request.getParameter("paginar").equals("proximo")){
 				primeiroRegistro += Constantes.REGISTROS_POR_PAGINA;
-				empresas = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("anterior")){
 				primeiroRegistro -= Constantes.REGISTROS_POR_PAGINA;
-				empresas = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("ultimo")){
 				primeiroRegistro = totalRegistros - ((totalRegistros % Constantes.REGISTROS_POR_PAGINA != 0) ? totalRegistros % Constantes.REGISTROS_POR_PAGINA : Constantes.REGISTROS_POR_PAGINA);
-				empresas = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("primeiro")){
 				primeiroRegistro = 0;
-				empresas = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
-			request.setAttribute("objetos",empresas);
+			request.setAttribute("objetos",objetos);
 			request.setAttribute("cnpj",cnpj);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_LISTAR);
 			dispatcher.forward(request, response);
@@ -78,14 +99,14 @@ public class EmpresaControle extends BaseControle {
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
 			dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));
-			String nome = request.getParameter("nome");
-			String cnpj = request.getParameter("cnpj");
-			String bairro = request.getParameter("bairro");
-			String cidade = request.getParameter("cidade");
-			String cep = request.getParameter("cep");
-			Integer numero = new Integer(request.getParameter("numero"));
-			Endereco endereco = new Endereco(cidade,bairro,numero,cep);
-			Empresa objeto = new Empresa(nome,cnpj,endereco);
+			nome = request.getParameter("nome");
+			cnpj = request.getParameter("cnpj");
+			bairro = request.getParameter("bairro");
+			cidade = request.getParameter("cidade");
+			cep = request.getParameter("cep");
+			numero = new Integer(request.getParameter("numero"));
+			endereco = new Endereco(cidade,bairro,numero,cep);
+			objeto = new Empresa(nome,cnpj,endereco);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
@@ -97,17 +118,13 @@ public class EmpresaControle extends BaseControle {
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));			
-			Empresa empresa = dao.pesquisar(new Long(request.getParameter("id")));
-			dao.remover(empresa);
-			List<Empresa> empresas = dao.listar();
-			request.setAttribute("objetos", empresas);
+			objeto = dao.pesquisar(new Long(request.getParameter("id")));
+			dao.remover(objeto);
+			objetos = dao.listar();
+			request.setAttribute("objetos", objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_LISTAR);
 			dispatcher.forward(request, response);
 		}
-	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }
