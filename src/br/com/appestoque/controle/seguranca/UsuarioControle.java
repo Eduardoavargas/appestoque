@@ -14,6 +14,7 @@ import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.seguranca.UsuarioDAO;
+import br.com.appestoque.dao.suprimento.ProdutoDAO;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
 @SuppressWarnings("serial")
@@ -34,7 +35,7 @@ public class UsuarioControle extends BaseControle {
 	}
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 dao = null;
+		dao = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
 			primeiroRegistro = 0;
 			objetos = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
