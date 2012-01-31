@@ -21,6 +21,8 @@
 
 <script type="text/javascript" src="/js/jquery.maskMoney.js" ></script>
 
+<script type="text/javascript" src="/js/jquery.tools.min.js"></script>
+
 
 <title><%=bundle.getString("app.titulo")%></title>
 </head>
