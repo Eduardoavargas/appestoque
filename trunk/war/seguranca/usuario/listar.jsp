@@ -45,8 +45,8 @@
 				<td><%=objeto.getSenha()%></td>
 				<td><%=objeto.getSerial()%></td>
 				<td align="center" >
-					<a href="/usuarioControle?acao=editar&id=<%=objeto.getId()%>"><img src="img/editar.png" style="border: 0px;"/></a>
-					<a href="/usuarioControle?acao=remover&id=<%=objeto.getId()%>"><img src="img/remover.png" style="border: 0px;"/></a>
+					<a href="/usuarioControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
+					<a href="/usuarioControle?acao=remover&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.remover")%>" src="img/remover.png" style="border: 0px;"/></a>
 				</td>
 			</tr>
 		<% } %>
