@@ -51,9 +51,9 @@
 				<td><%=objeto.getNumero()%></a></td>
 				<td align="right"><fmt:formatNumber value="<%=objeto.getPreco()%>" type="currency" pattern="<%=Constantes.MASCARA_PRECO%>"/></td>
 				<td align="right"><fmt:formatNumber value="<%=objeto.getEstoque()%>" type="currency" pattern="<%=Constantes.MASCARA_ESTOQUE%>"/></td>
-				<td align="center" >					
-					<a id="edt" href="/produtoControle?acao=editar&id=<%=objeto.getId()%>"><img title="clique para editar" src="img/editar.png" style="border: 0px;"/></a>
-					<a href="/produtoControle?acao=remover&id=<%=objeto.getId()%>"><img title="clique para remover" src="img/remover.png" style="border: 0px;"/></a>
+				<td align="center" >
+					<a id="edt" href="/produtoControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
+					<a href="/produtoControle?acao=remover&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.remover")%>" src="img/remover.png" style="border: 0px;"/></a>
 				</td>
 			</tr>
 		<% } %>
