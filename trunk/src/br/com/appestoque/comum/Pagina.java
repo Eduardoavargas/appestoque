@@ -14,6 +14,9 @@ public final class Pagina {
 	public static final String PAGINA_EMPRESA_LISTAR = "/cadastro/empresa/listar.jsp";
 	public static final String PAGINA_EMPRESA_EDITAR = "/cadastro/empresa/editar.jsp";
 	
+	public static final String PAGINA_CLIENTE_LISTAR = "/cadastro/cliente/listar.jsp";
+	public static final String PAGINA_CLIENTE_EDITAR = "/cadastro/cliente/editar.jsp";
+	
 	public static final String PAGINA_EMPRESA_CADASTRAR = "/publico/cadastro/empresa/cadastrar.jsp";
 	
 }
