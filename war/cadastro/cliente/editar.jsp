@@ -40,7 +40,8 @@
 	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>" />
 	</p>	
 	<%=bundle.getString("cliente.cnpj")%>:<br />
-	<app:texto id="cnpj" nome="cnpj" valor="<%=objeto.getCnpj()%>" />
+	<app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"/>
+<%-- 	<app:texto id="cnpj" nome="cnpj" valor="<%=objeto.getCnpj()%>" /> --%>
 	</p>
 	<%=bundle.getString("endereco.bairro")%>:<br />
 	<app:texto id="bairro" nome="bairro" tamanho="50" valor="<%=objeto.getEndereco().getBairro()%>" />
