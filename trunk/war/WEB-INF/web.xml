@@ -30,6 +30,10 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
+		<url-pattern>/clienteControle/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
 		<url-pattern>/rest/UsuarioRest/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
@@ -133,6 +137,14 @@
 	<servlet-mapping>
 		<servlet-name>EmpresaControle</servlet-name>
 		<url-pattern>/empresaControle</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ClienteControle</servlet-name>
+		<servlet-class>br.com.appestoque.controle.cadastro.ClienteControle</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ClienteControle</servlet-name>
+		<url-pattern>/clienteControle</url-pattern>
 	</servlet-mapping>
     
     <servlet>
