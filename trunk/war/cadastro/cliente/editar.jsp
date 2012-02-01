@@ -43,10 +43,10 @@
 	<app:texto id="cnpj" nome="cnpj" valor="<%=objeto.getCnpj()%>" />
 	</p>
 	<%=bundle.getString("endereco.bairro")%>:<br />
-	<app:texto id="bairro" nome="bairro" valor="<%=objeto.getEndereco().getBairro()%>" />
+	<app:texto id="bairro" nome="bairro" tamanho="50" valor="<%=objeto.getEndereco().getBairro()%>" />
 	</p>
 	<%=bundle.getString("endereco.cidade")%>:<br />
-	<app:texto id="cidade" nome="cidade" valor="<%=objeto.getEndereco().getCidade()%>" />
+	<app:texto id="cidade" nome="cidade" tamanho="50" valor="<%=objeto.getEndereco().getCidade()%>" />
 	</p>
 	<%=bundle.getString("endereco.cep")%>:<br />
 	<app:texto id="cep" nome="cep" valor="<%=objeto.getEndereco().getCep()%>" />
