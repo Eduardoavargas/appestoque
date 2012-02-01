@@ -20,7 +20,7 @@ public class Cliente {
 	private String cnpj;
 	
 	@Persistent
-	private Endereco endereco;
+	private Endereco endereco = new Endereco();
 	
 	@Persistent
 	private Long idEmpresa;
