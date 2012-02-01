@@ -1,18 +1,62 @@
-<%@ page import="br.com.appestoque.dominio.cadastro.Empresa" %>
+<%@ page import="br.com.appestoque.dominio.cadastro.Cliente"%>
+<%@ page import="java.text.NumberFormat"%>
+<%@ page import="br.com.appestoque.util.Constantes"%>
+<%@ page import="java.text.DecimalFormat"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
-<%@include file="../../modelo/inicio.jspf" %>
-	<%Empresa objeto = (Empresa)request.getAttribute("objeto");%>
-	<span class="title"><%=bundle.getString("empresa.editar.titulo")%></span>
-	<form id="formEditar" method="post" action="/empresaControle?acao=modificar">
-		<app:barraEditar acao="/empresaControle"/>
-		<input type="hidden" name="id" value="<%=objeto.getId()!=null?objeto.getId():""%>"/>
-		<hr><br/>
-			Nome:<br/><app:texto nome="nome" estilo="width:300px;" valor="<%=objeto.getNome()%>"/></p>
-			CNPJ:<br/><app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"></app:cnpj></p>
-			Bairro:<br/><app:texto nome="bairro" estilo="width:300px;" valor="<%=objeto.getEndereco().getBairro()%>"/></p>
-			Cidade:<br/><app:texto nome="cidade" estilo="width:300px;" valor="<%=objeto.getEndereco().getCidade()%>"/></p>
-			Cep:<br/><app:cep nome="cep" valor="<%=objeto.getEndereco().getCep()%>"/></p>
-			Número:<br/><input name="numero" style="width: 70px;" value="<%=objeto.getEndereco().getNumero()!=null?objeto.getEndereco().getNumero():""%>" class="text ui-widget-content ui-corner-all"/></p>
-		<hr>
-	</form>
-<%@include file="../../modelo/fim.jspf" %>
+<%@include file="../../modelo/inicio.jspf"%>
+<%
+	Cliente objeto = (Cliente) request.getAttribute("objeto");
+%>
+<span class="title"><%=bundle.getString("produto.editar.titulo")%></span>
+
+<form id="formEditar" method="post" action="/produtoControle?acao=modificar">
+	<app:barraEditar acao="/produtoControle"/>
+
+	<script>
+			$("#salvar").click(function () {
+				if(document.getElementById('nome').value.length==0){
+					alert('<%=bundle.getString("produto.mensagem.validar.nome")%>');
+					document.getElementById('nome').focus();
+				}else if(document.getElementById('bairro').value.length==0){
+					alert('<%=bundle.getString("endereco.mensagem.validar.bairro")%>');
+					document.getElementById('bairro').focus();
+				}else if(document.getElementById('cidade').value.length==0){
+					alert('<%=bundle.getString("endereco.mensagem.validar.cidade")%>');
+					document.getElementById('cidade').focus();
+				}else if(document.getElementById('numero').value.length==0){
+					alert('<%=bundle.getString("endereco.mensagem.validar.numero")%>');
+					document.getElementById('numero').focus();
+				}else if(document.getElementById('cep').value.length==0){
+					alert('<%=bundle.getString("endereco.mensagem.validar.cep")%>');
+					document.getElementById('cep').focus();
+				}else{
+					document.forms[0].submit();	
+				}
+			});
+	</script>
+
+	<input type="hidden" name="id"
+		value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
+	<hr>
+	<br /> <%=bundle.getString("cliente.nome")%>:<br />
+	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>" />
+	</p>	
+	<%=bundle.getString("cliente.cnpj")%>:<br />
+	<app:texto id="cnpj" nome="cnpj" valor="<%=objeto.getCnpj()%>" />
+	</p>
+	<%=bundle.getString("endereco.bairro")%>:<br />
+	<app:texto id="bairro" nome="bairro" valor="<%=objeto.getEndereco().getBairro()%>" />
+	</p>
+	<%=bundle.getString("endereco.cidade")%>:<br />
+	<app:texto id="cidade" nome="cidade" valor="<%=objeto.getEndereco().getCidade()%>" />
+	</p>
+	<%=bundle.getString("endereco.cep")%>:<br />
+	<app:texto id="cep" nome="cep" valor="<%=objeto.getEndereco().getCep()%>" />
+	</p>
+	<%=bundle.getString("endereco.numero")%>:<br />
+	<app:texto id="numero" nome="numero" valor="<%=objeto.getEndereco().getNumero()%>" />
+	</p>
+	<hr>
+</form>
+<%@include file="../../modelo/fim.jspf"%>
