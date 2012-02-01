@@ -22,11 +22,15 @@ public class Cliente {
 	@Persistent
 	private Endereco endereco;
 	
-	public Cliente(String nome, String cnpj, Endereco endereco) {
+	@Persistent
+	private Long idEmpresa;
+	
+	public Cliente(String nome, String cnpj, Endereco endereco, Long idEmpresa) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
 		this.endereco = endereco;
+		this.idEmpresa = idEmpresa;
 	}
 	
 	public Cliente() {
@@ -63,6 +67,14 @@ public class Cliente {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public Long getIdEmpresa() {
+		return idEmpresa;
+	}
+
+	public void setIdEmpresa(Long idEmpresa) {
+		this.idEmpresa = idEmpresa;
 	}
 	
 }
