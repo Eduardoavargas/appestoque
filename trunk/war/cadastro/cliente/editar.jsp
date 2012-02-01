@@ -8,10 +8,10 @@
 <%
 	Cliente objeto = (Cliente) request.getAttribute("objeto");
 %>
-<span class="title"><%=bundle.getString("produto.editar.titulo")%></span>
+<span class="title"><%=bundle.getString("cliente.editar.titulo")%></span>
 
-<form id="formEditar" method="post" action="/produtoControle?acao=modificar">
-	<app:barraEditar acao="/produtoControle"/>
+<form id="formEditar" method="post" action="/clienteControle?acao=modificar">
+	<app:barraEditar acao="/clienteControle"/>
 
 	<script>
 			$("#salvar").click(function () {
@@ -24,9 +24,6 @@
 				}else if(document.getElementById('cidade').value.length==0){
 					alert('<%=bundle.getString("endereco.mensagem.validar.cidade")%>');
 					document.getElementById('cidade').focus();
-				}else if(document.getElementById('numero').value.length==0){
-					alert('<%=bundle.getString("endereco.mensagem.validar.numero")%>');
-					document.getElementById('numero').focus();
 				}else if(document.getElementById('cep').value.length==0){
 					alert('<%=bundle.getString("endereco.mensagem.validar.cep")%>');
 					document.getElementById('cep').focus();
@@ -53,9 +50,6 @@
 	</p>
 	<%=bundle.getString("endereco.cep")%>:<br />
 	<app:texto id="cep" nome="cep" valor="<%=objeto.getEndereco().getCep()%>" />
-	</p>
-	<%=bundle.getString("endereco.numero")%>:<br />
-	<app:texto id="numero" nome="numero" valor="<%=objeto.getEndereco().getNumero()%>" />
 	</p>
 	<hr>
 </form>
