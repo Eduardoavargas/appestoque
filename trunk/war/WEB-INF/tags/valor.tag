@@ -8,9 +8,9 @@
 	style="${estilo}" value="${valor}"
 	class="text ui-widget-content ui-corner-all"></input>
 <script>
-	$("#${id}").maskMoney({
-		thousands : '.',
-		decimal : ',',
-		precision : ${precisao}
-	});
+		$("#${id}").maskMoney({
+			thousands : '.',
+			decimal : ',',
+			precision : ${precisao}
+		});
 </script>
