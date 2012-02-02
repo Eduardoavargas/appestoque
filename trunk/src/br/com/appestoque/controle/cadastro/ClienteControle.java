@@ -91,7 +91,10 @@ public class ClienteControle extends BaseControle{
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
-			request.setAttribute("objeto", new Cliente());
+			objeto = new Cliente();
+			Endereco endereco = new Endereco();			
+			objeto.setEndereco(endereco);
+			request.setAttribute("objeto", objeto);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
