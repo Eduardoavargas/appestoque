@@ -37,39 +37,22 @@
 		value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
 	<hr>
 	<br /> <%=bundle.getString("cliente.nome")%>:<br />
-	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>" />
+	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/>
 	</p>	
 	<%=bundle.getString("cliente.cnpj")%>:<br />
-	
 	<app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"/>
-	
-<%-- 	<app:texto id="cnpj" nome="cnpj" valor="<%=objeto.getCnpj()%>" /> --%>
-
-	<!--  
-	<input type="text" id="cpf"/><br/>
-	<input type="text" id="cep"/><br/>
-	<input type="text" id="data"/><br/>
-	<input type="text" id="telefone"/><br/>
-	
-	<script type="text/javascript">
-			$(document).ready(function(){
-				$("#telefone").mask("9999-9999");
-				$("#cpf").mask("999.999.999-99");
-				$("#cep").mask("99999-999");
-				$("#data").mask("99/99/9999");
-			});
-		</script>
-	-->	
-
 	</p>
 	<%=bundle.getString("endereco.bairro")%>:<br />
-	<app:texto id="bairro" nome="bairro" tamanho="50" valor="<%=objeto.getEndereco().getBairro()%>" />
+	<app:texto id="bairro" nome="bairro" tamanho="50" valor="<%=objeto.getEndereco().getBairro()%>"/>
 	</p>
 	<%=bundle.getString("endereco.cidade")%>:<br />
-	<app:texto id="cidade" nome="cidade" tamanho="50" valor="<%=objeto.getEndereco().getCidade()%>" />
+	<app:texto id="cidade" nome="cidade" tamanho="50" valor="<%=objeto.getEndereco().getCidade()%>"/>
 	</p>
 	<%=bundle.getString("endereco.cep")%>:<br />
-	<app:cep nome="cep" valor="<%=objeto.getEndereco().getCep()%>" />
+	<app:cep nome="cep" valor="<%=objeto.getEndereco().getCep()%>"/>
+	</p>
+	<%=bundle.getString("endereco.numero")%>:<br />
+	<app:texto id="numero" nome="numero" valor="<%=objeto.getEndereco().getNumero().toString()%>"/>
 	</p>
 	<hr>
 </form>
