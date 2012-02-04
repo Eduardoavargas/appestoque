@@ -14,6 +14,7 @@ import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
+import br.com.appestoque.dao.cadastro.EnderecoDAO;
 import br.com.appestoque.dominio.cadastro.Cliente;
 import br.com.appestoque.dominio.cadastro.Endereco;
 
@@ -21,6 +22,7 @@ import br.com.appestoque.dominio.cadastro.Endereco;
 public class ClienteControle extends BaseControle{
 
 	private ClienteDAO dao = null;
+	private EnderecoDAO enderecoDao = null;
 	private int primeiroRegistro;
 	private List<Cliente> objetos = null;
 	
@@ -94,7 +96,6 @@ public class ClienteControle extends BaseControle{
 		} else if(request.getParameter("acao").equals("criar")) {
 			objeto = new Cliente();
 			Endereco endereco = new Endereco();			
-			objeto.setEndereco(endereco);
 			request.setAttribute("objeto", objeto);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_EDITAR);
 			dispatcher.forward(request, response);
@@ -112,7 +113,8 @@ public class ClienteControle extends BaseControle{
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
 			endereco = new Endereco(cidade,bairro,numero,cep,complemento);
-			objeto = new Cliente(nome,cnpj,endereco,getId(request));
+			enderecoDao.criar(endereco);
+			objeto = new Cliente(nome,cnpj,endereco.getId(),getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
