@@ -25,21 +25,25 @@ public class Endereco implements Serializable{
 	private String bairro;
 	
 	@Persistent
-	private Integer numero;
+	private Integer numero = new Integer(0);
 	
 	@Persistent
 	private String cep;
+	
+	@Persistent
+	private String complemento;
 
 	public Endereco() {
 		super();
 	}
 
-	public Endereco(String cidade, String bairro, Integer numero, String cep) {
+	public Endereco(String cidade, String bairro, Integer numero, String cep, String complemento) {
 		super();
 		this.cidade = cidade;
 		this.bairro = bairro;
 		this.numero = numero;
 		this.cep = cep;
+		this.complemento = complemento;
 	}
 
 	public Key getId() {
@@ -80,6 +84,14 @@ public class Endereco implements Serializable{
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+	
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 	
 }
