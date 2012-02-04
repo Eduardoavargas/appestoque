@@ -23,13 +23,13 @@ public class Empresa implements Serializable{
 	private String cnpj;
 	
 	@Persistent
-	private Endereco endereco;
+	private Long idEndereco;
 	
-	public Empresa(String nome, String cnpj, Endereco endereco) {
+	public Empresa(String nome, String cnpj, Long idEndereco) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
-		this.endereco = endereco;
+		this.idEndereco = idEndereco;
 	}
 	
 	public Empresa() {
@@ -60,15 +60,12 @@ public class Empresa implements Serializable{
 		this.cnpj = cnpj;
 	}
 
-	public Endereco getEndereco() {
-		if(this.endereco==null){
-			this.endereco = new Endereco();
-		}
-		return endereco;
+	public Long getIdEndereco() {
+		return idEndereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setIdEndereco(Long idEndereco) {
+		this.idEndereco = idEndereco;
 	}
 	
 }

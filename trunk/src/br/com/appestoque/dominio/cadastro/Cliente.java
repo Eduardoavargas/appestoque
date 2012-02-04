@@ -20,16 +20,16 @@ public class Cliente {
 	private String cnpj;
 	
 	@Persistent
-	private Endereco endereco = new Endereco();
+	private Long idEndereco;
 	
 	@Persistent
 	private Long idEmpresa;
 	
-	public Cliente(String nome, String cnpj, Endereco endereco, Long idEmpresa) {
+	public Cliente(String nome, String cnpj, Long idEndereco, Long idEmpresa) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
-		this.endereco = endereco;
+		this.idEndereco = idEndereco;
 		this.idEmpresa = idEmpresa;
 	}
 	
@@ -61,12 +61,12 @@ public class Cliente {
 		this.cnpj = cnpj;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
+	public Long getIdEndereco() {
+		return idEndereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setIdEndereco(Long idEndereco) {
+		this.idEndereco = idEndereco;
 	}
 
 	public Long getIdEmpresa() {
