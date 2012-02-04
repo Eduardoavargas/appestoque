@@ -46,7 +46,10 @@
 	<app:texto id="bairro" nome="bairro" tamanho="50" valor="<%=objeto.getEndereco().getBairro()%>"/>
 	</p>
 	<%=bundle.getString("endereco.cidade")%>:<br />
-	<app:texto id="cidade" nome="cidade" tamanho="50" valor="<%=objeto.getEndereco().getCidade()%>"/>
+	<app:texto id="cidade" nome="cidade" tamanho="50" valor="<%=objeto.getEndereco().getCidade()%>"/>	
+	</p>
+	<%=bundle.getString("endereco.complemento")%>:<br />
+	<app:texto id="complemento" nome="complemento" tamanho="50" valor="<%=objeto.getEndereco().getComplemento()%>"/>
 	</p>
 	<%=bundle.getString("endereco.cep")%>:<br />
 	<app:cep nome="cep" valor="<%=objeto.getEndereco().getCep()%>"/>
