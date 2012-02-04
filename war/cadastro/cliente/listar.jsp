@@ -28,7 +28,7 @@
 		<table border="0" cellspacing="1" cellpadding="5" class="ui-widget" width="100%">
 		<tr class="ui-widget-header">
 			<td><%=bundle.getString("cliente.cnpj")%></td>
-			<td><%=bundle.getString("clinte.nome")%></td>
+			<td><%=bundle.getString("cliente.nome")%></td>
 			<td/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
@@ -37,8 +37,8 @@
 				<td><%=objeto.getCnpj()%></td>
 				<td><%=objeto.getNome()%></a></td>
 				<td align="center" >
-					<a id="edt" href="/produtoControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
-					<a href="/produtoControle?acao=remover&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.remover")%>" src="img/remover.png" style="border: 0px;"/></a>
+					<a id="edt" href="/clienteControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
+					<a href="/clienteControle?acao=remover&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.remover")%>" src="img/remover.png" style="border: 0px;"/></a>
 				</td>
 			</tr>
 		<% } %>
