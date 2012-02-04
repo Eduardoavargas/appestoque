@@ -19,7 +19,7 @@ public class CargaInicial extends HttpServlet{
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
 			/*empresa*/
-			Endereco endereco = new Endereco("Califórnia", "Mountain View", 1600, "94043");
+			Endereco endereco = new Endereco("Califórnia", "Mountain View", 1600, "94043", "");
 			Empresa empresa = new Empresa("Google Inc.", "", endereco);
 			pm.currentTransaction().begin();
 			pm.makePersistent(empresa);

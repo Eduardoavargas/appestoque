@@ -30,6 +30,7 @@ public class ClienteControle extends BaseControle{
 	private String cidade;
 	private String cep;
 	private Integer numero;
+	private String complemento;
 	private Endereco endereco;
 	private Cliente objeto;	
 	
@@ -109,7 +110,8 @@ public class ClienteControle extends BaseControle{
 			cidade = request.getParameter("cidade");
 			cep = request.getParameter("cep");
 			numero = new Integer(request.getParameter("numero"));
-			endereco = new Endereco(cidade,bairro,numero,cep);
+			complemento = request.getParameter("complemento");
+			endereco = new Endereco(cidade,bairro,numero,cep,complemento);
 			objeto = new Cliente(nome,cnpj,endereco,getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);

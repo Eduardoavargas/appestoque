@@ -21,7 +21,7 @@ public class EmpresaSinc extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
-		Endereco endereco = new Endereco("Vitória", "Jardim Camburi", 55, "29.090-640");
+		Endereco endereco = new Endereco("Vitória", "Jardim Camburi", 55, "29.090-640", "Bloco B2, Apto 605");
 		Empresa empresa = new Empresa("Appestoque", "", endereco);
 		pm.currentTransaction().begin();
 		pm.makePersistent(empresa);
