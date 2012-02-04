@@ -1,5 +1,4 @@
 <%@ page import="br.com.appestoque.dominio.cadastro.Cliente"%>
-<%@ page import="java.text.NumberFormat"%>
 <%@ page import="br.com.appestoque.util.Constantes"%>
 <%@ page import="java.text.DecimalFormat"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -36,7 +35,8 @@
 	<input type="hidden" name="id"
 		value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
 	<hr>
-	<br /> <%=bundle.getString("cliente.nome")%>:<br />
+	
+	<%=bundle.getString("cliente.nome")%>:<br />
 	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/>
 	</p>	
 	<%=bundle.getString("cliente.cnpj")%>:<br />
@@ -52,8 +52,9 @@
 	<app:cep nome="cep" valor="<%=objeto.getEndereco().getCep()%>"/>
 	</p>
 	<%=bundle.getString("endereco.numero")%>:<br />
-	<app:texto id="numero" nome="numero" valor="<%=objeto.getEndereco().getNumero().toString()%>"/>
+	<app:numero id="numero" nome="numero" valor="<%=objeto.getEndereco().getNumero().toString()%>"/>
 	</p>
+	
 	<hr>
 </form>
 <%@include file="../../modelo/fim.jspf"%>
