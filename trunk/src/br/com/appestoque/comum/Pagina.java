@@ -20,6 +20,9 @@ public final class Pagina {
 	public static final String PAGINA_CIDADE_LISTAR = "/cadastro/cidade/listar.jsp";
 	public static final String PAGINA_CIDADE_EDITAR = "/cadastro/cidade/editar.jsp";
 	
+	public static final String PAGINA_BAIRRO_LISTAR = "/cadastro/bairro/listar.jsp";
+	public static final String PAGINA_BAIRRO_EDITAR = "/cadastro/bairro/editar.jsp";
+	
 	public static final String PAGINA_EMPRESA_CADASTRAR = "/publico/cadastro/empresa/cadastrar.jsp";
 	
 }

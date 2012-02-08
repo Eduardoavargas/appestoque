@@ -16,6 +16,7 @@ import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.cadastro.BairroDAO;
 import br.com.appestoque.dominio.cadastro.Bairro;
 
+@SuppressWarnings("serial")
 public class BairroControle extends BaseControle {
 
 	private BairroDAO dao = null;
@@ -42,7 +43,7 @@ public class BairroControle extends BaseControle {
 			request.setAttribute("totalRegistros", objetos.size());
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
 			request.setAttribute("objetos",objetos);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_LISTAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_LISTAR);
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("pesquisar")) {
 			request.setAttribute("primeiroRegistro",request.getParameter("primeiroRegistro"));
@@ -78,17 +79,17 @@ public class BairroControle extends BaseControle {
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
 			request.setAttribute("objetos",objetos);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_LISTAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
 			objeto = new Bairro();
 			request.setAttribute("objeto", objeto);			
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_EDITAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			request.setAttribute("objeto",objeto);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_EDITAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
 			nome = request.getParameter("nome");
@@ -100,14 +101,14 @@ public class BairroControle extends BaseControle {
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_LISTAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			dao.remover(objeto);
 			objetos = dao.listar();
 			request.setAttribute("objetos", objetos);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_LISTAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_LISTAR);
 			dispatcher.forward(request, response);
 		}
 	}
