@@ -42,7 +42,7 @@
 			<td><%=bundle.getString("produto.numero")%></td>
 			<td align="right"><%=bundle.getString("produto.preco")%></td>
 			<td align="right"><%=bundle.getString("produto.estoque")%></td>
-			<td/>
+			<td width="15%"/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
 			<% Produto objeto = (Produto) objetos.get(i); %>
