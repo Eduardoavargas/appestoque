@@ -34,7 +34,7 @@
 		<table border="0" cellspacing="1" cellpadding="5" class="ui-widget" width="100%">
 		<tr class="ui-widget-header">
 			<td><%=bundle.getString("cidade.nome")%></td>
-			<td/>
+			<td width="15%"/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
 			<% Cidade objeto = (Cidade) objetos.get(i); %>
