@@ -20,7 +20,7 @@ public class CargaInicial extends HttpServlet{
 		try {
 			/*empresa*/
 			Endereco endereco = new Endereco("Califórnia", "Mountain View", 1600, "94043", "");
-			Empresa empresa = new Empresa("Google Inc.", "", endereco);
+			Empresa empresa = new Empresa("Google Inc.", "", null);
 			pm.currentTransaction().begin();
 			pm.makePersistent(empresa);
 			pm.currentTransaction().commit();
