@@ -2,6 +2,7 @@ package br.com.appestoque.dominio.cadastro;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -21,6 +22,9 @@ public class Bairro {
 	
 	@Persistent
 	private Long idEmpresa;
+	
+	@NotPersistent
+	private Cidade cidade;
 
 	public Bairro() {
 		super();
@@ -63,6 +67,14 @@ public class Bairro {
 
 	public void setIdEmpresa(Long idEmpresa) {
 		this.idEmpresa = idEmpresa;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
 	}
 
 }

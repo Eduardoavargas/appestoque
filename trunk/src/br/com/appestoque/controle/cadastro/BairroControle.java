@@ -14,15 +14,18 @@ import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.cadastro.BairroDAO;
+import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dominio.cadastro.Bairro;
 
 @SuppressWarnings("serial")
 public class BairroControle extends BaseControle {
 
 	private BairroDAO dao = null;
+	private CidadeDAO cidadeDAO = null;
 	private int primeiroRegistro;
 	private List<Bairro> objetos = null;
 	private String nome;
+	private Long idCidade;
 	private Bairro objeto;	
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -82,6 +85,10 @@ public class BairroControle extends BaseControle {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
+			
+			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
+			request.setAttribute("cidades", cidadeDAO.listar());
+			
 			objeto = new Bairro();
 			request.setAttribute("objeto", objeto);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_EDITAR);
@@ -89,11 +96,13 @@ public class BairroControle extends BaseControle {
 		} else if(request.getParameter("acao").equals("editar")) {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			request.setAttribute("objeto",objeto);
+			request.setAttribute("idCidade",objeto.getIdCidade());
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
+			idCidade = new Long(request.getParameter("idCidade"));
 			nome = request.getParameter("nome");
-			objeto = new Bairro(nome,null,getId(request));
+			objeto = new Bairro(nome,idCidade,getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());

@@ -27,7 +27,13 @@ public class BairroDAO extends DAOGenerico<Bairro, Long>{
 			query.setFilter("idEmpresa == p_empresa ");
 			query.declareParameters("String p_empresa");
 			objetos = (List<Bairro>) query.execute(idEmpresa);
-		}	
+		}
+		
+		CidadeDAO cidadeDAO = new CidadeDAO(this.getPm());		
+		for (int i = 0; i < objetos.size(); i++) {
+			objetos.get(i).setCidade(cidadeDAO.pesquisar(objetos.get(i).getIdCidade()));
+		}
+		
 		return objetos;
 	}
 	
