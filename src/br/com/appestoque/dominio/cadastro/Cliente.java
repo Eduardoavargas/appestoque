@@ -20,16 +20,27 @@ public class Cliente {
 	private String cnpj;
 	
 	@Persistent
-	private Long idEndereco;
+	private String cidade;
+	
+	@Persistent
+	private String bairro;
+	
+	@Persistent
+	private Integer numero = new Integer(0);
+	
+	@Persistent
+	private String cep;
+	
+	@Persistent
+	private String complemento;
 	
 	@Persistent
 	private Long idEmpresa;
-	
-	public Cliente(String nome, String cnpj, Long idEndereco, Long idEmpresa) {
+		   
+	public Cliente(String nome, String cnpj, String cidade,	String bairro, Integer numero, String cep, String complemento, Long idEmpresa){
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
-		this.idEndereco = idEndereco;
 		this.idEmpresa = idEmpresa;
 	}
 	
@@ -61,20 +72,52 @@ public class Cliente {
 		this.cnpj = cnpj;
 	}
 
-	public Long getIdEndereco() {
-		return idEndereco;
-	}
-
-	public void setIdEndereco(Long idEndereco) {
-		this.idEndereco = idEndereco;
-	}
-
 	public Long getIdEmpresa() {
 		return idEmpresa;
 	}
 
 	public void setIdEmpresa(Long idEmpresa) {
 		this.idEmpresa = idEmpresa;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 	
 }

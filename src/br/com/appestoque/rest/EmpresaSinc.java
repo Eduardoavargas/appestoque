@@ -22,7 +22,7 @@ public class EmpresaSinc extends HttpServlet{
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
 		Endereco endereco = new Endereco("Vitória", "Jardim Camburi", 55, "29.090-640", "Bloco B2, Apto 605");
-		Empresa empresa = new Empresa("Appestoque", "", endereco);
+		Empresa empresa = new Empresa("Appestoque", "", null);
 		pm.currentTransaction().begin();
 		pm.makePersistent(empresa);
 		pm.currentTransaction().commit();

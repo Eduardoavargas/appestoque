@@ -14,7 +14,6 @@ import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
-import br.com.appestoque.dao.cadastro.EnderecoDAO;
 import br.com.appestoque.dominio.cadastro.Cliente;
 import br.com.appestoque.dominio.cadastro.Endereco;
 
@@ -22,7 +21,6 @@ import br.com.appestoque.dominio.cadastro.Endereco;
 public class ClienteControle extends BaseControle{
 
 	private ClienteDAO dao = null;
-	private EnderecoDAO enderecoDao = null;
 	private int primeiroRegistro;
 	private List<Cliente> objetos = null;
 	
@@ -33,7 +31,6 @@ public class ClienteControle extends BaseControle{
 	private String cep;
 	private Integer numero;
 	private String complemento;
-	private Endereco endereco;
 	private Cliente objeto;	
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -112,9 +109,7 @@ public class ClienteControle extends BaseControle{
 			cep = request.getParameter("cep");
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
-			endereco = new Endereco(cidade,bairro,numero,cep,complemento);
-			enderecoDao.criar(endereco);
-			objeto = new Cliente(nome,cnpj,endereco.getId(),getId(request));
+			objeto = new Cliente(nome,cnpj, cidade,	bairro, numero, cep, complemento, getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
