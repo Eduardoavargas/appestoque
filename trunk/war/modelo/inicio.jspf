@@ -44,6 +44,8 @@
 	<ul id="sddm">
 		<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Cadastro</a>
 			<div id="m1" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
+				<a href="/bairroControle?acao=iniciar">Bairro</a>
+				<a href="/cidadeControle?acao=iniciar">Cidade</a>
 				<a href="/clienteControle?acao=iniciar">Cliente</a>
 			</div>
 		</li>
