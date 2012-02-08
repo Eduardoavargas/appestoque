@@ -94,6 +94,10 @@ public class BairroControle extends BaseControle {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
+			
+			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
+			request.setAttribute("cidades", cidadeDAO.listar());
+			
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			request.setAttribute("objeto",objeto);
 			request.setAttribute("idCidade",objeto.getIdCidade());
