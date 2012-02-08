@@ -35,7 +35,7 @@
 			<td><%=bundle.getString("usuario.email")%></td>
 			<td><%=bundle.getString("usuario.senha")%></td>
 			<td><%=bundle.getString("usuario.serial")%></td>
-			<td/>
+			<td width="15%"/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
 			<% Usuario objeto = (Usuario) objetos.get(i); %>
