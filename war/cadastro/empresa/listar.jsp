@@ -23,7 +23,7 @@
 			<td>Nome</td>
 			<td>Bairro</td>
 			<td>Cidade</td>
-			<td/>
+			<td width="15%"/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
 			<% Empresa objeto = (Empresa) objetos.get(i); %>
