@@ -14,6 +14,12 @@
 		<app:parametrosListar/>
 		<app:barraListar acao="/clienteControle"/>
 		
+		<script>
+			$("#buscar").click(function () {
+		    	  document.forms[0].submit();		  
+		    });
+	    </script>
+		
 		<span class="heading"><%=bundle.getString("cliente.filtro.numero")%></span><br/>
 		<input type="text" id="cnpj" name="cnpj" style="width: 300px" value="<%=request.getAttribute("cnpj")!=null?request.getAttribute("cnpj"):""%>"/>	
 	<%
