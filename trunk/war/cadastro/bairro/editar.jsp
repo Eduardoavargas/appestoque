@@ -29,9 +29,9 @@
 	<%=bundle.getString("bairro.nome")%>:<br/>
 	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/></p>
 	<%=bundle.getString("bairro.cidade")%>:<br/>
-	<select name="idCidade" id="idCidade" class="text ui-widget-content ui-corner-all" style="cursor:pointer;">
+	<select name="idCidade" id="idCidade"  class="text ui-widget-content ui-corner-all" style="cursor:pointer;">
 		<c:forEach var="cidade" items="${cidades}" varStatus="id">
-			<option value="${cidade.id}">${cidade.nome}</option>
+			<option value="${cidade.id}" <c:if test="${cidade.id == idCidade}">selected</c:if> >${cidade.nome}</option>
 		</c:forEach>
 	</select></p>
 	<hr>
