@@ -15,7 +15,6 @@ import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
 import br.com.appestoque.dominio.cadastro.Cliente;
-import br.com.appestoque.dominio.cadastro.Endereco;
 
 @SuppressWarnings("serial")
 public class ClienteControle extends BaseControle{
@@ -26,8 +25,7 @@ public class ClienteControle extends BaseControle{
 	
 	private String cnpj;
 	private String nome;
-	private String bairro;
-	private String cidade;
+	private Long idBairro;
 	private String cep;
 	private Integer numero;
 	private String complemento;
@@ -92,7 +90,6 @@ public class ClienteControle extends BaseControle{
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
 			objeto = new Cliente();
-			Endereco endereco = new Endereco();			
 			request.setAttribute("objeto", objeto);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_EDITAR);
 			dispatcher.forward(request, response);
@@ -104,12 +101,11 @@ public class ClienteControle extends BaseControle{
 		} else if(request.getParameter("acao").equals("modificar")) {
 			nome = request.getParameter("nome");
 			cnpj = request.getParameter("cnpj");
-			bairro = request.getParameter("bairro");
-			cidade = request.getParameter("cidade");
+			idBairro = new Long(request.getParameter("idBairro"));
 			cep = request.getParameter("cep");
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
-			objeto = new Cliente(nome,cnpj, cidade,	bairro, numero, cep, complemento, getId(request));
+			objeto = new Cliente(nome,cnpj, numero, cep, complemento, idBairro, getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
