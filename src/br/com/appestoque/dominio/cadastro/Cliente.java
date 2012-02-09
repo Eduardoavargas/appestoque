@@ -19,12 +19,6 @@ public class Cliente {
 	private String cnpj;
 	
 	@Persistent
-	private String cidade;
-	
-	@Persistent
-	private String bairro;
-	
-	@Persistent
 	private Integer numero = new Integer(0);
 	
 	@Persistent
@@ -34,15 +28,23 @@ public class Cliente {
 	private String complemento;
 	
 	@Persistent
+	private Long idBairro;
+	
+	@Persistent
 	private Long idEmpresa;
-		   
-	public Cliente(String nome, String cnpj, String cidade,	String bairro, Integer numero, String cep, String complemento, Long idEmpresa){
+
+	public Cliente(String nome, String cnpj, Integer numero, String cep,
+			String complemento, Long idBairro, Long idEmpresa) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
+		this.numero = numero;
+		this.cep = cep;
+		this.complemento = complemento;
+		this.idBairro = idBairro;
 		this.idEmpresa = idEmpresa;
 	}
-	
+
 	public Cliente() {
 		super();
 	}
@@ -71,30 +73,6 @@ public class Cliente {
 		this.cnpj = cnpj;
 	}
 
-	public Long getIdEmpresa() {
-		return idEmpresa;
-	}
-
-	public void setIdEmpresa(Long idEmpresa) {
-		this.idEmpresa = idEmpresa;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
 	public Integer getNumero() {
 		return numero;
 	}
@@ -117,6 +95,22 @@ public class Cliente {
 
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
+	}
+
+	public Long getIdBairro() {
+		return idBairro;
+	}
+
+	public void setIdBairro(Long idBairro) {
+		this.idBairro = idBairro;
+	}
+
+	public Long getIdEmpresa() {
+		return idEmpresa;
+	}
+
+	public void setIdEmpresa(Long idEmpresa) {
+		this.idEmpresa = idEmpresa;
 	}
 	
 }
