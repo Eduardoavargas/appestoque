@@ -127,6 +127,7 @@ public class BairroControle extends BaseControle {
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("ajax")) {
 			objetos = dao.pesquisar(new Long(request.getParameter("id")),getId(request));
+			response.setContentType("text/plain;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<select name='idBairro' id='idBairro' class='text ui-widget-content ui-corner-all' style='cursor: pointer;'>");
 			for (int i = 0; i < objetos.size(); i++) {
@@ -135,6 +136,7 @@ public class BairroControle extends BaseControle {
 			out.println("</select>");
 		    out.flush();
 		    out.close();
+		    
 		}
 		
 	}
