@@ -55,11 +55,11 @@
 			        }else if(ajax.readyState == 4 && ajax.status == 200){
 			            // Quando estiver completado o Carregamento e o status completo
 			            // Procura pela DIV com o id="div" e insere as  informações
-			            document.getElementById('teste').value = ajax.responseText;
+			            document.getElementById('bairros').innerHTML = ajax.responseText;
 			        }
 			    };
 			    
-				alert('URL: ' + url );
+				//alert('URL: ' + url );
 				
 				ajax.open("GET",url,true);
 			    ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1")
@@ -88,21 +88,21 @@
 	<%=bundle.getString("numero")%>:<br />
 	<app:numero id="numero" nome="numero" valor="<%=objeto.getNumero().toString()%>"/>
 	</p>
-	<%=bundle.getString("bairro.cidade")%>:<br/>
-	<select name="idCidade" id="idCidade"  class="text ui-widget-content ui-corner-all" style="cursor:pointer;" onchange="ajax('/cidadeControle?acao=ajax&id='+this.value)">
+	<%=bundle.getString("cidade")%>:<br/>
+	<select name="idCidade" id="idCidade"  class="text ui-widget-content ui-corner-all" style="cursor:pointer;" onchange="ajax('/bairroControle?acao=ajax&id='+this.value)">
 		<c:forEach var="cidade" items="${cidades}" varStatus="id">
 			<option value="${cidade.id}" <c:if test="${cidade.id == idCidade}">selected</c:if> >${cidade.nome}</option>
 		</c:forEach>
 	</select>
 	</p>
-	<%=bundle.getString("bairro.cidade")%>:<br/>
-	<select name="idBairro" id="idBairro"  class="text ui-widget-content ui-corner-all" style="cursor:pointer;">
-		<div id="bairros">
+	<%=bundle.getString("bairro")%>:<br/>
+	<div id="bairros">
+		<select name="idBairro" id="idBairro" class="text ui-widget-content ui-corner-all" style="cursor: pointer;">
 			<c:forEach var="bairro" items="${bairros}" varStatus="id">
-				<option value="${bairro.id}" <c:if test="${bairro.id == idBairro}">selected</c:if> >${bairro.nome}</option>
+				<option value="${bairro.id}" <c:if test="${bairro.id == idBairro}">selected</c:if>>${bairro.nome}</option>
 			</c:forEach>
-		</div>
-	</select>
+		</select>
+	</div>
 	</p>
 	
 	<hr>
