@@ -1,6 +1,7 @@
 package br.com.appestoque.controle.cadastro;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -10,15 +11,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.appestoque.TipoBusca;
 import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
+import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
 import br.com.appestoque.dominio.cadastro.Cliente;
 
 @SuppressWarnings("serial")
 public class ClienteControle extends BaseControle{
 
+	private CidadeDAO cidadeDAO = null;
 	private ClienteDAO dao = null;
 	private int primeiroRegistro;
 	private List<Cliente> objetos = null;
@@ -43,7 +47,7 @@ public class ClienteControle extends BaseControle{
 		dao = new ClienteDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
 			primeiroRegistro = 0;
-			objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+			objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 			paginar(primeiroRegistro);			
 			request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			request.setAttribute("totalRegistros", objetos.size());
@@ -60,27 +64,27 @@ public class ClienteControle extends BaseControle{
 			objetos = null;
 			if(request.getParameter("paginar")==null){
 				totalRegistros = dao.contar(cnpj,getId(request));				
-				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 				request.setAttribute("totalRegistros",totalRegistros);
 				request.setAttribute("primeiroRegistro",primeiroRegistro);
 			}else if(request.getParameter("paginar").equals("proximo")){
 				primeiroRegistro += Constantes.REGISTROS_POR_PAGINA;
-				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("anterior")){
 				primeiroRegistro -= Constantes.REGISTROS_POR_PAGINA;
-				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("ultimo")){
 				primeiroRegistro = totalRegistros - ((totalRegistros % Constantes.REGISTROS_POR_PAGINA != 0) ? totalRegistros % Constantes.REGISTROS_POR_PAGINA : Constantes.REGISTROS_POR_PAGINA);
-				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("primeiro")){
 				primeiroRegistro = 0;
-				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
@@ -89,12 +93,27 @@ public class ClienteControle extends BaseControle{
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
+			
+			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
+			request.setAttribute("cidades", cidadeDAO.listar());
+			
+			request.setAttribute("bairros", null);
+			
 			objeto = new Cliente();
 			request.setAttribute("objeto", objeto);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
+			
+			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
+			request.setAttribute("cidades", cidadeDAO.listar());
+			
+			request.setAttribute("bairros", null);
+			
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
+			
+			request.setAttribute("idCidade",objeto.getIdBairro()!=null?objeto.getBairro().getIdCidade():null);
+			request.setAttribute("idBairro",objeto.getIdBairro());
 			request.setAttribute("objeto",objeto);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_EDITAR);
 			dispatcher.forward(request, response);
@@ -122,7 +141,8 @@ public class ClienteControle extends BaseControle{
 			request.setAttribute("objetos", objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_LISTAR);
 			dispatcher.forward(request, response);
-		}
+		} 
+		
 	}
 	
 }

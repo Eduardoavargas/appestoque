@@ -1,6 +1,7 @@
 package br.com.appestoque.dominio.cadastro;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -32,6 +33,9 @@ public class Cliente {
 	
 	@Persistent
 	private Long idEmpresa;
+	
+	@NotPersistent
+	private Bairro bairro;
 
 	public Cliente(String nome, String cnpj, Integer numero, String cep,
 			String complemento, Long idBairro, Long idEmpresa) {
@@ -111,6 +115,14 @@ public class Cliente {
 
 	public void setIdEmpresa(Long idEmpresa) {
 		this.idEmpresa = idEmpresa;
+	}
+
+	public Bairro getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
 	}
 	
 }
