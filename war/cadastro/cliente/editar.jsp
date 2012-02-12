@@ -32,39 +32,24 @@
 			});
 			
 			function ajax(url){
-				
 				var ajax;
-			    // Procura o componente nativo do Mozilla/Safari para rodar o AJAX
 			    if(window.XMLHttpRequest){
-			        // Inicializa o Componente XMLHTTP do Mozilla
 			        ajax = new XMLHttpRequest();
-			    // Caso ele não encontre, procura por uma versão ActiveX do IE
 			    }else if(window.ActiveXObject){
-			        // Inicializa o Componente ActiveX para o AJAX
 			        ajax = new ActiveXObject("Microsoft.XMLHTTP");
 			    }else{
-			        // Caso não consiga inicializar nenhum dos componentes, exibe um erro
 			        alert("Seu navegador não tem suporte a AJAX.");
 			    }
-				
-			 // Carrega a função de execução do AJAX
 			    ajax.onreadystatechange = function() {
 			        if(ajax.readyState == 1){
-			            // Quando estiver "Carregando a página", exibe a mensagem
-			            //document.getElementById(div).innerHTML = "<img src='ajax-loader.gif' alt='AJAX' />";
+			        	document.getElementById('bairros').innerHTML = "<img src='ajax-loader.gif' alt='AJAX' />";	
 			        }else if(ajax.readyState == 4 && ajax.status == 200){
-			            // Quando estiver completado o Carregamento e o status completo
-			            // Procura pela DIV com o id="div" e insere as  informações
 			            document.getElementById('bairros').innerHTML = ajax.responseText;
 			        }
 			    };
-			    
-				//alert('URL: ' + url );
-				
 				ajax.open("GET",url,true);
-			    ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1")
+			    ajax.setRequestHeader("Content-Type", "text/plain;charset=UTF-8"); 
 			    ajax.send(null);
-				
 			}
 			
 	</script>
@@ -78,6 +63,9 @@
 	</p>	
 	<%=bundle.getString("cliente.cnpj")%>:<br />
 	<app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"/>
+	</p>
+	<%=bundle.getString("endereco")%>:<br />
+	<app:texto id="endereco" nome="endereco" tamanho="50" valor="<%=objeto.getEndereco()%>"/>
 	</p>
 	<%=bundle.getString("complemento")%>:<br />
 	<app:texto id="complemento" nome="complemento" tamanho="50" valor="<%=objeto.getComplemento()%>"/>
