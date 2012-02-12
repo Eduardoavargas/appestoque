@@ -33,6 +33,7 @@ public class ClienteControle extends BaseControle{
 	private String cep;
 	private Integer numero;
 	private String complemento;
+	private String endereco;
 	private Cliente objeto;	
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -124,7 +125,8 @@ public class ClienteControle extends BaseControle{
 			cep = request.getParameter("cep");
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
-			objeto = new Cliente(nome,cnpj, numero, cep, complemento, idBairro, getId(request));
+			endereco = request.getParameter("endereco");
+			objeto = new Cliente(nome,cnpj, numero, cep, complemento, idBairro, getId(request),endereco);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());

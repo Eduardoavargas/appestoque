@@ -20,6 +20,9 @@ public class Cliente {
 	private String cnpj;
 	
 	@Persistent
+	private String endereco;
+	
+	@Persistent
 	private Integer numero = new Integer(0);
 	
 	@Persistent
@@ -38,7 +41,7 @@ public class Cliente {
 	private Bairro bairro;
 
 	public Cliente(String nome, String cnpj, Integer numero, String cep,
-			String complemento, Long idBairro, Long idEmpresa) {
+			String complemento, Long idBairro, Long idEmpresa, String endereco) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
@@ -123,6 +126,14 @@ public class Cliente {
 
 	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 	
 }
