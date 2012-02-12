@@ -1,6 +1,7 @@
 package br.com.appestoque.controle.cadastro;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -111,6 +112,7 @@ public class CidadeControle extends BaseControle{
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_LISTAR);
 			dispatcher.forward(request, response);
 		}
+		
 	}
 	
 }

@@ -1,21 +1,44 @@
 package br.com.appestoque.dao.cadastro;
 
 import java.util.List;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-
+import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dominio.cadastro.Bairro;
 
+@SuppressWarnings("unchecked")
 public class BairroDAO extends DAOGenerico<Bairro, Long>{
 
 	public BairroDAO(PersistenceManager pm) {
 		this.setPm(pm);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Bairro> pesquisar(String nome, Long idEmpresa, long ini, long qtd){
+	public Bairro pesquisar(Long id, TipoBusca tipoBusca){
+		Bairro objeto = null;
+		Query query = getPm().newQuery(Bairro.class);
+		query.setFilter("id == p_id");
+		query.declareParameters("Long p_id");
+		objeto = (Bairro) query.execute(id);
+		if(tipoBusca.equals(TipoBusca.ANSIOSA)){
+			CidadeDAO cidadeDAO = new CidadeDAO(getPm());
+			if(objeto.getIdCidade()!=null){
+				objeto.setCidade(cidadeDAO.pesquisar(objeto.getIdCidade()));
+			}
+		}
+		return objeto;
+	}
+	
+	public List<Bairro> pesquisar(Long idCidade, Long idEmpresa){
+		List<Bairro> objetos;
+		Query query = getPm().newQuery(Bairro.class);
+		query.setFilter("idCidade == p_cidade && idEmpresa == p_empresa ");
+		query.declareParameters("Long p_cidade, Long p_empresa");
+		objetos = (List<Bairro>) query.execute(idCidade,idEmpresa);
+		return objetos;
+	}
+	
+	public List<Bairro> pesquisar(String nome, Long idEmpresa, long ini, long qtd, TipoBusca tipoBusca){
 		Query query = getPm().newQuery(Bairro.class);
 		query.setRange(ini, qtd);
 		List<Bairro> objetos = null;
@@ -29,15 +52,16 @@ public class BairroDAO extends DAOGenerico<Bairro, Long>{
 			objetos = (List<Bairro>) query.execute(idEmpresa);
 		}
 		
-		CidadeDAO cidadeDAO = new CidadeDAO(this.getPm());		
-		for (int i = 0; i < objetos.size(); i++) {
-			objetos.get(i).setCidade(cidadeDAO.pesquisar(objetos.get(i).getIdCidade()));
+		if (tipoBusca.equals(TipoBusca.ANSIOSA)) {
+			CidadeDAO cidadeDAO = new CidadeDAO(this.getPm());
+			for (int i = 0; i < objetos.size(); i++) {
+				objetos.get(i).setCidade(cidadeDAO.pesquisar(objetos.get(i).getIdCidade()));
+			}
 		}
 		
 		return objetos;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public int contar(String nome, Long idEmpresa ){
 		Query query = getPm().newQuery(Bairro.class);
 		List<Bairro> objetos = null;

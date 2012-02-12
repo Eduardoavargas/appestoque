@@ -1,6 +1,7 @@
 package br.com.appestoque.controle.cadastro;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -124,7 +125,16 @@ public class BairroControle extends BaseControle {
 			request.setAttribute("objetos", objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_LISTAR);
 			dispatcher.forward(request, response);
+		} else if(request.getParameter("acao").equals("ajax")) {
+			objetos = dao.pesquisar(new Long(request.getParameter("id")),getId(request));
+			PrintWriter out = response.getWriter();
+			for (int i = 0; i < objetos.size()-1; i++) {
+				out.println("<option value='"+objeto.getId().toString()+"'>"+objeto.getNome()+"</option>");
+			}
+		    out.flush();
+		    out.close();
 		}
+		
 	}
 	
 }
