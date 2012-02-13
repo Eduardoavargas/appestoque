@@ -15,6 +15,7 @@ import br.com.appestoque.TipoBusca;
 import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
+import br.com.appestoque.dao.cadastro.BairroDAO;
 import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
 import br.com.appestoque.dominio.cadastro.Cliente;
@@ -113,8 +114,12 @@ public class ClienteControle extends BaseControle{
 			
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			
-			request.setAttribute("idCidade",objeto.getIdBairro()!=null?objeto.getBairro().getIdCidade():null);
+			BairroDAO bairroDAO = new BairroDAO((PersistenceManager) request.getAttribute("pm"));
+			objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(), TipoBusca.ANSIOSA));
 			request.setAttribute("idBairro",objeto.getIdBairro());
+			
+			request.setAttribute("idCidade",objeto.getIdBairro()!=null?objeto.getBairro().getIdCidade():null);
+			
 			request.setAttribute("objeto",objeto);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_EDITAR);
 			dispatcher.forward(request, response);
