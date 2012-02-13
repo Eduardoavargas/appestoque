@@ -1,7 +1,7 @@
 package br.com.appestoque.controle.cadastro;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -18,6 +18,7 @@ import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.cadastro.BairroDAO;
 import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
+import br.com.appestoque.dominio.cadastro.Bairro;
 import br.com.appestoque.dominio.cadastro.Cliente;
 
 @SuppressWarnings("serial")
@@ -110,13 +111,14 @@ public class ClienteControle extends BaseControle{
 			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
 			request.setAttribute("cidades", cidadeDAO.listar());
 			
-			request.setAttribute("bairros", null);
-			
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			
 			BairroDAO bairroDAO = new BairroDAO((PersistenceManager) request.getAttribute("pm"));
 			objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(), TipoBusca.ANSIOSA));
 			request.setAttribute("idBairro",objeto.getIdBairro());
+			List<Bairro> bairros = new ArrayList<Bairro>();
+			bairros.add(objeto.getBairro());
+			request.setAttribute("bairros", bairros);
 			
 			request.setAttribute("idCidade",objeto.getIdBairro()!=null?objeto.getBairro().getIdCidade():null);
 			

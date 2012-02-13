@@ -3,6 +3,10 @@ package br.com.appestoque.dao.cadastro;
 import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
+
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dominio.cadastro.Bairro;
@@ -15,11 +19,8 @@ public class BairroDAO extends DAOGenerico<Bairro, Long>{
 	}
 	
 	public Bairro pesquisar(Long id, TipoBusca tipoBusca){
-		Bairro objeto = null;
-		Query query = getPm().newQuery(Bairro.class);
-		query.setFilter("id == p_id");
-		query.declareParameters("Long p_id");
-		objeto = (Bairro) query.execute(id);
+		Key k = KeyFactory.createKey(Bairro.class.getSimpleName(), id.intValue());
+		Bairro objeto = (Bairro) getPm().getObjectById(Bairro.class, k);
 		if(tipoBusca.equals(TipoBusca.ANSIOSA)){
 			CidadeDAO cidadeDAO = new CidadeDAO(getPm());
 			if(objeto.getIdCidade()!=null){
