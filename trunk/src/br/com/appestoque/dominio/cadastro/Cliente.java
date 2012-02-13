@@ -50,6 +50,7 @@ public class Cliente {
 		this.complemento = complemento;
 		this.idBairro = idBairro;
 		this.idEmpresa = idEmpresa;
+		this.endereco = endereco;
 	}
 
 	public Cliente() {
