@@ -64,34 +64,37 @@
 		value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
 	<hr>
 	
-	<%=bundle.getString("cliente.nome")%>:<br />
+	<%=bundle.getString("cliente.nome")%><br />
 	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/>
 	</p>	
-	<%=bundle.getString("cnpj")%>:<br />
+	<%=bundle.getString("cnpj")%><br />
 	<app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"/>
 	</p>
-	<%=bundle.getString("endereco")%>:<br />
+	<%=bundle.getString("endereco")%><br />
 	<app:texto id="endereco" nome="endereco" tamanho="50" valor="<%=objeto.getEndereco()%>"/>
 	</p>
-	<%=bundle.getString("complemento")%>:<br />
+	<%=bundle.getString("complemento")%><br />
 	<app:texto id="complemento" nome="complemento" tamanho="50" valor="<%=objeto.getComplemento()%>"/>
 	</p>
-	<%=bundle.getString("cep")%>:<br />
+	<%=bundle.getString("cep")%><br />
 	<app:cep nome="cep" valor="<%=objeto.getCep()%>"/>
 	</p>
-	<%=bundle.getString("numero")%>:<br />
+	<%=bundle.getString("numero")%><br />
 	<app:numero id="numero" nome="numero" valor="<%=objeto.getNumero().toString()%>"/>
 	</p>
-	<%=bundle.getString("cidade")%>:<br/>
-	<select name="idCidade" id="idCidade"  class="text ui-widget-content ui-corner-all" style="cursor:pointer;" onchange="ajax('/bairroControle?acao=ajax&id='+this.value,'bairros')">
+	<%=bundle.getString("cidade")%><br/>
+	<select name="idCidade" id="idCidade"  class="text ui-widget-content ui-corner-all" 
+	        style="cursor:pointer;" 
+	        onchange="ajax('/bairroControle?acao=ajax&id='+this.value,'bairros')">
 		<c:forEach var="cidade" items="${cidades}" varStatus="id">
 			<option value="${cidade.id}" <c:if test="${cidade.id == idCidade}">selected</c:if> >${cidade.nome}</option>
 		</c:forEach>
 	</select>
 	</p>
-	<%=bundle.getString("bairro")%>:<br/>
+	<%=bundle.getString("bairro")%><br/>
 	<div id="bairros">
-		<select name="idBairro" id="idBairro" class="text ui-widget-content ui-corner-all" style="cursor: pointer;">
+		<select name="idBairro" id="idBairro" class="text ui-widget-content ui-corner-all" 
+		        style="cursor: pointer;">
 			<c:forEach var="bairro" items="${bairros}" varStatus="id">
 				<option value="${bairro.id}" <c:if test="${bairro.id == idBairro}">selected</c:if>>${bairro.nome}</option>
 			</c:forEach>
