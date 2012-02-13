@@ -133,17 +133,9 @@ public class BairroControle extends BaseControle {
 			for (int i = 0; i < objetos.size(); i++) {
 				out.println("<option value='"+objetos.get(i).getId().toString()+"'>"+objetos.get(i).getNome()+"</option>");
 			}
-			
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
 			out.println("</select>");
 		    out.flush();
 		    out.close();
-		    
 		}
 		
 	}
