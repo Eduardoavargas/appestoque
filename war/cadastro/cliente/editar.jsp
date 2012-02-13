@@ -17,21 +17,27 @@
 				if(document.getElementById('nome').value.length==0){
 					alert('<%=bundle.getString("produto.mensagem.validar.nome")%>');
 					document.getElementById('nome').focus();
-				}else if(document.getElementById('bairro').value.length==0){
-					alert('<%=bundle.getString("endereco.mensagem.validar.bairro")%>');
-					document.getElementById('bairro').focus();
-				}else if(document.getElementById('cidade').value.length==0){
-					alert('<%=bundle.getString("endereco.mensagem.validar.cidade")%>');
-					document.getElementById('cidade').focus();
+				}else if(document.getElementById('cnpj').value.length==0){
+					alert('<%=bundle.getString("mensagem.validar.cnpj")%>');
+					document.getElementById('cnpj').focus();
+				}else if(document.getElementById('endereco').value.length==0){
+					alert('<%=bundle.getString("mensagem.validar.endereco")%>');
+					document.getElementById('endereco').focus();
 				}else if(document.getElementById('cep').value.length==0){
-					alert('<%=bundle.getString("endereco.mensagem.validar.cep")%>');
+					alert('<%=bundle.getString("mensagem.validar.cep")%>');
 					document.getElementById('cep').focus();
+				}else if(document.getElementById('idBairro').value.length==0){
+					alert('<%=bundle.getString("mensagem.validar.bairro")%>');
+					document.getElementById('idBairro').focus();
+				}else if(document.getElementById('idCidade').value.length==0){
+					alert('<%=bundle.getString("mensagem.validar.cidade")%>');
+					document.getElementById('idCidade').focus();
 				}else{
 					document.forms[0].submit();	
 				}
 			});
 			
-			function ajax(url){
+			function ajax(url,regiao){
 				var ajax;
 			    if(window.XMLHttpRequest){
 			        ajax = new XMLHttpRequest();
@@ -42,9 +48,9 @@
 			    }
 			    ajax.onreadystatechange = function() {
 			        if(ajax.readyState == 1){
-			        	document.getElementById('bairros').innerHTML = "<img src='ajax-loader.gif' alt='AJAX' />";	
+			        	document.getElementById(regiao).innerHTML = "<img src='img/ajax-loader.gif' alt='AJAX' />";	
 			        }else if(ajax.readyState == 4 && ajax.status == 200){
-			            document.getElementById('bairros').innerHTML = ajax.responseText;
+			            document.getElementById(regiao).innerHTML = ajax.responseText;
 			        }
 			    };
 				ajax.open("GET",url,true);
@@ -61,7 +67,7 @@
 	<%=bundle.getString("cliente.nome")%>:<br />
 	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/>
 	</p>	
-	<%=bundle.getString("cliente.cnpj")%>:<br />
+	<%=bundle.getString("cnpj")%>:<br />
 	<app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"/>
 	</p>
 	<%=bundle.getString("endereco")%>:<br />
@@ -77,7 +83,7 @@
 	<app:numero id="numero" nome="numero" valor="<%=objeto.getNumero().toString()%>"/>
 	</p>
 	<%=bundle.getString("cidade")%>:<br/>
-	<select name="idCidade" id="idCidade"  class="text ui-widget-content ui-corner-all" style="cursor:pointer;" onchange="ajax('/bairroControle?acao=ajax&id='+this.value)">
+	<select name="idCidade" id="idCidade"  class="text ui-widget-content ui-corner-all" style="cursor:pointer;" onchange="ajax('/bairroControle?acao=ajax&id='+this.value,'bairros')">
 		<c:forEach var="cidade" items="${cidades}" varStatus="id">
 			<option value="${cidade.id}" <c:if test="${cidade.id == idCidade}">selected</c:if> >${cidade.nome}</option>
 		</c:forEach>

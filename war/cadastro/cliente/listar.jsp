@@ -33,7 +33,7 @@
 		<p/>
 		<table border="0" cellspacing="1" cellpadding="5" class="ui-widget" width="100%">
 		<tr class="ui-widget-header">
-			<td><%=bundle.getString("cliente.cnpj")%></td>
+			<td><%=bundle.getString("cnpj")%></td>
 			<td><%=bundle.getString("cliente.nome")%></td>
 			<td width="15%"/>
 		</tr>
