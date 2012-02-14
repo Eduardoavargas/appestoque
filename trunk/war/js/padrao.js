@@ -60,3 +60,24 @@ function paginar(obj, primeiroRegistro, registrosPorPagina, totalRegistros){
 		return true;
 	}
 }
+
+function ajax(url,regiao){
+	var ajax;
+    if(window.XMLHttpRequest){
+        ajax = new XMLHttpRequest();
+    }else if(window.ActiveXObject){
+        ajax = new ActiveXObject("Microsoft.XMLHTTP");
+    }else{
+        alert("Seu navegador não tem suporte a AJAX.");
+    }
+    ajax.onreadystatechange = function() {
+        if(ajax.readyState == 1){
+        	document.getElementById(regiao).innerHTML = "<img src='img/ajax-loader.gif' alt='AJAX' />";	
+        }else if(ajax.readyState == 4 && ajax.status == 200){
+            document.getElementById(regiao).innerHTML = ajax.responseText;
+        }
+    };
+	ajax.open("GET",url,true);
+    ajax.setRequestHeader("Content-Type", "text/plain;charset=UTF-8"); 
+    ajax.send(null);
+}
