@@ -15,7 +15,7 @@
 	<script type="text/javascript">
 			$("#salvar").click(function () {
 				if(document.getElementById('nome').value.length==0){
-					alert('<%=bundle.getString("produto.mensagem.validar.nome")%>');
+					alert('<%=bundle.getString("cliente.mensagem.validar.nome")%>');
 					document.getElementById('nome').focus();
 				}else if(document.getElementById('cnpj').value.length==0){
 					alert('<%=bundle.getString("mensagem.validar.cnpj")%>');

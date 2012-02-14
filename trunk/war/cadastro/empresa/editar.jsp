@@ -1,59 +1,86 @@
-<%@ page import="br.com.appestoque.dominio.suprimento.Produto"%>
-<%@ page import="java.text.NumberFormat"%>
+<%@ page import="br.com.appestoque.dominio.cadastro.Empresa"%>
 <%@ page import="br.com.appestoque.util.Constantes"%>
 <%@ page import="java.text.DecimalFormat"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
 <%@include file="../../modelo/inicio.jspf"%>
 <%
-	Produto objeto = (Produto) request.getAttribute("objeto");
+	Empresa objeto = (Empresa) request.getAttribute("objeto");
 %>
-<span class="title"><%=bundle.getString("produto.editar.titulo")%></span>
+<span class="title"><%=bundle.getString("empresa.editar.titulo")%></span>
 
-<%
-	NumberFormat numberFormat = NumberFormat.getInstance();
-	numberFormat.setMaximumFractionDigits(Constantes.PRECISAO_VALOR);
-	numberFormat.setMinimumFractionDigits(Constantes.PRECISAO_VALOR);
-%>
+<form id="formEditar" method="post" action="/empresaControle?acao=modificar">
+	<app:barraEditar acao="/empresaControle"/>
 
-<form id="formEditar" method="post" action="/produtoControle?acao=modificar">
-	<app:barraEditar acao="/produtoControle"/>
-
-	<script>
+	<script type="text/javascript">
 			$("#salvar").click(function () {
 				if(document.getElementById('nome').value.length==0){
-					alert('<%=bundle.getString("produto.mensagem.validar.nome")%>');
+					alert('<%=bundle.getString("empresa.mensagem.validar.nome")%>');
 					document.getElementById('nome').focus();
-				}else if(document.getElementById('numero').value.length==0){
-					alert('<%=bundle.getString("produto.mensagem.validar.numero")%>');
-					document.getElementById('numero').focus();
-				}else if(document.getElementById('preco').value.length==0){
-					alert('<%=bundle.getString("produto.mensagem.validar.preco")%>');
-					document.getElementById('preco').focus();
-				}else if(document.getElementById('estoque').value.length==0){
-					alert('<%=bundle.getString("produto.mensagem.validar.estoque")%>');
-					document.getElementById('estoque').focus();
+				}else if(document.getElementById('cnpj').value.length==0){
+					alert('<%=bundle.getString("mensagem.validar.cnpj")%>');
+					document.getElementById('cnpj').focus();
+				}else if(document.getElementById('endereco').value.length==0){
+					alert('<%=bundle.getString("mensagem.validar.endereco")%>');
+					document.getElementById('endereco').focus();
+				}else if(document.getElementById('cep').value.length==0){
+					alert('<%=bundle.getString("mensagem.validar.cep")%>');
+					document.getElementById('cep').focus();
+				}else if(document.getElementById('idBairro').value.length==0){
+					alert('<%=bundle.getString("mensagem.validar.bairro")%>');
+					document.getElementById('idBairro').focus();
+				}else if(document.getElementById('idCidade').value.length==0){
+					alert('<%=bundle.getString("mensagem.validar.cidade")%>');
+					document.getElementById('idCidade').focus();
 				}else{
 					document.forms[0].submit();	
 				}
 			});
+			
 	</script>
 
 	<input type="hidden" name="id"
 		value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
 	<hr>
-	<br /> <%=bundle.getString("produto.nome")%>:<br />
-	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>" />
+	
+	<%=bundle.getString("empresa.nome")%><br />
+	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/>
+	</p>	
+	<%=bundle.getString("cnpj")%><br />
+	<app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"/>
 	</p>
-	<%=bundle.getString("produto.numero")%>:<br />
-	<app:texto id="numero" nome="numero" valor="<%=objeto.getNumero()%>" />
+	<%=bundle.getString("endereco")%><br />
+	<app:texto id="endereco" nome="endereco" tamanho="50" valor="<%=objeto.getEndereco()%>"/>
 	</p>
-	<%=bundle.getString("produto.preco")%>:<br />
-	<app:valor id="preco" nome="preco" tamanho="10" valor="<%=numberFormat.format(objeto.getPreco())%>" precisao="<%=Constantes.PRECISAO_VALOR.toString()%>"/>	
+	<%=bundle.getString("complemento")%><br />
+	<app:texto id="complemento" nome="complemento" tamanho="50" valor="<%=objeto.getComplemento()%>"/>
 	</p>
-	<%=bundle.getString("produto.estoque")%>:<br />
-	<app:valor id="estoque" nome="estoque" tamanho="10" valor="<%=numberFormat.format(objeto.getEstoque())%>" precisao="<%=Constantes.PRECISAO_VALOR.toString()%>"/>
+	<%=bundle.getString("cep")%><br />
+	<app:cep nome="cep" valor="<%=objeto.getCep()%>"/>
 	</p>
+	<%=bundle.getString("numero")%><br />
+	<app:numero id="numero" nome="numero" valor="<%=objeto.getNumero().toString()%>"/>
+	</p>
+	<%=bundle.getString("cidade")%><br/>
+	<select name="idCidade" id="idCidade"  class="text ui-widget-content ui-corner-all" 
+	        style="cursor:pointer;" 
+	        onchange="ajax('/bairroControle?acao=ajax&id='+this.value,'bairros')">
+		<c:forEach var="cidade" items="${cidades}" varStatus="id">
+			<option value="${cidade.id}" <c:if test="${cidade.id == idCidade}">selected</c:if> >${cidade.nome}</option>
+		</c:forEach>
+	</select>
+	</p>
+	<%=bundle.getString("bairro")%><br/>
+	<div id="bairros">
+		<select name="idBairro" id="idBairro" class="text ui-widget-content ui-corner-all" 
+		        style="cursor: pointer;">
+			<c:forEach var="bairro" items="${bairros}" varStatus="id">
+				<option value="${bairro.id}" <c:if test="${bairro.id == idBairro}">selected</c:if>>${bairro.nome}</option>
+			</c:forEach>
+		</select>
+	</div>
+	</p>
+	
 	<hr>
 </form>
 <%@include file="../../modelo/fim.jspf"%>
