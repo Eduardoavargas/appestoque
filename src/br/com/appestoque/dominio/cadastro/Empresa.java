@@ -34,14 +34,11 @@ public class Empresa{
 	@Persistent
 	private Long idBairro;
 	
-	@Persistent
-	private Long idEmpresa;
-	
 	@NotPersistent
 	private Bairro bairro;
 
 	public Empresa(String nome, String cnpj, Integer numero, String cep,
-			String complemento, Long idBairro, Long idEmpresa, String endereco) {
+			String complemento, Long idBairro, String endereco) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
@@ -49,7 +46,6 @@ public class Empresa{
 		this.cep = cep;
 		this.complemento = complemento;
 		this.idBairro = idBairro;
-		this.idEmpresa = idEmpresa;
 		this.endereco = endereco;
 	}
 
@@ -111,14 +107,6 @@ public class Empresa{
 
 	public void setIdBairro(Long idBairro) {
 		this.idBairro = idBairro;
-	}
-
-	public Long getIdEmpresa() {
-		return idEmpresa;
-	}
-
-	public void setIdEmpresa(Long idEmpresa) {
-		this.idEmpresa = idEmpresa;
 	}
 
 	public Bairro getBairro() {
