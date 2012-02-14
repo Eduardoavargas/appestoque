@@ -1,16 +1,13 @@
 package br.com.appestoque.dominio.cadastro;
 
-import java.io.Serializable;
-
 import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-@SuppressWarnings("serial")
-@PersistenceCapable(identityType=IdentityType.APPLICATION)
-public class Empresa implements Serializable{
+@PersistenceCapable
+public class Empresa{
 	
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
@@ -23,15 +20,39 @@ public class Empresa implements Serializable{
 	private String cnpj;
 	
 	@Persistent
-	private Long idEndereco;
+	private String endereco;
 	
-	public Empresa(String nome, String cnpj, Long idEndereco) {
+	@Persistent
+	private Integer numero = new Integer(0);
+	
+	@Persistent
+	private String cep;
+	
+	@Persistent
+	private String complemento;
+	
+	@Persistent
+	private Long idBairro;
+	
+	@Persistent
+	private Long idEmpresa;
+	
+	@NotPersistent
+	private Bairro bairro;
+
+	public Empresa(String nome, String cnpj, Integer numero, String cep,
+			String complemento, Long idBairro, Long idEmpresa, String endereco) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
-		this.idEndereco = idEndereco;
+		this.numero = numero;
+		this.cep = cep;
+		this.complemento = complemento;
+		this.idBairro = idBairro;
+		this.idEmpresa = idEmpresa;
+		this.endereco = endereco;
 	}
-	
+
 	public Empresa() {
 		super();
 	}
@@ -60,12 +81,60 @@ public class Empresa implements Serializable{
 		this.cnpj = cnpj;
 	}
 
-	public Long getIdEndereco() {
-		return idEndereco;
+	public Integer getNumero() {
+		return numero;
 	}
 
-	public void setIdEndereco(Long idEndereco) {
-		this.idEndereco = idEndereco;
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public Long getIdBairro() {
+		return idBairro;
+	}
+
+	public void setIdBairro(Long idBairro) {
+		this.idBairro = idBairro;
+	}
+
+	public Long getIdEmpresa() {
+		return idEmpresa;
+	}
+
+	public void setIdEmpresa(Long idEmpresa) {
+		this.idEmpresa = idEmpresa;
+	}
+
+	public Bairro getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 	
 }

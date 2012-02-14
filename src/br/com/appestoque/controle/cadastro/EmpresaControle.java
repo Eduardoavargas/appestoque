@@ -1,6 +1,7 @@
 package br.com.appestoque.controle.cadastro;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -10,27 +11,32 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.appestoque.TipoBusca;
 import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
+import br.com.appestoque.dao.cadastro.BairroDAO;
+import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dao.cadastro.EmpresaDAO;
+import br.com.appestoque.dominio.cadastro.Bairro;
 import br.com.appestoque.dominio.cadastro.Empresa;
 
 @SuppressWarnings("serial")
 public class EmpresaControle extends BaseControle {
 
+	private CidadeDAO cidadeDAO = null;
 	private EmpresaDAO dao = null;
-	private String cnpj;
 	private int primeiroRegistro;
 	private List<Empresa> objetos = null;
 	
+	private String cnpj;
 	private String nome;
-	private String bairro;
-	private String cidade;
+	private Long idBairro;
 	private String cep;
 	private Integer numero;
 	private String complemento;
-	private Empresa objeto;
+	private String endereco;
+	private Empresa objeto;	
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
@@ -44,73 +50,90 @@ public class EmpresaControle extends BaseControle {
 		dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
 			primeiroRegistro = 0;
-			objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+			objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 			paginar(primeiroRegistro);			
 			request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			request.setAttribute("totalRegistros", objetos.size());
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
 			request.setAttribute("objetos",objetos);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_LISTAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_LISTAR);
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("pesquisar")) {
 			request.setAttribute("primeiroRegistro",request.getParameter("primeiroRegistro"));
 			request.setAttribute("totalRegistros",request.getParameter("totalRegistros"));
 			request.setAttribute("registrosPorPagina",request.getParameter("registrosPorPagina"));
-			dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));
 			cnpj = request.getParameter("cnpj")==null||request.getParameter("cnpj").equals("")?null:request.getParameter("cnpj");
 			primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
-			
+			objetos = null;
 			if(request.getParameter("paginar")==null){
-				totalRegistros = dao.contar(cnpj);				
-				objetos = dao.pesquisar(cnpj,primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
+				totalRegistros = dao.contar(cnpj,getId(request));				
+				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 				request.setAttribute("totalRegistros",totalRegistros);
 				request.setAttribute("primeiroRegistro",primeiroRegistro);
 			}else if(request.getParameter("paginar").equals("proximo")){
 				primeiroRegistro += Constantes.REGISTROS_POR_PAGINA;
-				objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("anterior")){
 				primeiroRegistro -= Constantes.REGISTROS_POR_PAGINA;
-				objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("ultimo")){
 				primeiroRegistro = totalRegistros - ((totalRegistros % Constantes.REGISTROS_POR_PAGINA != 0) ? totalRegistros % Constantes.REGISTROS_POR_PAGINA : Constantes.REGISTROS_POR_PAGINA);
-				objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("primeiro")){
 				primeiroRegistro = 0;
-				objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+				objetos = dao.pesquisar(cnpj,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
 			request.setAttribute("objetos",objetos);
-			request.setAttribute("cnpj",cnpj);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_LISTAR);
+			request.setAttribute("numero",numero);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
-			request.setAttribute("objeto", new Empresa());
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_EDITAR);
+			
+			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
+			request.setAttribute("cidades", cidadeDAO.listar());
+			
+			request.setAttribute("bairros", null);
+			
+			objeto = new Empresa();
+			request.setAttribute("objeto", objeto);			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
-			dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));			
-			Empresa empresa = dao.pesquisar(new Long(request.getParameter("id")));
-			request.setAttribute("objeto",empresa);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_EDITAR);
+			
+			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
+			request.setAttribute("cidades", cidadeDAO.listar());
+			
+			objeto = dao.pesquisar(new Long(request.getParameter("id")));
+			
+			BairroDAO bairroDAO = new BairroDAO((PersistenceManager) request.getAttribute("pm"));
+			objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(), TipoBusca.ANSIOSA));
+			request.setAttribute("idBairro",objeto.getIdBairro());
+			List<Bairro> bairros = new ArrayList<Bairro>();
+			bairros.add(objeto.getBairro());
+			request.setAttribute("bairros", bairros);
+			
+			request.setAttribute("idCidade",objeto.getIdBairro()!=null?objeto.getBairro().getIdCidade():null);
+			
+			request.setAttribute("objeto",objeto);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
-			dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));
 			nome = request.getParameter("nome");
 			cnpj = request.getParameter("cnpj");
-			bairro = request.getParameter("bairro");
-			cidade = request.getParameter("cidade");
+			idBairro = new Long(request.getParameter("idBairro"));
 			cep = request.getParameter("cep");
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
-			
-			//objeto = new Empresa(nome,cnpj,endereco);
+			endereco = request.getParameter("endereco");
+			objeto = new Empresa(nome,cnpj, numero, cep, complemento, idBairro, getId(request),endereco);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
@@ -118,17 +141,17 @@ public class EmpresaControle extends BaseControle {
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_LISTAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
-			dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));			
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			dao.remover(objeto);
 			objetos = dao.listar();
 			request.setAttribute("objetos", objetos);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_LISTAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_LISTAR);
 			dispatcher.forward(request, response);
-		}
+		} 
+		
 	}
 
 }
