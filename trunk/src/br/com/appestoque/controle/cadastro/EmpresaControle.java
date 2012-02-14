@@ -133,7 +133,7 @@ public class EmpresaControle extends BaseControle {
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
 			endereco = request.getParameter("endereco");
-			objeto = new Empresa(nome,cnpj, numero, cep, complemento, idBairro, getId(request),endereco);
+			objeto = new Empresa(nome,cnpj, numero, cep, complemento, idBairro, endereco);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
