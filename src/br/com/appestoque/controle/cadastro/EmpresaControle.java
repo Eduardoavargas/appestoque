@@ -14,15 +14,12 @@ import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.cadastro.EmpresaDAO;
-import br.com.appestoque.dao.cadastro.EnderecoDAO;
 import br.com.appestoque.dominio.cadastro.Empresa;
-import br.com.appestoque.dominio.cadastro.Endereco;
 
 @SuppressWarnings("serial")
 public class EmpresaControle extends BaseControle {
 
 	private EmpresaDAO dao = null;
-	private EnderecoDAO enderecoDao = null;
 	private String cnpj;
 	private int primeiroRegistro;
 	private List<Empresa> objetos = null;
@@ -33,7 +30,6 @@ public class EmpresaControle extends BaseControle {
 	private String cep;
 	private Integer numero;
 	private String complemento;
-	private Endereco endereco;
 	private Empresa objeto;
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,7 +42,6 @@ public class EmpresaControle extends BaseControle {
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));
-		enderecoDao = new EnderecoDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
 			primeiroRegistro = 0;
 			objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
@@ -114,7 +109,6 @@ public class EmpresaControle extends BaseControle {
 			cep = request.getParameter("cep");
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
-			endereco = new Endereco(cidade,bairro,numero,cep,complemento);
 			
 			//objeto = new Empresa(nome,cnpj,endereco);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
