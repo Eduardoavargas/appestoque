@@ -29,20 +29,15 @@ public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
 		return objeto;
 	}
 	
-	public List<Empresa> pesquisar(String cnpj, Long idEmpresa, long ini, long qtd, TipoBusca tipoBusca){
+	public List<Empresa> pesquisar(String cnpj, long ini, long qtd, TipoBusca tipoBusca){
 		Query query = getPm().newQuery(Empresa.class);
 		query.setRange(ini, qtd);
 		List<Empresa> objetos = null;
 		if(cnpj!=null){
-			query.setFilter("cnpj == p_cnpj && idEmpresa == p_empresa ");
-			query.declareParameters("String p_cnpj , Long p_empresa");
-			objetos = (List<Empresa>) query.execute(cnpj,idEmpresa);
-		}else {
-			query.setFilter("idEmpresa == p_empresa ");
-			query.declareParameters("String p_empresa");
-			objetos = (List<Empresa>) query.execute(idEmpresa);
+			query.setFilter("cnpj == p_cnpj ");
+			query.declareParameters("String p_cnpj");
+			objetos = (List<Empresa>) query.execute(cnpj);
 		}
-		
 		if (tipoBusca.equals(TipoBusca.ANSIOSA)) {
 			BairroDAO bairroDAO = new BairroDAO(this.getPm());
 			for (int i = 0; i < objetos.size(); i++) {
@@ -55,26 +50,20 @@ public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
 		return objetos;
 	}
 	
-	public int contar(String cnpj, Long idEmpresa ){
+	public int contar(String cnpj){
 		Query query = getPm().newQuery(Empresa.class);
 		List<Empresa> objetos = null;
 		if(cnpj!=null){
-			query.setFilter("cnpj == p_cnpj && idEmpresa == p_empresa ");
-			query.declareParameters("String p_cnpj , Long p_empresa");
-			objetos = (List<Empresa>) query.execute(cnpj,idEmpresa);
-		}else {
-			query.setFilter("idEmpresa == p_empresa ");
-			query.declareParameters("String p_empresa");
-			objetos = (List<Empresa>) query.execute(idEmpresa);
+			query.setFilter("cnpj == p_cnpj");
+			query.declareParameters("String p_cnpj");
+			objetos = (List<Empresa>) query.execute(cnpj);
 		}
 		return objetos.size();
 	}
 	
-	public List<Empresa> listar(Long idEmpresa){
+	public List<Empresa> listar(){
 		Query query = getPm().newQuery(Empresa.class);
-		query.setFilter("idEmpresa == p_empresa ");
-		query.declareParameters("String p_empresa");
-		return (List<Empresa>) query.execute(idEmpresa);
+		return (List<Empresa>) query.execute();
 	}
 	
 }
