@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.appestoque.dao.PMF;
 import br.com.appestoque.dominio.cadastro.Empresa;
-import br.com.appestoque.dominio.cadastro.Endereco;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
 @SuppressWarnings("serial")
@@ -21,7 +20,6 @@ public class EmpresaSinc extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
-		Endereco endereco = new Endereco("Vitória", "Jardim Camburi", 55, "29.090-640", "Bloco B2, Apto 605");
 		Empresa empresa = new Empresa("Appestoque", "", null);
 		pm.currentTransaction().begin();
 		pm.makePersistent(empresa);

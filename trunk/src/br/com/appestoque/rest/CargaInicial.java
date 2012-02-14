@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.appestoque.dao.PMF;
 import br.com.appestoque.dominio.cadastro.Empresa;
-import br.com.appestoque.dominio.cadastro.Endereco;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
 @SuppressWarnings("serial")
@@ -19,7 +18,6 @@ public class CargaInicial extends HttpServlet{
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
 			/*empresa*/
-			Endereco endereco = new Endereco("Califórnia", "Mountain View", 1600, "94043", "");
 			Empresa empresa = new Empresa("Google Inc.", "", null);
 			pm.currentTransaction().begin();
 			pm.makePersistent(empresa);
