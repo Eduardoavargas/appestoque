@@ -20,7 +20,7 @@ public class EmpresaSinc extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
-		Empresa empresa = null;
+		Empresa empresa = new Empresa();
 		pm.currentTransaction().begin();
 		pm.makePersistent(empresa);
 		pm.currentTransaction().commit();
