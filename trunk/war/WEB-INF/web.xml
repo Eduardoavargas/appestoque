@@ -44,6 +44,10 @@
 		<filter-name>filtro</filter-name>
 		<url-pattern>/bairroControle/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
+		<url-pattern>/representanteControle/*</url-pattern>
+	</filter-mapping>
 	
 	
 	<filter-mapping>
@@ -176,6 +180,16 @@
 		<servlet-name>BairroControle</servlet-name>
 		<url-pattern>/bairroControle</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>RepresentanteControle</servlet-name>
+		<servlet-class>br.com.appestoque.controle.cadastro.RepresentanteControle</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RepresentanteControle</servlet-name>
+		<url-pattern>/representanteControle</url-pattern>
+	</servlet-mapping>
+    
+    
     
     <servlet>
 		<servlet-name>Processo</servlet-name>
