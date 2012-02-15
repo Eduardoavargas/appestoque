@@ -63,7 +63,7 @@ public class RepresentanteControle extends BaseControle{
 			request.setAttribute("primeiroRegistro",request.getParameter("primeiroRegistro"));
 			request.setAttribute("totalRegistros",request.getParameter("totalRegistros"));
 			request.setAttribute("registrosPorPagina",request.getParameter("registrosPorPagina"));
-			cpf = request.getParameter("cnpj")==null||request.getParameter("cnpj").equals("")?null:request.getParameter("cnpj");
+			cpf = request.getParameter("cpf")==null||request.getParameter("cpf").equals("")?null:request.getParameter("cpf");
 			primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
 			objetos = null;
 			if(request.getParameter("paginar")==null){
@@ -128,12 +128,13 @@ public class RepresentanteControle extends BaseControle{
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
 			nome = request.getParameter("nome");
-			cpf = request.getParameter("cnpj");
+			cpf = request.getParameter("cpf");
 			idBairro = new Long(request.getParameter("idBairro"));
 			cep = request.getParameter("cep");
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
 			endereco = request.getParameter("endereco");
+			imei = request.getParameter("imei");
 			objeto = new Representante(nome,cpf,endereco,complemento,numero,cep,idBairro,getId(request),imei);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
