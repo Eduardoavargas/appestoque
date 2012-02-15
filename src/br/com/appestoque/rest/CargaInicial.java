@@ -18,7 +18,7 @@ public class CargaInicial extends HttpServlet{
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try {
 			/*empresa*/
-			Empresa empresa = null;
+			Empresa empresa = new Empresa();
 			pm.currentTransaction().begin();
 			pm.makePersistent(empresa);
 			pm.currentTransaction().commit();
