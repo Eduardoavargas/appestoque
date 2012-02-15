@@ -33,7 +33,6 @@
 		<tr class="ui-widget-header ">
 			<td><%=bundle.getString("usuario.nome")%></td>
 			<td><%=bundle.getString("usuario.email")%></td>
-			<td><%=bundle.getString("usuario.senha")%></td>
 			<td><%=bundle.getString("usuario.serial")%></td>
 			<td width="15%"/>
 		</tr>
@@ -42,7 +41,6 @@
 			<tr>
 				<td><%=objeto.getNome()%></td>
 				<td><%=objeto.getEmail()%></a></td>
-				<td><%=objeto.getSenha()%></td>
 				<td><%=objeto.getSerial()%></td>
 				<td align="center" >
 					<a href="/usuarioControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
