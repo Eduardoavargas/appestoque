@@ -42,9 +42,15 @@ public class Cliente implements Serializable{
 	
 	@NotPersistent
 	private Bairro bairro;
-
-	public Cliente(String nome, String cnpj, Integer numero, String cep,
-			String complemento, Long idBairro, Long idEmpresa, String endereco) {
+	
+	public Cliente(	String nome, 
+					String cnpj, 
+					String endereco,
+					String complemento,
+					Integer numero, 
+					String cep,
+					Long idBairro, 
+					Long idEmpresa) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;

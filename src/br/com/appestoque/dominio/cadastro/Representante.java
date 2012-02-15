@@ -46,9 +46,15 @@ public class Representante implements Serializable{
 	@Persistent
 	private String imei;
 
-	public Representante(String nome, String cpf, String endereco,
-			Integer numero, String cep, String complemento, Long idBairro,
-			Long idEmpresa, Bairro bairro, String imei) {
+	public Representante(	String nome, 
+							String cpf, 
+							String endereco,
+							String complemento,
+							Integer numero, 
+							String cep,							
+							Long idBairro,
+							Long idEmpresa,
+							String imei) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
@@ -58,7 +64,6 @@ public class Representante implements Serializable{
 		this.complemento = complemento;
 		this.idBairro = idBairro;
 		this.idEmpresa = idEmpresa;
-		this.bairro = bairro;
 		this.imei = imei;
 	}
 

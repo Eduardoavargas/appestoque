@@ -40,8 +40,13 @@ public class Empresa implements Serializable{
 	@NotPersistent
 	private Bairro bairro;
 
-	public Empresa(String nome, String cnpj, Integer numero, String cep,
-			String complemento, Long idBairro, String endereco) {
+	public Empresa(	String nome, 
+					String cnpj, 
+					Integer numero, 
+					String cep,
+					String complemento, 
+					Long idBairro, 
+					String endereco) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
