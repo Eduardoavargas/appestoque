@@ -52,17 +52,17 @@ public class RepresentanteDAO extends DAOGenerico<Representante, Long>{
 		return objetos;
 	}
 	
-	public int contar(String cnpj, Long idEmpresa ){
+	public int contar(String cpf, Long idEmpresa ){
 		Query query = getPm().newQuery(Representante.class);
 		List<Representante> objetos = null;
-		if(cnpj!=null){
-			query.setFilter("cnpj == p_cnpj && idEmpresa == p_empresa ");
-			query.declareParameters("String p_cnpj , Long p_empresa");
+		if(cpf!=null){
+			query.setFilter("cpf == p_cpf && idEmpresa == p_empresa ");
+			query.declareParameters("String p_cpf , Long p_empresa");
 		}else {
 			query.setFilter("idEmpresa == p_empresa ");
 			query.declareParameters("String p_empresa");
 		}
-		objetos = (List<Representante>)(cnpj!=null?query.execute(cnpj,idEmpresa):query.execute(idEmpresa));
+		objetos = (List<Representante>)(cpf!=null?query.execute(cpf,idEmpresa):query.execute(idEmpresa));
 		return objetos.size();
 	}
 	
