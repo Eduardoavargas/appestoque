@@ -50,13 +50,18 @@
 				<a href="/representanteControle?acao=iniciar">Representante</a>
 			</div>
 		</li>
-		<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Segurança</a>
+		<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Faturamento</a>
 			<div id="m2" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
+				<a href="/pedidoControle?acao=iniciar">Pedido</a>
+			</div>
+		</li>
+		<li><a href="#" onmouseover="mopen('m3')" onmouseout="mclosetime()">Segurança</a>
+			<div id="m3" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
 				<a href="/usuarioControle?acao=iniciar">Usuário</a>
 			</div>
 		</li>
-		<li><a href="#" onmouseover="mopen('m3')" onmouseout="mclosetime()">Suprimento</a>
-			<div id="m3" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
+		<li><a href="#" onmouseover="mopen('m4')" onmouseout="mclosetime()">Suprimento</a>
+			<div id="m4" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
 				<a href="/produtoControle?acao=iniciar">Produto</a>
 			</div>
 		</li>
