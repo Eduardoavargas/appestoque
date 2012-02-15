@@ -18,41 +18,5 @@
 </head>
 <body>
 
-<!--  
-
-	<%
-		Empresa empresa = (Empresa)request.getAttribute("empresa");
-		Usuario usuario = (Usuario)request.getAttribute("usuario");
-	%>
-	<span class="title"><%=bundle.getString("empresa.pesquisar.titulo")%></span>
-	
-	<form id="formEditar" method="post" action="/processo?acao=adicionar">
-		<p>
-			<a href="/apresentacao.jsp"
-				style="z-index:0;"
-				class="ui-state-default ui-corner-all"><span
-				class="ui-icon ui-icon-arrowreturnthick-1-w"></span>Retornar</a>
-			<a href="#" onclick="document.forms[0].submit();"
-				style="z-index:0;"
-				class="ui-state-default ui-corner-all"><span
-				class="ui-icon ui-icon-disk"></span>Salvar</a>
-		</p>
-		<hr><br/>
-			Nome:<br/><app:texto nome="nome" estilo="width:300px;" valor="<%=empresa.getNome()%>"/></p>
-			CNPJ:<br/><app:cnpj nome="cnpj" valor="<%=empresa.getCnpj()%>"></app:cnpj></p>
-			Bairro:<br/><app:texto nome="bairro" estilo="width:300px;" valor="<%=empresa.getEndereco().getBairro()%>"/></p>
-			Cidade:<br/><app:texto nome="cidade" estilo="width:300px;" valor="<%=empresa.getEndereco().getCidade()%>"/></p>
-			Cep:<br/><app:cep nome="cep" valor="<%=empresa.getEndereco().getCep()%>"/></p>
-			Número:<br/><input name="numero" style="width: 70px;" value="<%=empresa.getEndereco().getNumero()!=null?empresa.getEndereco().getNumero():""%>" class="text ui-widget-content ui-corner-all"/></p>
-			<br/><br/>
-			E-mail:<br/><app:email nome="email" valor="<%=usuario.getEmail()%>"/></p>
-			Nome de Usuário:<br/><app:texto nome="nomeUsuario" estilo="width:200px;" valor="<%=usuario.getNome()%>"/></p>
-			Senha:<br/><app:texto nome="senha" estilo="width:70px;"  valor="<%=usuario.getSenha()%>"/></p>
-		<hr>
-	</form>
-<div id="rodape">© 2011 appestoque - <a href="" title="Política de Privacidade">Política de Privacidade</a></div>
-
--->
-
 </body>
 </html>
