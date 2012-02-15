@@ -1,13 +1,16 @@
 package br.com.appestoque.dominio.cadastro;
 
+import java.io.Serializable;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+@SuppressWarnings("serial")
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-public class Cidade {
+public class Cidade implements Serializable{
 	
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
