@@ -36,8 +36,8 @@ public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
 		if(cnpj!=null){
 			query.setFilter("cnpj == p_cnpj ");
 			query.declareParameters("String p_cnpj");
-			objetos = (List<Empresa>) query.execute(cnpj);
 		}
+		objetos = cnpj!=null?(List<Empresa>) query.execute(cnpj):(List<Empresa>) query.execute();
 		if (tipoBusca.equals(TipoBusca.ANSIOSA)) {
 			BairroDAO bairroDAO = new BairroDAO(this.getPm());
 			for (int i = 0; i < objetos.size(); i++) {
@@ -56,8 +56,8 @@ public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
 		if(cnpj!=null){
 			query.setFilter("cnpj == p_cnpj");
 			query.declareParameters("String p_cnpj");
-			objetos = (List<Empresa>) query.execute(cnpj);
 		}
+		objetos = cnpj!=null?(List<Empresa>) query.execute(cnpj):(List<Empresa>) query.execute();
 		return objetos.size();
 	}
 	
