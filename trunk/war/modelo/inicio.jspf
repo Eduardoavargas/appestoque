@@ -47,6 +47,7 @@
 				<a href="/bairroControle?acao=iniciar">Bairro</a>
 				<a href="/cidadeControle?acao=iniciar">Cidade</a>
 				<a href="/clienteControle?acao=iniciar">Cliente</a>
+				<a href="/representanteControle?acao=iniciar">Representante</a>
 			</div>
 		</li>
 		<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Segurança</a>
