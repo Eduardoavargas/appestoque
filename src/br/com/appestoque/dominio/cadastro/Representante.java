@@ -45,6 +45,12 @@ public class Representante implements Serializable{
 	
 	@Persistent
 	private String imei;
+	
+	@Persistent
+	private Long longitude;
+	
+	@Persistent
+	private Long latitude;
 
 	public Representante(	String nome, 
 							String cpf, 
@@ -157,6 +163,22 @@ public class Representante implements Serializable{
 
 	public void setImei(String imei) {
 		this.imei = imei;
+	}
+
+	public Long getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Long longitude) {
+		this.longitude = longitude;
+	}
+
+	public Long getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Long latitude) {
+		this.latitude = latitude;
 	}
 	
 }

@@ -23,6 +23,9 @@ public final class Pagina {
 	public static final String PAGINA_BAIRRO_LISTAR = "/cadastro/bairro/listar.jsp";
 	public static final String PAGINA_BAIRRO_EDITAR = "/cadastro/bairro/editar.jsp";
 	
+	public static final String PAGINA_REPRESENTANTE_LISTAR = "/cadastro/representante/listar.jsp";
+	public static final String PAGINA_REPRESENTANTE_EDITAR = "/cadastro/representante/editar.jsp";
+	
 	public static final String PAGINA_EMPRESA_CADASTRAR = "/publico/cadastro/empresa/cadastrar.jsp";
 	
 }
