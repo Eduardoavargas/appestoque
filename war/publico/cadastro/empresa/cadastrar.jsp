@@ -17,6 +17,9 @@
 
 </head>
 <body>
+
+<!--  
+
 	<%
 		Empresa empresa = (Empresa)request.getAttribute("empresa");
 		Usuario usuario = (Usuario)request.getAttribute("usuario");
@@ -48,5 +51,8 @@
 		<hr>
 	</form>
 <div id="rodape">© 2011 appestoque - <a href="" title="Política de Privacidade">Política de Privacidade</a></div>
+
+-->
+
 </body>
 </html>
