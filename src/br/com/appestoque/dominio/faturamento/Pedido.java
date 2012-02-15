@@ -10,7 +10,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 @SuppressWarnings("serial")
 @PersistenceCapable
-public class Pedido  implements Serializable{
+public class Pedido implements Serializable{
 	
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
@@ -28,6 +28,19 @@ public class Pedido  implements Serializable{
 	@Persistent
 	private Long idCliente;
 	
+	public Pedido(	String numero, 
+					Date data, 
+					Long idRepresentante,
+					Long idCliente, 
+					Double valor){
+		super();
+		this.numero = numero;
+		this.data = data;
+		this.idRepresentante = idRepresentante;
+		this.idCliente = idCliente;
+		this.valor = valor;
+	}
+
 	@Persistent
 	private Double valor = new Double(0);
 
