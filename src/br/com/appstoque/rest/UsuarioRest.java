@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.appestoque.dao.seguranca.UsuarioDAO;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
-import com.google.appengine.repackaged.org.json.JSONArray;
-import com.google.appengine.repackaged.org.json.JSONException;
-import com.google.appengine.repackaged.org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @SuppressWarnings("serial")
 public class UsuarioRest extends HttpServlet{
