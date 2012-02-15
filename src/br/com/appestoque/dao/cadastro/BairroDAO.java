@@ -19,12 +19,15 @@ public class BairroDAO extends DAOGenerico<Bairro, Long>{
 	}
 	
 	public Bairro pesquisar(Long id, TipoBusca tipoBusca){
-		Key k = KeyFactory.createKey(Bairro.class.getSimpleName(), id.intValue());
-		Bairro objeto = (Bairro) getPm().getObjectById(Bairro.class, k);
-		if(tipoBusca.equals(TipoBusca.ANSIOSA)){
-			CidadeDAO cidadeDAO = new CidadeDAO(getPm());
-			if(objeto.getIdCidade()!=null){
-				objeto.setCidade(cidadeDAO.pesquisar(objeto.getIdCidade()));
+		Bairro objeto = null;
+		if(id!=null){
+			Key k = KeyFactory.createKey(Bairro.class.getSimpleName(), id.intValue());
+			objeto = (Bairro) getPm().getObjectById(Bairro.class, k);
+			if(tipoBusca.equals(TipoBusca.ANSIOSA)){
+				CidadeDAO cidadeDAO = new CidadeDAO(getPm());
+				if(objeto.getIdCidade()!=null){
+					objeto.setCidade(cidadeDAO.pesquisar(objeto.getIdCidade()));
+				}
 			}
 		}
 		return objeto;
