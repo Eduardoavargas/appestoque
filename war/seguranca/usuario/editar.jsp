@@ -9,7 +9,7 @@
 		<hr><br/>
 			Nome:<br/><app:texto nome="nome" valor="<%=objeto.getNome()%>"/></p>
 			E-mail:<br/><app:texto nome="email" valor="<%=objeto.getEmail()%>"/></p>
-			Senha:<br/><app:texto nome="senha" valor="<%=objeto.getSenha()%>"/></p>
+			Senha:<br/><app:texto tipo="password" nome="senha" valor="<%=objeto.getSenha()%>"/></p>
 			Serial:<br/><app:texto nome="serial" valor="<%=objeto.getSerial()%>"/></p>
 		<hr>
 	</form>
