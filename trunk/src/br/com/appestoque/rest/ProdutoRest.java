@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.com.appestoque.dao.suprimento.ClienteDAO;
+import br.com.appestoque.dao.suprimento.ProdutoDAO;
 import br.com.appestoque.dominio.seguranca.Usuario;
 import br.com.appestoque.dominio.suprimento.Produto;
 
@@ -22,7 +22,7 @@ public class ProdutoRest extends HttpServlet{
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PersistenceManager persistenceManager = (PersistenceManager) request.getAttribute("pm");
-		ClienteDAO produtoDAO = new ClienteDAO(persistenceManager);
+		ProdutoDAO produtoDAO = new ProdutoDAO(persistenceManager);
 		HttpSession httpSession = request.getSession();
 		Usuario usuario = (Usuario) httpSession.getAttribute("usuario");		
 		JSONArray objetos = new JSONArray();

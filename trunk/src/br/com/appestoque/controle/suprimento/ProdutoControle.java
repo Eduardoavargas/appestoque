@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.appestoque.comum.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
-import br.com.appestoque.dao.suprimento.ClienteDAO;
+import br.com.appestoque.dao.suprimento.ProdutoDAO;
 import br.com.appestoque.dominio.suprimento.Produto;
 
 @SuppressWarnings("serial")
@@ -21,7 +21,7 @@ public class ProdutoControle extends BaseControle{
 	
 	private int primeiroRegistro = 0;
 	private String numero = null;
-	private ClienteDAO dao = null;	
+	private ProdutoDAO dao = null;	
 	private String nome = null;
 	private Double preco = null;
 	private Double estoque = null;
@@ -37,7 +37,7 @@ public class ProdutoControle extends BaseControle{
 	}
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		dao = new ClienteDAO((PersistenceManager) request.getAttribute("pm"));
+		dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
 			primeiroRegistro = 0;
 			objetos = dao.pesquisar(numero,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
@@ -90,13 +90,13 @@ public class ProdutoControle extends BaseControle{
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
-			dao = new ClienteDAO((PersistenceManager) request.getAttribute("pm"));			
+			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));			
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			request.setAttribute("objeto",objeto);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
-			dao = new ClienteDAO((PersistenceManager) request.getAttribute("pm"));
+			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));
 			nome = request.getParameter("nome");
 			numero = request.getParameter("numero");
 			preco = Double.parseDouble(request.getParameter("preco").replace(".", "").replace(",", "."));
@@ -112,7 +112,7 @@ public class ProdutoControle extends BaseControle{
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
-			dao = new ClienteDAO((PersistenceManager) request.getAttribute("pm"));			
+			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));			
 			Produto Produto = dao.pesquisar(new Long(request.getParameter("id")));
 			dao.remover(Produto);
 			objetos = dao.listar();
