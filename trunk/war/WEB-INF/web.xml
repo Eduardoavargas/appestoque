@@ -66,6 +66,13 @@
 		<filter-name>filtro</filter-name>
 		<url-pattern>/upload</url-pattern>
 	</filter-mapping>
+	
+	
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
+		<url-pattern>/produtoRestFull/*</url-pattern>
+	</filter-mapping>
+	
 
 	
 	<!--servlet-->
@@ -189,7 +196,25 @@
 		<url-pattern>/representanteControle</url-pattern>
 	</servlet-mapping>
     
-    
+
+	<!--Restfull(Cadastro)-->
+	<servlet>
+		<servlet-name>ClienteRestFull</servlet-name>
+		<servlet-class>br.com.appestoque.restfull.cadastro.ClienteRestFull</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ClienteRestFull</servlet-name>
+		<url-pattern>/clienteRestFull</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ProdutoRestFull</servlet-name>
+		<servlet-class>br.com.appestoque.restfull.cadastro.ProdutoRestFull</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProdutoRestFull</servlet-name>
+		<url-pattern>/produtoRestFull</url-pattern>
+	</servlet-mapping>
+	    
     
     <servlet>
 		<servlet-name>Processo</servlet-name>
