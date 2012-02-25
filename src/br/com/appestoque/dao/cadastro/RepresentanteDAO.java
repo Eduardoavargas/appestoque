@@ -21,10 +21,13 @@ public class RepresentanteDAO extends DAOGenerico<Representante, Long>{
 		Query query = getPm().newQuery(Representante.class);
 		query.setFilter("os_id == p_os_id");
 		query.declareParameters("String p_os_id");
-		objeto = ((List<Representante>) query.execute(os_id)).get(0);
-		if(tipoBusca.equals(TipoBusca.ANSIOSA)){
-			BairroDAO bairroDAO = new BairroDAO(getPm());
-			objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(),TipoBusca.ANSIOSA));
+		List<Representante> objetos = (List<Representante>) query.execute(os_id);
+		if(objetos.size()>0){
+			objeto = ((List<Representante>) query.execute(os_id)).get(0);
+			if(tipoBusca.equals(TipoBusca.ANSIOSA)){
+				BairroDAO bairroDAO = new BairroDAO(getPm());
+				objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(),TipoBusca.ANSIOSA));
+			}
 		}
 		return objeto;
 	}
