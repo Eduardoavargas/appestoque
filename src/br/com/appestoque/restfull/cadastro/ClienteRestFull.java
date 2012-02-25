@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
 import br.com.appestoque.dominio.cadastro.Cliente;
 import br.com.appestoque.dominio.cadastro.Empresa;
@@ -36,13 +37,17 @@ public class ClienteRestFull extends HttpServlet{
 		Empresa empresa = (Empresa) httpSession.getAttribute("empresa");
 		JSONArray objetos = new JSONArray();
 		try {
-			for (Cliente cliente : clienteDAO.listar(empresa.getId())) {
+			for (Cliente cliente : clienteDAO.listar(empresa.getId(),TipoBusca.ANSIOSA)) {
 				JSONObject objeto = new JSONObject();
-				objeto.put("_id", cliente.getId());
-//				objeto.put("nome", produto.getNome());
-//				objeto.put("numero", produto.getNumero());
-//				objeto.put("preco", produto.getPreco());
-//				objeto.put("estoque", produto.getEstoque());
+				objeto.put("_id",cliente.getId());				
+				objeto.put("nome",cliente.getNome());
+				objeto.put("cnpj",cliente.getCnpj());
+				objeto.put("endereco",cliente.getEndereco());
+				objeto.put("numero",cliente.getNumero());
+				objeto.put("cep",cliente.getCep());
+				objeto.put("complemento",cliente.getComplemento());
+				objeto.put("bairro",cliente.getBairro().getNome());
+				objeto.put("cidade",cliente.getBairro().getCidade().getNome());
 				objetos.put(objeto);
 			}
 		} catch (JSONException e) {

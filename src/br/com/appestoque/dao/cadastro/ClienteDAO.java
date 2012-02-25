@@ -55,7 +55,7 @@ public class ClienteDAO extends DAOGenerico<Cliente, Long>{
 		return objetos;
 	}
 	
-	public int contar(String cnpj, Long idEmpresa ){
+	public int contar(String cnpj, Long idEmpresa){
 		Query query = getPm().newQuery(Cliente.class);
 		List<Cliente> objetos = null;
 		if(cnpj!=null){
@@ -70,11 +70,18 @@ public class ClienteDAO extends DAOGenerico<Cliente, Long>{
 		return objetos.size();
 	}
 	
-	public List<Cliente> listar(Long idEmpresa){
+	public List<Cliente> listar(Long idEmpresa, TipoBusca tipoBusca){
 		Query query = getPm().newQuery(Cliente.class);
 		query.setFilter("idEmpresa == p_empresa ");
 		query.declareParameters("String p_empresa");
-		return (List<Cliente>) query.execute(idEmpresa);
+		List<Cliente> objetos = (List<Cliente>) query.execute(idEmpresa);
+		if(tipoBusca.equals(TipoBusca.ANSIOSA)&&objetos.size()>0){
+			BairroDAO bairroDAO = new BairroDAO(this.getPm()); 
+			for (int i = 0; i < objetos.size(); i++) {
+				bairroDAO.pesquisar(objetos.get(i).getBairro().getId(),tipoBusca);
+			}
+		}
+		return objetos;
 	}
 	
 }
