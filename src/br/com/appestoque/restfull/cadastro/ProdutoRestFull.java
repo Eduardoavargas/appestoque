@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.com.appestoque.dao.suprimento.ClienteDAO;
+import br.com.appestoque.dao.suprimento.ProdutoDAO;
 import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.suprimento.Produto;
 
@@ -31,7 +31,7 @@ public class ProdutoRestFull extends HttpServlet{
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PersistenceManager pm = (PersistenceManager) request.getAttribute("pm");
-		ClienteDAO produtoDAO = new ClienteDAO(pm);
+		ProdutoDAO produtoDAO = new ProdutoDAO(pm);
 		HttpSession httpSession = request.getSession();
 		Empresa empresa = (Empresa) httpSession.getAttribute("empresa");
 		JSONArray objetos = new JSONArray();
