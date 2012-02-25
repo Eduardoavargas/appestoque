@@ -29,24 +29,25 @@ public class Filtro implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, 
 			FilterChain filterChain) throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) request;  
+		HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
         PersistenceManager pm = null;
         Boolean autorizado = (Boolean) session.getAttribute("autorizado");
         String os = request.getParameter("os");
         
-        if(os!=null){
-        	RepresentanteDAO dao = new RepresentanteDAO(PMF.get().getPersistenceManager());
-        	Representante representante = dao.pesquisar(os, TipoBusca.PREGUICOSA); 
-        	if(representante!=null){
-        		pm = PMF.get().getPersistenceManager();
+		if (os != null) {
+			RepresentanteDAO dao = new RepresentanteDAO(PMF.get().getPersistenceManager());
+			Representante representante = dao.pesquisar(os,TipoBusca.PREGUICOSA);
+			if (representante != null) {
+				pm = PMF.get().getPersistenceManager();
 				request.setAttribute("pm", pm);
-				Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),representante.getIdEmpresa());
+				Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),
+						representante.getIdEmpresa());
 				Empresa empresa = pm.getObjectById(Empresa.class, key);
 				session.setAttribute("empresa", empresa);
-        		filterChain.doFilter(request, response);
-        	}
-        }else if ( autorizado == null || !autorizado ) {
+				filterChain.doFilter(request, response);
+			}
+		} else if (autorizado == null || !autorizado) {
         	String email = request.getParameter("email");
     		String senha = request.getParameter("senha");
 			String serial = request.getParameter("serial");
