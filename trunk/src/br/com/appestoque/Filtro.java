@@ -1,23 +1,5 @@
-/*
- * direitos (c) 2011 AST Tecnologia Virtual Ltda
- * 
- * As informações contidas neste documento são de propriedade da 
- * AST Tecnologia Virtual Ltda. Este documento é confidencial e não 
- * pode ser usado para fins produtivos, e não pode ser reproduzido 
- * sem autorização
- * 
- */
-
 package br.com.appestoque;
 
-/**
- * 
- * Filtro utilizado para conexão e autenticação
- * 
- * @version 1.0 5 de novembro de 2011
- * @author andré tricano
- * 
- */
 import java.io.IOException;
 
 import javax.jdo.PersistenceManager;
@@ -36,8 +18,10 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.dao.PMF;
+import br.com.appestoque.dao.cadastro.RepresentanteDAO;
 import br.com.appestoque.dao.seguranca.UsuarioDAO;
 import br.com.appestoque.dominio.cadastro.Empresa;
+import br.com.appestoque.dominio.cadastro.Representante;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
 public class Filtro implements Filter{
@@ -48,8 +32,21 @@ public class Filtro implements Filter{
 		HttpServletRequest req = (HttpServletRequest) request;  
         HttpSession session = req.getSession();
         PersistenceManager pm = null;
-        Boolean autorizado = (Boolean) session.getAttribute("autorizado");   
-        if ( autorizado == null || !autorizado ) {
+        Boolean autorizado = (Boolean) session.getAttribute("autorizado");
+        String os = request.getParameter("os");
+        
+        if(os!=null){
+        	RepresentanteDAO dao = new RepresentanteDAO(PMF.get().getPersistenceManager());
+        	Representante representante = dao.pesquisar(os, TipoBusca.PREGUICOSA); 
+        	if(representante!=null){
+        		pm = PMF.get().getPersistenceManager();
+				request.setAttribute("pm", pm);
+				Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),representante.getIdEmpresa());
+				Empresa empresa = pm.getObjectById(Empresa.class, key);
+				session.setAttribute("empresa", empresa);
+        		filterChain.doFilter(request, response);
+        	}
+        }else if ( autorizado == null || !autorizado ) {
         	String email = request.getParameter("email");
     		String senha = request.getParameter("senha");
 			String serial = request.getParameter("serial");
@@ -83,6 +80,7 @@ public class Filtro implements Filter{
         	filterChain.doFilter(request, response);
         	pm.close();
         }
+        
 	}
 
 	@Override

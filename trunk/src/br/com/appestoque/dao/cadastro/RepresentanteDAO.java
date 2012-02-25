@@ -15,6 +15,19 @@ public class RepresentanteDAO extends DAOGenerico<Representante, Long>{
 	public RepresentanteDAO(PersistenceManager pm) {
 		this.setPm(pm);
 	}
+
+	public Representante pesquisar(String os_id, TipoBusca tipoBusca){
+		Representante objeto = null;
+		Query query = getPm().newQuery(Representante.class);
+		query.setFilter("os_id == p_os_id");
+		query.declareParameters("String p_os_id");
+		objeto = ((List<Representante>) query.execute(os_id)).get(0);
+		if(tipoBusca.equals(TipoBusca.ANSIOSA)){
+			BairroDAO bairroDAO = new BairroDAO(getPm());
+			objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(),TipoBusca.ANSIOSA));
+		}
+		return objeto;
+	}
 	
 	public Representante pesquisar(Long id, TipoBusca tipoBusca){
 		Representante objeto = null;
