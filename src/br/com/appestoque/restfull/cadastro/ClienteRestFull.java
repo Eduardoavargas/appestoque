@@ -39,7 +39,7 @@ public class ClienteRestFull extends HttpServlet{
 		try {
 			for (Cliente cliente : clienteDAO.listar(empresa.getId(),TipoBusca.ANSIOSA)) {
 				JSONObject objeto = new JSONObject();
-				objeto.put("_id",cliente.getId());				
+				objeto.put("_id",cliente.getId());			
 				objeto.put("nome",cliente.getNome());
 				objeto.put("cnpj",cliente.getCnpj());
 				objeto.put("endereco",cliente.getEndereco());
