@@ -17,7 +17,6 @@ import org.json.JSONObject;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
 import br.com.appestoque.dominio.cadastro.Cliente;
 import br.com.appestoque.dominio.cadastro.Empresa;
-import br.com.appestoque.dominio.suprimento.Produto;
 
 @SuppressWarnings("serial")
 public class ClienteRestFull extends HttpServlet{
