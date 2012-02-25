@@ -78,7 +78,7 @@ public class ClienteDAO extends DAOGenerico<Cliente, Long>{
 		if(tipoBusca.equals(TipoBusca.ANSIOSA)&&objetos.size()>0){
 			BairroDAO bairroDAO = new BairroDAO(this.getPm()); 
 			for (int i = 0; i < objetos.size(); i++) {
-				bairroDAO.pesquisar(objetos.get(i).getBairro().getId(),tipoBusca);
+				objetos.get(i).setBairro(bairroDAO.pesquisar(objetos.get(i).getIdBairro(),tipoBusca));
 			}
 		}
 		return objetos;
