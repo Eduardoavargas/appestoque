@@ -80,8 +80,8 @@
 		</select>
 	</div>
 	</p>
-	<%=bundle.getString("representante.imei")%><br />
-	<app:texto id="imei" nome="imei" tamanho="50" valor="<%=objeto.getImei()%>"/>
+	<%=bundle.getString("representante.os_id")%><br />
+	<app:texto id="os_id" nome="os_id" tamanho="50" valor="<%=objeto.getOs_id()%>"/>
 	</p>
 	
 	<hr>
