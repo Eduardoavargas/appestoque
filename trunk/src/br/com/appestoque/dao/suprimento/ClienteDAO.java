@@ -8,9 +8,9 @@ import javax.jdo.Query;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dominio.suprimento.Produto;
 
-public class ProdutoDAO extends DAOGenerico<Produto, Long> {
+public class ClienteDAO extends DAOGenerico<Produto, Long> {
 
-	public ProdutoDAO(PersistenceManager pm) {
+	public ClienteDAO(PersistenceManager pm) {
 		this.setPm(pm);
 	}
 

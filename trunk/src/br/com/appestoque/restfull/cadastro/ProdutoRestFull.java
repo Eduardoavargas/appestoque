@@ -14,10 +14,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.com.appestoque.dao.suprimento.ProdutoDAO;
+import br.com.appestoque.dao.suprimento.ClienteDAO;
 import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.suprimento.Produto;
-import br.com.appestoque.util.Constantes;
 
 @SuppressWarnings("serial")
 public class ProdutoRestFull extends HttpServlet{
@@ -32,31 +31,27 @@ public class ProdutoRestFull extends HttpServlet{
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PersistenceManager pm = (PersistenceManager) request.getAttribute("pm");
-		if(pm!=null){
-			ProdutoDAO produtoDAO = new ProdutoDAO(pm);
-			HttpSession httpSession = request.getSession();
-			Empresa empresa = (Empresa) httpSession.getAttribute("empresa");		
-			JSONArray objetos = new JSONArray();
-			try{
-				for(Produto produto : produtoDAO.listar(empresa.getId())){
-					JSONObject objeto = new JSONObject();
-					objeto.put("_id",produto.getId());
-					objeto.put("nome",produto.getNome());
-					objeto.put("numero",produto.getNumero());
-					objeto.put("preco",produto.getPreco());
-					objeto.put("estoque",produto.getEstoque());
-					objetos.put(objeto);
-				}
-			}catch(JSONException e) {
-				e.printStackTrace();
+		ClienteDAO produtoDAO = new ClienteDAO(pm);
+		HttpSession httpSession = request.getSession();
+		Empresa empresa = (Empresa) httpSession.getAttribute("empresa");
+		JSONArray objetos = new JSONArray();
+		try {
+			for (Produto produto : produtoDAO.listar(empresa.getId())) {
+				JSONObject objeto = new JSONObject();
+				objeto.put("_id", produto.getId());
+				objeto.put("nome", produto.getNome());
+				objeto.put("numero", produto.getNumero());
+				objeto.put("preco", produto.getPreco());
+				objeto.put("estoque", produto.getEstoque());
+				objetos.put(objeto);
 			}
-			response.setContentType("application/json;charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.print(objetos);
-			out.flush();
-		}else{
-			response.sendError(Constantes.SC_IDENTIFICADOR_INVALIDO, null);
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(objetos);
+		out.flush();
 	}
 
 }
