@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+
+import br.com.appestoque.dominio.cadastro.Cliente;
 
 @SuppressWarnings("serial")
 @PersistenceCapable
@@ -27,6 +30,9 @@ public class Pedido implements Serializable{
 	
 	@Persistent
 	private Long idCliente;
+	
+	@NotPersistent
+	private Cliente cliente;
 	
 	public Pedido(	String numero, 
 					Date data, 
@@ -90,6 +96,14 @@ public class Pedido implements Serializable{
 
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 }
