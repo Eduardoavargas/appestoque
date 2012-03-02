@@ -215,9 +215,13 @@
 		<servlet-class>br.com.appestoque.restfull.suprimento.ProdutoRestFull</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ProdutoRestFull</servlet-name>
-		<url-pattern>/produtoRestFull</url-pattern>
+		<servlet-name>PedidoRestFull</servlet-name>
+		<url-pattern>/pedidoRestFull</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>PedidoRestFull</servlet-name>
+		<servlet-class>br.com.appestoque.restfull.faturamento.PedidoRestFull</servlet-class>
+	</servlet>
 	    
     
     <servlet>
