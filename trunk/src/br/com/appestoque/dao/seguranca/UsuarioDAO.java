@@ -20,7 +20,7 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 		query.setFilter("email == p_email && senha == p_senha");
 		query.declareParameters("String p_email , String p_senha");
 		List usuarios = (List) query.execute(email,senha);
-		Usuario usuario = (Usuario) usuarios.get(0);
+		Usuario usuario = usuarios.size()>0?(Usuario) usuarios.get(0):null;
 		return usuario;
 	}
 	
