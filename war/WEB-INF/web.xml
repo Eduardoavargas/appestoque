@@ -147,6 +147,14 @@
 		<servlet-name>UsuarioControle</servlet-name>
 		<url-pattern>/usuarioControle</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>br.com.appestoque.controle.seguranca.Logout</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
 	
 	<!--suprimeiro-->
 	<servlet>
