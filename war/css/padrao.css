@@ -190,14 +190,12 @@ form a span.ui-icon{
     display:none;
     padding: 0px 16px 0px 0;
 }
-
 .active ul{
     display:block !important; 
 }
-
 .active a{
-    background-color: white;
-    border: 1px solid #C3D1EC;
+    background-color: black;
+    border: 1px solid black;
     border-bottom: 0;
     box-shadow: 0 -1px 5px #CCCCCC;
     display: block;
@@ -205,13 +203,11 @@ form a span.ui-icon{
     padding: 0 8px 0 8px;
     position:relative;
     z-index: 1;
-    color:#5aae00;
+    color:white;
 }
-
 .active a:hover{
-    background-color:white;
+    background-color:black;
 }
-
 .active ul a:hover{
     background-color:black;
 }
@@ -222,7 +218,6 @@ form a span.ui-icon{
     border:0;
     width: 100%;
 }
-
 .arrow {
     border-color: white transparent transparent;
     border-style: solid dashed dashed;
