@@ -1,17 +1,19 @@
 package br.com.appestoque.controle.seguranca;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
+import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import br.com.appestoque.comum.Pagina;
+import br.com.appestoque.dao.PMF;
+import br.com.appestoque.dao.seguranca.UsuarioDAO;
 
 @SuppressWarnings("serial")
-public class Logout extends HttpServlet {
+public class Login  extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
@@ -22,12 +24,16 @@ public class Logout extends HttpServlet {
 	}
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpServletRequest req = (HttpServletRequest) request;
-        HttpSession session = req.getSession();
-		session.setAttribute("empresa", null);
-		session.setAttribute("usuario", null);
-		session.setAttribute("autorizado", new Boolean("false"));
-		response.sendRedirect(Pagina.PAGINA_APRESENTACAO);	
-	}
+		PrintWriter out = response.getWriter();
+		String email = request.getParameter("email");
+		String senha = request.getParameter("senha");
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		UsuarioDAO dao = new UsuarioDAO(pm);
+		if(dao.autenticar(email, senha)){
+			out.println("true");
+		}else{
+			out.println("false");
+		}
+	}	
 	
 }

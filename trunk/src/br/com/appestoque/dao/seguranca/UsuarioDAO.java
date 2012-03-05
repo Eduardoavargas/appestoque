@@ -15,6 +15,15 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 	}
 	
 	@SuppressWarnings("rawtypes")
+	public boolean autenticar(String email, String senha){
+		Query query = getPm().newQuery(Usuario.class);
+		query.setFilter("email == p_email && senha == p_senha");
+		query.declareParameters("String p_email , String p_senha");
+		List usuarios = (List) query.execute(email,senha);
+		return (usuarios.size()>0);
+	}
+	
+	@SuppressWarnings("rawtypes")
 	public Usuario pesquisar(String email, String senha){
 		Query query = getPm().newQuery(Usuario.class);
 		query.setFilter("email == p_email && senha == p_senha");
