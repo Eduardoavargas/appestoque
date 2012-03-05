@@ -52,10 +52,6 @@
 	<div align="center" style="width: 100%;" ><img src="img/logo.jpg"/></div>
 	<br/>
 	
-	<!--  
-	<span class="heading" title="clique aqui para sair" ><a href="/processo?acao=logoff"><%=((Usuario)request.getSession().getAttribute("usuario")).getNome()%> - <%=((Empresa)request.getSession().getAttribute("empresa")).getNome()%></a></span>
-	-->
-	
 	<%if(request.getAttribute("mensagem")!=null){ %>
 		<div class="ui-widget">
 			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
