@@ -56,11 +56,6 @@ public class Filtro implements Filter{
 			Usuario usuario = null;
 			if (email != null && senha != null) {
 				usuario = dao.pesquisar(email, senha);
-				if(usuario==null){
-					HttpServletResponse resp = (HttpServletResponse) response;
-					req.setAttribute("mensagem", "Login inválido");
-					resp.sendRedirect(Pagina.PAGINA_APRESENTACAO);
-				}
 			} else if (serial != null) {
 				usuario = dao.pesquisar(serial);
 			}
