@@ -1,25 +1,80 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page import="java.util.ResourceBundle"%>
+<%ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());%>
 <html>
 <head>
-<title></title>
+<title><%=bundle.getString("app.titulo")%></title>
 
 <script type="text/javascript">
-				function validar(){                            
-	        		if(document.getElementById('email').value.length==0){
-						alert('Desculpe, mas para prosseguir será necessário informar o e-mail.');
-	        			document.getElementById('email').focus();
-	        			return false;
-	        		}else if(document.getElementById('senha').value.length==0){
-						alert('Desculpe, mas para prosseguir será necessário informar senha.');
-	        			document.getElementById('senha').focus();
-	        			return false;
-	        		}else if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById('email').value))) {
-	        			alert('Desculpe, mas para prosseguir será necessário informar um e-mail válido.');
-	        			document.getElementById('email').focus();
-	        			return false;
-	        		}else{
-	        			return true;
-	        		}	        		
-	        	}
+	
+	function validar() {
+		if (document.getElementById('email').value.length == 0) {
+			alert('<%=bundle.getString("app.mensagem.obrigatoriedade.email")%>');
+			document.getElementById('email').focus();
+			return false;
+		} else if (document.getElementById('senha').value.length == 0) {
+			alert('<%=bundle.getString("app.mensagem.obrigatoriedade.senha")%>');
+			document.getElementById('senha').focus();
+			return false;
+		} else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById('email').value))) {
+			alert('<%=bundle.getString("app.mensagem.validar.email")%>');
+			document.getElementById('email').focus();
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	function getXMLObject() {
+		var xmlHttp = false;
+		try {
+			xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")
+		} catch (e) {
+			try {
+				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
+			} catch (e2) {
+				xmlHttp = false 
+			}
+		}
+		if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+			xmlHttp = new XMLHttpRequest();
+		}
+		return xmlHttp;
+	}
+
+	var xmlhttp = new getXMLObject();
+	
+	function ajaxFunction() {
+		  if(xmlhttp) { 
+		   var txtname = document.getElementById("txtname");
+		    xmlhttp.open("POST","login",true);
+		    xmlhttp.onreadystatechange  = handleServerResponse;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xmlhttp.send("email="+document.getElementById('email').value+"&senha="+document.getElementById('senha').value);
+		  }
+		  return false;
+		}
+	
+		String.prototype.trim = function () {
+		    return this.replace(/^\s*/, "").replace(/\s*$/, "");
+		}
+	
+		function handleServerResponse() {
+		   if (xmlhttp.readyState == 4) {
+		     if(xmlhttp.status == 200) {
+		    	 var autenticado = Boolean(xmlhttp.responseText.trim()=='true');  
+		    	 if(autenticado){
+		    		 document.forms[0].submit();	 
+		    	 }else{
+		    		 alert('<%=bundle.getString("app.mensagem.autenticacao.invalida")%>');	 
+		    	 }
+		     }
+		     else {
+		        alert('<%=bundle.getString("app.mensagem.requisicao.invalida")%>');
+		     }
+		   }
+		}
+	
 </script>
 
 
@@ -161,6 +216,7 @@ h2 {
 
 </head>
 <body>
+
 		<div id="topo">
 <!-- 			<a href="/processo?acao=cadastrar" id="btnCadastrar">Clique aqui para cadastrar sua empresa</a>  -->
 		<br/><br/><br/>
@@ -168,12 +224,12 @@ h2 {
 		</div>
 		<div id="conteudo">
 			<div id="texto_explicativo">
-				<h2>O que é o appestoque ?</h2>
-				<p class="blocoExplicacao">É um aplicativo para atuar na força de venda de uma empresa.</p>
-				<!--<p class="blocoExplicacao">O appestoque é um controle de estoque na web.</p>-->
+				<h2>O que Ã© o appestoque ?</h2>
+				<p class="blocoExplicacao">Ã‰ um aplicativo para atuar na forÃ§a de venda de uma empresa.</p>
+				<!--<p class="blocoExplicacao">O appestoque Ã© um controle de estoque na web.</p>-->
 				<h2>Para que serve o appestoque ?</h2>
-				<p class="blocoExplicacao">É utilizado para controlar Clientes, Produtos e Pedidos de Venda.</p>
-				<!--<p class="blocoExplicacao">O appestoque é utilizado para controlar produtos de uma pequena empresa.</p>-->
+				<p class="blocoExplicacao">Ã‰ utilizado para controlar Clientes, Produtos e Pedidos de Venda.</p>
+				<!--<p class="blocoExplicacao">O appestoque Ã© utilizado para controlar produtos de uma pequena empresa.</p>-->
 			</div>
 			<div id="login">
 				<form id="form_login" action="/menu.jsp" method="post">
@@ -193,13 +249,14 @@ h2 {
 								<td><input type="password" id="senha" name="senha" /></td>						
 							</tr>	
 							<tr>					
-								<td colspan="2" align="center" ><button type="submit" onclick="return validar()">Acessar</button></td>
+								<!--<td colspan="2" align="center" ><button type="submit" onclick="return validar()">Acessar</button></td>-->
+								<td colspan="2" align="center" ><button type="submit" onclick="return ajaxFunction()">Acessar</button></td>
 							</tr>
 						</table>
 					</fieldset>
 				</form>
 			</div>
 		</div>
-	<div id="rodape">© 2012 appestoque - <a href="" title="Política de Privacidade" onclick="return false;">Política de Privacidade</a></div>
+	<div id="rodape">Â© 2012 appestoque - <a href="" title="PolÃ­tica de Privacidade" onclick="return false;">PolÃ­tica de Privacidade</a></div>
 </body>
 </html>
