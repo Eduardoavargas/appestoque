@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.com.appestoque.TipoBusca;
+import br.com.appestoque.dao.PMF;
 import br.com.appestoque.dao.cadastro.RepresentanteDAO;
 import br.com.appestoque.dao.faturamento.PedidoDAO;
 import br.com.appestoque.dominio.cadastro.Representante;
@@ -34,7 +35,7 @@ public class PedidoRestFul extends HttpServlet{
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
 		String data = bufferedReader.readLine();
-		PersistenceManager pm = (PersistenceManager) request.getAttribute("pm");
+		PersistenceManager pm = PMF.get().getPersistenceManager();		
 		RepresentanteDAO representanteDAO = new RepresentanteDAO(pm);		
 		try {			
 			JSONObject json = new JSONObject(data);
