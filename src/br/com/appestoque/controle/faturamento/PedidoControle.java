@@ -43,7 +43,7 @@ public class PedidoControle extends BaseControle{
 			request.setAttribute("totalRegistros", objetos.size());
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
 			request.setAttribute("objetos",objetos);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_LISTAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PEDIDO_LISTAR);
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("pesquisar")) {
 			request.setAttribute("primeiroRegistro",request.getParameter("primeiroRegistro"));
@@ -79,17 +79,17 @@ public class PedidoControle extends BaseControle{
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}
 			request.setAttribute("objetos",objetos);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_LISTAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PEDIDO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
 			objeto = new Pedido();
 			request.setAttribute("objeto", objeto);			
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_EDITAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PEDIDO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			request.setAttribute("objeto",objeto);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_EDITAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PEDIDO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
 			//nome = request.getParameter("nome");
