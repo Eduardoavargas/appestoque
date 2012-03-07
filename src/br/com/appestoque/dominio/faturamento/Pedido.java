@@ -37,6 +37,9 @@ public class Pedido implements Serializable{
 	@Persistent
 	private Long idEmpresa;
 	
+	@Persistent
+	private String obs;
+	
 	public Pedido() {
 		super();
 	}
@@ -45,13 +48,15 @@ public class Pedido implements Serializable{
 					Date data, 
 					Long idRepresentante,
 					Long idCliente,
-					Long idEmpresa){
+					Long idEmpresa,
+					String obs){
 		super();
 		this.numero = numero;
 		this.data = data;
 		this.idRepresentante = idRepresentante;
 		this.idCliente = idCliente;
 		this.idEmpresa = idEmpresa;
+		this.obs = obs;
 	}
 
 	public Long getId() {
@@ -108,6 +113,14 @@ public class Pedido implements Serializable{
 
 	public void setIdEmpresa(Long idEmpresa) {
 		this.idEmpresa = idEmpresa;
+	}
+
+	public String getObs() {
+		return obs;
+	}
+
+	public void setObs(String obs) {
+		this.obs = obs;
 	}
 	
 }
