@@ -44,7 +44,8 @@ public class PedidoRestFul extends HttpServlet{
 										new Date(json.getLong("data")),										
 										representante.getId(),
 										json.getLong("idCliente"),
-										representante.getIdEmpresa());
+										representante.getIdEmpresa(),
+										json.getString("obs"));
 			PedidoDAO pedidoDAO = new PedidoDAO(pm);
 			pedidoDAO.criar(pedido);
 		} catch (JSONException e) {
