@@ -26,6 +26,12 @@
 		<filter-name>filtro</filter-name>
 		<url-pattern>/produtoControle/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- FATURAMENTO -->
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
+		<url-pattern>/pedidoControle/*</url-pattern>
+	</filter-mapping>
 
 	<!-- CADASTRO -->	
 	<filter-mapping>
