@@ -37,6 +37,10 @@ public class Pedido implements Serializable{
 	@Persistent
 	private Long idEmpresa;
 	
+	public Pedido() {
+		super();
+	}
+	
 	public Pedido(	String numero, 
 					Date data, 
 					Long idRepresentante,
