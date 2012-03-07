@@ -39,7 +39,7 @@
 		<% for (int i = 0;i<objetos.size();i++) { %>
 			<% Cidade objeto = (Cidade) objetos.get(i); %>
 			<tr>
-				<td><%=objeto.getNome()%></a></td>
+				<td><%=objeto.getNome()%></td>
 				<td align="center" >
 					<a id="edt" href="/cidadeControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
 					<a href="/cidadeControle?acao=remover&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.remover")%>" src="img/remover.png" style="border: 0px;"/></a>
