@@ -34,15 +34,20 @@ public class Pedido implements Serializable{
 	@NotPersistent
 	private Cliente cliente;
 	
+	@Persistent
+	private Long idEmpresa;
+	
 	public Pedido(	String numero, 
 					Date data, 
 					Long idRepresentante,
-					Long idCliente){
+					Long idCliente,
+					Long idEmpresa){
 		super();
 		this.numero = numero;
 		this.data = data;
 		this.idRepresentante = idRepresentante;
 		this.idCliente = idCliente;
+		this.idEmpresa = idEmpresa;
 	}
 
 	public Long getId() {
@@ -91,6 +96,14 @@ public class Pedido implements Serializable{
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Long getIdEmpresa() {
+		return idEmpresa;
+	}
+
+	public void setIdEmpresa(Long idEmpresa) {
+		this.idEmpresa = idEmpresa;
 	}
 	
 }
