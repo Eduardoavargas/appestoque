@@ -33,12 +33,14 @@
 		<table border="0" cellspacing="1" cellpadding="5" class="ui-widget" width="100%">
 		<tr class="ui-widget-header">
 			<td><%=bundle.getString("pedido.numero")%></td>
+			<td><%=bundle.getString("pedido.data")%></td>
 			<td width="15%"/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
 			<% Pedido objeto = (Pedido) objetos.get(i); %>
 			<tr>
 				<td><%=objeto.getNumero()%></td>
+				<td><%=objeto.getData()%></td>
 				<td align="center" >
 					<a id="edt" href="/pedidoControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
 					<a href="/pedidoControle?acao=remover&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.remover")%>" src="img/remover.png" style="border: 0px;"/></a>
