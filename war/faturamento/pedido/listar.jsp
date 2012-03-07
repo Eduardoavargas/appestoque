@@ -1,7 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="br.com.appestoque.dominio.faturamento.Pedido" %>
-<%@ page import="br.com.appestoque.util.Constantes" %>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
@@ -39,7 +38,7 @@
 		<% for (int i = 0;i<objetos.size();i++) { %>
 			<% Pedido objeto = (Pedido) objetos.get(i); %>
 			<tr>
-				<td><%=objeto.getNumero()%></a></td>
+				<td><%=objeto.getNumero()%></td>
 				<td align="center" >
 					<a id="edt" href="/pedidoControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
 					<a href="/pedidoControle?acao=remover&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.remover")%>" src="img/remover.png" style="border: 0px;"/></a>
