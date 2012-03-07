@@ -37,18 +37,13 @@ public class Pedido implements Serializable{
 	public Pedido(	String numero, 
 					Date data, 
 					Long idRepresentante,
-					Long idCliente, 
-					Double valor){
+					Long idCliente){
 		super();
 		this.numero = numero;
 		this.data = data;
 		this.idRepresentante = idRepresentante;
 		this.idCliente = idCliente;
-		this.valor = valor;
 	}
-
-	@Persistent
-	private Double valor = new Double(0);
 
 	public Long getId() {
 		return id;
@@ -88,14 +83,6 @@ public class Pedido implements Serializable{
 
 	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
-	}
-
-	public Double getValor() {
-		return valor;
-	}
-
-	public void setValor(Double valor) {
-		this.valor = valor;
 	}
 
 	public Cliente getCliente() {
