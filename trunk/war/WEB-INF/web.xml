@@ -164,8 +164,7 @@
 		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	
-	
-	<!--suprimeiro-->
+	<!--suprimento-->
 	<servlet>
 		<servlet-name>ProdutoControle</servlet-name>
 		<servlet-class>br.com.appestoque.controle.suprimento.ProdutoControle</servlet-class>
@@ -173,6 +172,16 @@
 	<servlet-mapping>
 		<servlet-name>ProdutoControle</servlet-name>
 		<url-pattern>/produtoControle</url-pattern>
+	</servlet-mapping>
+	
+	<!--faturamento-->
+	<servlet>
+		<servlet-name>PedidoControle</servlet-name>
+		<servlet-class>br.com.appestoque.controle.faturamento.PedidoControle</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PedidoControle</servlet-name>
+		<url-pattern>/pedidoControle</url-pattern>
 	</servlet-mapping>
 	
 	<!--cadastro-->
@@ -220,24 +229,24 @@
 
 	<!--Restfull(Cadastro)-->
 	<servlet>
-		<servlet-name>ClienteRestFull</servlet-name>
-		<servlet-class>br.com.appestoque.restfull.cadastro.ClienteRestFull</servlet-class>
+		<servlet-name>ClienteRestFul</servlet-name>
+		<servlet-class>br.com.appestoque.restful.cadastro.ClienteRestFul</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ClienteRestFull</servlet-name>
-		<url-pattern>/clienteRestFull</url-pattern>
+		<servlet-name>ClienteRestFul</servlet-name>
+		<url-pattern>/clienteRestFul</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>ProdutoRestFull</servlet-name>
-		<servlet-class>br.com.appestoque.restfull.suprimento.ProdutoRestFull</servlet-class>
+		<servlet-name>ProdutoRestFul</servlet-name>
+		<servlet-class>br.com.appestoque.restful.suprimento.ProdutoRestFul</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>PedidoRestFull</servlet-name>
-		<url-pattern>/pedidoRestFull</url-pattern>
+		<servlet-name>PedidoRestFul</servlet-name>
+		<url-pattern>/pedidoRestFul</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>PedidoRestFull</servlet-name>
-		<servlet-class>br.com.appestoque.restfull.faturamento.PedidoRestFull</servlet-class>
+		<servlet-name>PedidoRestFul</servlet-name>
+		<servlet-class>br.com.appestoque.restful.faturamento.PedidoRestFul</servlet-class>
 	</servlet>
 	    
     
