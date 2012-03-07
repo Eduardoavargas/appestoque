@@ -3,7 +3,6 @@ package br.com.appestoque.restful.faturamento;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Date;
 
 import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
@@ -17,7 +16,6 @@ import org.json.JSONObject;
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.cadastro.RepresentanteDAO;
 import br.com.appestoque.dominio.cadastro.Representante;
-import br.com.appestoque.dominio.faturamento.Pedido;
 
 @SuppressWarnings("serial")
 public class PedidoRestFul extends HttpServlet{
@@ -39,7 +37,6 @@ public class PedidoRestFul extends HttpServlet{
 		try {			
 			JSONObject json = new JSONObject(data);
 			Representante representante = representanteDAO.pesquisar(json.getJSONObject("parametro").getString("os"),TipoBusca.PREGUICOSA);
-			
 			
 //			Pedido pedido = new Pedido( json.getString("numero") ,  
 //					Date data, 
