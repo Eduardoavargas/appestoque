@@ -62,7 +62,7 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
-		<url-pattern>/rest/produtoRest/*</url-pattern>
+		<url-pattern>/rest/produtoRest/*</url-pattern>		
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
@@ -76,13 +76,16 @@
 	
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
-		<url-pattern>/produtoRestFull/*</url-pattern>
+		<url-pattern>/produtoRestFul/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
-		<url-pattern>/clienteRestFull/*</url-pattern>
+		<url-pattern>/clienteRestFul/*</url-pattern>
 	</filter-mapping>
-	
+	<filter-mapping>
+		<filter-name>filtro</filter-name>
+		<url-pattern>/pedidoRestFul/*</url-pattern>
+	</filter-mapping>
 
 	
 	<!--servlet-->
@@ -242,10 +245,16 @@
 		<servlet-name>ClienteRestFul</servlet-name>
 		<url-pattern>/clienteRestFul</url-pattern>
 	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>ProdutoRestFul</servlet-name>
 		<servlet-class>br.com.appestoque.restful.suprimento.ProdutoRestFul</servlet-class>
 	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProdutoRestFul</servlet-name>
+		<url-pattern>/produtoRestFul</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>PedidoRestFul</servlet-name>
 		<url-pattern>/pedidoRestFul</url-pattern>
