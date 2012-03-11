@@ -23,7 +23,7 @@ public class CargaInicial extends HttpServlet{
 			pm.makePersistent(empresa);
 			pm.currentTransaction().commit();
 			/*usuário*/
-			Usuario usuario = new Usuario("Sergey Brin","sergeybrin@google.com","sg1","200141a5bb0c7345",empresa.getId());			
+			Usuario usuario = new Usuario("Sergey Brin","sergeybrin@google.com","sg1",empresa.getId());			
 			pm.currentTransaction().begin();
 			pm.makePersistent(usuario);
 			pm.currentTransaction().commit();
