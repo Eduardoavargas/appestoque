@@ -16,14 +16,14 @@ public class RepresentanteDAO extends DAOGenerico<Representante, Long>{
 		this.setPm(pm);
 	}
 
-	public Representante pesquisar(String os_id, TipoBusca tipoBusca){
+	public Representante pesquisar(String uuid, TipoBusca tipoBusca){
 		Representante objeto = null;
 		Query query = getPm().newQuery(Representante.class);
-		query.setFilter("os_id == p_os_id");
-		query.declareParameters("String p_os_id");
-		List<Representante> objetos = (List<Representante>) query.execute(os_id);
+		query.setFilter("uuid == p_uuid");
+		query.declareParameters("String p_uuid");
+		List<Representante> objetos = (List<Representante>) query.execute(uuid);
 		if(objetos.size()>0){
-			objeto = ((List<Representante>) query.execute(os_id)).get(0);
+			objeto = objetos.get(0);
 			if(tipoBusca.equals(TipoBusca.ANSIOSA)){
 				BairroDAO bairroDAO = new BairroDAO(getPm());
 				objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(),TipoBusca.ANSIOSA));
