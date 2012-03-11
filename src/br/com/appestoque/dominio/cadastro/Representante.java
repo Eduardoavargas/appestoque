@@ -44,7 +44,7 @@ public class Representante implements Serializable{
 	private Bairro bairro;
 	
 	@Persistent
-	private String os_id;
+	private String uuid;
 	
 	@Persistent
 	private Long longitude;
@@ -60,7 +60,7 @@ public class Representante implements Serializable{
 							String cep,							
 							Long idBairro,
 							Long idEmpresa,
-							String os_id) {
+							String uuid) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
@@ -70,7 +70,7 @@ public class Representante implements Serializable{
 		this.complemento = complemento;
 		this.idBairro = idBairro;
 		this.idEmpresa = idEmpresa;
-		this.os_id = os_id;
+		this.uuid = uuid;
 	}
 
 	public Representante() {
@@ -156,13 +156,13 @@ public class Representante implements Serializable{
 	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
 	}
-
-	public String getOs_id() {
-		return os_id;
+	
+	public String getUuid() {
+		return uuid;
 	}
 
-	public void setOs_id(String os_id) {
-		this.os_id = os_id;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	public Long getLongitude() {
