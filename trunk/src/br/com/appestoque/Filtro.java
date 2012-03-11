@@ -33,11 +33,11 @@ public class Filtro implements Filter{
         HttpSession session = req.getSession();
         PersistenceManager pm = null;
         Boolean autorizado = (Boolean) session.getAttribute("autorizado");
-        String os = request.getParameter("os");
+        String uuid = request.getParameter("uuid");
         
-		if (os != null) {
+		if (uuid!= null) {
 			RepresentanteDAO dao = new RepresentanteDAO(PMF.get().getPersistenceManager());
-			Representante representante = dao.pesquisar(os,TipoBusca.PREGUICOSA);
+			Representante representante = dao.pesquisar(uuid,TipoBusca.PREGUICOSA);
 			if (representante != null) {
 				pm = PMF.get().getPersistenceManager();
 				request.setAttribute("pm", pm);
