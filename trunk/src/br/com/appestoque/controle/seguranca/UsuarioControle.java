@@ -98,8 +98,7 @@ public class UsuarioControle extends BaseControle {
 			String nome = request.getParameter("nome");
 			String email = request.getParameter("email");
 			String senha = request.getParameter("senha");
-			String serial = request.getParameter("serial");
-			Usuario objeto = new Usuario(nome,email,senha,serial,getId(request));
+			Usuario objeto = new Usuario(nome,email,senha,getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
