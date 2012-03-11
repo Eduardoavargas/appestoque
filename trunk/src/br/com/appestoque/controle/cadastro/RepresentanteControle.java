@@ -36,7 +36,7 @@ public class RepresentanteControle extends BaseControle{
 	private Integer numero;
 	private String complemento;
 	private String endereco;
-	private String os_id;
+	private String uuid;
 	private Representante objeto;
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -134,8 +134,8 @@ public class RepresentanteControle extends BaseControle{
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
 			endereco = request.getParameter("endereco");
-			os_id = request.getParameter("os_id");
-			objeto = new Representante(nome,cpf,endereco,complemento,numero,cep,idBairro,getId(request),os_id);
+			uuid = request.getParameter("uuid");
+			objeto = new Representante(nome,cpf,endereco,complemento,numero,cep,idBairro,getId(request),uuid);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
