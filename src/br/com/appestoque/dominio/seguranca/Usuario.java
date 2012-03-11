@@ -28,15 +28,11 @@ public class Usuario implements Serializable{
 	@Persistent
 	private Long idEmpresa;
 	
-	@Persistent
-	private String serial;
-	
-	public Usuario(String nome, String email, String senha, String serial, Long idEmpresa) {
+	public Usuario(String nome, String email, String senha, Long idEmpresa) {
 		super();
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;		
-		this.serial = serial;
 		this.idEmpresa = idEmpresa; 
 	}
 	
@@ -83,14 +79,6 @@ public class Usuario implements Serializable{
 
 	public void setIdEmpresa(Long idEmpresa) {
 		this.idEmpresa = idEmpresa;
-	}
-
-	public String getSerial() {
-		return serial;
-	}
-
-	public void setSerial(String serial) {
-		this.serial = serial;
 	}
 
 }
