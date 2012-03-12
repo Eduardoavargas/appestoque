@@ -23,6 +23,7 @@ import br.com.appestoque.dao.seguranca.UsuarioDAO;
 import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.cadastro.Representante;
 import br.com.appestoque.dominio.seguranca.Usuario;
+import br.com.appestoque.util.Constantes;
 
 public class Filtro implements Filter{
 
@@ -35,7 +36,16 @@ public class Filtro implements Filter{
         Boolean autorizado = (Boolean) session.getAttribute("autorizado");
         String uuid = request.getParameter("uuid");
         
-		if (uuid!= null) {
+        String uri = req.getRequestURI().toString();
+        boolean RESTFull = false; 
+        for(int i=0;i<Constantes.uris.length;++i){
+        	if(Constantes.uris[i].equals(uri)){
+        		RESTFull = !RESTFull;
+        		break;
+        	}
+        }
+        
+		if (uuid!=null&&RESTFull) {
 			RepresentanteDAO dao = new RepresentanteDAO(PMF.get().getPersistenceManager());
 			Representante representante = dao.pesquisar(uuid,TipoBusca.PREGUICOSA);
 			if (representante != null) {
