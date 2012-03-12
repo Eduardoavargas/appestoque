@@ -243,7 +243,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ClienteRestFul</servlet-name>
-		<url-pattern>/clienteRestFul</url-pattern>
+		<url-pattern>/RESTFul/cliente</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -252,12 +252,12 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ProdutoRestFul</servlet-name>
-		<url-pattern>/produtoRestFul</url-pattern>
+		<url-pattern>/RESTFul/produto</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>PedidoRestFul</servlet-name>
-		<url-pattern>/pedidoRestFul</url-pattern>
+		<url-pattern>/RESTFul/pedido</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>PedidoRestFul</servlet-name>
