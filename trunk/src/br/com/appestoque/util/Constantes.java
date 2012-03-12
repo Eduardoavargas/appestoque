@@ -10,4 +10,6 @@ public final class Constantes {
 	
 	public static Integer PRECISAO_VALOR = 3;
 	
+	public static String [] uris = {"/RESTFul/produto","/RESTFul/cliente","/RESTFul/pedido"};
+	
 }
