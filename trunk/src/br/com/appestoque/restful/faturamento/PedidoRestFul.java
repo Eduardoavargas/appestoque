@@ -10,14 +10,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.PMF;
-import br.com.appestoque.dao.cadastro.RepresentanteDAO;
 import br.com.appestoque.dao.faturamento.PedidoDAO;
+import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.cadastro.Representante;
 import br.com.appestoque.dominio.faturamento.Pedido;
 
@@ -35,16 +35,17 @@ public class PedidoRestFul extends HttpServlet{
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
 		String data = bufferedReader.readLine();
+		HttpSession httpSession = request.getSession();
+		Empresa empresa = (Empresa) httpSession.getAttribute("empresa");
+		Representante representante = (Representante) httpSession.getAttribute("representante");
 		PersistenceManager pm = PMF.get().getPersistenceManager();		
-		RepresentanteDAO representanteDAO = new RepresentanteDAO(pm);		
 		try {			
 			JSONObject json = new JSONObject(data);
-			Representante representante = representanteDAO.pesquisar(json.getJSONObject("parametro").getString("os"),TipoBusca.PREGUICOSA);
 			Pedido pedido = new Pedido( json.getString("numero"),
 										new Date(json.getLong("data")),										
 										representante.getId(),
 										json.getLong("idCliente"),
-										representante.getIdEmpresa(),
+										empresa.getId(),
 										json.getString("obs"));
 			PedidoDAO pedidoDAO = new PedidoDAO(pm);
 			pedidoDAO.criar(pedido);
