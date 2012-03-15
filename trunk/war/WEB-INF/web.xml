@@ -76,15 +76,15 @@
 	
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
-		<url-pattern>/produtoRestFul/*</url-pattern>
+		<url-pattern>/RESTFul/produto/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
-		<url-pattern>/clienteRestFul/*</url-pattern>
+		<url-pattern>/RESTFul/cliente/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
-		<url-pattern>/pedidoRestFul/*</url-pattern>
+		<url-pattern>/RESTFul/pedido/*</url-pattern>
 	</filter-mapping>
 
 	
