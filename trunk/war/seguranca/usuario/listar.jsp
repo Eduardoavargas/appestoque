@@ -33,7 +33,6 @@
 		<tr class="ui-widget-header ">
 			<td><%=bundle.getString("usuario.nome")%></td>
 			<td><%=bundle.getString("usuario.email")%></td>
-			<td><%=bundle.getString("usuario.serial")%></td>
 			<td width="15%"/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
@@ -41,7 +40,6 @@
 			<tr>
 				<td><%=objeto.getNome()%></td>
 				<td><%=objeto.getEmail()%></a></td>
-				<td><%=objeto.getSerial()%></td>
 				<td align="center" >
 					<a href="/usuarioControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
 					<a href="/usuarioControle?acao=remover&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.remover")%>" src="img/remover.png" style="border: 0px;"/></a>
