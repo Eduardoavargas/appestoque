@@ -40,7 +40,7 @@
 			<% Pedido objeto = (Pedido) objetos.get(i); %>
 			<tr>
 				<td><%=objeto.getNumero()%></td>
-				<td><%=objeto.getData()%></td>
+				<td><fmt:formatDate value="<%=objeto.getData()%>" pattern="dd/MM/yyyy"/></td>
 				<td align="center" >
 					<a id="edt" href="/pedidoControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
 					<a href="/pedidoControle?acao=remover&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.remover")%>" src="img/remover.png" style="border: 0px;"/></a>
