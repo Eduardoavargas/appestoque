@@ -41,7 +41,7 @@ public class ProdutoRestFul extends HttpServlet{
 				objeto.put("_id", produto.getId());
 				objeto.put("nome", produto.getNome());
 				objeto.put("numero", produto.getNumero());
-				objeto.put("preco", produto.getPreco());
+				objeto.put("valor", produto.getPreco());
 				objeto.put("estoque", produto.getEstoque());
 				objetos.put(objeto);
 			}
