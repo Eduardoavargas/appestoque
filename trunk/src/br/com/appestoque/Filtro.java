@@ -37,12 +37,14 @@ public class Filtro implements Filter{
         String uuid = request.getParameter("uuid");
         
         String uri = req.getRequestURI().toString();
-        boolean RESTFull = false; 
-        for(int i=0;i<Constantes.uris.length;++i){
-        	if(Constantes.uris[i].equals(uri)){
-        		RESTFull = !RESTFull;
-        		break;
-        	}
+        boolean RESTFull = false;
+        if(uuid!=null){
+	        for(int i=0;i<Constantes.uris.length;++i){
+	        	if(Constantes.uris[i].equals(uri)){
+	        		RESTFull = !RESTFull;
+	        		break;
+	        	}
+	        }
         }
         
 		if (uuid!=null&&RESTFull) {
@@ -51,10 +53,10 @@ public class Filtro implements Filter{
 			if (representante != null) {
 				pm = PMF.get().getPersistenceManager();
 				request.setAttribute("pm", pm);
-				Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),
-						representante.getIdEmpresa());
+				Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),representante.getIdEmpresa());
 				Empresa empresa = pm.getObjectById(Empresa.class, key);
 				session.setAttribute("empresa", empresa);
+				session.setAttribute("representante", representante);
 				filterChain.doFilter(request, response);
 			}
 		} else if (autorizado == null || !autorizado) {
