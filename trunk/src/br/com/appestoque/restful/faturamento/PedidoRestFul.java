@@ -12,13 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.com.appestoque.dao.PMF;
+import br.com.appestoque.dao.faturamento.ItemDAO;
 import br.com.appestoque.dao.faturamento.PedidoDAO;
 import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.cadastro.Representante;
+import br.com.appestoque.dominio.faturamento.Item;
 import br.com.appestoque.dominio.faturamento.Pedido;
 
 @SuppressWarnings("serial")
@@ -49,6 +52,16 @@ public class PedidoRestFul extends HttpServlet{
 										json.getString("obs"));
 			PedidoDAO pedidoDAO = new PedidoDAO(pm);
 			pedidoDAO.criar(pedido);
+			
+			ItemDAO itemDAO = new ItemDAO(pm);
+			JSONArray itens = json.getJSONArray("itens");
+			for (int i = 0; i <= itens.length() - 1; ++i) {
+				Item item = new Item(pedido.getId(), 
+						itens.getJSONObject(i).getLong("idProduto"), 
+						itens.getJSONObject(i).getDouble("quantidade"), 
+						itens.getJSONObject(i).getDouble("valor"));
+				itemDAO.criar(item);
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
