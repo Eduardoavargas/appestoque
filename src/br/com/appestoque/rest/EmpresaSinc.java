@@ -20,20 +20,20 @@ public class EmpresaSinc extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		
-		Empresa empresa = new Empresa();
-		pm.currentTransaction().begin();
-		pm.makePersistent(empresa);
-		pm.currentTransaction().commit();
-		
-		Query query = null; 
-		query = pm.newQuery(Usuario.class);
-		List<Usuario> usuarios = (List<Usuario>) query.execute();			
-		for(Usuario usuario : usuarios){
-			pm.currentTransaction().begin();
-			usuario.setIdEmpresa(empresa.getId());
-			pm.makePersistent(usuario);
-			pm.currentTransaction().commit();
-		}
+//		Empresa empresa = new Empresa();
+//		pm.currentTransaction().begin();
+//		pm.makePersistent(empresa);
+//		pm.currentTransaction().commit();
+//		
+//		Query query = null; 
+//		query = pm.newQuery(Usuario.class);
+//		List<Usuario> usuarios = (List<Usuario>) query.execute();			
+//		for(Usuario usuario : usuarios){
+//			pm.currentTransaction().begin();
+//			usuario.setIdEmpresa(empresa.getId());
+//			pm.makePersistent(usuario);
+//			pm.currentTransaction().commit();
+//		}
 		
 	}
 

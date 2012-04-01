@@ -43,7 +43,7 @@ public class Processo extends HttpServlet{
 			HttpServletResponse servletResponse = (HttpServletResponse) response;
     		servletResponse.sendRedirect(Pagina.PAGINA_APRESENTACAO);
 		}else if (request.getParameter("acao").equals("cadastrar")) {
-			request.setAttribute("empresa", new Empresa());
+//			request.setAttribute("empresa", new Empresa());
 			request.setAttribute("usuario", new Usuario());
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_CADASTRAR);
 			dispatcher.forward(request, response);

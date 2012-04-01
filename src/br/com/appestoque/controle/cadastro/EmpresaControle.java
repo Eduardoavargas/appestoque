@@ -102,7 +102,7 @@ public class EmpresaControle extends BaseControle {
 			
 			request.setAttribute("bairros", null);
 			
-			objeto = new Empresa();
+//			objeto = new Empresa();
 			request.setAttribute("objeto", objeto);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_EDITAR);
 			dispatcher.forward(request, response);
@@ -114,13 +114,13 @@ public class EmpresaControle extends BaseControle {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			
 			BairroDAO bairroDAO = new BairroDAO((PersistenceManager) request.getAttribute("pm"));
-			objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(), TipoBusca.ANSIOSA));
-			request.setAttribute("idBairro",objeto.getIdBairro());
+//			objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(), TipoBusca.ANSIOSA));
+//			request.setAttribute("idBairro",objeto.getIdBairro());
 			List<Bairro> bairros = new ArrayList<Bairro>();
-			bairros.add(objeto.getBairro());
+//			bairros.add(objeto.getBairro());
 			request.setAttribute("bairros", bairros);
 			
-			request.setAttribute("idCidade",objeto.getIdBairro()!=null?objeto.getBairro().getIdCidade():null);
+//			request.setAttribute("idCidade",objeto.getIdBairro()!=null?objeto.getBairro().getIdCidade():null);
 			
 			request.setAttribute("objeto",objeto);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_EDITAR);
@@ -133,7 +133,7 @@ public class EmpresaControle extends BaseControle {
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
 			endereco = request.getParameter("endereco");
-			objeto = new Empresa(nome,cnpj, numero, cep, complemento, idBairro, endereco);
+//			objeto = new Empresa(nome,cnpj, numero, cep, complemento, idBairro, endereco);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());

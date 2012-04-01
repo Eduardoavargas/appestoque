@@ -16,22 +16,22 @@ public class CargaInicial extends HttpServlet{
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		try {
-			/*empresa*/
-			Empresa empresa = new Empresa();
-			pm.currentTransaction().begin();
-			pm.makePersistent(empresa);
-			pm.currentTransaction().commit();
-			/*usuário*/
-			Usuario usuario = new Usuario("Sergey Brin","sergeybrin@google.com","sg1",empresa.getId());			
-			pm.currentTransaction().begin();
-			pm.makePersistent(usuario);
-			pm.currentTransaction().commit();
-		} finally {
-			if (pm.currentTransaction().isActive()) {
-				pm.currentTransaction().rollback();
-			}
-		}
+//		try {
+//			/*empresa*/
+//			Empresa empresa = new Empresa();
+//			pm.currentTransaction().begin();
+//			pm.makePersistent(empresa);
+//			pm.currentTransaction().commit();
+//			/*usuário*/
+//			Usuario usuario = new Usuario("Sergey Brin","sergeybrin@google.com","sg1",empresa.getId());			
+//			pm.currentTransaction().begin();
+//			pm.makePersistent(usuario);
+//			pm.currentTransaction().commit();
+//		} finally {
+//			if (pm.currentTransaction().isActive()) {
+//				pm.currentTransaction().rollback();
+//			}
+//		}
 		
 		
 
