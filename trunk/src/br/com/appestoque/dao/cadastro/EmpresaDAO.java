@@ -24,7 +24,7 @@ public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
 		objeto = (Empresa) query.execute(id);
 		if(tipoBusca.equals(TipoBusca.ANSIOSA)){
 			BairroDAO bairroDAO = new BairroDAO(getPm());
-			objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(),TipoBusca.ANSIOSA));
+		//objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(),TipoBusca.ANSIOSA));
 		}
 		return objeto;
 	}
@@ -41,9 +41,9 @@ public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
 		if (tipoBusca.equals(TipoBusca.ANSIOSA)) {
 			BairroDAO bairroDAO = new BairroDAO(this.getPm());
 			for (int i = 0; i < objetos.size(); i++) {
-				if(objetos.get(i).getIdBairro()!=null){
-					objetos.get(i).setBairro(bairroDAO.pesquisar(objetos.get(i).getIdBairro()));
-				}
+//				if(objetos.get(i).getIdBairro()!=null){
+//					objetos.get(i).setBairro(bairroDAO.pesquisar(objetos.get(i).getIdBairro()));
+//				}
 			}
 		}
 		

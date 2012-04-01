@@ -3,7 +3,6 @@ package br.com.appestoque.dominio.cadastro;
 import java.io.Serializable;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -35,30 +34,22 @@ public class Empresa implements Serializable{
 	private String complemento;
 	
 	@Persistent
-	private Long idBairro;
+	private String bairro;
 	
-	@NotPersistent
-	private Bairro bairro;
+	@Persistent
+	private String cidade;
 
-	public Empresa(	String nome, 
-					String cnpj, 
-					Integer numero, 
-					String cep,
-					String complemento, 
-					Long idBairro, 
-					String endereco) {
+	public Empresa(String nome, String cnpj, String endereco, Integer numero,
+			String cep, String complemento, String bairro, String cidade) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
+		this.endereco = endereco;
 		this.numero = numero;
 		this.cep = cep;
 		this.complemento = complemento;
-		this.idBairro = idBairro;
-		this.endereco = endereco;
-	}
-
-	public Empresa() {
-		super();
+		this.bairro = bairro;
+		this.cidade = cidade;
 	}
 
 	public Long getId() {
@@ -85,6 +76,14 @@ public class Empresa implements Serializable{
 		this.cnpj = cnpj;
 	}
 
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
 	public Integer getNumero() {
 		return numero;
 	}
@@ -109,28 +108,20 @@ public class Empresa implements Serializable{
 		this.complemento = complemento;
 	}
 
-	public Long getIdBairro() {
-		return idBairro;
-	}
-
-	public void setIdBairro(Long idBairro) {
-		this.idBairro = idBairro;
-	}
-
-	public Bairro getBairro() {
+	public String getBairro() {
 		return bairro;
 	}
 
-	public void setBairro(Bairro bairro) {
+	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
 
-	public String getEndereco() {
-		return endereco;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 	
 }
