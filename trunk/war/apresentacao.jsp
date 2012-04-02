@@ -218,7 +218,6 @@ h2 {
 <body>
 
 		<div id="topo">
-<!-- 			<a href="/processo?acao=cadastrar" id="btnCadastrar">Clique aqui para cadastrar sua empresa</a>  -->
 		<br/><br/><br/>
 			<img style="position: relative; top: 50px;" src="img/logo.jpg" />
 		</div>
@@ -253,7 +252,11 @@ h2 {
 								<td colspan="2" align="center" ><button type="submit" onclick="return ajaxFunction()">Acessar</button></td>
 							</tr>
 						</table>
+						<a style="float: right; color: #ffffff; margin-right: 10px" href="/publico/cadastro/empresa/cadastrar.jsp">Cadastre sua empresa</a>
 					</fieldset>
+					
+					
+					
 				</form>
 			</div>
 		</div>
