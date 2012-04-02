@@ -225,3 +225,21 @@ form a span.ui-icon{
     position: relative;
     top: 10px;
 }
+
+form#formCadastro {
+	width: 35%;
+	padding: 20px;
+	/*border: 1px solid rgb(133, 183, 214);*/
+	margin: 0 auto;
+}
+
+form#formCadastro label#titulo{
+	font-weight: bold;
+	font-size: 20px;
+}
+
+form#formCadastro label {
+/* 	display: block; */
+	font-weight: bold;
+	font-size: 11px;
+}
