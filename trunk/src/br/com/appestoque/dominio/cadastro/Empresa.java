@@ -39,6 +39,10 @@ public class Empresa implements Serializable{
 	@Persistent
 	private String cidade;
 
+	public Empresa() {
+		super();
+	}
+
 	public Empresa(String nome, String cnpj, String endereco, Integer numero,
 			String cep, String complemento, String bairro, String cidade) {
 		super();
