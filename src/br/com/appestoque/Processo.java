@@ -30,6 +30,8 @@ import javax.servlet.http.HttpSession;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.dao.PMF;
 import br.com.appestoque.dao.cadastro.EmpresaDAO;
+import br.com.appestoque.dao.seguranca.UsuarioDAO;
+import br.com.appestoque.dominio.cadastro.Cliente;
 import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
@@ -43,10 +45,28 @@ public class Processo extends HttpServlet{
 			HttpServletResponse servletResponse = (HttpServletResponse) response;
     		servletResponse.sendRedirect(Pagina.PAGINA_APRESENTACAO);
 		}else if (request.getParameter("acao").equals("cadastrar")) {
-//			request.setAttribute("empresa", new Empresa());
-			request.setAttribute("usuario", new Usuario());
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_CADASTRAR);
-			dispatcher.forward(request, response);
+			
+			String cnpj = request.getParameter("cnpj");
+			String nome = request.getParameter("nome");
+			String bairro = request.getParameter("bairro");
+			String cidade = request.getParameter("cidade");
+			String cep = request.getParameter("cep");
+			String email = request.getParameter("email");
+			Integer numero = new Integer(request.getParameter("numero"));
+			String complemento = request.getParameter("complemento");
+			String endereco = request.getParameter("endereco");
+			String senha = request.getParameter("senha");
+			
+			Empresa empresa = new Empresa(nome,cnpj,endereco,numero,cep,complemento,bairro,cidade);
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			
+			EmpresaDAO empresaDAO = new EmpresaDAO(pm);
+			empresa = empresaDAO.adicionar(empresa);
+			
+			Usuario usuario = new Usuario(nome,email,senha,empresa.getId());			
+			UsuarioDAO usuarioDAO = new UsuarioDAO(pm);
+			usuarioDAO.adicionar(usuario);
+			
 		}else if (request.getParameter("acao").equals("selecionar")) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			EmpresaDAO dao = new EmpresaDAO(pm);
