@@ -151,7 +151,7 @@ h2 {
 
 #login {
 	width: 240px;
-	height: 240px;
+	height: 260px;
  	overflow: hidden;
 	float: right; 
 }
