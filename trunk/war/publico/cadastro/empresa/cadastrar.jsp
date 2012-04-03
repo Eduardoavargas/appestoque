@@ -1,42 +1,97 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
+<%@ page import="java.util.ResourceBundle"%>
+<%
+	ResourceBundle bundle = ResourceBundle.getBundle("i18n",
+			request.getLocale());
+%>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/css/padrao.css" />
-	<link type="text/css" href="/css/le-frog/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-	<script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
-	<script type="text/javascript" src="/js/jquery.maskedinput-1.3.min.js" ></script>
-	<title></title>
+<link rel="stylesheet" type="text/css" href="/css/padrao.css" />
+<link type="text/css" href="/css/le-frog/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/js/jquery.maskedinput-1.3.min.js" ></script>
+
+
+<title></title>
+
 </head>
 <body>
-		<div align="center"><img style="top: 50px;" src="../../../img/logo.jpg" /></div>
-		<form id="formCadastro">
+
+	<div id="tudo" align="center" >
+		<div id="logo"><img style="top: 50px;" src="../../../img/logo.jpg" /></div>
+		<div id="formulario" align="left">
+		
+			<form id="formCadastro">
+			
+				<script>
+						function validar(){
+							if(document.getElementById('nome').value.length==0){
+								alert('<%=bundle.getString("mensagem.validar.nome")%>');
+								document.getElementById('nome').focus();
+							}else if(document.getElementById('cnpj').value.length==0){
+								alert('<%=bundle.getString("mensagem.validar.cnpj")%>');
+								document.getElementById('cnpj').focus();
+							}else if(document.getElementById('endereco').value.length==0){
+								alert('<%=bundle.getString("mensagem.validar.endereco")%>');
+								document.getElementById('endereco').focus();
+							}else if(document.getElementById('cep').value.length==0){
+								alert('<%=bundle.getString("mensagem.validar.cep")%>');
+								document.getElementById('cep').focus();
+							}else if(document.getElementById('bairro').value.length==0){
+								alert('<%=bundle.getString("mensagem.validar.bairro")%>');
+								document.getElementById('bairro').focus();
+							}else if(document.getElementById('cidade').value.length==0){
+								alert('<%=bundle.getString("mensagem.validar.cidade")%>');
+								document.getElementById('cidade').focus();
+							}else{
+								document.forms[0].submit();	
+							}
+						}
+				</script>
+
 		
 			<label id="titulo">Cadastro</label><br/><hr></hr><br/>
 			
-			<label>Nome</label><br/>
+			<label><%=bundle.getString("nome")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="nome" nome="nome" tamanho="50" valor=""/></p>
 			
-			<label>CNPJ</label><br/>
+			<label><%=bundle.getString("cnpj")%><span class="obrigatorio">*</span></label><br/>
 			<app:cnpj nome="cnpj" valor=""></app:cnpj></p>
 			
-			<label>Endereço</label><br/>
-			<app:texto nome="cnpj" tamanho="50px" valor=""></app:texto></p>
+			<label><%=bundle.getString("endereco")%><span class="obrigatorio">*</span></label><br/>
+			<app:texto nome="endereco" tamanho="50px" valor=""></app:texto></p>
 			
-			<label>Número</label><br/>
+			<label><%=bundle.getString("numero")%></label><br/>
 			<app:numero id="numero" nome="numero" valor=""/></p>
 			
-			<label>Cep</label><br/>
+			<label><%=bundle.getString("cep")%><span class="obrigatorio">*</span></label><br/>
 			<app:cep nome="cep" valor=""/></p>
 			
-			<label>Complemento</label><br/>
+			<label><%=bundle.getString("complemento")%></label><br/>
 			<app:texto id="complemento" nome="complemento" tamanho="50" valor=""/></p>
 			
-			<label>Bairro</label><br/>
+			<label><%=bundle.getString("bairro")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="bairro" nome="bairro" tamanho="50" valor=""/></p>
 			
-			<label>Cidade</label><br/>
+			<label><%=bundle.getString("cidade")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="cidade" nome="cidade" tamanho="50" valor=""/></p>
+			<p>
+				<a href="#"
+				    onclick="return validar();"
+					id="confirmar"
+					style="z-index:0;"
+					class="ui-state-default ui-corner-all"><span
+					class="ui-icon ui-icon-disk"></span>Confirmar</a>
+				<a href="/apresentacao.jsp"				    
+					style="z-index:0;"
+					class="ui-state-default ui-corner-all"><span
+					class="ui-icon ui-icon-cancel"></span>Cancelar</a>
+			</p>
 			
 		</form>
+		
+		</div>
+	</div>
+
 </body>
 </html>
