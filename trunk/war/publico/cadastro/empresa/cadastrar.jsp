@@ -43,6 +43,9 @@
 							}else if(document.getElementById('cidade').value.length==0){
 								alert('<%=bundle.getString("mensagem.validar.cidade")%>');
 								document.getElementById('cidade').focus();
+							}else if(document.getElementById('senha').value.length==0){
+								alert('<%=bundle.getString("mensagem.validar.senha")%>');
+								document.getElementById('senha').focus();
 							}else{
 								document.forms[0].submit();	
 							}
@@ -75,8 +78,12 @@
 			
 			<label><%=bundle.getString("cidade")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="cidade" nome="cidade" tamanho="50" valor=""/></p>
+			
+			<label><%=bundle.getString("senha")%><span class="obrigatorio">*</span></label><br/>
+			<app:texto id="senha" tipo="password" nome="senha" valor=""/></p>
+			
 			<p>
-				<a href="#"
+				<a href="/processo?acao=cadastrar"
 				    onclick="return validar();"
 					id="confirmar"
 					style="z-index:0;"
