@@ -31,7 +31,7 @@ public class EmpresaControle extends BaseControle {
 	
 	private String cnpj;
 	private String nome;
-	private Long idBairro;
+	private String bairro;
 	private String cep;
 	private Integer numero;
 	private String complemento;
@@ -128,7 +128,7 @@ public class EmpresaControle extends BaseControle {
 		} else if(request.getParameter("acao").equals("modificar")) {
 			nome = request.getParameter("nome");
 			cnpj = request.getParameter("cnpj");
-			idBairro = new Long(request.getParameter("idBairro"));
+			bairro = request.getParameter("bairro");
 			cep = request.getParameter("cep");
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
