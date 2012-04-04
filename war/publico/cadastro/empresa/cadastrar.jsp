@@ -1,8 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
 <%@ page import="java.util.ResourceBundle"%>
 <%
-	ResourceBundle bundle = ResourceBundle.getBundle("i18n",
-			request.getLocale());
+	ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
 %>
 <html>
 <head>
@@ -21,13 +21,16 @@
 		<div id="logo"><img style="top: 50px;" src="../../../img/logo.jpg" /></div>
 		<div id="formulario" align="left">
 		
-			<form id="formCadastro" method="post">
+			<form id="formCadastro" method="post" action="/processo?acao=cadastrar">
 			
 				<script>
 						function validar(){
 							if(document.getElementById('nome').value.length==0){
 								alert('<%=bundle.getString("mensagem.validar.nome")%>');
 								document.getElementById('nome').focus();
+							}else if(document.getElementById('email').value.length==0){
+								alert('<%=bundle.getString("mensagem.validar.email")%>');
+								document.getElementById('email').focus();
 							}else if(document.getElementById('cnpj').value.length==0){
 								alert('<%=bundle.getString("mensagem.validar.cnpj")%>');
 								document.getElementById('cnpj').focus();
@@ -58,14 +61,17 @@
 			<label><%=bundle.getString("nome")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="nome" nome="nome" tamanho="50" valor=""/></p>
 			
+			<label><%=bundle.getString("email")%><span class="obrigatorio">*</span></label><br/>
+			<app:email nome="email" tamanho="50"  valor=""/></p>
+			
 			<label><%=bundle.getString("cnpj")%><span class="obrigatorio">*</span></label><br/>
 			<app:cnpj nome="cnpj" valor=""></app:cnpj></p>
 			
 			<label><%=bundle.getString("endereco")%><span class="obrigatorio">*</span></label><br/>
-			<app:texto nome="endereco" tamanho="50px" valor=""></app:texto></p>
+			<app:texto nome="endereco" tamanho="50" valor=""></app:texto></p>
 			
 			<label><%=bundle.getString("numero")%></label><br/>
-			<app:numero id="numero" nome="numero" valor=""/></p>
+			<app:numero id="numero" nome="numero" tamanho="5" valor=""/></p>
 			
 			<label><%=bundle.getString("cep")%><span class="obrigatorio">*</span></label><br/>
 			<app:cep nome="cep" valor=""/></p>
@@ -82,8 +88,11 @@
 			<label><%=bundle.getString("senha")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="senha" tipo="password" nome="senha" valor=""/></p>
 			
+			<label><%=bundle.getString("senhaConfirmacao")%><span class="obrigatorio">*</span></label><br/>
+			<app:texto id="senhaConfirmacao" tipo="password" nome="senha" valor=""/></p>
+			
 			<p>
-				<a href="/processo?acao=cadastrar"
+				<a href="#"
 				    onclick="return validar();"
 					id="confirmar"
 					style="z-index:0;"
