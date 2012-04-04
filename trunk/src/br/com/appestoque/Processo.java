@@ -38,6 +38,14 @@ import br.com.appestoque.dominio.seguranca.Usuario;
 public class Processo extends HttpServlet{
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		process(request, response);
+	}
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		process(request, response);
+	}
+	
+	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("acao").equals("logoff")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("autorizado", new Boolean("false"));
@@ -168,13 +176,7 @@ public class Processo extends HttpServlet{
 				  } catch (Exception e) {
 				    e.printStackTrace();
 				  }
-			
-			
 		}
-	}
-	
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 	
 	private static String getTagValue(String sTag, Element eElement) {
