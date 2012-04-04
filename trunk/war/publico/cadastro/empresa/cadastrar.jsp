@@ -21,7 +21,7 @@
 		<div id="logo"><img style="top: 50px;" src="../../../img/logo.jpg" /></div>
 		<div id="formulario" align="left">
 		
-			<form id="formCadastro">
+			<form id="formCadastro" method="post">
 			
 				<script>
 						function validar(){
