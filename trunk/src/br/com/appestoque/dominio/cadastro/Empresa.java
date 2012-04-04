@@ -38,13 +38,16 @@ public class Empresa implements Serializable{
 	
 	@Persistent
 	private String cidade;
+	
+	@Persistent
+	private String uuid;
 
 	public Empresa() {
 		super();
 	}
 
 	public Empresa(String nome, String cnpj, String endereco, Integer numero,
-			String cep, String complemento, String bairro, String cidade) {
+			String cep, String complemento, String bairro, String cidade, String uuid) {
 		super();
 		this.nome = nome;
 		this.cnpj = cnpj;
@@ -54,6 +57,7 @@ public class Empresa implements Serializable{
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cidade = cidade;
+		this.uuid = uuid;
 	}
 
 	public Long getId() {
@@ -126,6 +130,14 @@ public class Empresa implements Serializable{
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	
 }

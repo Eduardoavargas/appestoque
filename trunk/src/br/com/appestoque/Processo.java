@@ -15,6 +15,7 @@ import com.d_project.qrcode.*;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.UUID;
 
 import java.io.IOException;
 
@@ -64,7 +65,9 @@ public class Processo extends HttpServlet{
 			String endereco = request.getParameter("endereco");
 			String senha = request.getParameter("senha");
 			
-			Empresa empresa = new Empresa(nome,cnpj,endereco,numero,cep,complemento,bairro,cidade);
+			String uuid = UUID.randomUUID().toString();
+			
+			Empresa empresa = new Empresa(nome,cnpj,endereco,numero,cep,complemento,bairro,cidade,uuid);
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			
 			EmpresaDAO empresaDAO = new EmpresaDAO(pm);
@@ -73,6 +76,10 @@ public class Processo extends HttpServlet{
 			Usuario usuario = new Usuario(nome,email,senha,empresa.getId());			
 			UsuarioDAO usuarioDAO = new UsuarioDAO(pm);
 			usuarioDAO.adicionar(usuario);
+			
+			Util.enviarEmail();
+			
+			response.sendRedirect(Pagina.PAGINA_APRESENTACAO);
 			
 		}else if (request.getParameter("acao").equals("selecionar")) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
