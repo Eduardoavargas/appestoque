@@ -1,3 +1,4 @@
+<%@ page import="br.com.appestoque.dominio.cadastro.Empresa"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
 <%@ page import="java.util.ResourceBundle"%>
@@ -20,6 +21,10 @@
 	<div id="tudo" align="center" >
 		<div id="logo"><img style="top: 50px;" src="../../../img/logo.jpg" /></div>
 		<div id="formulario" align="left">
+
+			<%
+				Empresa objeto = (Empresa) request.getAttribute("objeto");
+			%>
 		
 			<form id="formCadastro" method="post" action="/processo?acao=cadastrar">
 			
@@ -59,13 +64,13 @@
 			<label id="titulo">Cadastro</label><br/><hr></hr><br/>
 			
 			<label><%=bundle.getString("nome")%><span class="obrigatorio">*</span></label><br/>
-			<app:texto id="nome" nome="nome" tamanho="50" valor=""/></p>
+			<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/></p>
 			
 			<label><%=bundle.getString("email")%><span class="obrigatorio">*</span></label><br/>
-			<app:email nome="email" tamanho="50"  valor=""/></p>
+			<app:email nome="email" tamanho="50"  valor="<%=objeto.getEmail()%>"/></p>
 			
 			<label><%=bundle.getString("cnpj")%><span class="obrigatorio">*</span></label><br/>
-			<app:cnpj nome="cnpj" valor=""></app:cnpj></p>
+			<app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"></app:cnpj></p>
 			
 			<label><%=bundle.getString("endereco")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto nome="endereco" tamanho="50" valor=""></app:texto></p>
