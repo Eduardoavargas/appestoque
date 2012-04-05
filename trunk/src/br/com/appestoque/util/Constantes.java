@@ -12,4 +12,8 @@ public final class Constantes {
 	
 	public static String [] uris = {"/RESTFul/produto","/RESTFul/cliente","/RESTFul/pedido"};
 	
+	public static String EMAIL_ADMINISTRADOR = "andre.tricano@gmail.com";
+	
+	public static String ASSUNTO_CADASTRO = "Confirme sua conta do Appestoque e seja bem vindo!";
+	
 }
