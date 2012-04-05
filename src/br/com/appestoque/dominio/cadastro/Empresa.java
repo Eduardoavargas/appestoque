@@ -19,6 +19,9 @@ public class Empresa implements Serializable{
 	private String nome;
 	
 	@Persistent
+	private String email;
+	
+	@Persistent
 	private String cnpj;
 	
 	@Persistent
@@ -46,10 +49,11 @@ public class Empresa implements Serializable{
 		super();
 	}
 
-	public Empresa(String nome, String cnpj, String endereco, Integer numero,
+	public Empresa(String nome, String email, String cnpj, String endereco, Integer numero,
 			String cep, String complemento, String bairro, String cidade, String uuid) {
 		super();
 		this.nome = nome;
+		this.email = email;
 		this.cnpj = cnpj;
 		this.endereco = endereco;
 		this.numero = numero;
@@ -74,6 +78,14 @@ public class Empresa implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getCnpj() {

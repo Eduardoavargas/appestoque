@@ -34,6 +34,7 @@ import br.com.appestoque.dao.cadastro.EmpresaDAO;
 import br.com.appestoque.dao.seguranca.UsuarioDAO;
 import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.seguranca.Usuario;
+import br.com.appestoque.util.Constantes;
 
 @SuppressWarnings("serial")
 public class Processo extends HttpServlet{
@@ -52,6 +53,11 @@ public class Processo extends HttpServlet{
 			session.setAttribute("autorizado", new Boolean("false"));
 			HttpServletResponse servletResponse = (HttpServletResponse) response;
     		servletResponse.sendRedirect(Pagina.PAGINA_APRESENTACAO);
+		}else if (request.getParameter("acao").equals("preparar")) {
+			Empresa objeto = new Empresa();
+			request.setAttribute("objeto",objeto);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_CADASTRAR);
+			dispatcher.forward(request, response);
 		}else if (request.getParameter("acao").equals("cadastrar")) {
 			
 			String cnpj = request.getParameter("cnpj");
@@ -67,7 +73,7 @@ public class Processo extends HttpServlet{
 			
 			String uuid = UUID.randomUUID().toString();
 			
-			Empresa empresa = new Empresa(nome,cnpj,endereco,numero,cep,complemento,bairro,cidade,uuid);
+			Empresa empresa = new Empresa(nome,email,cnpj,endereco,numero,cep,complemento,bairro,cidade,uuid);
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			
 			EmpresaDAO empresaDAO = new EmpresaDAO(pm);
@@ -77,7 +83,25 @@ public class Processo extends HttpServlet{
 			UsuarioDAO usuarioDAO = new UsuarioDAO(pm);
 			usuarioDAO.adicionar(usuario);
 			
-			Util.enviarEmail();
+			StringBuffer corpo = new StringBuffer();
+			
+			corpo.append("<html>");
+			corpo.append("<head>");
+			corpo.append("</head>");
+			corpo.append("<body>");
+			
+			corpo.append("<body>");
+			
+			corpo.append("<div style=&ldquo;font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; margin: 14px&rdquo;>");
+			
+			corpo.append("<img src=&ldquo;img/logo.jpg&rdquo;/>");
+			
+			corpo.append("</div>");
+			
+			corpo.append("</body>");
+			corpo.append("</html>");
+			
+			Util.enviarEmail(email,Constantes.ASSUNTO_CADASTRO,corpo);
 			
 			response.sendRedirect(Pagina.PAGINA_APRESENTACAO);
 			
