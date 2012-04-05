@@ -252,7 +252,7 @@ h2 {
 								<td colspan="2" align="center" ><button type="submit" onclick="return ajaxFunction()">Acessar</button></td>
 							</tr>
 						</table>
-						<a style="float: right; color: #ffffff; margin-right: 10px" href="/publico/cadastro/empresa/cadastrar.jsp">Cadastre sua empresa</a>
+						<a style="float: right; color: #ffffff; margin-right: 10px" href="/processo?acao=preparar">Cadastre sua empresa</a>
 					</fieldset>
 					
 					
