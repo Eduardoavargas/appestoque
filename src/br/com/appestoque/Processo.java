@@ -89,15 +89,32 @@ public class Processo extends HttpServlet{
 			corpo.append("<head>");
 			corpo.append("</head>");
 			corpo.append("<body>");
-			
 			corpo.append("<body>");
+			corpo.append("<div style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; margin: 14px';>");
+			corpo.append("<img src='http://www.appestoque.com.br/img/logo.jpg'/>");
+			corpo.append("<h2 style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin: 0 0 16px; font-size: 18px; font-weight: normal'>Olá, "+empresa.getNome()+".</h2>");
 			
-			corpo.append("<div style=&ldquo;font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; margin: 14px&rdquo;>");
+			corpo.append("<p>Por favor, confirme sua conta do Appestoque clicando nesse link:<br>");
+			corpo.append("<a href='https://twitter.com/account/confirm_email/eledianetricano/9D2EF-3G2E7-133359?iid=am-85321533413335904971847777&amp;nid=18&amp;uid=545600908'");
+			corpo.append("target='_blank'>https://twitter.com/account/<wbr>confirm_email/eledianetricano/<wbr>9D2EF-3G2E7-133359</a></p>");
 			
-			corpo.append("<img src=&ldquo;img/logo.jpg&rdquo;/>");
+			corpo.append("<p>Quando você confirmar, você terá acesso total ao Appestoque e todas as notificações futuras serão enviadas para este endereço de e-mail.</p>");
+			
+			corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; line-height: 18px; border-bottom: 1px solid rgb(238, 238, 238); padding-bottom: 10px; margin: 0 0 10px'>");
+			corpo.append("<span style='font: italic 13px Georgia, serif; color: rgb(102, 102, 102)'>Equipe do Appestoque</span></p>");
+			
+			corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
+			corpo.append("Se você recebeu essa mensagem por engano e não criou uma conta do Appestoque, clique"); 
+			corpo.append(" <a href='mailto:suporte@appestoque.com.br?subject=[Cadastro]Mensagem por engano&&body='target='_blank'>não é minha conta</a>.</p>");
+			
+			corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
+			corpo.append("Por favor não responda esta mensagem; ela foi enviada por um endereço");
+			corpo.append("de e-mail não monitorado. Esta mensagem é relacionada ao seu uso do");
+			corpo.append("Appestoque. Para mais informações sobre a sua conta, por");
+			corpo.append("favor encaminhe um e-mail para o");
+			corpo.append(" <a href='mailto:suporte@appestoque.com.br' target='_blank'>Suporte do Appestoque</a>.</p>");
 			
 			corpo.append("</div>");
-			
 			corpo.append("</body>");
 			corpo.append("</html>");
 			
