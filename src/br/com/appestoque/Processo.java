@@ -77,7 +77,10 @@ public class Processo extends HttpServlet{
 			String cidade = request.getParameter("cidade");
 			String cep = request.getParameter("cep");
 			String email = request.getParameter("email");
-			Integer numero = new Integer(request.getParameter("numero"));
+			Integer numero = null;
+			if(request.getParameter("numero")!=null&&!request.getParameter("numero").equals("")){
+				numero = new Integer(request.getParameter("numero"));
+			}	
 			String complemento = request.getParameter("complemento");
 			String endereco = request.getParameter("endereco");
 			String senha = request.getParameter("senha");
