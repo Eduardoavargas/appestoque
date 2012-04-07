@@ -44,6 +44,9 @@ public class Empresa implements Serializable{
 	
 	@Persistent
 	private String uuid;
+	
+	@Persistent
+	private Boolean ativo = false;
 
 	public Empresa() {
 		super();
@@ -150,6 +153,14 @@ public class Empresa implements Serializable{
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 	
 }

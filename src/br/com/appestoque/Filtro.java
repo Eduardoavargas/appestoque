@@ -1,6 +1,8 @@
 package br.com.appestoque;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ResourceBundle;
 
 import javax.jdo.PersistenceManager;
 import javax.servlet.Filter;
@@ -30,6 +32,7 @@ public class Filtro implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, 
 			FilterChain filterChain) throws IOException, ServletException {
+		
 		HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
         PersistenceManager pm = null;
@@ -37,17 +40,17 @@ public class Filtro implements Filter{
         String uuid = request.getParameter("uuid");
         
         String uri = req.getRequestURI().toString();
-        boolean RESTFull = false;
+        boolean RESTFul = false;
         if(uuid!=null){
 	        for(int i=0;i<Constantes.uris.length;++i){
 	        	if(Constantes.uris[i].equals(uri)){
-	        		RESTFull = !RESTFull;
+	        		RESTFul = !RESTFul;
 	        		break;
 	        	}
 	        }
         }
         
-		if (uuid!=null&&RESTFull) {
+		if (uuid!=null&&RESTFul) {
 			RepresentanteDAO dao = new RepresentanteDAO(PMF.get().getPersistenceManager());
 			Representante representante = dao.pesquisar(uuid,TipoBusca.PREGUICOSA);
 			if (representante != null) {
@@ -75,10 +78,17 @@ public class Filtro implements Filter{
 				Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),
 						usuario.getIdEmpresa());
 				Empresa empresa = pm.getObjectById(Empresa.class, key);
-				session.setAttribute("empresa", empresa);
-				session.setAttribute("usuario", usuario);
-				session.setAttribute("autorizado", new Boolean("true"));
-				filterChain.doFilter(request, response);
+				if(empresa.getAtivo()){
+					session.setAttribute("empresa", empresa);
+					session.setAttribute("usuario", usuario);
+					session.setAttribute("autorizado", new Boolean("true"));
+					filterChain.doFilter(request, response);
+				}else{
+					ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
+					request.setAttribute("mensagem",bundle.getString("app.mensagem.empresa.inativa"));
+					HttpServletResponse servletResponse = (HttpServletResponse) response;
+					servletResponse.sendRedirect(Pagina.PAGINA_APRESENTACAO);					
+				}
 			} else {
 				HttpServletResponse servletResponse = (HttpServletResponse) response;
 				servletResponse.sendRedirect(Pagina.PAGINA_APRESENTACAO);
