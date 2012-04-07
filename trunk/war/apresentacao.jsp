@@ -221,14 +221,15 @@ h2 {
 		<br/><br/><br/>
 			<img style="position: relative; top: 50px;" src="img/logo.jpg" />
 		</div>
+		
+		
+		
 		<div id="conteudo">
 			<div id="texto_explicativo">
 				<h2>O que é o appestoque ?</h2>
 				<p class="blocoExplicacao">É um aplicativo para atuar na força de venda de uma empresa.</p>
-				<!--<p class="blocoExplicacao">O appestoque é um controle de estoque na web.</p>-->
 				<h2>Para que serve o appestoque ?</h2>
 				<p class="blocoExplicacao">É utilizado para controlar Clientes, Produtos e Pedidos de Venda.</p>
-				<!--<p class="blocoExplicacao">O appestoque é utilizado para controlar produtos de uma pequena empresa.</p>-->
 			</div>
 			<div id="login">
 				<form id="form_login" action="/menu.jsp" method="post">
@@ -248,7 +249,6 @@ h2 {
 								<td><input type="password" id="senha" name="senha" /></td>						
 							</tr>	
 							<tr>					
-								<!--<td colspan="2" align="center" ><button type="submit" onclick="return validar()">Acessar</button></td>-->
 								<td colspan="2" align="center" ><button type="submit" onclick="return ajaxFunction()">Acessar</button></td>
 							</tr>
 						</table>
