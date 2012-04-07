@@ -1,7 +1,6 @@
 package br.com.appestoque;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ResourceBundle;
 
 import javax.jdo.PersistenceManager;
