@@ -2,6 +2,11 @@ package br.com.appestoque.util;
 
 public final class Constantes {
 
+	public static String URL = "http://2.appestoque.appspot.com";
+	public static String URI_CONFIRMAR = "/processo?acao=confirmar";
+	
+	
+	
 	public static String MASCARA_PRECO = "##,###,##0.000";
 	public static String MASCARA_ESTOQUE = "##,###,##0.000";
 	

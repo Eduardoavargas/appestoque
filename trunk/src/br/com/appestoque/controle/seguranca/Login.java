@@ -9,8 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+
 import br.com.appestoque.dao.PMF;
 import br.com.appestoque.dao.seguranca.UsuarioDAO;
+import br.com.appestoque.dominio.cadastro.Empresa;
 
 @SuppressWarnings("serial")
 public class Login  extends HttpServlet {

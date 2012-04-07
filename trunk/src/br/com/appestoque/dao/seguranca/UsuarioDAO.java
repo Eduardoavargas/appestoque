@@ -5,7 +5,11 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+
 import br.com.appestoque.dao.DAOGenerico;
+import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.seguranca.Usuario;
 
 public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
@@ -20,7 +24,10 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 		query.setFilter("email == p_email && senha == p_senha");
 		query.declareParameters("String p_email , String p_senha");
 		List usuarios = (List) query.execute(email,senha);
-		return (usuarios.size()>0);
+		Usuario usuario = (Usuario) usuarios.get(0);
+		Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),usuario.getIdEmpresa());
+		Empresa empresa = getPm().getObjectById(Empresa.class, key);
+		return (empresa!=null&&empresa.getAtivo());
 	}
 	
 	@SuppressWarnings("rawtypes")

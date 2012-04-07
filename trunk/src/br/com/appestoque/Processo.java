@@ -48,7 +48,18 @@ public class Processo extends HttpServlet{
 	}
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("acao").equals("logoff")) {
+		if(request.getParameter("acao").equals("confirmar")) {
+			String uuid = request.getParameter("uuid");
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			EmpresaDAO empresaDAO = new EmpresaDAO(pm);
+			Empresa empresa = empresaDAO.pesquisar(uuid);
+			if(empresa!=null){
+				empresa.setAtivo(true);
+				empresaDAO.criar(empresa);
+			}
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_APRESENTACAO);
+			dispatcher.forward(request, response);
+		}else if(request.getParameter("acao").equals("logoff")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("autorizado", new Boolean("false"));
 			HttpServletResponse servletResponse = (HttpServletResponse) response;
@@ -95,8 +106,8 @@ public class Processo extends HttpServlet{
 			corpo.append("<h2 style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin: 0 0 16px; font-size: 18px; font-weight: normal'>Olá, "+empresa.getNome()+".</h2>");
 			
 			corpo.append("<p>Por favor, confirme sua conta do Appestoque clicando nesse link:<br>");
-			corpo.append("<a href='https://twitter.com/account/confirm_email/eledianetricano/9D2EF-3G2E7-133359?iid=am-85321533413335904971847777&amp;nid=18&amp;uid=545600908'");
-			corpo.append("target='_blank'>https://twitter.com/account/<wbr>confirm_email/eledianetricano/<wbr>9D2EF-3G2E7-133359</a></p>");
+			corpo.append("<a href='"+Constantes.URL+Constantes.URI_CONFIRMAR+"&&uuid="+empresa.getUuid()+"'");
+			corpo.append("target='_blank'>"+Constantes.URL+Constantes.URI_CONFIRMAR+"&&uuid="+empresa.getUuid()+"</a></p>");
 			
 			corpo.append("<p>Quando você confirmar, você terá acesso total ao Appestoque e todas as notificações futuras serão enviadas para este endereço de e-mail.</p>");
 			

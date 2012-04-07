@@ -8,6 +8,7 @@ import javax.jdo.Query;
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dominio.cadastro.Empresa;
+import br.com.appestoque.dominio.cadastro.Representante;
 
 @SuppressWarnings("unchecked")
 public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
@@ -16,16 +17,20 @@ public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
 		this.setPm(pm);
 	}
 	
+	public Empresa pesquisar(String uuid){
+		Query query = getPm().newQuery(Empresa.class);
+		query.setFilter("uuid == p_uuid");
+		query.declareParameters("String p_uuid");
+		List<Empresa> objetos = (List<Empresa>) query.execute(uuid);
+		return objetos.get(0);
+	}
+	
 	public Empresa pesquisar(Long id, TipoBusca tipoBusca){
 		Empresa objeto = null;
 		Query query = getPm().newQuery(Empresa.class);
 		query.setFilter("id == p_id");
 		query.declareParameters("Long p_id");
 		objeto = (Empresa) query.execute(id);
-		if(tipoBusca.equals(TipoBusca.ANSIOSA)){
-			BairroDAO bairroDAO = new BairroDAO(getPm());
-		//objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(),TipoBusca.ANSIOSA));
-		}
 		return objeto;
 	}
 	
@@ -38,15 +43,6 @@ public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
 			query.declareParameters("String p_cnpj");
 		}
 		objetos = cnpj!=null?(List<Empresa>) query.execute(cnpj):(List<Empresa>) query.execute();
-		if (tipoBusca.equals(TipoBusca.ANSIOSA)) {
-			BairroDAO bairroDAO = new BairroDAO(this.getPm());
-			for (int i = 0; i < objetos.size(); i++) {
-//				if(objetos.get(i).getIdBairro()!=null){
-//					objetos.get(i).setBairro(bairroDAO.pesquisar(objetos.get(i).getIdBairro()));
-//				}
-			}
-		}
-		
 		return objetos;
 	}
 	
