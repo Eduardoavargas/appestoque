@@ -11,7 +11,7 @@
 <link type="text/css" href="/css/le-frog/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="/js/jquery.maskedinput-1.3.min.js" ></script>
-
+<script type="text/javascript" src="/js/padrao.js"></script>
 
 <title></title>
 
@@ -55,12 +55,12 @@
 								alert('<%=bundle.getString("mensagem.validar.senha")%>');
 								document.getElementById('senha').focus();
 							}else{
+								alert('<%=bundle.getString("app.mensagem.empresa.confirmacao")%>');
 								document.forms[0].submit();	
 							}
 						}
 				</script>
-
-		
+			
 			<label id="titulo">Cadastro</label><br/><hr></hr><br/>
 			
 			<label><%=bundle.getString("nome")%><span class="obrigatorio">*</span></label><br/>
