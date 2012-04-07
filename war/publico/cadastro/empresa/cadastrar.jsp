@@ -54,6 +54,12 @@
 							}else if(document.getElementById('senha').value.length==0){
 								alert('<%=bundle.getString("mensagem.validar.senha")%>');
 								document.getElementById('senha').focus();
+							}else if(document.getElementById('senhaConfirmacao').value.length==0){
+								alert('<%=bundle.getString("mensagem.validar.senha")%>');
+								document.getElementById('senhaConfirmacao').focus();
+							}else if(document.getElementById('senha').value!=document.getElementById('senhaConfirmacao').value){
+								alert('<%=bundle.getString("mensagem.validar.senha.naoconfere")%>');
+								document.getElementById('senha').focus();
 							}else{
 								alert('<%=bundle.getString("app.mensagem.empresa.confirmacao")%>');
 								document.forms[0].submit();	
@@ -73,7 +79,7 @@
 			<app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"></app:cnpj></p>
 			
 			<label><%=bundle.getString("endereco")%><span class="obrigatorio">*</span></label><br/>
-			<app:texto nome="endereco" tamanho="50" valor=""></app:texto></p>
+			<app:texto id="endereco" nome="endereco" tamanho="50" valor=""></app:texto></p>
 			
 			<label><%=bundle.getString("numero")%></label><br/>
 			<app:numero id="numero" nome="numero" tamanho="5" valor=""/></p>
