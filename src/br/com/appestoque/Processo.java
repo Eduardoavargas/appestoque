@@ -73,6 +73,7 @@ public class Processo extends HttpServlet{
 			
 			String cnpj = request.getParameter("cnpj");
 			String nome = request.getParameter("nome");
+			String razao = request.getParameter("razao");
 			String bairro = request.getParameter("bairro");
 			String cidade = request.getParameter("cidade");
 			String cep = request.getParameter("cep");
@@ -87,7 +88,7 @@ public class Processo extends HttpServlet{
 			
 			String uuid = UUID.randomUUID().toString();
 			
-			Empresa empresa = new Empresa(nome,email,cnpj,endereco,numero,cep,complemento,bairro,cidade,uuid);
+			Empresa empresa = new Empresa(nome,razao,email,cnpj,endereco,numero,cep,complemento,bairro,cidade,uuid);
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			
 			EmpresaDAO empresaDAO = new EmpresaDAO(pm);
