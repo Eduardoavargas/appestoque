@@ -121,7 +121,7 @@ public class Processo extends HttpServlet{
 			corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
 			corpo.append("Por favor não responda esta mensagem; ela foi enviada por um endereço");
 			corpo.append("de e-mail não monitorado. Esta mensagem é relacionada ao seu uso do");
-			corpo.append("Appestoque. Para mais informações sobre a sua conta, por");
+			corpo.append(" Appestoque. Para mais informações sobre a sua conta, por");
 			corpo.append("favor encaminhe um e-mail para o");
 			corpo.append(" <a href='mailto:suporte@appestoque.com.br' target='_blank'>Suporte do Appestoque</a>.</p>");
 			

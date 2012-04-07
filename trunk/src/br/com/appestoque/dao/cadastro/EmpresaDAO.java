@@ -8,7 +8,6 @@ import javax.jdo.Query;
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dominio.cadastro.Empresa;
-import br.com.appestoque.dominio.cadastro.Representante;
 
 @SuppressWarnings("unchecked")
 public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
