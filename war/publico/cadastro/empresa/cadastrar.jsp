@@ -33,6 +33,9 @@
 							if(document.getElementById('nome').value.length==0){
 								alert('<%=bundle.getString("mensagem.validar.nome")%>');
 								document.getElementById('nome').focus();
+							}else if(document.getElementById('razao').value.length==0){
+								alert('<%=bundle.getString("mensagem.validar.razao")%>');
+								document.getElementById('razao').focus();
 							}else if(document.getElementById('email').value.length==0){
 								alert('<%=bundle.getString("mensagem.validar.email")%>');
 								document.getElementById('email').focus();
@@ -55,22 +58,36 @@
 								alert('<%=bundle.getString("mensagem.validar.senha")%>');
 								document.getElementById('senha').focus();
 							}else if(document.getElementById('senhaConfirmacao').value.length==0){
-								alert('<%=bundle.getString("mensagem.validar.senha")%>');
+								alert('<%=bundle.getString("mensagem.validar.senha.confirmacao")%>');
 								document.getElementById('senhaConfirmacao').focus();
 							}else if(document.getElementById('senha').value!=document.getElementById('senhaConfirmacao').value){
 								alert('<%=bundle.getString("mensagem.validar.senha.naoconfere")%>');
 								document.getElementById('senha').focus();
 							}else{
-								alert('<%=bundle.getString("app.mensagem.empresa.confirmacao")%>');
-								document.forms[0].submit();	
+								var cnpj = validarCNPJ(document.getElementById('cnpj'));
+								var email = validarEmail(document.getElementById('email'));
+								if(cnpj&&email){
+									alert('<%=bundle.getString("app.mensagem.empresa.confirmacao")%>');
+									document.forms[0].submit();
+								}else if(!cnpj){									
+									alert('<%=bundle.getString("mensagem.cnpj.valido")%>');
+									document.getElementById('cnpj').focus();
+								}else if(!email){
+									alert('<%=bundle.getString("mensagem.email.valido")%>');
+									document.getElementById('email').focus();
+								}
+								return cnpj&&email;
 							}
 						}
 				</script>
 			
 			<label id="titulo">Cadastro</label><br/><hr></hr><br/>
 			
-			<label><%=bundle.getString("nome")%><span class="obrigatorio">*</span></label><br/>
+			<label><%=bundle.getString("empresa.nome")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/></p>
+			
+			<label><%=bundle.getString("empresa.razao")%><span class="obrigatorio">*</span></label><br/>
+			<app:texto id="razao" nome="razao" tamanho="50" valor="<%=objeto.getRazao()%>"/></p>
 			
 			<label><%=bundle.getString("email")%><span class="obrigatorio">*</span></label><br/>
 			<app:email nome="email" tamanho="50"  valor="<%=objeto.getEmail()%>"/></p>
