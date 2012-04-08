@@ -96,22 +96,22 @@
 			<app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"></app:cnpj></p>
 			
 			<label><%=bundle.getString("endereco")%><span class="obrigatorio">*</span></label><br/>
-			<app:texto id="endereco" nome="endereco" tamanho="50" valor=""></app:texto></p>
+			<app:texto id="endereco" nome="endereco" tamanho="50" valor="<%=objeto.getEndereco()%>"></app:texto></p>
 			
 			<label><%=bundle.getString("numero")%></label><br/>
-			<app:numero id="numero" nome="numero" tamanho="5" valor=""/></p>
+			<app:numero id="numero" nome="numero" tamanho="5" valor="<%=objeto.getNumero().toString()%>"/></p>
 			
 			<label><%=bundle.getString("cep")%><span class="obrigatorio">*</span></label><br/>
-			<app:cep nome="cep" valor=""/></p>
+			<app:cep nome="cep" valor="<%=objeto.getCep()%>"/></p>
 			
 			<label><%=bundle.getString("complemento")%></label><br/>
-			<app:texto id="complemento" nome="complemento" tamanho="50" valor=""/></p>
+			<app:texto id="complemento" nome="complemento" tamanho="50" valor="<%=objeto.getComplemento()%>"/></p>
 			
 			<label><%=bundle.getString("bairro")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="bairro" nome="bairro" tamanho="50" valor=""/></p>
 			
 			<label><%=bundle.getString("cidade")%><span class="obrigatorio">*</span></label><br/>
-			<app:texto id="cidade" nome="cidade" tamanho="50" valor=""/></p>
+			<app:texto id="cidade" nome="cidade" tamanho="50" valor="<%=objeto.getCidade()%>"/></p>
 			
 			<label><%=bundle.getString("senha")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="senha" tipo="password" nome="senha" valor=""/></p>
