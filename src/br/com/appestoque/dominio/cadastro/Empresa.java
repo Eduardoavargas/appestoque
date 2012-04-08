@@ -51,27 +51,6 @@ public class Empresa implements Serializable{
 	@Persistent
 	private Boolean ativo = false;
 	
-	@Persistent
-	private Long bairros = new Long(0);
-	
-	@Persistent
-	private Long cidades = new Long(0);
-	
-	@Persistent
-	private Long clientes = new Long(0);
-	
-	@Persistent
-	private Long representantes = new Long(0);
-	
-	@Persistent
-	private Long pedidos = new Long(0);
-	
-	@Persistent
-	private Long usuarios = new Long(0);
-	
-	@Persistent
-	private Long produtos = new Long(0);
-
 	public Empresa() {
 		super();
 	}
@@ -194,62 +173,6 @@ public class Empresa implements Serializable{
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
-	}
-
-	public Long getBairros() {
-		return bairros;
-	}
-
-	public void setBairros(Long bairros) {
-		this.bairros = bairros;
-	}
-
-	public Long getCidades() {
-		return cidades;
-	}
-
-	public void setCidades(Long cidades) {
-		this.cidades = cidades;
-	}
-
-	public Long getClientes() {
-		return clientes;
-	}
-
-	public void setClientes(Long clientes) {
-		this.clientes = clientes;
-	}
-
-	public Long getRepresentantes() {
-		return representantes;
-	}
-
-	public void setRepresentantes(Long representantes) {
-		this.representantes = representantes;
-	}
-
-	public Long getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(Long pedidos) {
-		this.pedidos = pedidos;
-	}
-
-	public Long getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(Long usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public Long getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(Long produtos) {
-		this.produtos = produtos;
 	}
 	
 }

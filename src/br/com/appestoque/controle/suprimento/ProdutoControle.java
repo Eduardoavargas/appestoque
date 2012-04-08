@@ -39,6 +39,7 @@ public class ProdutoControle extends BaseControle{
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
+			numero = request.getParameter("numero");
 			primeiroRegistro = 0;
 			objetos = dao.pesquisar(numero,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 			paginar(primeiroRegistro);			
@@ -109,6 +110,9 @@ public class ProdutoControle extends BaseControle{
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
+			
+			request.setAttribute("numero",null);
+			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
