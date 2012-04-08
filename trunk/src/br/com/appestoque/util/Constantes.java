@@ -1,6 +1,6 @@
 package br.com.appestoque.util;
 
-public final class Constantes {
+public class Constantes {
 
 	public static String URL = "http://2.appestoque.appspot.com";
 	public static String URI_CONFIRMAR = "/processo?acao=confirmar";
