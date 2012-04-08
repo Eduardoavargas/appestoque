@@ -24,7 +24,6 @@ import br.com.appestoque.dao.seguranca.UsuarioDAO;
 import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.cadastro.Representante;
 import br.com.appestoque.dominio.seguranca.Usuario;
-import br.com.appestoque.util.Constantes;
 
 public class Filtro implements Filter{
 
