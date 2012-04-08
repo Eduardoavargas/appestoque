@@ -5,7 +5,7 @@
 	<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js">		
 	</script>
 
-	<div style="float: left; width: 25%;">
+	<div align="left" style="float: left; width: 25%;">
 		<script>
 			new TWTR.Widget({
 				version : 2,
@@ -13,7 +13,7 @@
 				rpp : 4,
 				interval : 30000,
 				width : 250,
-				height : 300,
+				height : 250,
 				theme : {
 					shell : {
 						background : '#5aae00',
@@ -26,7 +26,7 @@
 					}
 				},
 				features : {
-					scrollbar : false,
+					scrollbar : true,
 					loop : false,
 					live : false,
 					behavior : 'all'
@@ -43,7 +43,7 @@
 				rpp : 4,
 				interval : 30000,
 				width : 250,
-				height : 300,
+				height : 250,
 				theme : {
 					shell : {
 						background : '#5aae00',
@@ -56,7 +56,7 @@
 					}
 				},
 				features : {
-					scrollbar : false,
+					scrollbar : true,
 					loop : false,
 					live : false,
 					behavior : 'all'
@@ -73,7 +73,7 @@
 				rpp : 4,
 				interval : 30000,
 				width : 250,
-				height : 300,
+				height : 250,
 				theme : {
 					shell : {
 						background : '#5aae00',
@@ -86,7 +86,7 @@
 					}
 				},
 				features : {
-					scrollbar : false,
+					scrollbar : true,
 					loop : false,
 					live : false,
 					behavior : 'all'
@@ -95,7 +95,7 @@
 		</script>
 	</div>
 	
-	<div style="float: left; width: 25%;">
+	<div align="right" style="float: left; width: 25%;">
 		<script>
 			new TWTR.Widget({
 				version : 2,
@@ -103,7 +103,7 @@
 				rpp : 4,
 				interval : 30000,
 				width : 250,
-				height : 300,
+				height : 250,
 				theme : {
 					shell : {
 						background : '#5aae00',
@@ -116,7 +116,7 @@
 					}
 				},
 				features : {
-					scrollbar : false,
+					scrollbar : true,
 					loop : false,
 					live : false,
 					behavior : 'all'
