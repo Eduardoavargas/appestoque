@@ -22,6 +22,7 @@
 	</p>
 
 	<script type="text/javascript">
+	
 			$("#salvar").click(function () {
 				if(document.getElementById('nome').value.length==0){
 					alert('<%=bundle.getString("mensagem.validar.nome")%>');
