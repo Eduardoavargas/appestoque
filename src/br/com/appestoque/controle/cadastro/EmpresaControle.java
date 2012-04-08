@@ -10,6 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.comum.Constantes;
@@ -49,14 +50,18 @@ public class EmpresaControle extends BaseControle {
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
-			primeiroRegistro = 0;
-			objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
-			paginar(primeiroRegistro);			
-			request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
-			request.setAttribute("totalRegistros", objetos.size());
-			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			request.setAttribute("objetos",objetos);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_LISTAR);
+//			primeiroRegistro = 0;
+//			objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
+//			paginar(primeiroRegistro);			
+//			request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
+//			request.setAttribute("totalRegistros", objetos.size());
+//			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
+			
+			HttpServletRequest req = (HttpServletRequest) request;
+	        HttpSession session = req.getSession();
+	        Empresa objeto = (Empresa) session.getAttribute("empresa");
+			request.setAttribute("objeto",objeto);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_EDITAR);
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("pesquisar")) {
 			request.setAttribute("primeiroRegistro",request.getParameter("primeiroRegistro"));
