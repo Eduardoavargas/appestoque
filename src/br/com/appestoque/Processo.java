@@ -34,7 +34,6 @@ import br.com.appestoque.dao.cadastro.EmpresaDAO;
 import br.com.appestoque.dao.seguranca.UsuarioDAO;
 import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.seguranca.Usuario;
-import br.com.appestoque.util.Constantes;
 
 @SuppressWarnings("serial")
 public class Processo extends HttpServlet{
