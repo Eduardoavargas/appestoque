@@ -48,9 +48,8 @@
 	<br/>	
 
 	<div id="conteudo">
-
-	<div align="center" style="width: 100%;" ><img src="img/logo.jpg"/></div>
-	<br/>
+		<div align="center" style="width: 100%;" ><img src="img/logo.jpg"/></div>
+		<br/>
 	
 	<%if(request.getAttribute("mensagem")!=null){ %>
 		<div class="ui-widget">
@@ -92,3 +91,4 @@
 <div style="clear:both"></div>
 <div style="clear:both"></div>
 </p>
+
