@@ -1,6 +1,6 @@
+<%@page import="br.com.appestoque.Constantes"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="br.com.appestoque.util.*" %>
 <%@ page import="br.com.appestoque.dominio.suprimento.Produto" %>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
@@ -49,8 +49,8 @@
 			<tr>
 				<td><%=objeto.getNome()%></td>
 				<td><%=objeto.getNumero()%></a></td>
-				<td align="right"><fmt:formatNumber value="<%=objeto.getPreco()%>" type="currency" pattern="<%=Constantes.MASCARA_PRECO%>"/></td>
-				<td align="right"><fmt:formatNumber value="<%=objeto.getEstoque()%>" type="currency" pattern="<%=Constantes.MASCARA_ESTOQUE%>"/></td>
+				<td align="right"><fmt:formatNumber value="<%=objeto.getPreco()%>" type="currency" pattern="<%=br.com.appestoque.Constantes.MASCARA_PRECO%>"/></td>
+				<td align="right"><fmt:formatNumber value="<%=objeto.getEstoque()%>" type="currency" pattern="<%=br.com.appestoque.Constantes.MASCARA_ESTOQUE%>"/></td>
 				<td align="center" >
 					<a id="edt" href="/produtoControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
 					<a href="/produtoControle?acao=remover&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.remover")%>" src="img/remover.png" style="border: 0px;"/></a>
