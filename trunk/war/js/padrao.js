@@ -96,7 +96,7 @@ function validarCPF(obj){
 
 function validarCNPJ(obj){
     if((obj.value.replace(/\D/g,'').length>0)&&!isCnpj(obj.value)){
-        alert('ATEN\u00c7\u00c3O! CNPJ inv\u00e1lido');
+        //alert('ATEN\u00c7\u00c3O! CNPJ inv\u00e1lido');
         return false;
     }else{
         return true;
@@ -360,7 +360,9 @@ function validarEmail(obj) {
 	var atpos = x.indexOf("@");
 	var dotpos = x.lastIndexOf(".");
 	if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= x.length) {
-		alert('ATEN\u00c7\u00c3O! E-mail inv\u00e1lido')
+		//alert('ATEN\u00c7\u00c3O! E-mail inv\u00e1lido')
 		return false;
+	}else{
+		return true;
 	}
 }
