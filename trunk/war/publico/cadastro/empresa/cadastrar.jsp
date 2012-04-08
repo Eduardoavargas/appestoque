@@ -27,61 +27,64 @@
 			%>
 		
 			<form id="formCadastro" method="post" action="/processo?acao=cadastrar">
-			
-				<script>
-						function validar(){
-							if(document.getElementById('nome').value.length==0){
-								alert('<%=bundle.getString("mensagem.validar.nome")%>');
+
+
+ 				<script>
+ 						function validar(){
+ 							if(document.getElementById('nome').value.length==0){
+ 								alert('<%=bundle.getString("mensagem.validar.nome")%>');
 								document.getElementById('nome').focus();
 							}else if(document.getElementById('razao').value.length==0){
-								alert('<%=bundle.getString("mensagem.validar.razao")%>');
+ 								alert('<%=bundle.getString("mensagem.validar.razao")%>');
 								document.getElementById('razao').focus();
-							}else if(document.getElementById('email').value.length==0){
-								alert('<%=bundle.getString("mensagem.validar.email")%>');
+ 							}else if(document.getElementById('email').value.length==0){
+ 								alert('<%=bundle.getString("mensagem.validar.email")%>');
 								document.getElementById('email').focus();
 							}else if(document.getElementById('cnpj').value.length==0){
-								alert('<%=bundle.getString("mensagem.validar.cnpj")%>');
-								document.getElementById('cnpj').focus();
-							}else if(document.getElementById('endereco').value.length==0){
-								alert('<%=bundle.getString("mensagem.validar.endereco")%>');
+ 								alert('<%=bundle.getString("mensagem.validar.cnpj")%>');
+ 								document.getElementById('cnpj').focus();
+ 							}else if(document.getElementById('endereco').value.length==0){
+ 								alert('<%=bundle.getString("mensagem.validar.endereco")%>');
 								document.getElementById('endereco').focus();
 							}else if(document.getElementById('cep').value.length==0){
-								alert('<%=bundle.getString("mensagem.validar.cep")%>');
+ 								alert('<%=bundle.getString("mensagem.validar.cep")%>');
 								document.getElementById('cep').focus();
 							}else if(document.getElementById('bairro').value.length==0){
 								alert('<%=bundle.getString("mensagem.validar.bairro")%>');
 								document.getElementById('bairro').focus();
-							}else if(document.getElementById('cidade').value.length==0){
-								alert('<%=bundle.getString("mensagem.validar.cidade")%>');
-								document.getElementById('cidade').focus();
-							}else if(document.getElementById('senha').value.length==0){
-								alert('<%=bundle.getString("mensagem.validar.senha")%>');
+ 							}else if(document.getElementById('cidade').value.length==0){
+ 								alert('<%=bundle.getString("mensagem.validar.cidade")%>');
+ 								document.getElementById('cidade').focus();
+ 							}else if(document.getElementById('senha').value.length==0){
+ 								alert('<%=bundle.getString("mensagem.validar.senha")%>');
+ 								document.getElementById('senha').focus();
+ 							}else if(document.getElementById('senhaConfirmacao').value.length==0){
+ 								alert('<%=bundle.getString("mensagem.validar.senha.confirmacao")%>');
+ 								document.getElementById('senhaConfirmacao').focus();
+ 							}else if(document.getElementById('senha').value!=document.getElementById('senhaConfirmacao').value){
+ 								alert('<%=bundle.getString("mensagem.validar.senha.naoconfere")%>');
 								document.getElementById('senha').focus();
-							}else if(document.getElementById('senhaConfirmacao').value.length==0){
-								alert('<%=bundle.getString("mensagem.validar.senha.confirmacao")%>');
-								document.getElementById('senhaConfirmacao').focus();
-							}else if(document.getElementById('senha').value!=document.getElementById('senhaConfirmacao').value){
-								alert('<%=bundle.getString("mensagem.validar.senha.naoconfere")%>');
-								document.getElementById('senha').focus();
-							}else{
-								var cnpj = validarCNPJ(document.getElementById('cnpj'));
-								var email = validarEmail(document.getElementById('email'));
-								if(cnpj&&email){
-									alert('<%=bundle.getString("app.mensagem.empresa.confirmacao")%>');
-									document.forms[0].submit();
-								}else if(!cnpj){									
-									alert('<%=bundle.getString("mensagem.cnpj.valido")%>');
-									document.getElementById('cnpj').focus();
-								}else if(!email){
-									alert('<%=bundle.getString("mensagem.email.valido")%>');
-									document.getElementById('email').focus();
-								}
-								return cnpj&&email;
-							}
-						}
-				</script>
-			
-			<label id="titulo">Cadastro</label><br/><hr></hr><br/>
+ 							}else{
+ 								var cnpj = validarCNPJ(document.getElementById('cnpj'));
+ 								var email = validarEmail(document.getElementById('email'));
+ 								if(cnpj&&email){
+ 									alert('<%=bundle.getString("app.mensagem.empresa.confirmacao")%>');
+ 									document.forms[0].submit();
+ 								}else if(!cnpj){									
+ 									alert('<%=bundle.getString("mensagem.cnpj.valido")%>');
+ 									document.getElementById('cnpj').focus();
+ 								}else if(!email){
+ 									alert('<%=bundle.getString("mensagem.email.valido")%>');
+ 									document.getElementById('email').focus();
+ 								}
+ 								return cnpj&&email;
+ 							}
+ 						}
+ 				</script>
+
+
+
+ 			<label id="titulo">Cadastro</label><br/><hr></hr><br/>
 			
 			<label><%=bundle.getString("empresa.nome")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/></p>
@@ -121,8 +124,8 @@
 			
 			<p>
 				<a href="#"
-				    onclick="return validar();"
 					id="confirmar"
+					onclick="return validar();"
 					style="z-index:0;"
 					class="ui-state-default ui-corner-all"><span
 					class="ui-icon ui-icon-disk"></span>Confirmar</a>
