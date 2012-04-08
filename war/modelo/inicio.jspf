@@ -37,7 +37,8 @@
         <ul>
             <li>
                 <a href="#"><%=((Usuario)request.getSession().getAttribute("usuario")).getEmail()%><span class="arrow"></span></a>
-                <ul>
+                <ul style="width: 159px;" >
+                    <li><a href="/empresaControle?acao=iniciar">Empresa</a></li>
                     <li><a href="/logout">Sair</a></li>
                 </ul>
             </li>
@@ -48,7 +49,10 @@
 	<br/>	
 
 	<div id="conteudo">
-		<div align="center" style="width: 100%;" ><img src="img/logo.jpg"/></div>
+		
+		<div align="center" style="width: 100%;">
+			<a href="/menu.jsp"><img  style="border: none" src="img/logo.jpg"/></a>
+		</div>
 		<br/>
 	
 	<%if(request.getAttribute("mensagem")!=null){ %>
