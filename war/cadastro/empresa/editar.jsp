@@ -1,5 +1,4 @@
 <%@ page import="br.com.appestoque.dominio.cadastro.Empresa"%>
-<%@ page import="br.com.appestoque.util.Constantes"%>
 <%@ page import="java.text.DecimalFormat"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
@@ -10,7 +9,17 @@
 <span class="title"><%=bundle.getString("empresa.editar.titulo")%></span>
 
 <form id="formEditar" method="post" action="/empresaControle?acao=modificar">
-	<app:barraEditar acao="/empresaControle"/>
+
+	<p>
+		<a href="/menu.jsp"
+			style="z-index:0;"
+			class="ui-state-default ui-corner-all"><span
+			class="ui-icon ui-icon-arrowreturnthick-1-w"></span>Retornar</a>
+		<a href="#" id="salvar"
+			style="z-index:0;"
+			class="ui-state-default ui-corner-all"><span
+			class="ui-icon ui-icon-disk"></span>Salvar</a>
+	</p>
 
 	<script type="text/javascript">
 			$("#salvar").click(function () {
@@ -43,43 +52,36 @@
 		value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
 	<hr>
 	
-	<%=bundle.getString("empresa.nome")%><br />
-	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/>
-	</p>	
-	<%=bundle.getString("cnpj")%><br />
-	<app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"/>
-	</p>
-	<%=bundle.getString("endereco")%><br />
-	<app:texto id="endereco" nome="endereco" tamanho="50" valor="<%=objeto.getEndereco()%>"/>
-	</p>
-	<%=bundle.getString("complemento")%><br />
-	<app:texto id="complemento" nome="complemento" tamanho="50" valor="<%=objeto.getComplemento()%>"/>
-	</p>
-	<%=bundle.getString("cep")%><br />
-	<app:cep nome="cep" valor="<%=objeto.getCep()%>"/>
-	</p>
-	<%=bundle.getString("numero")%><br />
-	<app:numero id="numero" nome="numero" valor="<%=objeto.getNumero().toString()%>"/>
-	</p>
-	<%=bundle.getString("cidade")%><br/>
-	<select name="idCidade" id="idCidade"  class="text ui-widget-content ui-corner-all" 
-	        style="cursor:pointer;" 
-	        onchange="ajax('/bairroControle?acao=ajax&id='+this.value,'bairros')">
-		<c:forEach var="cidade" items="${cidades}" varStatus="id">
-			<option value="${cidade.id}" <c:if test="${cidade.id == idCidade}">selected</c:if> >${cidade.nome}</option>
-		</c:forEach>
-	</select>
-	</p>
-	<%=bundle.getString("bairro")%><br/>
-	<div id="bairros">
-		<select name="idBairro" id="idBairro" class="text ui-widget-content ui-corner-all" 
-		        style="cursor: pointer;">
-			<c:forEach var="bairro" items="${bairros}" varStatus="id">
-				<option value="${bairro.id}" <c:if test="${bairro.id == idBairro}">selected</c:if>>${bairro.nome}</option>
-			</c:forEach>
-		</select>
-	</div>
-	</p>
+			<label><%=bundle.getString("empresa.nome")%><span class="obrigatorio">*</span></label><br/>
+			<app:texto id="nome" nome="nome" desativar="true" tamanho="50" valor="<%=objeto.getNome()%>"/></p>
+			
+			<label><%=bundle.getString("empresa.razao")%><span class="obrigatorio">*</span></label><br/>
+			<app:texto id="razao" nome="razao" desativar="true" tamanho="50" valor="<%=objeto.getRazao()%>"/></p>
+			
+			<label><%=bundle.getString("email")%><span class="obrigatorio">*</span></label><br/>
+			<app:email nome="email" desativar="true" tamanho="50" valor="<%=objeto.getEmail()%>"/></p>
+			
+			<label><%=bundle.getString("cnpj")%><span class="obrigatorio">*</span></label><br/>
+			<app:cnpj nome="cnpj" desativar="true" valor="<%=objeto.getCnpj()%>"></app:cnpj></p>
+			
+			<label><%=bundle.getString("endereco")%><span class="obrigatorio">*</span></label><br/>
+			<app:texto id="endereco" nome="endereco" tamanho="50" valor="<%=objeto.getEndereco()%>"></app:texto></p>
+			
+			<label><%=bundle.getString("numero")%></label><br/>
+			<app:numero id="numero" nome="numero" tamanho="5" valor="<%=objeto.getNumero().toString()%>"/></p>
+			
+			<label><%=bundle.getString("cep")%><span class="obrigatorio">*</span></label><br/>
+			<app:cep nome="cep" valor="<%=objeto.getCep()%>"/></p>
+			
+			<label><%=bundle.getString("complemento")%></label><br/>
+			<app:texto id="complemento" nome="complemento" tamanho="50" valor="<%=objeto.getComplemento()%>"/></p>
+			
+			<label><%=bundle.getString("bairro")%><span class="obrigatorio">*</span></label><br/>
+			<app:texto id="bairro" nome="bairro" tamanho="50" valor="<%=objeto.getBairro()%>"/></p>
+			
+			<label><%=bundle.getString("cidade")%><span class="obrigatorio">*</span></label><br/>
+			<app:texto id="cidade" nome="cidade" tamanho="50" valor="<%=objeto.getCidade()%>"/></p>
+
 	<hr>
 </form>
 <%@include file="../../modelo/fim.jspf"%>
