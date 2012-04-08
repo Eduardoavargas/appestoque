@@ -1,5 +1,4 @@
 <%@ page import="br.com.appestoque.dominio.cadastro.Bairro"%>
-<%@ page import="br.com.appestoque.util.Constantes"%>
 <%@ page import="java.text.DecimalFormat"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
