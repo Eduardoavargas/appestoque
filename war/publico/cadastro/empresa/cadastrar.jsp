@@ -32,6 +32,13 @@
  				<script type="text/javascript">
  				
  						function validar(){
+ 							
+ 							if(ajaxValidarCNPJ()){
+ 								alert('AJAX VERDADEIRO');
+ 							}else{
+ 								alert('AJAX FALSO');
+ 							}
+ 							
  							if(document.getElementById('nome').value.length==0){
  								alert('<%=bundle.getString("mensagem.validar.nome")%>');
 								document.getElementById('nome').focus();
@@ -70,7 +77,9 @@
  								var email = validarEmail(document.getElementById('email'));
  								if(cnpj&&email){
  									alert('<%=bundle.getString("app.mensagem.empresa.confirmacao")%>');
- 									document.forms[0].submit();
+ 									//document.forms[0].submit();
+ 									ajaxValidarCNPJ();
+ 									ajaxValidarEmail();
  								}else if(!cnpj){									
  									alert('<%=bundle.getString("mensagem.cnpj.valido")%>');
  									document.getElementById('cnpj').focus();
@@ -104,7 +113,7 @@
  						function ajaxValidarCNPJ() {
  							  if(xmlhttp) { 
  							    xmlhttp.open("POST","verificarCNPJ",true);
- 							    xmlhttp.onreadystatechange  = handleServerResponse;
+ 							    xmlhttp.onreadystatechange  = handleServerResponseCNPJ;
  							    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
  							    xmlhttp.send("cnpj="+document.getElementById("cnpj").value);
  							  }
@@ -115,13 +124,11 @@
  							    return this.replace(/^\s*/, "").replace(/\s*$/, "");
  							}
  						
- 							function handleServerResponse() {
+ 							function handleServerResponseCNPJ() {
  							   if (xmlhttp.readyState == 4) {
  							     if(xmlhttp.status == 200) {
  							    	 var existe = Boolean(xmlhttp.responseText.trim()=='true');  
- 							    	 if(!existe){
- 							    		 //document.forms[0].submit();	 
- 							    	 }else{
+ 							    	 if(existe){
  							    		 alert('CNPJ já cadastrado.');	 
  							    	 }
  							     }else {
@@ -129,6 +136,36 @@
 								}
 							}
 						}
+ 							
+ 							
+ 							function ajaxValidarEmail() {
+ 	 							  if(xmlhttp) { 
+ 	 							    xmlhttp.open("POST","verificarEmail",true);
+ 	 							    xmlhttp.onreadystatechange  = handleServerResponseEmail;
+ 	 							    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+ 	 							    xmlhttp.send("email="+document.getElementById("email").value);
+ 	 							  }
+ 	 							  return false;
+ 	 							}
+ 	 						
+ 	 							String.prototype.trim = function () {
+ 	 							    return this.replace(/^\s*/, "").replace(/\s*$/, "");
+ 	 							}
+ 	 						
+ 	 							function handleServerResponseEmail() {
+ 	 							   if (xmlhttp.readyState == 4) {
+ 	 							     if(xmlhttp.status == 200) {
+ 	 							    	 var existe = Boolean(xmlhttp.responseText.trim()=='true');  
+ 	 							    	 if(!existe){
+ 	 							    		 document.forms[0].submit();	 
+ 	 							    	 }else{
+ 	 							    		 alert('E-mail já cadastrado.');	 
+ 	 							    	 }
+ 	 							     }else {
+ 	 							        alert('Requisição inválida.');
+ 									}
+ 								}
+ 							}	
  							
 					</script>
 
