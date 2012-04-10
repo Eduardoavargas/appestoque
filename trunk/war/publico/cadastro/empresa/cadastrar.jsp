@@ -29,7 +29,8 @@
 			<form id="formCadastro" method="post" action="/processo?acao=cadastrar">
 
 
- 				<script>
+ 				<script type="text/javascript">
+ 				
  						function validar(){
  							if(document.getElementById('nome').value.length==0){
  								alert('<%=bundle.getString("mensagem.validar.nome")%>');
@@ -80,7 +81,56 @@
  								return cnpj&&email;
  							}
  						}
- 				</script>
+ 						
+ 						function getXMLObject() {
+ 							var xmlHttp = false;
+ 							try {
+ 								xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")
+ 							} catch (e) {
+ 								try {
+ 									xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
+ 								} catch (e2) {
+ 									xmlHttp = false 
+ 								}
+ 							}
+ 							if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+ 								xmlHttp = new XMLHttpRequest();
+ 							}
+ 							return xmlHttp;
+ 						}
+
+ 						var xmlhttp = new getXMLObject();
+
+ 						function ajaxValidarCNPJ() {
+ 							  if(xmlhttp) { 
+ 							    xmlhttp.open("POST","verificarCNPJ",true);
+ 							    xmlhttp.onreadystatechange  = handleServerResponse;
+ 							    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+ 							    xmlhttp.send("cnpj="+document.getElementById("cnpj").value);
+ 							  }
+ 							  return false;
+ 							}
+ 						
+ 							String.prototype.trim = function () {
+ 							    return this.replace(/^\s*/, "").replace(/\s*$/, "");
+ 							}
+ 						
+ 							function handleServerResponse() {
+ 							   if (xmlhttp.readyState == 4) {
+ 							     if(xmlhttp.status == 200) {
+ 							    	 var existe = Boolean(xmlhttp.responseText.trim()=='true');  
+ 							    	 if(!existe){
+ 							    		 //document.forms[0].submit();	 
+ 							    	 }else{
+ 							    		 alert('CNPJ já cadastrado.');	 
+ 							    	 }
+ 							     }else {
+ 							        alert('Requisição inválida.');
+								}
+							}
+						}
+ 							
+					</script>
 
 
 
