@@ -1,4 +1,4 @@
-package br.com.appestoque.controle.seguranca;
+package br.com.appestoque.controle.cadastro;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.appestoque.dao.PMF;
-import br.com.appestoque.dao.seguranca.UsuarioDAO;
+import br.com.appestoque.dao.cadastro.EmpresaDAO;
 
 @SuppressWarnings("serial")
-public class Login  extends HttpServlet {
+public class VerificarCNPJ extends HttpServlet{
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
@@ -25,11 +25,10 @@ public class Login  extends HttpServlet {
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		String email = request.getParameter("email");
-		String senha = request.getParameter("senha");
+		String cnpj = request.getParameter("cnpj");
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		UsuarioDAO dao = new UsuarioDAO(pm);
-		if(dao.autenticar(email, senha)){
+		EmpresaDAO dao = new EmpresaDAO(pm);
+		if(dao.pesquisarCNPJ(cnpj)){
 			out.println("true");
 		}else{
 			out.println("false");

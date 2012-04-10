@@ -61,4 +61,20 @@ public class EmpresaDAO extends DAOGenerico<Empresa, Long> {
 		return (List<Empresa>) query.execute();
 	}
 	
+	public boolean pesquisarCNPJ(String cnpj){
+		Query query = getPm().newQuery(Empresa.class);
+		query.setFilter("cnpj == p_cnpj");
+		query.declareParameters("String p_cnpj");
+		List<Empresa> objetos = (List<Empresa>) query.execute(cnpj);
+		return (objetos!=null&&objetos.size()>0);
+	}
+
+	public boolean pesquisarEmail(String email){
+		Query query = getPm().newQuery(Empresa.class);
+		query.setFilter("email == p_email");
+		query.declareParameters("String p_email");
+		List<Empresa> objetos = (List<Empresa>) query.execute(email);
+		return (objetos!=null&&objetos.size()>0);
+	}
+	
 }

@@ -24,9 +24,13 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 		query.setFilter("email == p_email && senha == p_senha");
 		query.declareParameters("String p_email , String p_senha");
 		List usuarios = (List) query.execute(email,senha);
-		Usuario usuario = (Usuario) usuarios.get(0);
-		Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),usuario.getIdEmpresa());
-		Empresa empresa = getPm().getObjectById(Empresa.class, key);
+		Empresa empresa = null;
+		Usuario usuario = null;
+		if(usuarios!=null&&usuarios.size()>0){
+			usuario = (Usuario) usuarios.get(0);
+			Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),usuario.getIdEmpresa());
+			empresa = getPm().getObjectById(Empresa.class, key);
+		}
 		return (empresa!=null&&empresa.getAtivo());
 	}
 	
