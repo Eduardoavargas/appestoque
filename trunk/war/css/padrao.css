@@ -46,7 +46,7 @@ body {
 }
 
 #sddm div {
-	z-index: 2;
+	z-index: 10000000;
 	width: 149px;
 	position: absolute;
 	visibility: hidden;
