@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import br.com.appestoque.comum.Constantes;
+import br.com.appestoque.Constantes;
 import br.com.appestoque.dominio.cadastro.Empresa;
 
 @SuppressWarnings("serial")

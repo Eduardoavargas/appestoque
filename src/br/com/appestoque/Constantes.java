@@ -21,4 +21,6 @@ public class Constantes {
 	
 	public static String ASSUNTO_CADASTRO = "Confirme sua conta do Appestoque e seja bem vindo!";
 	
+	public static final int REGISTROS_POR_PAGINA = 10;
+	
 }
