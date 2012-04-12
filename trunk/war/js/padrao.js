@@ -360,7 +360,6 @@ function validarEmail(obj) {
 	var atpos = x.indexOf("@");
 	var dotpos = x.lastIndexOf(".");
 	if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= x.length) {
-		//alert('ATEN\u00c7\u00c3O! E-mail inv\u00e1lido')
 		return false;
 	}else{
 		return true;
@@ -368,3 +367,82 @@ function validarEmail(obj) {
 }
 
 
+
+
+function getXMLObject() {
+		var xmlHttp = false;
+		try {
+			xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")
+		} catch (e) {
+			try {
+				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
+			} catch (e2) {
+				xmlHttp = false 
+			}
+		}
+		if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+			xmlHttp = new XMLHttpRequest();
+		}
+		return xmlHttp;
+	}
+
+var xmlhttp = new getXMLObject();
+
+function ajaxValidarCNPJ(obj) {
+		  if(xmlhttp) { 
+		    xmlhttp.open("POST","verificarCNPJ",true);
+		    xmlhttp.onreadystatechange  = handleServerResponseCNPJ;
+		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    //xmlhttp.send("cnpj="+document.getElementById("cnpj").value);
+		    xmlhttp.send("cnpj="+obj.value);
+		  }
+		  return false;
+		}
+	
+		String.prototype.trim = function () {
+		    return this.replace(/^\s*/, "").replace(/\s*$/, "");
+		}
+	
+		function handleServerResponseCNPJ() {
+		   if (xmlhttp.readyState == 4) {
+		     if(xmlhttp.status == 200) {
+		    	 var existe = Boolean(xmlhttp.responseText.trim()=='true');  
+		    	 if(existe){
+		    		 alert('CNPJ j\u00e1 cadastrado.');	 
+		    	 }
+		     }else {
+		        alert('Requisição inv\u00e1lida.');
+		}
+	}
+}
+		
+		
+	
+function ajaxValidarEmail(obj) {
+	if (xmlhttp) {
+		xmlhttp.open("POST", "verificarEmail", true);
+		xmlhttp.onreadystatechange = handleServerResponseEmail;
+		xmlhttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		xmlhttp.send("email="+obj.value);
+	}
+	return false;
+}
+
+String.prototype.trim = function() {
+	return this.replace(/^\s*/, "").replace(/\s*$/, "");
+}
+
+function handleServerResponseEmail() {
+	if (xmlhttp.readyState == 4) {
+		if (xmlhttp.status == 200) {
+			var existe = Boolean(xmlhttp.responseText.trim() == 'true');
+			if (!existe) {
+				document.forms[0].submit();
+			} else {
+				alert('E-mail j\u00e1 cadastrado.');
+			}
+		} else {
+			alert('Requisição inv\u00e1lida.');
+		}
+	}
+}
