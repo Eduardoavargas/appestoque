@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.appestoque.comum.Constantes;
+import br.com.appestoque.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.suprimento.ProdutoDAO;
