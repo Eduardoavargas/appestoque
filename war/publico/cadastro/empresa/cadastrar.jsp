@@ -18,6 +18,17 @@
 </head>
 <body>
 
+	<%if(request.getAttribute("mensagem")!=null){ %>
+		<div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+				<p>
+					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Ops!</strong>
+					<%=request.getAttribute("mensagem")%>
+				</p>
+			</div>
+		</div>
+	<%}%>
+
 	<div id="tudo" align="center" >
 		<div id="logo"><img style="top: 50px;" src="../../../img/logo.jpg" /></div>
 		<div id="formulario" align="left">
@@ -32,12 +43,6 @@
  				<script type="text/javascript">
  				
  						function validar(){
- 							
- 							if(ajaxValidarCNPJ()){
- 								alert('AJAX VERDADEIRO');
- 							}else{
- 								alert('AJAX FALSO');
- 							}
  							
  							if(document.getElementById('nome').value.length==0){
  								alert('<%=bundle.getString("mensagem.validar.nome")%>');
