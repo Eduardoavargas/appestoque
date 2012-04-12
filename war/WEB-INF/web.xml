@@ -234,7 +234,30 @@
 		<servlet-name>RepresentanteControle</servlet-name>
 		<url-pattern>/representanteControle</url-pattern>
 	</servlet-mapping>
+	
+	
+	
+	
+	<servlet>
+		<servlet-name>VerificarCNPJ</servlet-name>
+		<servlet-class>br.com.appestoque.controle.cadastro.VerificarCNPJ</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VerificarCNPJ</servlet-name>
+		<url-pattern>/verificarCNPJ</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>VerificarEmail</servlet-name>
+		<servlet-class>br.com.appestoque.controle.cadastro.VerificarEmail</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VerificarEmail</servlet-name>
+		<url-pattern>/verificarEmail</url-pattern>
+	</servlet-mapping>
     
+	
+	
 
 	<!--Restfull(Cadastro)-->
 	<servlet>
