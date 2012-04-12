@@ -18,17 +18,6 @@
 </head>
 <body>
 
-	<%if(request.getAttribute("mensagem")!=null){ %>
-		<div class="ui-widget">
-			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
-				<p>
-					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Ops!</strong>
-					<%=request.getAttribute("mensagem")%>
-				</p>
-			</div>
-		</div>
-	<%}%>
-
 	<div id="tudo" align="center" >
 		<div id="logo"><img style="top: 50px;" src="../../../img/logo.jpg" /></div>
 		<div id="formulario" align="left">
@@ -78,105 +67,26 @@
  								alert('<%=bundle.getString("mensagem.validar.senha.naoconfere")%>');
 								document.getElementById('senha').focus();
  							}else{
- 								var cnpj = validarCNPJ(document.getElementById('cnpj'));
- 								var email = validarEmail(document.getElementById('email'));
- 								if(cnpj&&email){
- 									alert('<%=bundle.getString("app.mensagem.empresa.confirmacao")%>');
- 									//document.forms[0].submit();
- 									ajaxValidarCNPJ();
- 									ajaxValidarEmail();
- 								}else if(!cnpj){									
- 									alert('<%=bundle.getString("mensagem.cnpj.valido")%>');
- 									document.getElementById('cnpj').focus();
- 								}else if(!email){
- 									alert('<%=bundle.getString("mensagem.email.valido")%>');
- 									document.getElementById('email').focus();
- 								}
- 								return cnpj&&email;
+ 								document.forms[0].submit();
  							}
  						}
  						
- 						function getXMLObject() {
- 							var xmlHttp = false;
- 							try {
- 								xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")
- 							} catch (e) {
- 								try {
- 									xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
- 								} catch (e2) {
- 									xmlHttp = false 
- 								}
- 							}
- 							if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
- 								xmlHttp = new XMLHttpRequest();
- 							}
- 							return xmlHttp;
- 						}
-
- 						var xmlhttp = new getXMLObject();
-
- 						function ajaxValidarCNPJ() {
- 							  if(xmlhttp) { 
- 							    xmlhttp.open("POST","verificarCNPJ",true);
- 							    xmlhttp.onreadystatechange  = handleServerResponseCNPJ;
- 							    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
- 							    xmlhttp.send("cnpj="+document.getElementById("cnpj").value);
- 							  }
- 							  return false;
- 							}
- 						
- 							String.prototype.trim = function () {
- 							    return this.replace(/^\s*/, "").replace(/\s*$/, "");
- 							}
- 						
- 							function handleServerResponseCNPJ() {
- 							   if (xmlhttp.readyState == 4) {
- 							     if(xmlhttp.status == 200) {
- 							    	 var existe = Boolean(xmlhttp.responseText.trim()=='true');  
- 							    	 if(existe){
- 							    		 alert('CNPJ já cadastrado.');	 
- 							    	 }
- 							     }else {
- 							        alert('Requisição inválida.');
-								}
-							}
-						}
- 							
- 							
- 							function ajaxValidarEmail() {
- 	 							  if(xmlhttp) { 
- 	 							    xmlhttp.open("POST","verificarEmail",true);
- 	 							    xmlhttp.onreadystatechange  = handleServerResponseEmail;
- 	 							    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
- 	 							    xmlhttp.send("email="+document.getElementById("email").value);
- 	 							  }
- 	 							  return false;
- 	 							}
- 	 						
- 	 							String.prototype.trim = function () {
- 	 							    return this.replace(/^\s*/, "").replace(/\s*$/, "");
- 	 							}
- 	 						
- 	 							function handleServerResponseEmail() {
- 	 							   if (xmlhttp.readyState == 4) {
- 	 							     if(xmlhttp.status == 200) {
- 	 							    	 var existe = Boolean(xmlhttp.responseText.trim()=='true');  
- 	 							    	 if(!existe){
- 	 							    		 document.forms[0].submit();	 
- 	 							    	 }else{
- 	 							    		 alert('E-mail já cadastrado.');	 
- 	 							    	 }
- 	 							     }else {
- 	 							        alert('Requisição inválida.');
- 									}
- 								}
- 							}	
- 							
 					</script>
 
 
 
  			<label id="titulo">Cadastro</label><br/><hr></hr><br/>
+ 			
+ 			<%if(request.getAttribute("mensagem")!=null){ %>
+				<div class="ui-widget">
+					<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+						<p>
+							<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Ops!</strong>
+							<%=request.getAttribute("mensagem")%>
+						</p>
+					</div>
+				</div><br/>
+			<%}%>
 			
 			<label><%=bundle.getString("empresa.nome")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/></p>
@@ -203,7 +113,7 @@
 			<app:texto id="complemento" nome="complemento" tamanho="50" valor="<%=objeto.getComplemento()%>"/></p>
 			
 			<label><%=bundle.getString("bairro")%><span class="obrigatorio">*</span></label><br/>
-			<app:texto id="bairro" nome="bairro" tamanho="50" valor=""/></p>
+			<app:texto id="bairro" nome="bairro" tamanho="50" valor="<%=objeto.getBairro()%>"/></p>
 			
 			<label><%=bundle.getString("cidade")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="cidade" nome="cidade" tamanho="50" valor="<%=objeto.getCidade()%>"/></p>
