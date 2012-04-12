@@ -3,7 +3,6 @@
 <%@ attribute name="desativar" required="false"%>
 <input id="${nome}" name="${nome}" type="input" style="width: 120px"
     ${desativar!=null?'disabled="disabled"':''}
-    onchange="ajaxValidarCNPJ()"
 	value="${valor}" class="text ui-widget-content ui-corner-all"></input>
 <script>
 	$(document).ready(function() {
@@ -13,5 +12,8 @@
 		if(!validarCNPJ(this)){
 			alert('ATEN\u00c7\u00c3O! CNPJ inv\u00e1lido');	
 		}
+	});
+	$('#${nome}').change(function() {
+		ajaxValidarCNPJ(this);
 	});
 </script>
