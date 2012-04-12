@@ -11,6 +11,10 @@
 			alert('ATEN\u00c7\u00c3O! E-mail inv\u00e1lido')	
 		}
 	});
+	$('#${nome}').change(function() {
+		ajaxValidarEmail(this);
+	});
+
 </script>	
 	
 	
