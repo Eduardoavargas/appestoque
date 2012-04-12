@@ -15,6 +15,7 @@ import com.d_project.qrcode.*;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import java.io.IOException;
@@ -91,11 +92,12 @@ public class Processo extends HttpServlet{
 			
 			boolean emailEncontrado = empresaDAO.pesquisarEmail(email);
 			boolean cnpjEncontrado = empresaDAO.pesquisarCNPJ(cnpj);
-			if(!emailEncontrado&&!cnpjEncontrado){
 			
-				String uuid = UUID.randomUUID().toString();
-				
-				Empresa empresa = new Empresa(nome,razao,email,cnpj,endereco,numero,cep,complemento,bairro,cidade,uuid);
+			String uuid = UUID.randomUUID().toString();
+			
+			Empresa empresa = new Empresa(nome,razao,email,cnpj,endereco,numero,cep,complemento,bairro,cidade,uuid);
+			
+			if(!emailEncontrado&&!cnpjEncontrado){
 				
 				empresa = empresaDAO.adicionar(empresa);
 				
@@ -143,7 +145,13 @@ public class Processo extends HttpServlet{
 				response.sendRedirect(Pagina.PAGINA_APRESENTACAO);
 			
 			}else{
-				request.setAttribute("mensagem","");
+				ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
+				if(emailEncontrado){
+					request.setAttribute("mensagem",bundle.getString("app.mensagem.email.cadastrado"));
+				}else if(cnpjEncontrado){
+					request.setAttribute("mensagem",bundle.getString("app.mensagem.cnpj.cadastrado"));
+				}
+				request.setAttribute("objeto",empresa);
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_CADASTRAR);
 				dispatcher.forward(request, response);
 			}
