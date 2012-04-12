@@ -1,7 +1,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="br.com.appestoque.dominio.cadastro.Empresa" %>
-<%@ page import="br.com.appestoque.util.Constantes" %>
+<%@ page import="br.com.appestoque.Constantes" %>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="app"%>
