@@ -13,7 +13,4 @@
 			alert('ATEN\u00c7\u00c3O! CNPJ inv\u00e1lido');	
 		}
 	});
-	$('#${nome}').change(function() {
-		ajaxValidarCNPJ(this);
-	});
 </script>
