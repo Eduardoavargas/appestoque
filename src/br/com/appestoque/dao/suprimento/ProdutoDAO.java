@@ -5,7 +5,9 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.DAOGenerico;
+import br.com.appestoque.dao.faturamento.ItemDAO;
 import br.com.appestoque.dominio.suprimento.Produto;
 
 public class ProdutoDAO extends DAOGenerico<Produto, Long>{
@@ -54,5 +56,23 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long>{
 		query.declareParameters("String p_empresa");
 		return (List<Produto>) query.execute(idEmpresa);
 	}
+	
+	public void excluir(Produto produto) throws DAOException {
+		ItemDAO itemDAO = new ItemDAO(getPm());
+		if(!itemDAO.pesquisar(produto)){
+			try {
+				getPm().currentTransaction().begin();
+				getPm().deletePersistent(produto);
+				getPm().currentTransaction().commit();
+			} finally {
+				if (getPm().currentTransaction().isActive()) {
+					getPm().currentTransaction().rollback();
+				}
+			}
+		}else{
+			throw new DAOException("Desculpe, mas este produto não pode ser excluido porque já foi utilizado em um pedido.");
+		}
+	}
+	
 	
 }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.appestoque.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
+import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.suprimento.ProdutoDAO;
 import br.com.appestoque.dominio.suprimento.Produto;
 
@@ -111,16 +112,25 @@ public class ProdutoControle extends BaseControle{
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
 			
-			request.setAttribute("numero",null);
+			numero = null;
+			
+			request.setAttribute("numero",numero);
+			
+			objetos = dao.pesquisar(numero,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+			request.setAttribute("objetos",objetos);
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));			
 			Produto Produto = dao.pesquisar(new Long(request.getParameter("id")));
-			dao.remover(Produto);
-			objetos = dao.listar();
-			request.setAttribute("objetos", objetos);
+			try{
+				dao.excluir(Produto);
+			}catch(DAOException e){
+				request.setAttribute("mensagem", e.getMessage());
+			}
+			objetos = dao.pesquisar(numero,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+			request.setAttribute("objetos", objetos);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
 		}
