@@ -6,7 +6,10 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import br.com.appestoque.dao.DAOGenerico;
+import br.com.appestoque.dominio.cadastro.Cliente;
+import br.com.appestoque.dominio.faturamento.Item;
 import br.com.appestoque.dominio.faturamento.Pedido;
+import br.com.appestoque.dominio.suprimento.Produto;
 
 public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 	
@@ -46,5 +49,15 @@ public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 		}
 		return objetos.size();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean pesquisar(Cliente cliente){
+		Query query = getPm().newQuery(Pedido.class);
+		query.setFilter("idCliente == p_cliente ");
+		query.declareParameters("Long p_cliente");
+		List<Pedido> pedidos = (List<Pedido>) query.execute(cliente.getId());
+		return (pedidos.size()>0);
+	}
+
 
 }

@@ -1,6 +1,7 @@
 package br.com.appestoque.dominio.cadastro;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.NotPersistent;
@@ -45,12 +46,15 @@ public class Representante implements Serializable{
 	
 	@Persistent
 	private String uuid;
-	
+
 	@Persistent
 	private Long longitude;
 	
 	@Persistent
 	private Long latitude;
+	
+	@Persistent
+	private Date dataUltimaAtualizacao;
 
 	public Representante(	String nome, 
 							String cpf, 
@@ -179,6 +183,14 @@ public class Representante implements Serializable{
 
 	public void setLatitude(Long latitude) {
 		this.latitude = latitude;
+	}
+	
+	public Date getDataUltimaAtualizacao() {
+		return dataUltimaAtualizacao;
+	}
+
+	public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao) {
+		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
 	
 }

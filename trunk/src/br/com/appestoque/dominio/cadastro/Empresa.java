@@ -1,6 +1,7 @@
 package br.com.appestoque.dominio.cadastro;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
@@ -50,6 +51,12 @@ public class Empresa implements Serializable{
 	
 	@Persistent
 	private Boolean ativo = false;
+	
+	@Persistent
+	private String emailPedido;
+	
+	@Persistent
+	private Date dataCadastro;
 	
 	public Empresa() {
 		super();
@@ -173,6 +180,22 @@ public class Empresa implements Serializable{
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public String getEmailPedido() {
+		return emailPedido;
+	}
+
+	public void setEmailPedido(String emailPedido) {
+		this.emailPedido = emailPedido;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 	
 }
