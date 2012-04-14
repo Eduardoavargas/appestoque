@@ -71,6 +71,8 @@
  							}
  						}
  						
+ 						
+ 						
 					</script>
 
 
@@ -96,9 +98,19 @@
 			
 			<label><%=bundle.getString("email")%><span class="obrigatorio">*</span></label><br/>
 			<app:email nome="email" tamanho="50"  valor="<%=objeto.getEmail()%>"/></p>
+			<script>
+				$('#email').change(function() {
+					ajaxValidarEmail(this);
+				});
+			</script>		
 			
 			<label><%=bundle.getString("cnpj")%><span class="obrigatorio">*</span></label><br/>
 			<app:cnpj nome="cnpj" valor="<%=objeto.getCnpj()%>"></app:cnpj></p>
+			<script>
+				$('#cnpj').change(function() {
+					ajaxValidarCNPJ(this);
+				});
+			</script>
 			
 			<label><%=bundle.getString("endereco")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="endereco" nome="endereco" tamanho="50" valor="<%=objeto.getEndereco()%>"></app:texto></p>
@@ -123,7 +135,7 @@
 			
 			<label><%=bundle.getString("senhaConfirmacao")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="senhaConfirmacao" tipo="password" nome="senha" valor=""/></p>
-			
+		
 			<p>
 				<a href="#"
 					id="confirmar"
