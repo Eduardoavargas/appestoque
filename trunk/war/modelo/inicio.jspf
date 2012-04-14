@@ -38,7 +38,7 @@
             <li>
                 <a href="#"><%=((Usuario)request.getSession().getAttribute("usuario")).getEmail()%><span class="arrow"></span></a>
                 <ul style="width: 159px;" >                
-                    <li><a href="/empresaControle?acao=configuracoes">Configurações</a></li>
+                    <li><a href="/empresaControle?acao=configuracao">Configuração</a></li>
                     <li><a href="/empresaControle?acao=iniciar">Empresa</a></li>
                     <li><a href="/logout">Sair</a></li>
                 </ul>
@@ -64,7 +64,7 @@
 					<%=request.getAttribute("mensagem")%>
 				</p>
 			</div>
-		</div>
+		</div><br/>
 	<%}%>
 	
 	<ul id="sddm">
