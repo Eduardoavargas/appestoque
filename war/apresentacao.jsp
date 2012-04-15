@@ -118,10 +118,16 @@ body {
 }
 
 #texto_explicativo {
-	width: 616px;
+	width: 450px;
 	overflow: hidden;
 	float: left;
 }
+
+#android {
+	overflow: hidden;
+	float: left;
+}
+
 
 h2 {
 	font: 3em georgia, fantasy, serif bold;
@@ -216,13 +222,11 @@ h2 {
 
 </head>
 <body>
-
+		
 		<div id="topo">
-		<br/><br/><br/>
+			<br/><br/><br/>
 			<img style="position: relative; top: 50px;" src="img/logo.jpg" />
 		</div>
-		
-		
 		
 		<div id="conteudo">
 			<div id="texto_explicativo">
@@ -230,6 +234,11 @@ h2 {
 				<p class="blocoExplicacao">É um aplicativo para atuar na força de venda de uma empresa.</p>
 				<h2>Para que serve o appestoque ?</h2>
 				<p class="blocoExplicacao">É utilizado para controlar Clientes, Produtos e Pedidos de Venda.</p>
+				<a href="http://twitter.com/#!/appestoque" target="_blank" class="link"><img src="img/twitter.gif" border="0"></a>
+				<a href="http://www.facebook.com/appestoque/" target="_blank" class="link"><img src="img/facebook.gif" border="0"></a>
+			</div>
+			<div id="android">
+				<img src="img/android.png" border="0">
 			</div>
 			<div id="login">
 				<form id="form_login" action="/menu.jsp" method="post">
