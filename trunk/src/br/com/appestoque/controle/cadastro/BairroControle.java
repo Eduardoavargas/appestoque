@@ -124,8 +124,13 @@ public class BairroControle extends BaseControle {
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
-			dao.remover(objeto);
-			objetos = dao.listar();
+			if(objeto!=null){
+				dao.remover(objeto);
+			}
+			request.setAttribute("primeiroRegistro",0);
+			request.setAttribute("totalRegistros",0);
+			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
+			objetos = dao.pesquisar(null,getId(request),0,Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 			request.setAttribute("objetos", objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_BAIRRO_LISTAR);
 			dispatcher.forward(request, response);

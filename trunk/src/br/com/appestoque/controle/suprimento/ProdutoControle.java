@@ -122,11 +122,10 @@ public class ProdutoControle extends BaseControle{
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
-			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));			
-			Produto Produto = dao.pesquisar(new Long(request.getParameter("id")));
+			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			try{
-				if(Produto!=null){
-					dao.excluir(Produto);
+				if(objeto!=null){
+					dao.excluir(objeto);
 				}
 			}catch(DAOException e){
 				request.setAttribute("mensagem", e.getMessage());
@@ -134,7 +133,7 @@ public class ProdutoControle extends BaseControle{
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			objetos = dao.pesquisar(numero,getId(request),0,Constantes.REGISTROS_POR_PAGINA);
+			objetos = dao.pesquisar(null,getId(request),0,Constantes.REGISTROS_POR_PAGINA);
 			request.setAttribute("objetos", objetos);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
