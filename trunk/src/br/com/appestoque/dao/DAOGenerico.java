@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
@@ -71,8 +72,14 @@ public class DAOGenerico<T, PK extends Serializable> implements IDAO<T, PK> {
 
 	@Override
 	public T pesquisar(Long id) {
+		T t = null;
 		Key k = KeyFactory.createKey(tipo.getSimpleName(), id.intValue());
-		return pm.getObjectById(tipo, k);
+		try{
+			t = pm.getObjectById(tipo, k);
+		}catch(JDOObjectNotFoundException e){
+			e.printStackTrace();
+		}
+		return t;
 	}
 	
 	@SuppressWarnings("unchecked")
