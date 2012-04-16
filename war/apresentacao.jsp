@@ -5,7 +5,16 @@
 <head>
 <title><%=bundle.getString("app.titulo")%></title>
 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="/js/s3Slider.js"></script>
+
 <script type="text/javascript">
+
+	$(document).ready(function() {	
+		$('#slider').s3Slider({
+			timeOut: 4000
+		});
+	});
 	
 	function validar() {
 		if (document.getElementById('email').value.length == 0) {
@@ -118,7 +127,7 @@ body {
 }
 
 #texto_explicativo {
-	width: 450px;
+	width: 350px;
 	overflow: hidden;
 	float: left;
 }
@@ -126,6 +135,7 @@ body {
 #android {
 	overflow: hidden;
 	float: left;
+	margin-right: 5px;
 }
 
 
@@ -217,6 +227,84 @@ h2 {
 	width: 95%;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+		#slider {
+			width: 285px; /* important to be same as image width */
+			height: 350px; /* important to be same as image height */
+			position: relative; /* important */
+			overflow: hidden;
+			float: left;
+/*  			margin-right: 10px; */
+ 			margin-left: 10px;
+		}
+		
+		#sliderContent {
+			width: 285px; /* important to be same as image width or wider */
+			position: absolute;
+			top: 0;
+			margin-left: 0;
+		}
+		
+		.sliderImage {
+			float: left;
+			position: relative;
+			display: none;
+		}
+		
+		.sliderImage span {
+			position: absolute;
+			font: 10px Arial, Helvetica, sans-serif;
+			padding: 10px 13px;
+			width: 258px;
+			background-color: #000;
+			filter: alpha(opacity=70);
+			-moz-opacity: 0.7;
+			-khtml-opacity: 0.7;
+			opacity: 0.7;
+			color: #fff;
+			display: none;
+		}
+		
+		.clear {
+			clear: both;
+		}
+		
+		.sliderImage span strong {
+			font-size: 14px;
+		}
+		
+		.top {
+			top: 0;
+			left: 0;
+		}
+		
+		.bottom {
+			bottom: 0;
+			left: 0;
+		}
+		
+		ul { 
+			list-style-type: none;
+		}
+
+
+
+
+
+
+
+
 </style>
 
 
@@ -229,17 +317,47 @@ h2 {
 		</div>
 		
 		<div id="conteudo">
+			
 			<div id="texto_explicativo">
-				<h2>O que é o appestoque ?</h2>
-				<p class="blocoExplicacao">É um aplicativo para atuar na força de venda de uma empresa.</p>
-				<h2>Para que serve o appestoque ?</h2>
-				<p class="blocoExplicacao">É utilizado para controlar Clientes, Produtos e Pedidos de Venda.</p>
+				<h2>Appestoque Web</h2>
+				<p class="blocoExplicacao">Site na web para controle de Cliente, Produto e Pedido de Venda.</p>
+				<h2>Appestoque Mobile</h2>
+				<p class="blocoExplicacao">Aplicativo para dispositivos móveis como tablet e smartphone para controle de Cliente, 
+				Produto e Pedido de Venda conforme imagens ao lado.</p>
 				<a href="http://twitter.com/#!/appestoque" target="_blank" class="link"><img src="img/twitter.gif" border="0"></a>
 				<a href="http://www.facebook.com/appestoque/" target="_blank" class="link"><img src="img/facebook.gif" border="0"></a>
 			</div>
-			<div id="android">
-				<img src="img/android.png" border="0">
-			</div>
+			
+			
+			    <div id="slider">
+			        <ul id="sliderContent">
+			            <li class="sliderImage">
+			                <a href=""><img src="/img/1.png" alt="1" /></a>
+			                <span class="bottom"><strong>Produto</strong><br />Tela para pesquisar produtos.</span>
+			            </li>
+			            <li class="sliderImage">
+			                <a href=""><img src="/img/2.png" alt="2" /></a>
+			                <span class="bottom"><strong>Cliente</strong><br />Tela para pesquisar clientes.</span>
+			            </li>
+			            <li class="sliderImage">
+			                <img src="/img/3.png" alt="3" />
+			                <span class="bottom"><strong>Pedido</strong><br />Tela para pesquisar pedidos.</span>
+			            </li>
+			            <li class="sliderImage">
+			                <img src="/img/5.png" alt="4" />
+			                <span class="bottom"><strong>Pedido</strong><br />Tela para cadastrar pedido.</span>
+			            </li>
+			            <li class="sliderImage">
+			                <img src="/img/6.png" alt="5" />
+			                <span class="bottom"><strong>Pedido</strong><br />Tela para cadastrar item.</span>
+			            </li>
+			            <div class="clear sliderImage"></div>
+			        </ul>
+			    </div>
+			
+			
+			
+		
 			<div id="login">
 				<form id="form_login" action="/menu.jsp" method="post">
 					<h3><span>Login</span></h3>
@@ -263,12 +381,14 @@ h2 {
 						</table>
 						<a style="float: right; color: #ffffff; margin-right: 10px" href="/processo?acao=preparar">Cadastre sua empresa</a>
 					</fieldset>
-					
-					
-					
 				</form>
 			</div>
+			
 		</div>
-	<div id="rodape">© 2012 appestoque - <a href="" title="Política de Privacidade" onclick="return false;">Política de Privacidade</a></div>
+		
+		<div id="rodape">
+			© 2012 appestoque - <a href="" title="Política de Privacidade" onclick="return false;">Política de Privacidade</a>
+		</div>
+	
 </body>
 </html>
