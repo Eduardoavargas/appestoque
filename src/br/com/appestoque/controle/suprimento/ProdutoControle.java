@@ -125,11 +125,16 @@ public class ProdutoControle extends BaseControle{
 			dao = new ProdutoDAO((PersistenceManager) request.getAttribute("pm"));			
 			Produto Produto = dao.pesquisar(new Long(request.getParameter("id")));
 			try{
-				dao.excluir(Produto);
+				if(Produto!=null){
+					dao.excluir(Produto);
+				}
 			}catch(DAOException e){
 				request.setAttribute("mensagem", e.getMessage());
 			}
-			objetos = dao.pesquisar(numero,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+			request.setAttribute("primeiroRegistro",0);
+			request.setAttribute("totalRegistros",0);
+			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
+			objetos = dao.pesquisar(numero,getId(request),0,Constantes.REGISTROS_POR_PAGINA);
 			request.setAttribute("objetos", objetos);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PRODUTO_LISTAR);
 			dispatcher.forward(request, response);
