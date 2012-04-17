@@ -113,7 +113,7 @@ public class BairroControle extends BaseControle {
 			dao.criar(objeto);
 			
 			nome = null;
-			objetos = dao.pesquisar(nome,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
+			objetos = dao.pesquisar(null,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 			
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
 			request.setAttribute("mensagem",bundle.getString("app.mensagem.sucesso"));
