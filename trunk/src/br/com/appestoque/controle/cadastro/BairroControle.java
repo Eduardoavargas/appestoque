@@ -117,6 +117,7 @@ public class BairroControle extends BaseControle {
 			
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
 			request.setAttribute("mensagem",bundle.getString("app.mensagem.sucesso"));
+			request.setAttribute("objetos",objetos);
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
