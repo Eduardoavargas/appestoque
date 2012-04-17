@@ -42,7 +42,7 @@ public class BairroControle extends BaseControle {
 		dao = new BairroDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
 			primeiroRegistro = 0;
-			objetos = dao.pesquisar(nome,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
+			objetos = dao.pesquisar(null,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 			paginar(primeiroRegistro);			
 			request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			request.setAttribute("totalRegistros", objetos.size());

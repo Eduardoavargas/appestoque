@@ -70,7 +70,7 @@ public class BairroDAO extends DAOGenerico<Bairro, Long>{
 		Query query = getPm().newQuery(Bairro.class);
 		List<Bairro> objetos = null;
 		if(nome!=null){
-			query.setFilter("cnpj == p_nome && idEmpresa == p_empresa ");
+			query.setFilter("nome == p_nome && idEmpresa == p_empresa ");
 			query.declareParameters("String p_nome , Long p_empresa");
 			objetos = (List<Bairro>) query.execute(nome,idEmpresa);
 		}else {

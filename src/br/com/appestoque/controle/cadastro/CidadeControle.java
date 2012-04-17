@@ -37,7 +37,7 @@ public class CidadeControle extends BaseControle{
 		dao = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
 			primeiroRegistro = 0;
-			objetos = dao.pesquisar(nome,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+			objetos = dao.pesquisar(null,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 			paginar(primeiroRegistro);			
 			request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			request.setAttribute("totalRegistros", objetos.size());
@@ -97,17 +97,24 @@ public class CidadeControle extends BaseControle{
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
+			objetos = dao.pesquisar(null,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 			request.setAttribute("mensagem",bundle.getString("app.mensagem.sucesso"));
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
+			request.setAttribute("objetos",objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_LISTAR);
-			dispatcher.forward(request, response);
+			dispatcher.forward(request,response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
-			dao.remover(objeto);
-			objetos = dao.listar();
-			request.setAttribute("objetos", objetos);
+			if(objeto!=null){
+				dao.remover(objeto);
+			}
+			objetos = dao.pesquisar(null,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+			request.setAttribute("primeiroRegistro",0);
+			request.setAttribute("totalRegistros",0);
+			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
+			request.setAttribute("objetos",objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CIDADE_LISTAR);
 			dispatcher.forward(request, response);
 		}

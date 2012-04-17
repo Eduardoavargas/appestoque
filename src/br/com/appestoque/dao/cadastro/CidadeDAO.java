@@ -36,7 +36,7 @@ public class CidadeDAO extends DAOGenerico<Cidade, Long>{
 		Query query = getPm().newQuery(Cidade.class);
 		List<Cidade> objetos = null;
 		if(nome!=null){
-			query.setFilter("cnpj == p_nome && idEmpresa == p_empresa ");
+			query.setFilter("nome == p_nome && idEmpresa == p_empresa ");
 			query.declareParameters("String p_nome , Long p_empresa");
 			objetos = (List<Cidade>) query.execute(nome,idEmpresa);
 		}else {
