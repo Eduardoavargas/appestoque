@@ -13,10 +13,15 @@
 	
 		<app:parametrosListar/>
 		<app:barraListar acao="/bairroControle"/>
-		
+	
 		<script>
 			$("#buscar").click(function () {
+		      if(document.getElementById('nome').value.length==0){
+		    	  alert('<%=bundle.getString("pesquisa.semFiltro")%>');
+		    	  document.getElementById('nome').focus();
+		      }else{
 		    	  document.forms[0].submit();		  
+		      }
 		    });
 	    </script>
 		
