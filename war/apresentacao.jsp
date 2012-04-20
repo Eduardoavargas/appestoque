@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="java.util.ResourceBundle"%>
 <%ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());%>
@@ -10,8 +11,7 @@
 
 <script type="text/javascript">
 
-	$(document).ready(function() {
-		
+	$(document).ready(function() {	
 		$('#slider').s3Slider({
 			timeOut: 4000
 		});
@@ -83,6 +83,7 @@
 			box.css('left', winW/2 - box.width()/2);
 		 
 		});
+
 		
 	});
 	
@@ -197,7 +198,7 @@ body {
 }
 
 #texto_explicativo {
-	width: 350px;
+	width: 550px;
 	overflow: hidden;
 	float: left;
 }
@@ -309,31 +310,23 @@ h2 {
 
 
 
-
-
-
-
-
 		#slider {
 			width: 285px; /* important to be same as image width */
 			height: 350px; /* important to be same as image height */
 			position: relative; /* important */
 			overflow: hidden; /* important */
 		}
-		
 		#sliderContent {
 			width: 285px; /* important to be same as image width or wider */
 			position: absolute;
 			top: 0;
 			margin-left: 0;
 		}
-		
 		.sliderImage {
 			float: left;
 			position: relative;
 			display: none;
 		}
-		
 		.sliderImage span {
 			position: absolute;
 			font: 10px/15px Arial, Helvetica, sans-serif;
@@ -394,46 +387,51 @@ h2 {
 		}
 
 
+
+
+
+
+
+
 </style>
 
 
 </head>
 <body>
-	
-	<div id="boxes">
-	
-	
+		
+		
+	<div id="boxes">	
+		
+		
 		<div id="dialog" class="window">
 			<a href="#"class="close"/>Fechar</a>	
 			<div id="slider">
 				<ul id="sliderContent">
 					<li class="sliderImage">
-						<a href=""><img src="\img\1.png" alt="1" /></a>
+						<a href=""><img src="/img/1.png" alt="1" /></a>
 						<span class="top"><strong>Title text 1</strong><br />Content text...</span>
 					</li>
 					<li class="sliderImage">
-						<a href=""><img src="\img\2.png" alt="2" /></a>
+						<a href=""><img src="/img/2.png" alt="2" /></a>
 						<span class="top"><strong>Title text 2</strong><br />Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...</span>
 					</li>
 					<li class="sliderImage">
-						<img src="\img\3.png" alt="3" />
+						<img src="/img/3.png" alt="3" />
 						<span class="bottom"><strong>Title text 2</strong><br />Content text...</span>
 					</li>
 					<li class="sliderImage">
-						<img src="\img\5.png" alt="4" />
+						<img src="/img/5.png" alt="4" />
 						<span class="bottom"><strong>Title text 2</strong><br />Content text...</span>
 					</li>
 					<li class="sliderImage">
-						<img src="\img\6.png" alt="5" />
+						<img src="/img/6.png" alt="5" />
 						<span class="top"><strong>Title text 2</strong><br />Content text...</span>
 					</li>
 					<div class="clear sliderImage"></div>
 				</ul>
 			</div>
 		</div>
-	
-	</div>
-	
+		
 		
 		<div id="topo">
 			<br/><br/><br/>
@@ -447,11 +445,11 @@ h2 {
 				<p class="blocoExplicacao">Site na web para controle de Cliente, Produto e Pedido de Venda.</p>
 				<h2>Appestoque Mobile</h2>
 				<p class="blocoExplicacao">Aplicativo para dispositivos móveis como tablet e smartphone para controle de Cliente, 
-				Produto e Pedido de Venda conforme imagens ao lado. <a href="#dialog" name="modal">Simple Window Modal</a> </p>
+				Produto e Pedido de Venda conforme imagens ao lado.<a href="#dialog" name="modal">Simple Window Modal</a></p>
 				<a href="http://twitter.com/#!/appestoque" target="_blank" class="link"><img src="img/twitter.gif" border="0"></a>
 				<a href="http://www.facebook.com/appestoque/" target="_blank" class="link"><img src="img/facebook.gif" border="0"></a>
 			</div>
-			
+		
 			<div id="login">
 				<form id="form_login" action="/menu.jsp" method="post">
 					<h3><span>Login</span></h3>
@@ -483,9 +481,9 @@ h2 {
 		<div id="rodape">
 			© 2012 appestoque - <a href="" title="Política de Privacidade" onclick="return false;">Política de Privacidade</a>
 		</div>
-	
-	
-	
+		
+	</div>
+
 	<div id="mask"></div>
 	
 </body>
