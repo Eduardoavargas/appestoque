@@ -168,7 +168,7 @@
 body {
 	background: url(/img/fundo-body.jpg) repeat-x;
 	margin: 0px;
-	text-align: center;
+/* 	text-align: center; */
 	font-family: Arial;
 	font-size: 12px;
 }
@@ -229,6 +229,7 @@ h2 {
 	border-top: 1px solid #DEDEDE;
 	margin-top: 10px;
 	color: #B2B2B2;
+	text-align: center;
 }
 
 #rodape a {
@@ -409,11 +410,11 @@ h2 {
 				<ul id="sliderContent">
 					<li class="sliderImage">
 						<a href=""><img src="/img/1.png" alt="1" /></a>
-						<span class="top"><strong>Title text 1</strong><br />Content text...</span>
+						<span class="bottom"><strong>Title text 1</strong><br />Content text...</span>
 					</li>
 					<li class="sliderImage">
 						<a href=""><img src="/img/2.png" alt="2" /></a>
-						<span class="top"><strong>Title text 2</strong><br />Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...</span>
+						<span class="bottom"><strong>Title text 2</strong><br />Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...</span>
 					</li>
 					<li class="sliderImage">
 						<img src="/img/3.png" alt="3" />
@@ -425,7 +426,7 @@ h2 {
 					</li>
 					<li class="sliderImage">
 						<img src="/img/6.png" alt="5" />
-						<span class="top"><strong>Title text 2</strong><br />Content text...</span>
+						<span class="bottom"><strong>Title text 2</strong><br />Content text...</span>
 					</li>
 					<div class="clear sliderImage"></div>
 				</ul>
@@ -445,7 +446,7 @@ h2 {
 				<p class="blocoExplicacao">Site na web para controle de Cliente, Produto e Pedido de Venda.</p>
 				<h2>Appestoque Mobile</h2>
 				<p class="blocoExplicacao">Aplicativo para dispositivos móveis como tablet e smartphone para controle de Cliente, 
-				Produto e Pedido de Venda conforme imagens ao lado.<a href="#dialog" name="modal">Simple Window Modal</a></p>
+				Produto e Pedido de Venda.<a href="#dialog" name="modal">Clique aqui</a></p>
 				<a href="http://twitter.com/#!/appestoque" target="_blank" class="link"><img src="img/twitter.gif" border="0"></a>
 				<a href="http://www.facebook.com/appestoque/" target="_blank" class="link"><img src="img/facebook.gif" border="0"></a>
 			</div>
