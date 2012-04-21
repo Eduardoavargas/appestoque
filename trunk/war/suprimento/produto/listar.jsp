@@ -25,7 +25,7 @@
 		    });
 	    </script>
 		
-		<span class="heading"><%=bundle.getString("produto.filtro.numero")%></span><br/>
+		<span class="heading"><%=bundle.getString("produto.nome")%></span><br/>
 		<input type="text" id="numero" name="numero" style="width: 300px" value="<%=request.getAttribute("numero")!=null?request.getAttribute("numero"):""%>"/>	
 	<%
 		List<Produto> objetos = new ArrayList<Produto>();
