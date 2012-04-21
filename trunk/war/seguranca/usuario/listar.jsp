@@ -18,7 +18,7 @@
 		      }
 		    });
 	    </script>
-		<span class="heading"><%=bundle.getString("usuario.filtro.nome")%></span><br/>
+		<span class="heading"><%=bundle.getString("usuario.nome")%></span><br/>
 		<input type="text" id="email" name="email" style="width: 300px" value="<%=request.getAttribute("email")!=null?request.getAttribute("email"):""%>"/>	
 	<%
 		List<Usuario> objetos = new ArrayList<Usuario>();
