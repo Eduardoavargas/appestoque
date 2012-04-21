@@ -19,12 +19,10 @@
 <script type="text/javascript" src="/js/padrao.js"></script>	
 <script type="text/javascript" src="/js/jquery.tools.min.js"></script>
 
-<!-- <script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script> -->
 <script type="text/javascript" src="/js/jquery.maskMoney.js" ></script>
 <script type="text/javascript" src="/js/jquery.maskedinput-1.3.min.js" ></script>
 
 <script type="text/javascript" src="/js/jquery.fixedMenu.js" ></script>
-
 
 <title><%=bundle.getString("app.titulo")%></title>
 </head>
@@ -41,8 +39,8 @@
             <li>
                 <a href="#"><%=((Usuario)request.getSession().getAttribute("usuario")).getEmail()%><span class="arrow"></span></a>
                 <ul style="width: 159px;" >                
-                    <li><a href="/empresaControle?acao=configuracao">Configuração</a></li>
-                    <li><a href="/empresaControle?acao=iniciar">Empresa</a></li>
+                    <li><a href="/empresaControle?acao=iniciar&tipo=configuracao">Configuração</a></li>
+                    <li><a href="/empresaControle?acao=iniciar&tipo=empresa">Empresa</a></li>
                     <li><a href="/logout">Sair</a></li>
                 </ul>
             </li>
