@@ -5,8 +5,11 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.DAOGenerico;
+import br.com.appestoque.dao.faturamento.ItemDAO;
 import br.com.appestoque.dominio.cadastro.Cidade;
+import br.com.appestoque.dominio.suprimento.Produto;
 
 public class CidadeDAO extends DAOGenerico<Cidade, Long>{
 
@@ -46,5 +49,23 @@ public class CidadeDAO extends DAOGenerico<Cidade, Long>{
 		}
 		return objetos.size();
 	}
+	
+	public void excluir(Cidade cidade) throws DAOException {
+		BairroDAO bairroDAO = new BairroDAO(getPm());
+		if(!bairroDAO.pesquisar(cidade)){
+			try {
+				getPm().currentTransaction().begin();
+				getPm().deletePersistent(cidade);
+				getPm().currentTransaction().commit();
+			} finally {
+				if (getPm().currentTransaction().isActive()) {
+					getPm().currentTransaction().rollback();
+				}
+			}
+		}else{
+			throw new DAOException("Desculpe, mas esta cidade não pode ser excluida porque está vinculada a um bairro.");
+		}
+	}
+
 	
 }
