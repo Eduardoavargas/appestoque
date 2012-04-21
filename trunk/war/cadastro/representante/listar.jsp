@@ -19,8 +19,12 @@
 		    });
 	    </script>
 		
-		<span class="heading"><%=bundle.getString("representante.filtro.cpf")%></span><br/>
-		<input type="text" id="cnpj" name="cpf" style="width: 300px" value="<%=request.getAttribute("cpf")!=null?request.getAttribute("cpf"):""%>"/>	
+		<span class="heading"><%=bundle.getString("cpf")%></span><br/>
+		<app:cpf nome="cpf" valor=""/>
+		
+<%-- 		<span class="heading"><%=bundle.getString("representante.filtro.cpf")%></span><br/> --%>
+<%-- 		<input type="text" id="cnpj" name="cpf" style="width: 300px" value="<%=request.getAttribute("cpf")!=null?request.getAttribute("cpf"):""%>"/>	 --%>
+
 	<%
 		List<Representante> objetos = new ArrayList<Representante>();
 		if(request.getAttribute("objetos")!=null){

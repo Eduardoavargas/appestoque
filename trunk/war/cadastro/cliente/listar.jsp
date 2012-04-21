@@ -19,8 +19,12 @@
 		    });
 	    </script>
 		
-		<span class="heading"><%=bundle.getString("cliente.filtro.numero")%></span><br/>
-		<input type="text" id="cnpj" name="cnpj" style="width: 300px" value="<%=request.getAttribute("cnpj")!=null?request.getAttribute("cnpj"):""%>"/>	
+		<span class="heading"><%=bundle.getString("cnpj")%></span><br/>
+		<app:cnpj nome="cnpj" valor=""/>
+		
+<%-- 		<span class="heading"><%=bundle.getString("cliente.filtro.numero")%></span><br/> --%>
+<%-- 		<input type="text" id="cnpj" name="cnpj" style="width: 300px" value="<%=request.getAttribute("cnpj")!=null?request.getAttribute("cnpj"):""%>"/>	 --%>
+
 	<%
 		List<Cliente> objetos = new ArrayList<Cliente>();
 		if(request.getAttribute("objetos")!=null){
