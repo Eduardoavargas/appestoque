@@ -50,18 +50,16 @@ public class EmpresaControle extends BaseControle {
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		dao = new EmpresaDAO((PersistenceManager) request.getAttribute("pm"));
 		if(request.getParameter("acao").equals("iniciar")) {
-//			primeiroRegistro = 0;
-//			objetos = dao.pesquisar(cnpj,primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
-//			paginar(primeiroRegistro);			
-//			request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
-//			request.setAttribute("totalRegistros", objetos.size());
-//			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			
 			HttpServletRequest req = (HttpServletRequest) request;
 	        HttpSession session = req.getSession();
 	        Empresa objeto = (Empresa) session.getAttribute("empresa");
 			request.setAttribute("objeto",objeto);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_EDITAR);
+			RequestDispatcher dispatcher = null;
+			if(request.getParameter("tipo").equals("empresa")){
+				dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_EDITAR);
+			}else if(request.getParameter("tipo").equals("configuracao")){
+				dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CONFIGURACAO_EDITAR);
+			}
 			dispatcher.forward(request, response);
 		}else if(request.getParameter("acao").equals("pesquisar")) {
 			request.setAttribute("primeiroRegistro",request.getParameter("primeiroRegistro"));
@@ -107,7 +105,6 @@ public class EmpresaControle extends BaseControle {
 			
 			request.setAttribute("bairros", null);
 			
-//			objeto = new Empresa();
 			request.setAttribute("objeto", objeto);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_EDITAR);
 			dispatcher.forward(request, response);
@@ -119,13 +116,9 @@ public class EmpresaControle extends BaseControle {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			
 			BairroDAO bairroDAO = new BairroDAO((PersistenceManager) request.getAttribute("pm"));
-//			objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(), TipoBusca.ANSIOSA));
-//			request.setAttribute("idBairro",objeto.getIdBairro());
 			List<Bairro> bairros = new ArrayList<Bairro>();
-//			bairros.add(objeto.getBairro());
 			request.setAttribute("bairros", bairros);
 			
-//			request.setAttribute("idCidade",objeto.getIdBairro()!=null?objeto.getBairro().getIdCidade():null);
 			
 			request.setAttribute("objeto",objeto);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_EDITAR);
@@ -138,7 +131,6 @@ public class EmpresaControle extends BaseControle {
 			numero = new Integer(request.getParameter("numero"));
 			complemento = request.getParameter("complemento");
 			endereco = request.getParameter("endereco");
-//			objeto = new Empresa(nome,cnpj, numero, cep, complemento, idBairro, endereco);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
