@@ -10,6 +10,9 @@ import com.google.appengine.api.datastore.KeyFactory;
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dominio.cadastro.Bairro;
+import br.com.appestoque.dominio.cadastro.Cidade;
+import br.com.appestoque.dominio.faturamento.Item;
+import br.com.appestoque.dominio.suprimento.Produto;
 
 @SuppressWarnings("unchecked")
 public class BairroDAO extends DAOGenerico<Bairro, Long>{
@@ -79,6 +82,15 @@ public class BairroDAO extends DAOGenerico<Bairro, Long>{
 			objetos = (List<Bairro>) query.execute(idEmpresa);
 		}
 		return objetos.size();
+	}
+	
+	public boolean pesquisar(Cidade cidade){
+		Query query = getPm().newQuery(Bairro.class);
+		query.setFilter("idCidade == p_cidade ");
+		query.declareParameters("Long p_cidade");
+		List<Bairro> bairros = (List<Bairro>) query.execute(cidade.getId());
+		return (bairros.size()>0);
+
 	}
 	
 }

@@ -70,7 +70,7 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long>{
 				}
 			}
 		}else{
-			throw new DAOException("Desculpe, mas este produto não pode ser excluido porque já foi utilizado em um pedido.");
+			throw new DAOException("Desculpe, mas este produto não pode ser excluido porque está vinculado a um pedido de venda.");
 		}
 	}
 	
