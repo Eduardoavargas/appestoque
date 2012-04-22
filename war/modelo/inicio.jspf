@@ -31,6 +31,7 @@
 	<script>
 		$('document').ready(function() {
 			$('.menu').fixedMenu();
+			$("input:text:eq(0):visible").focus();
 		});
 	</script>
 
