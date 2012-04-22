@@ -3,6 +3,7 @@ package br.com.appestoque.dao;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
@@ -13,11 +14,13 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 public class DAOGenerico<T, PK extends Serializable> implements IDAO<T, PK> {
 
+	protected ResourceBundle bundle;
 	protected Class<T> tipo;
 	private PersistenceManager pm;
 
 	@SuppressWarnings("unchecked")
 	public DAOGenerico() {
+		bundle = ResourceBundle.getBundle("i18n");
 		this.tipo = (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
@@ -25,7 +28,7 @@ public class DAOGenerico<T, PK extends Serializable> implements IDAO<T, PK> {
 	public PersistenceManager getPm() {
 		return pm;
 	}
-
+	
 	public void setPm(PersistenceManager pm) {
 		this.pm = pm;
 	}

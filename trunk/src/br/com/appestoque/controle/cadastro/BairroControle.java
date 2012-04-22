@@ -15,6 +15,7 @@ import br.com.appestoque.TipoBusca;
 import br.com.appestoque.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
+import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.cadastro.BairroDAO;
 import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dominio.cadastro.Bairro;
@@ -125,8 +126,12 @@ public class BairroControle extends BaseControle {
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
-			if(objeto!=null){
-				dao.remover(objeto);
+			try{
+				if(objeto!=null){
+					dao.excluir(objeto);
+				}
+			}catch(DAOException e){
+				request.setAttribute("mensagem", e.getMessage());
 			}
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);

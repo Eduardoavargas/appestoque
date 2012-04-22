@@ -8,11 +8,10 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 import br.com.appestoque.TipoBusca;
+import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dominio.cadastro.Bairro;
 import br.com.appestoque.dominio.cadastro.Cidade;
-import br.com.appestoque.dominio.faturamento.Item;
-import br.com.appestoque.dominio.suprimento.Produto;
 
 @SuppressWarnings("unchecked")
 public class BairroDAO extends DAOGenerico<Bairro, Long>{
@@ -90,7 +89,29 @@ public class BairroDAO extends DAOGenerico<Bairro, Long>{
 		query.declareParameters("Long p_cidade");
 		List<Bairro> bairros = (List<Bairro>) query.execute(cidade.getId());
 		return (bairros.size()>0);
-
 	}
+	
+	public void excluir(Bairro bairro) throws DAOException {
+		ClienteDAO clienteDAO = new ClienteDAO(getPm());
+		RepresentanteDAO representanteDAO = new RepresentanteDAO(getPm());
+		if(!clienteDAO.pesquisar(bairro)){
+			if(!representanteDAO.pesquisar(bairro)){
+				try {
+					getPm().currentTransaction().begin();
+					getPm().deletePersistent(bairro);
+					getPm().currentTransaction().commit();
+				} finally {
+					if (getPm().currentTransaction().isActive()) {
+						getPm().currentTransaction().rollback();
+					}
+				}
+			}else{
+				throw new DAOException(bundle.getString("representante.mensagem.bairro.vinculado"));
+			}
+		}else{
+			throw new DAOException(bundle.getString("cliente.mensagem.bairro.vinculado"));
+		}
+	}
+
 	
 }

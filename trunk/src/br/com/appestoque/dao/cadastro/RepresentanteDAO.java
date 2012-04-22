@@ -7,6 +7,8 @@ import javax.jdo.Query;
 
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.DAOGenerico;
+import br.com.appestoque.dominio.cadastro.Bairro;
+import br.com.appestoque.dominio.cadastro.Cliente;
 import br.com.appestoque.dominio.cadastro.Representante;
 
 @SuppressWarnings("unchecked")
@@ -88,5 +90,14 @@ public class RepresentanteDAO extends DAOGenerico<Representante, Long>{
 		query.declareParameters("String p_empresa");
 		return (List<Representante>) query.execute(idEmpresa);
 	}
+	
+	public boolean pesquisar(Bairro bairro){
+		Query query = getPm().newQuery(Representante.class);
+		query.setFilter("idBairro == p_bairro ");
+		query.declareParameters("Long p_bairro");
+		List<Representante> representantes = (List<Representante>) query.execute(bairro.getId());
+		return (representantes.size()>0);
+	}
+
 	
 }

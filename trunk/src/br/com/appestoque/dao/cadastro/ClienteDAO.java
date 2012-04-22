@@ -7,6 +7,8 @@ import javax.jdo.Query;
 
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.DAOGenerico;
+import br.com.appestoque.dominio.cadastro.Bairro;
+import br.com.appestoque.dominio.cadastro.Cidade;
 import br.com.appestoque.dominio.cadastro.Cliente;
 
 @SuppressWarnings("unchecked")
@@ -82,6 +84,14 @@ public class ClienteDAO extends DAOGenerico<Cliente, Long>{
 			}
 		}
 		return objetos;
+	}
+	
+	public boolean pesquisar(Bairro bairro){
+		Query query = getPm().newQuery(Cliente.class);
+		query.setFilter("idBairro == p_bairro ");
+		query.declareParameters("Long p_bairro");
+		List<Cliente> clientes = (List<Cliente>) query.execute(bairro.getId());
+		return (clientes.size()>0);
 	}
 	
 }
