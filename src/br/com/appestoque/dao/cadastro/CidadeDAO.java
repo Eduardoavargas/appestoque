@@ -7,9 +7,7 @@ import javax.jdo.Query;
 
 import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.DAOGenerico;
-import br.com.appestoque.dao.faturamento.ItemDAO;
 import br.com.appestoque.dominio.cadastro.Cidade;
-import br.com.appestoque.dominio.suprimento.Produto;
 
 public class CidadeDAO extends DAOGenerico<Cidade, Long>{
 
@@ -63,7 +61,7 @@ public class CidadeDAO extends DAOGenerico<Cidade, Long>{
 				}
 			}
 		}else{
-			throw new DAOException("Desculpe, mas esta cidade não pode ser excluida porque está vinculada a um bairro.");
+			throw new DAOException(bundle.getString("bairro.mensagem.cidade.vinculado"));
 		}
 	}
 
