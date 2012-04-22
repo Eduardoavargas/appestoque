@@ -26,7 +26,7 @@
 	    </script>
 		
 		<span class="heading"><%=bundle.getString("bairro.nome")%></span><br/>
-		<input type="text" id="nome" name="nome" style="width: 300px" value="<%=request.getAttribute("nome")!=null?request.getAttribute("nome"):""%>"/>	
+		<input type="text" id="nome" name="nome" class="text ui-widget-content ui-corner-all" style="width: 300px" value="<%=request.getAttribute("nome")!=null?request.getAttribute("nome"):""%>"/>	
 	<%
 		List<Bairro> objetos = new ArrayList<Bairro>();
 		if(request.getAttribute("objetos")!=null){

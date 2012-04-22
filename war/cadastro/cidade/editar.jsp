@@ -11,7 +11,7 @@
 <form id="formEditar" method="post" action="/cidadeControle?acao=modificar">
 	<app:barraEditar acao="/cidadeControle"/>
 
-	<script>
+	<script type="text/javascript">
 			$("#salvar").click(function () {
 				if(document.getElementById('nome').value.length==0){
 					alert('<%=bundle.getString("cidade.mensagem.validar.nome")%>');
@@ -22,8 +22,7 @@
 			});
 	</script>
 
-	<input type="hidden" name="id"
-		value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
+	<input type="hidden" name="id" value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
 	<hr>
 	<%=bundle.getString("cidade.nome")%>:<br />
 	<app:texto id="nome" nome="nome" tamanho="50" valor="<%=objeto.getNome()%>"/>
