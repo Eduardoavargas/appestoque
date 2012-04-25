@@ -11,9 +11,9 @@
 	<form id="formListar" method="post" action="/pedidoControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
 	
 		<app:parametrosListar/>
-		<app:barraListar acao="/pedidoControle"/>
+		<app:barraListar desativarAdicionar="true" acao="/pedidoControle"/>
 		
-		<script>
+		<script type="text/javascript">
 			$("#buscar").click(function () {
 		    	  document.forms[0].submit();		  
 		    });
