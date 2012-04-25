@@ -9,17 +9,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!-- <link href="http://code.jquery.com/ui/1.8.18/themes/le-frog/jquery-ui.css" type="text/css" media="all" rel="stylesheet"/> -->
+
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/le-frog/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/css/padrao.css" />
-
-<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/le-frog/jquery-ui.css" type="text/css" media="all" /> -->
-<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
-
-<script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="/js/jquery-ui-1.8.16.custom.min.js"></script>
-
-<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
-<!-- <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js" type="text/javascript"></script> -->
 
 <script type="text/javascript" src="/js/padrao.js"></script>	
 <script type="text/javascript" src="/js/jquery.tools.min.js"></script>
