@@ -17,6 +17,9 @@
 				if(document.getElementById('nome').value.length==0){
 					alert('<%=bundle.getString("bairro.mensagem.validar.nome")%>');
 					document.getElementById('nome').focus();
+				}else if(document.getElementById('idCidade').value.length==0){
+					alert('<%=bundle.getString("bairro.mensagem.validar.cidade")%>');
+					document.getElementById('idCidade').focus();
 				}else{
 					document.forms[0].submit();	
 				}

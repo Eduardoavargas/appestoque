@@ -10,7 +10,6 @@
 <span class="title"><%=bundle.getString("bairro.pesquisar.titulo")%></span>
 
 	<form id="formListar" method="post" action="/bairroControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
-	
 		<app:parametrosListar/>
 		<app:barraListar acao="/bairroControle"/>
 	
