@@ -332,14 +332,13 @@ function isCnpj(pCnpj)
  * 	String fornecida para ser testada.
  * @return <code>true</code> se a String fornecida for um CPF ou CNPJ válido.
  */
-function isCpfCnpj(pCpfCnpj)
-{
+function isCpfCnpj(pCpfCnpj) {
 	var numero = pCpfCnpj.replace(/\D/g, "");
 	if (numero.length > NUM_DIGITOS_CPF)
 		return isCnpj(pCpfCnpj);
 	else
 		return isCpf(pCpfCnpj);
-} //isCpfCnpj
+} 
 
 
 
@@ -370,6 +369,7 @@ function validarEmail(obj) {
 
 
 function getXMLObject() {
+		
 		var xmlHttp = false;
 		try {
 			xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")
@@ -384,62 +384,60 @@ function getXMLObject() {
 			xmlHttp = new XMLHttpRequest();
 		}
 		return xmlHttp;
-	}
+		
+}
 
 var xmlhttp = new getXMLObject();
 
 function ajaxValidarCNPJ(obj) {
-		  if(xmlhttp) { 
-		    xmlhttp.open("POST","verificarCNPJ",true);
-		    xmlhttp.onreadystatechange  = handleServerResponseCNPJ;
-		    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		    //xmlhttp.send("cnpj="+document.getElementById("cnpj").value);
-		    xmlhttp.send("cnpj="+obj.value);
-		  }
-		  return false;
-		}
-	
-		String.prototype.trim = function () {
-		    return this.replace(/^\s*/, "").replace(/\s*$/, "");
-		}
-	
-		function handleServerResponseCNPJ() {
-		   if (xmlhttp.readyState == 4) {
-		     if(xmlhttp.status == 200) {
-		    	 var existe = Boolean(xmlhttp.responseText.trim()=='true');  
-		    	 if(existe){
-		    		 alert('CNPJ j\u00e1 cadastrado.');	 
-		    	 }
-		     }else {
-		        alert('Requisição inv\u00e1lida.');
-		}
-	}
-}
-		
-		
-	
-function ajaxValidarEmail(obj) {
 	if (xmlhttp) {
-		xmlhttp.open("POST", "verificarEmail", true);
-		xmlhttp.onreadystatechange = handleServerResponseEmail;
+		xmlhttp.open("POST", "verificarCNPJ", true);
+		xmlhttp.onreadystatechange = handleServerResponseCNPJ;
 		xmlhttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-		xmlhttp.send("email="+obj.value);
+		xmlhttp.send("cnpj=" + obj.value);
 	}
 	return false;
 }
+
+
 
 String.prototype.trim = function() {
 	return this.replace(/^\s*/, "").replace(/\s*$/, "");
 }
 
+
+
+function handleServerResponseCNPJ() {
+	if (xmlhttp.readyState == 4) {
+		if (xmlhttp.status == 200) {
+			var existe = Boolean(xmlhttp.responseText.trim() == 'true');
+			if (existe) {
+				alert('CNPJ j\u00e1 cadastrado.');
+			}
+		} else {
+			alert('Requisição inv\u00e1lida.');
+		}
+	}
+}
+
+function ajaxValidarEmail(obj) {
+	if (xmlhttp) {
+		xmlhttp.open("POST", "verificarEmail", true);
+		xmlhttp.onreadystatechange = handleServerResponseEmail;
+		xmlhttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		xmlhttp.send("email=" + obj.value);
+	}
+	return false;
+}
+
+
+
 function handleServerResponseEmail() {
 	if (xmlhttp.readyState == 4) {
 		if (xmlhttp.status == 200) {
 			var existe = Boolean(xmlhttp.responseText.trim() == 'true');
-			if (!existe) {
-				document.forms[0].submit();
-			} else {
-				alert('E-mail j\u00e1 cadastrado.');
+			if (existe) {
+				alert('CNPJ j\u00e1 cadastrado.');
 			}
 		} else {
 			alert('Requisição inv\u00e1lida.');
