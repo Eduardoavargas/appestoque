@@ -56,7 +56,7 @@ public class Empresa implements Serializable{
 	private String emailPedido;
 	
 	@Persistent
-	private Date dataCadastro;
+	private Date dataCadastro = new Date();
 	
 	public Empresa() {
 		super();
@@ -68,6 +68,23 @@ public class Empresa implements Serializable{
 		this.nome = nome;
 		this.razao = razao;
 		this.email = email;
+		this.cnpj = cnpj;
+		this.endereco = endereco;
+		this.numero = numero;
+		this.cep = cep;
+		this.complemento = complemento;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.uuid = uuid;
+	}
+	
+	public Empresa(String nome, String razao, String email, String emailPedido, String cnpj, String endereco, Integer numero,
+			String cep, String complemento, String bairro, String cidade, String uuid) {
+		super();
+		this.nome = nome;
+		this.razao = razao;
+		this.email = email;
+		this.emailPedido = emailPedido;
 		this.cnpj = cnpj;
 		this.endereco = endereco;
 		this.numero = numero;
