@@ -6,9 +6,10 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import br.com.appestoque.TipoBusca;
+import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.DAOGenerico;
+import br.com.appestoque.dao.faturamento.PedidoDAO;
 import br.com.appestoque.dominio.cadastro.Bairro;
-import br.com.appestoque.dominio.cadastro.Cliente;
 import br.com.appestoque.dominio.cadastro.Representante;
 
 @SuppressWarnings("unchecked")
@@ -98,6 +99,23 @@ public class RepresentanteDAO extends DAOGenerico<Representante, Long>{
 		List<Representante> representantes = (List<Representante>) query.execute(bairro.getId());
 		return (representantes.size()>0);
 	}
-
+	
+	public void excluir(Representante representante) throws DAOException {
+		PedidoDAO pedidoDAO = new PedidoDAO(getPm());
+		if (!pedidoDAO.pesquisar(representante)) {
+			try {
+				getPm().currentTransaction().begin();
+				getPm().deletePersistent(representante);
+				getPm().currentTransaction().commit();
+			} finally {
+				if (getPm().currentTransaction().isActive()) {
+					getPm().currentTransaction().rollback();
+				}
+			}
+		} else {
+			throw new DAOException(
+					bundle.getString("representante.mensagem.pedido.vinculado"));
+		}
+	}
 	
 }

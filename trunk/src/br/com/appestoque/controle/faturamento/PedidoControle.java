@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.appestoque.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
+import br.com.appestoque.dao.cadastro.ClienteDAO;
+import br.com.appestoque.dao.cadastro.RepresentanteDAO;
 import br.com.appestoque.dao.faturamento.PedidoDAO;
 import br.com.appestoque.dominio.faturamento.Pedido;
 
@@ -82,18 +84,25 @@ public class PedidoControle extends BaseControle{
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PEDIDO_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
+			
+			ClienteDAO clienteDAO = new ClienteDAO((PersistenceManager) request.getAttribute("pm"));
+			request.setAttribute("clientes", clienteDAO.listar());
+			
+			RepresentanteDAO representanteDAO = new RepresentanteDAO((PersistenceManager) request.getAttribute("pm"));
+			request.setAttribute("representantes", representanteDAO.listar());
+			
 			objeto = new Pedido();
 			request.setAttribute("objeto", objeto);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PEDIDO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
+			request.setAttribute("idCliente",objeto.getIdCliente());
+			request.setAttribute("idRepresentante",objeto.getIdRepresentante());
 			request.setAttribute("objeto",objeto);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PEDIDO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
-			//nome = request.getParameter("nome");
-			//objeto = new Pedido(nome,getId(request));
 			objeto = new Pedido();
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);

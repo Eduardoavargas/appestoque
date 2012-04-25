@@ -15,6 +15,7 @@ import br.com.appestoque.TipoBusca;
 import br.com.appestoque.Constantes;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
+import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.cadastro.BairroDAO;
 import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
@@ -140,8 +141,14 @@ public class ClienteControle extends BaseControle{
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
-			dao.remover(objeto);
-			objetos = dao.listar();
+			try{
+				if(objeto!=null){
+					dao.excluir(objeto);
+				}
+			}catch(DAOException e){
+				request.setAttribute("mensagem", e.getMessage());
+			}
+			objetos = dao.pesquisar(null,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
 			request.setAttribute("objetos", objetos);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_LISTAR);
 			dispatcher.forward(request, response);

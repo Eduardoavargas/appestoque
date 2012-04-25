@@ -1,7 +1,6 @@
 package br.com.appestoque.controle.cadastro;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -29,15 +28,9 @@ public class EmpresaControle extends BaseControle {
 	private EmpresaDAO dao = null;
 	private int primeiroRegistro;
 	private List<Empresa> objetos = null;
-	
 	private String cnpj;
-	private String nome;
-	private String bairro;
-	private String cep;
 	private Integer numero;
-	private String complemento;
-	private String endereco;
-	private Empresa objeto;	
+	private Empresa objeto;
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
@@ -116,21 +109,28 @@ public class EmpresaControle extends BaseControle {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			
 			BairroDAO bairroDAO = new BairroDAO((PersistenceManager) request.getAttribute("pm"));
-			List<Bairro> bairros = new ArrayList<Bairro>();
+			List<Bairro> bairros = bairroDAO.listar();
 			request.setAttribute("bairros", bairros);
-			
 			
 			request.setAttribute("objeto",objeto);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
-			nome = request.getParameter("nome");
-			cnpj = request.getParameter("cnpj");
-			bairro = request.getParameter("bairro");
-			cep = request.getParameter("cep");
-			numero = new Integer(request.getParameter("numero"));
-			complemento = request.getParameter("complemento");
-			endereco = request.getParameter("endereco");
+			
+//			private String complemento;
+//			private String endereco;
+//			private String nome;
+//			private String bairro;
+//			private String cep;
+			
+//			String nome = request.getParameter("nome");
+//			cnpj = request.getParameter("cnpj");
+//			String bairro = request.getParameter("bairro");
+//			String cep = request.getParameter("cep");
+//			numero = new Integer(request.getParameter("numero"));
+//			String complemento = request.getParameter("complemento");
+//			String endereco = request.getParameter("endereco");
+			
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
