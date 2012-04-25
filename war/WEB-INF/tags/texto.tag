@@ -1,5 +1,5 @@
 <%@ attribute name="nome" required="true" %>
-<%@ attribute name="valor" required="true" %>
+<%@ attribute name="valor" required="true"%>
 <%@ attribute name="id" required="false" %>
 <%@ attribute name="estilo" required="false" %>
 <%@ attribute name="tamanho" required="false"%>
