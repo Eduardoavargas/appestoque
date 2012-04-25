@@ -208,8 +208,7 @@ form a span.ui-icon {
 	top: 10px;
 }
 
-form#formCadastro {
-/* 	width: 35%; */
+form#formCadastro { /* 	width: 35%; */
 	padding: 20px;
 	/*border: 1px solid rgb(133, 183, 214);*/
 	margin: 0 auto;
@@ -241,11 +240,19 @@ form#formCadastro label { /* 	display: block; */
 	width: 445px;
 }
 
-.obrigatorio{
+.obrigatorio {
 	font-weight: bold;
 	color: red;
 	margin: 5px 5px 5px 5px;
 }
 
-
-
+.informativo {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100px;
+	height: 380px;
+	display: none;
+	z-index: 9999;
+	padding: 20px;
+}
