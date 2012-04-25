@@ -7,6 +7,7 @@ import javax.jdo.Query;
 
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dominio.cadastro.Cliente;
+import br.com.appestoque.dominio.cadastro.Representante;
 import br.com.appestoque.dominio.faturamento.Item;
 import br.com.appestoque.dominio.faturamento.Pedido;
 import br.com.appestoque.dominio.suprimento.Produto;
@@ -59,5 +60,13 @@ public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 		return (pedidos.size()>0);
 	}
 
-
+	@SuppressWarnings("unchecked")
+	public boolean pesquisar(Representante representante){
+		Query query = getPm().newQuery(Pedido.class);
+		query.setFilter("idRepresentante == p_representante ");
+		query.declareParameters("Long p_representante");
+		List<Pedido> pedidos = (List<Pedido>) query.execute(representante.getId());
+		return (pedidos.size()>0);
+	}
+	
 }
