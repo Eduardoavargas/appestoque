@@ -35,7 +35,6 @@
 					document.forms[0].submit();	
 				}
 			});
-			
 	</script>
 
 	<input type="hidden" name="id"
