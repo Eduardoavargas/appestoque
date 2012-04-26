@@ -8,8 +8,8 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/css/padrao.css" />
-<link type="text/css" href="/css/le-frog/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-<script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/le-frog/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery.maskedinput-1.3.min.js" ></script>
 <script type="text/javascript" src="/js/padrao.js"></script>
 
