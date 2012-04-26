@@ -8,9 +8,7 @@ import javax.jdo.Query;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dominio.cadastro.Cliente;
 import br.com.appestoque.dominio.cadastro.Representante;
-import br.com.appestoque.dominio.faturamento.Item;
 import br.com.appestoque.dominio.faturamento.Pedido;
-import br.com.appestoque.dominio.suprimento.Produto;
 
 public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 	
