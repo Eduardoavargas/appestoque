@@ -312,13 +312,13 @@ h2 {
 
 
 		#slider {
-			width: 285px; /* important to be same as image width */
+			width: 280px; /* important to be same as image width */
 			height: 350px; /* important to be same as image height */
 			position: relative; /* important */
 			overflow: hidden; /* important */
 		}
 		#sliderContent {
-			width: 285px; /* important to be same as image width or wider */
+			width: 280px; /* important to be same as image width or wider */
 			position: absolute;
 			top: 0;
 			margin-left: 0;
@@ -331,8 +331,8 @@ h2 {
 		.sliderImage span {
 			position: absolute;
 			font: 10px/15px Arial, Helvetica, sans-serif;
-			/*padding: 10px 13px;*/
-			width: 285px;
+			padding: 10px 10px 10px 10px;
+			width: 260px;
 			background-color: #000;
 			filter: alpha(opacity=70);
 			-moz-opacity: 0.7;
@@ -382,7 +382,7 @@ h2 {
 		}
 
 		#boxes #dialog {
-		  width:340px; 
+		  width:320px; 
 		  height:360px;  
 		  background-color:#ffffff;
 		}
@@ -409,24 +409,72 @@ h2 {
 			<div id="slider">
 				<ul id="sliderContent">
 					<li class="sliderImage">
-						<a href=""><img src="/img/1.png" alt="1" /></a>
-						<span class="bottom"><strong>Title text 1</strong><br />Content text...</span>
+						<img src="/img/MenuAndroid.png" alt="1"/>
+						<span class="bottom"><strong>Menu Android</strong><br />Item de menu do AppEstoque na parte inferior direita...</span>
 					</li>
 					<li class="sliderImage">
-						<a href=""><img src="/img/2.png" alt="2" /></a>
-						<span class="bottom"><strong>Title text 2</strong><br />Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...Content text...</span>
+						<img src="/img/MenuApp.png" alt="2" />
+						<span class="bottom"><strong>Menu AppEstoque</strong><br />Menu do AppEstoque para acesso a informações sobre Produto, Cliente, Pedido e Preferência.</span>
 					</li>
 					<li class="sliderImage">
-						<img src="/img/3.png" alt="3" />
-						<span class="bottom"><strong>Title text 2</strong><br />Content text...</span>
+						<img src="/img/Produto1.png" alt="3" />
+						<span class="bottom"><strong>Produto</strong><br />Tela para pesquisa.</span>
 					</li>
 					<li class="sliderImage">
-						<img src="/img/5.png" alt="4" />
-						<span class="bottom"><strong>Title text 2</strong><br />Content text...</span>
+						<img src="/img/Produto2.png" alt="4" />
+						<span class="bottom"><strong>Produto</strong><br />Menu de opções.</span>
 					</li>
 					<li class="sliderImage">
-						<img src="/img/6.png" alt="5" />
-						<span class="bottom"><strong>Title text 2</strong><br />Content text...</span>
+						<img src="/img/Produto3.png" alt="5" />
+						<span class="bottom"><strong>Produto</strong><br />Tela sobre detalhes.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Cliente1.png" alt="5" />
+						<span class="bottom"><strong>Cliente</strong><br />Tela para pesquisa.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Cliente2.png" alt="5" />
+						<span class="bottom"><strong>Cliente</strong><br />Menu de opções.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Cliente3.png" alt="5" />
+						<span class="bottom"><strong>Cliente</strong><br />Tela sobre detalhes.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Pedido1.png" alt="5" />
+						<span class="bottom"><strong>Pedido de Venda</strong><br />Tela de cadastro.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Pedido2.png" alt="5" />
+						<span class="bottom"><strong>Pedido de Venda</strong><br />Tela logo após cadastro.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Pedido3.png" alt="5" />
+						<span class="bottom"><strong>Pedido de Venda</strong><br />Tela de cadastro do item.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Pedido4.png" alt="5" />
+						<span class="bottom"><strong>Pedido de Venda</strong><br />Tela de cadastro do item com informações.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Pedido5.png" alt="5" />
+						<span class="bottom"><strong>Pedido de Venda</strong><br />Tela com item cadastrado.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Pedido6.png" alt="5" />
+						<span class="bottom"><strong>Pedido de Venda</strong><br />Tela de pesquisa.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Pedido7.png" alt="5" />
+						<span class="bottom"><strong>Pedido de Venda</strong><br />Menu de opções.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Pedido8.png" alt="5" />
+						<span class="bottom"><strong>Pedido de Venda</strong><br />Tela de pesquisa indicando que o pedido foi sincronizado.</span>
+					</li>
+					<li class="sliderImage">
+						<img src="/img/Pedido9.png" alt="5" />
+						<span class="bottom"><strong>Pedido de Venda</strong><br />Tela de pesquisa indicando a diferença entre um pedido sincronizado e outro pendente de sincronismo.</span>
 					</li>
 					<div class="clear sliderImage"></div>
 				</ul>
