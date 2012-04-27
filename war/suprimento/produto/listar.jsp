@@ -26,7 +26,7 @@
 	    </script>
 		
 		<span class="heading"><%=bundle.getString("produto.nome")%></span><br/>
-		<input type="text" id="numero" name="numero" style="width: 300px" value="<%=request.getAttribute("numero")!=null?request.getAttribute("numero"):""%>"/>	
+		<input type="text" id="numero" name="numero" class="text ui-widget-content ui-corner-all" style="width: 300px" value="<%=request.getAttribute("numero")!=null?request.getAttribute("numero"):""%>"/>	
 	<%
 		List<Produto> objetos = new ArrayList<Produto>();
 		if(request.getAttribute("objetos")!=null){
