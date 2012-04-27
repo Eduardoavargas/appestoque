@@ -9,13 +9,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<!-- <link href="http://code.jquery.com/ui/1.8.18/themes/le-frog/jquery-ui.css" type="text/css" media="all" rel="stylesheet"/> -->
 
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/le-frog/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="/css/padrao.css" />
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="/css/padrao.css" />
 
 <script type="text/javascript" src="/js/padrao.js"></script>	
 <script type="text/javascript" src="/js/jquery.tools.min.js"></script>
@@ -99,4 +98,3 @@
 <div style="clear:both"></div>
 <div style="clear:both"></div>
 </p>
-
