@@ -491,10 +491,9 @@ h2 {
 			
 			<div id="texto_explicativo">
 				<h2>Appestoque Web</h2>
-				<p class="blocoExplicacao">Site na web para controle de Cliente, Produto e Pedido de Venda.</p>
+				<p class="blocoExplicacao">Aplicativo para controlar Cliente, Produto e Pedido de Venda na internet.</p>
 				<h2>Appestoque Mobile</h2>
-				<p class="blocoExplicacao">Aplicativo para dispositivos móveis como tablet e smartphone para controle de Cliente, 
-				Produto e Pedido de Venda.<a href="#dialog" name="modal">Clique aqui</a></p>
+				<p class="blocoExplicacao">Aplicativo para controlar Cliente, Produto e Pedido de Venda a partir de um celular ou tablet.<a href="#dialog" name="modal">Clique aqui.</a></p>
 				<a href="http://twitter.com/#!/appestoque" target="_blank" class="link"><img src="img/twitter.gif" border="0"></a>
 				<a href="http://www.facebook.com/appestoque/" target="_blank" class="link"><img src="img/facebook.gif" border="0"></a>
 			</div>
