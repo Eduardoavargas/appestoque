@@ -144,9 +144,9 @@ public class BairroControle extends BaseControle {
 			objetos = dao.pesquisar(new Long(request.getParameter("id")),getId(request));
 			response.setContentType("text/plain;charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<select name='idBairro' id='idBairro' class='text ui-widget-content ui-corner-all' style='cursor: pointer;'>");
+			out.println("<select name='idBairro' id='idBairro' class='text ui-corner-all' style='cursor: pointer;'>");
 			for (int i = 0; i < objetos.size(); i++) {
-				out.println("<option value='"+objetos.get(i).getId().toString()+"'>"+objetos.get(i).getNome()+"</option>");
+				out.println("<option class='text ui-widget-content ui-corner-all' value='"+objetos.get(i).getId().toString()+"'>"+objetos.get(i).getNome()+"</option>");
 			}
 			out.println("</select>");
 		    out.flush();
