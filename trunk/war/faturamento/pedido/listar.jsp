@@ -11,16 +11,20 @@
 	<form id="formListar" method="post" action="/pedidoControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
 	
 		<app:parametrosListar/>
-		<app:barraListar desativarAdicionar="true" acao="/pedidoControle"/>
+		<app:barraListar acao="/pedidoControle"/>
 		
 		<script type="text/javascript">
 			$("#buscar").click(function () {
 		    	  document.forms[0].submit();		  
 		    });
+			$("#adicionar").click(function () {
+				  alert('<%=bundle.getString("pedido.mensagem.adicionar")%>');		
+		    	  return false;
+		    });
 	    </script>
 		
 		<span class="heading"><%=bundle.getString("pedido.numero")%></span><br/>
-		<input type="text" id="numero" name="numero" style="width: 300px" value="<%=request.getAttribute("numero")!=null?request.getAttribute("numero"):""%>"/>	
+		<input type="text" id="numero" name="numero" class="text ui-widget-content ui-corner-all" style="width: 300px" value="<%=request.getAttribute("numero")!=null?request.getAttribute("numero"):""%>"/>	
 	<%
 		List<Pedido> objetos = new ArrayList<Pedido>();
 		if(request.getAttribute("objetos")!=null){
