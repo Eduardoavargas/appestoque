@@ -19,7 +19,7 @@
 		    });
 	    </script>
 		<span class="heading"><%=bundle.getString("usuario.nome")%></span><br/>
-		<input type="text" id="email" name="email" style="width: 300px" value="<%=request.getAttribute("email")!=null?request.getAttribute("email"):""%>"/>	
+		<input type="text" id="email" name="email" class="text ui-widget-content ui-corner-all" style="width: 300px" value="<%=request.getAttribute("email")!=null?request.getAttribute("email"):""%>"/>	
 	<%
 		List<Usuario> objetos = new ArrayList<Usuario>();
 		if(request.getAttribute("objetos")!=null){
