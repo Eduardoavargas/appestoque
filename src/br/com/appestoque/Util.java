@@ -1,5 +1,7 @@
 package br.com.appestoque;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -35,6 +37,11 @@ public class Util {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static String dateToStr( String formato, Date data ){
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formato);
+		return simpleDateFormat.format(data);
 	}
 	
 }

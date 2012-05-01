@@ -6,6 +6,8 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import br.com.appestoque.dao.DAOGenerico;
+import br.com.appestoque.dao.cadastro.ClienteDAO;
+import br.com.appestoque.dao.cadastro.RepresentanteDAO;
 import br.com.appestoque.dominio.cadastro.Cliente;
 import br.com.appestoque.dominio.cadastro.Representante;
 import br.com.appestoque.dominio.faturamento.Pedido;
@@ -65,6 +67,31 @@ public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 		query.declareParameters("Long p_representante");
 		List<Pedido> pedidos = (List<Pedido>) query.execute(representante.getId());
 		return (pedidos.size()>0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Pedido pesquisar(String numero) {
+		Query query = getPm().newQuery(Pedido.class);
+		List<Pedido> objetos = null;
+		query.setFilter("numero == p_numero ");
+		query.declareParameters("String p_numero");
+		objetos = (List<Pedido>) query.execute(numero);
+		
+		Pedido objeto = objetos.get(0);
+		
+		/*localizando cliente*/
+		if(objeto.getIdCliente()!=null){
+			ClienteDAO dao = new ClienteDAO(getPm());
+			objeto.setCliente(dao.pesquisar(objeto.getIdCliente()));
+		}
+		
+		/*localizando representante*/
+		if(objeto.getIdRepresentante()!=null){
+			RepresentanteDAO dao = new RepresentanteDAO(getPm());
+			objeto.setRepresentante(dao.pesquisar(objeto.getIdRepresentante()));
+		}
+		
+		return objeto;
 	}
 	
 }

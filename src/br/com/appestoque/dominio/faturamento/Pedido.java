@@ -10,6 +10,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import br.com.appestoque.dominio.cadastro.Cliente;
+import br.com.appestoque.dominio.cadastro.Representante;
 
 @SuppressWarnings("serial")
 @PersistenceCapable
@@ -27,6 +28,9 @@ public class Pedido implements Serializable{
 	
 	@Persistent
 	private Long idRepresentante;
+	
+	@NotPersistent
+	private Representante representante;
 	
 	@Persistent
 	private Long idCliente;
@@ -89,6 +93,14 @@ public class Pedido implements Serializable{
 
 	public void setIdRepresentante(Long idRepresentante) {
 		this.idRepresentante = idRepresentante;
+	}
+	
+	public Representante getRepresentante() {
+		return representante;
+	}
+
+	public void setRepresentante(Representante representante) {
+		this.representante = representante;
 	}
 
 	public Long getIdCliente() {
