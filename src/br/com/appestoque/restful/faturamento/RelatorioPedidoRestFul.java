@@ -92,10 +92,12 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 			textLine.drawOn(page);
 			
 			textLine = new TextLine(font,bundle.getString("pedido.representante"));  
-			textLine.setPosition(left+200,top);			
+			textLine.setPosition(left+250,top);			
 			textLine.drawOn(page);
 			
-//			bundle.getString("pedido.obs")
+			textLine = new TextLine(font,bundle.getString("pedido.obs"));  
+			textLine.setPosition(left+350,top);			
+			textLine.drawOn(page);
 			
 			top += 10.00;
 			
@@ -116,7 +118,11 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 			textLine.drawOn(page);
 			
 			textLine = new TextLine(font,pedido.getRepresentante().getNome());  
-			textLine.setPosition(left+200,top);			
+			textLine.setPosition(left+250,top);			
+			textLine.drawOn(page);
+			
+			textLine = new TextLine(font,pedido.getObs());  
+			textLine.setPosition(left+350,top);			
 			textLine.drawOn(page);
 			
 			

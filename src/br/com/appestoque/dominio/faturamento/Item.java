@@ -3,9 +3,12 @@ package br.com.appestoque.dominio.faturamento;
 import java.io.Serializable;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+
+import br.com.appestoque.dominio.suprimento.Produto;
 
 @SuppressWarnings("serial")
 @PersistenceCapable
@@ -26,6 +29,9 @@ public class Item implements Serializable{
 	
 	@Persistent
 	private Long idProduto;
+	
+	@NotPersistent
+	private Produto produto;
 
 	public Item( Long idPedido, 
 				 Long idProduto, 
@@ -76,6 +82,14 @@ public class Item implements Serializable{
 
 	public void setIdProduto(Long idProduto) {
 		this.idProduto = idProduto;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 	
 }
