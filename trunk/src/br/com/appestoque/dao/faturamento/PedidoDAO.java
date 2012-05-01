@@ -81,15 +81,19 @@ public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 		
 		/*localizando cliente*/
 		if(objeto.getIdCliente()!=null){
-			ClienteDAO dao = new ClienteDAO(getPm());
-			objeto.setCliente(dao.pesquisar(objeto.getIdCliente()));
+			ClienteDAO clientedao = new ClienteDAO(getPm());
+			objeto.setCliente(clientedao.pesquisar(objeto.getIdCliente()));
 		}
 		
 		/*localizando representante*/
 		if(objeto.getIdRepresentante()!=null){
-			RepresentanteDAO dao = new RepresentanteDAO(getPm());
-			objeto.setRepresentante(dao.pesquisar(objeto.getIdRepresentante()));
+			RepresentanteDAO representanteDAO = new RepresentanteDAO(getPm());
+			objeto.setRepresentante(representanteDAO.pesquisar(objeto.getIdRepresentante()));
 		}
+		
+		/*localizando itens*/
+		ItemDAO itemDAO = new ItemDAO(getPm());
+		objeto.setItens(itemDAO.pesquisar(objeto)); 
 		
 		return objeto;
 	}

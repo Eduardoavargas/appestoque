@@ -2,6 +2,7 @@ package br.com.appestoque.dominio.faturamento;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.NotPersistent;
@@ -43,6 +44,9 @@ public class Pedido implements Serializable{
 	
 	@Persistent
 	private String obs;
+	
+	@NotPersistent
+	private List<Item> itens;
 	
 	public Pedido() {
 		super();
@@ -133,6 +137,14 @@ public class Pedido implements Serializable{
 
 	public void setObs(String obs) {
 		this.obs = obs;
+	}
+
+	public List<Item> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<Item> itens) {
+		this.itens = itens;
 	}
 	
 }
