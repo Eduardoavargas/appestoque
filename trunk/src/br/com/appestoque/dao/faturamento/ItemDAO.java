@@ -28,7 +28,7 @@ public class ItemDAO extends DAOGenerico<Item, Long>{
 
 	@SuppressWarnings("unchecked")
 	public List<Item> pesquisar(Pedido pedido) {
-		Query query = getPm().newQuery(Pedido.class);
+		Query query = getPm().newQuery(Item.class);
 		List<Item> objetos = null;
 		query.setFilter(" idPedido == p_pedido ");
 		query.declareParameters("Long p_pedido");
