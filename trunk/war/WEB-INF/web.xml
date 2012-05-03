@@ -286,6 +286,15 @@
 		<servlet-name>PedidoRestFul</servlet-name>
 		<servlet-class>br.com.appestoque.restful.faturamento.PedidoRestFul</servlet-class>
 	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>RelatorioPedidoRestFul</servlet-name>
+		<url-pattern>/RESTFul/relatorioPedido</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>RelatorioPedidoRestFul</servlet-name>
+		<servlet-class>br.com.appestoque.restful.faturamento.RelatorioPedidoRestFul</servlet-class>
+	</servlet>
 	    
     
     <servlet>
