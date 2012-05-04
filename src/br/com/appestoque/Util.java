@@ -1,5 +1,6 @@
 package br.com.appestoque;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -42,6 +43,11 @@ public class Util {
 	public static String dateToStr( String formato, Date data ){
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formato);
 		return simpleDateFormat.format(data);
+	}
+	
+	public static String doubleToString( double valor, String mask){
+		DecimalFormat decimalFormat = new DecimalFormat(mask);
+		return decimalFormat.format(valor);   
 	}
 	
 }

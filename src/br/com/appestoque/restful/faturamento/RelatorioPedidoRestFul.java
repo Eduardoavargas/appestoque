@@ -47,7 +47,6 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 		
 		ResourceBundle bundle = ResourceBundle.getBundle(Constantes.I18N,request.getLocale());
 		
-		
 		try {
 			
 			pm = PMF.get().getPersistenceManager();
@@ -130,8 +129,6 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 				
 				top += 10.00;
 				
-				
-				
 				Table tabela = new Table(font,font);
 				
 				List<List<Cell>> dados = new ArrayList<List<Cell>>();
@@ -140,36 +137,43 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 				Cell coluna1 = null;
 				Cell coluna2 = null;
 				Cell coluna3 = null;
+				Cell coluna4 = null;
 				
 				coluna1 = new Cell(font,bundle.getString("item.produto"));
 				coluna2 = new Cell(font,bundle.getString("item.quantidade"));
 				coluna3 = new Cell(font,bundle.getString("item.valor"));
+				coluna4 = new Cell(font,bundle.getString("item.total"));
 				
 				coluna1.setNoBorders();
 				coluna2.setNoBorders();
-				coluna3.setNoBorders();			
+				coluna3.setNoBorders();
+				coluna4.setNoBorders();
 				
 				coluna2.setTextAlignment(Align.RIGHT);
 				coluna3.setTextAlignment(Align.RIGHT);
+				coluna4.setTextAlignment(Align.RIGHT);
 				
 				registro = new ArrayList<Cell>();
 				registro.add(coluna1);
 				registro.add(coluna2);
 				registro.add(coluna3);
+				registro.add(coluna4);
 				dados.add(registro);
-				
 				
 				for(Item item : pedido.getItens()){
 					coluna1 = new Cell(font,item.getProduto().getNome());
-					coluna2 = new Cell(font,item.getQuantidade().toString());
-					coluna3 = new Cell(font,item.getValor().toString());
+					coluna2 = new Cell(font,Util.doubleToString(item.getQuantidade(),Constantes.MASCARA_VALOR_TRES_CASAS_DECIMAIS));
+					coluna3 = new Cell(font,Util.doubleToString(item.getValor(),Constantes.MASCARA_VALOR_TRES_CASAS_DECIMAIS));
+					coluna4 = new Cell(font,Util.doubleToString((item.getQuantidade()*item.getValor()),Constantes.MASCARA_VALOR_DUAS_CASAS_DECIMAIS));
 					registro = new ArrayList<Cell>();
 					coluna1.setNoBorders();
 					coluna2.setNoBorders();
 					coluna3.setNoBorders();
+					coluna4.setNoBorders();
 					registro.add(coluna1);
 					registro.add(coluna2);
 					registro.add(coluna3);
+					registro.add(coluna4);
 					dados.add(registro);
 				}
 				
@@ -180,6 +184,7 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 				tabela.setColumnWidth(0,120);
 				tabela.setColumnWidth(1,120);
 				tabela.setColumnWidth(2,120);
+				tabela.setColumnWidth(3,120);
 				tabela.rightAlignNumbers();
 				
 				int numOfPages = tabela.getNumberOfPages(page);

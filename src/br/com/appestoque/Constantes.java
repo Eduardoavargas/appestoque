@@ -7,6 +7,9 @@ public class Constantes {
 	
 	public static String I18N = "i18n";
 	
+	public static final String MASCARA_VALOR_DUAS_CASAS_DECIMAIS = "##,###,##0.00";
+	public static final String MASCARA_VALOR_TRES_CASAS_DECIMAIS = "##,###,##0.000";
+	
 	public static String MASCARA_PRECO = "##,###,##0.000";
 	public static String MASCARA_ESTOQUE = "##,###,##0.000";
 	public static String MASCARA_DATA_PADRAO = "dd/MM/yyyy";
