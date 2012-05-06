@@ -44,17 +44,13 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		OutputStream outStream;	
 		PersistenceManager pm = null;
-		
 		ResourceBundle bundle = ResourceBundle.getBundle(Constantes.I18N,request.getLocale());
-		
 		try {
-			
 			pm = PMF.get().getPersistenceManager();
 			PedidoDAO dao = new PedidoDAO(pm);
 			Pedido pedido = dao.pesquisar("1AC");
-			
 			if(pedido!=null){
-			
+
 				outStream = response.getOutputStream();
 				response.setContentType("application/pdf");
 				PDF pdf = new PDF(outStream);

@@ -4,6 +4,7 @@ public class Constantes {
 
 	public static String URL = "http://2.appestoque.appspot.com";
 	public static String URI_CONFIRMAR = "/processo?acao=confirmar";
+	public static String URI_PEDIDO_VENDA = "/RESTFul/relatorioPedido";
 	
 	public static String I18N = "i18n";
 	
@@ -25,6 +26,7 @@ public class Constantes {
 	public static String EMAIL_ADMINISTRADOR = "andre.tricano@gmail.com";
 	
 	public static String ASSUNTO_CADASTRO = "Confirme sua conta do Appestoque e seja bem vindo!";
+	public static String ASSUNTO_PEDIDO_VENDA = "[APPESTOQUE] Pedido de Venda ";
 	
 	public static final int REGISTROS_POR_PAGINA = 10;
 	
