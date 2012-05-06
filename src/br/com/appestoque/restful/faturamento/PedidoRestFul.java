@@ -37,14 +37,13 @@ public class PedidoRestFul extends HttpServlet{
 	}
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
-		String data = bufferedReader.readLine();
+		String data = request.getParameter("json");
 		if(data!=null&&!data.equals("")){
 			HttpSession httpSession = request.getSession();
 			Empresa empresa = (Empresa) httpSession.getAttribute("empresa");
 			Representante representante = (Representante) httpSession.getAttribute("representante");
 			PersistenceManager pm = PMF.get().getPersistenceManager();		
-			try {			
+			try {
 				JSONObject json = new JSONObject(data);
 				Pedido pedido = new Pedido( json.getString("numero"),
 											new Date(json.getLong("data")),										
@@ -64,14 +63,18 @@ public class PedidoRestFul extends HttpServlet{
 							itens.getJSONObject(i).getDouble("valor"));
 					itemDAO.criar(item);
 				}
-				JSONObject objeto = new JSONObject();
-				objeto.put("id", pedido.getId());
 				response.setContentType("application/json;charset=UTF-8");
 				PrintWriter out = response.getWriter();
-				out.print(objeto);
+				json = new JSONObject();
+				json.put("id",pedido.getId());
+				out.print(json);
 				out.flush();
 			} catch (JSONException e) {
-				e.printStackTrace();
+				response.setContentType("application/json;charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				String json = "{'erro':'"+e.getMessage()+"'}";
+				out.print(json);
+				out.flush();
 			}
 		}
 	}	
