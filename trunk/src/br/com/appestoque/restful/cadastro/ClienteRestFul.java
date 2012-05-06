@@ -31,32 +31,34 @@ public class ClienteRestFul extends HttpServlet{
 	}
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PersistenceManager pm = (PersistenceManager) request.getAttribute("pm");
-		ClienteDAO clienteDAO = new ClienteDAO(pm);
-		HttpSession httpSession = request.getSession();
-		Empresa empresa = (Empresa) httpSession.getAttribute("empresa");
-		JSONArray objetos = new JSONArray();
-		try {
-			for (Cliente cliente : clienteDAO.listar(empresa.getId(),TipoBusca.ANSIOSA)) {
-				JSONObject objeto = new JSONObject();
-				objeto.put("_id",cliente.getId());			
-				objeto.put("nome",cliente.getNome());
-				objeto.put("cnpj",cliente.getCnpj());
-				objeto.put("endereco",cliente.getEndereco());
-				objeto.put("numero",cliente.getNumero());
-				objeto.put("cep",cliente.getCep());
-				objeto.put("complemento",cliente.getComplemento());
-				objeto.put("bairro",cliente.getBairro().getNome());
-				objeto.put("cidade",cliente.getBairro().getCidade().getNome());
-				objetos.put(objeto);
+		if(request.getParameter("sincronismo")!=null){
+			PersistenceManager pm = (PersistenceManager) request.getAttribute("pm");
+			ClienteDAO clienteDAO = new ClienteDAO(pm);
+			HttpSession httpSession = request.getSession();
+			Empresa empresa = (Empresa) httpSession.getAttribute("empresa");
+			JSONArray objetos = new JSONArray();
+			try {
+				for (Cliente cliente : clienteDAO.listar(empresa.getId(),TipoBusca.ANSIOSA)) {
+					JSONObject objeto = new JSONObject();
+					objeto.put("_id",cliente.getId());			
+					objeto.put("nome",cliente.getNome());
+					objeto.put("cnpj",cliente.getCnpj());
+					objeto.put("endereco",cliente.getEndereco());
+					objeto.put("numero",cliente.getNumero());
+					objeto.put("cep",cliente.getCep());
+					objeto.put("complemento",cliente.getComplemento());
+					objeto.put("bairro",cliente.getBairro().getNome());
+					objeto.put("cidade",cliente.getBairro().getCidade().getNome());
+					objetos.put(objeto);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
+			response.setContentType("application/json;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print(objetos);
+			out.flush();
 		}
-		response.setContentType("application/json;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.print(objetos);
-		out.flush();
 	}
 	    
 		

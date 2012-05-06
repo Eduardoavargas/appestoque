@@ -30,28 +30,30 @@ public class ProdutoRestFul extends HttpServlet{
 	}
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PersistenceManager pm = (PersistenceManager) request.getAttribute("pm");
-		ProdutoDAO produtoDAO = new ProdutoDAO(pm);
-		HttpSession httpSession = request.getSession();
-		Empresa empresa = (Empresa) httpSession.getAttribute("empresa");
-		JSONArray objetos = new JSONArray();
-		try {
-			for (Produto produto : produtoDAO.listar(empresa.getId())) {
-				JSONObject objeto = new JSONObject();
-				objeto.put("_id", produto.getId());
-				objeto.put("nome", produto.getNome());
-				objeto.put("numero", produto.getNumero());
-				objeto.put("valor", produto.getPreco());
-				objeto.put("estoque", produto.getEstoque());
-				objetos.put(objeto);
+		if(request.getParameter("sincronismo")!=null){
+			PersistenceManager pm = (PersistenceManager) request.getAttribute("pm");
+			ProdutoDAO produtoDAO = new ProdutoDAO(pm);
+			HttpSession httpSession = request.getSession();
+			Empresa empresa = (Empresa) httpSession.getAttribute("empresa");
+			JSONArray objetos = new JSONArray();
+			try {
+				for (Produto produto : produtoDAO.listar(empresa.getId())) {
+					JSONObject objeto = new JSONObject();
+					objeto.put("_id", produto.getId());
+					objeto.put("nome", produto.getNome());
+					objeto.put("numero", produto.getNumero());
+					objeto.put("valor", produto.getPreco());
+					objeto.put("estoque", produto.getEstoque());
+					objetos.put(objeto);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
+			response.setContentType("application/json;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print(objetos);
+			out.flush();
 		}
-		response.setContentType("application/json;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.print(objetos);
-		out.flush();
 	}
 
 }

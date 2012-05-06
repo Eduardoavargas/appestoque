@@ -45,6 +45,9 @@ public class Pedido implements Serializable{
 	@Persistent
 	private String obs;
 	
+	@Persistent
+	private String uuid;
+	
 	@NotPersistent
 	private List<Item> itens;
 	
@@ -57,7 +60,8 @@ public class Pedido implements Serializable{
 					Long idRepresentante,
 					Long idCliente,
 					Long idEmpresa,
-					String obs){
+					String obs,
+					String uuid){
 		super();
 		this.numero = numero;
 		this.data = data;
@@ -65,6 +69,7 @@ public class Pedido implements Serializable{
 		this.idCliente = idCliente;
 		this.idEmpresa = idEmpresa;
 		this.obs = obs;
+		this.uuid = uuid;
 	}
 
 	public Long getId() {
@@ -146,5 +151,13 @@ public class Pedido implements Serializable{
 	public void setItens(List<Item> itens) {
 		this.itens = itens;
 	}
-	
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 }
