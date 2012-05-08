@@ -70,12 +70,12 @@ public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Pedido pesquisar(String numero) {
+	public Pedido pesquisar(String uuid) {
 		Query query = getPm().newQuery(Pedido.class);
 		List<Pedido> objetos = null;
-		query.setFilter("numero == p_numero ");
-		query.declareParameters("String p_numero");
-		objetos = (List<Pedido>) query.execute(numero);
+		query.setFilter("uuid == p_uuid ");
+		query.declareParameters("String p_uuid");
+		objetos = (List<Pedido>) query.execute(uuid);
 		
 		Pedido objeto = objetos.get(0);
 		

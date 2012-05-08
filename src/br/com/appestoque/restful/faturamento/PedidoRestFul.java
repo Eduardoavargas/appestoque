@@ -67,7 +67,7 @@ public class PedidoRestFul extends HttpServlet{
 					itemDAO.criar(item);
 				}
 				
-				if(empresa.getEmailPedido()!=null&&empresa.getEmailPedido().equals("")){
+				if(empresa.getEmailPedido()!=null&&!empresa.getEmailPedido().equals("")){
 				
 					StringBuffer corpo = new StringBuffer();
 					
@@ -80,9 +80,9 @@ public class PedidoRestFul extends HttpServlet{
 					corpo.append("<img src='http://www.appestoque.com.br/img/logo.jpg'/>");
 					corpo.append("<h2 style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin: 0 0 16px; font-size: 18px; font-weight: normal'>Olá, "+empresa.getNome()+".</h2>");
 					
-					corpo.append("<p>Por favor, clique no link abaixo para imprimir pedido de venda:<br>");
-					corpo.append("<a href='"+Constantes.URL+Constantes.URI_PEDIDO_VENDA+"&&uuid="+uuid+"'");
-					corpo.append("target='_blank'>"+Constantes.URL+Constantes.URI_PEDIDO_VENDA+"&&uuid="+uuid+"</a></p>");
+					corpo.append("<p>Por favor, clique no link abaixo para imprimir o pedido de venda:<br>");
+					corpo.append("<a href='"+Constantes.URL+Constantes.URI_PEDIDO_VENDA+"?uuid="+uuid+"'");
+					corpo.append("target='_blank'>"+Constantes.URL+Constantes.URI_PEDIDO_VENDA+"?uuid="+uuid+"</a></p>");
 					
 					corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; line-height: 18px; border-bottom: 1px solid rgb(238, 238, 238); padding-bottom: 10px; margin: 0 0 10px'>");
 					corpo.append("<span style='font: italic 13px Georgia, serif; color: rgb(102, 102, 102)'>Equipe do Appestoque</span></p>");
