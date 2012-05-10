@@ -40,6 +40,14 @@ public class Bairro implements Serializable{
 		this.idEmpresa = idEmpresa;
 	}
 
+	public Bairro(String nome, Cidade cidade, Empresa empresa) {
+		super();
+		this.nome = nome;
+		this.idCidade = cidade.getId();
+		this.idEmpresa = empresa.getId();
+	}
+
+	
 	public Long getId() {
 		return id;
 	}

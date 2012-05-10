@@ -12,6 +12,7 @@ import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dominio.cadastro.Bairro;
 import br.com.appestoque.dominio.cadastro.Cidade;
+import br.com.appestoque.dominio.cadastro.Empresa;
 
 @SuppressWarnings("unchecked")
 public class BairroDAO extends DAOGenerico<Bairro, Long>{
@@ -111,6 +112,16 @@ public class BairroDAO extends DAOGenerico<Bairro, Long>{
 		}else{
 			throw new DAOException(bundle.getString("cliente.mensagem.bairro.vinculado"));
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public void excluir(Empresa empresa) {
+		Query query = getPm().newQuery(Bairro.class);
+		List<Bairro> objetos = null;
+		query.setFilter("idEmpresa == p_empresa ");
+		query.declareParameters("Long p_empresa");
+		objetos = (List<Bairro>) query.execute(empresa.getId());
+		getPm().deletePersistentAll(objetos);
 	}
 
 	
