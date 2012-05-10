@@ -8,6 +8,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import br.com.appestoque.dominio.cadastro.Empresa;
+
 @SuppressWarnings("serial")
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class Produto implements Serializable{
@@ -46,6 +48,16 @@ public class Produto implements Serializable{
 		this.preco = preco;
 		this.estoque = estoque;
 		this.idEmpresa = idEmpresa;
+	}
+	
+	public Produto(String nome, String numero, Double preco, Double estoque,
+			Empresa empresa) {
+		super();
+		this.nome = nome;
+		this.numero = numero;
+		this.preco = preco;
+		this.estoque = estoque;
+		this.idEmpresa = empresa.getId();
 	}
 
 	public Long getId() {
