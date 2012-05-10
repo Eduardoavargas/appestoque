@@ -8,6 +8,8 @@ import javax.jdo.Query;
 import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dao.faturamento.ItemDAO;
+import br.com.appestoque.dominio.cadastro.Bairro;
+import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.suprimento.Produto;
 
 public class ProdutoDAO extends DAOGenerico<Produto, Long>{
@@ -73,6 +75,15 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long>{
 			throw new DAOException("Desculpe, mas este produto não pode ser excluido porque está vinculado a um pedido de venda.");
 		}
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public void excluir(Empresa empresa) {
+		Query query = getPm().newQuery(Produto.class);
+		List<Produto> objetos = null;
+		query.setFilter("idEmpresa == p_empresa ");
+		query.declareParameters("Long p_empresa");
+		objetos = (List<Produto>) query.execute(empresa.getId());
+		getPm().deletePersistentAll(objetos);
+	}
 	
 }
