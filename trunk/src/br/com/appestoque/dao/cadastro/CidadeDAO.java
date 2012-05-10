@@ -8,6 +8,7 @@ import javax.jdo.Query;
 import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dominio.cadastro.Cidade;
+import br.com.appestoque.dominio.cadastro.Empresa;
 
 public class CidadeDAO extends DAOGenerico<Cidade, Long>{
 
@@ -64,6 +65,27 @@ public class CidadeDAO extends DAOGenerico<Cidade, Long>{
 			throw new DAOException(bundle.getString("bairro.mensagem.cidade.vinculado"));
 		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public void excluir(Empresa empresa) {
+		Query query = getPm().newQuery(Cidade.class);
+		List<Cidade> objetos = null;
+		query.setFilter("idEmpresa == p_empresa ");
+		query.declareParameters("Long p_empresa");
+		objetos = (List<Cidade>) query.execute(empresa.getId());
+		getPm().deletePersistentAll(objetos);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Cidade pesquisar(String nome, Empresa empresa){
+		Query query = getPm().newQuery(Cidade.class);
+		List<Cidade> objetos = null;
+		if(nome!=null&&empresa!=null){
+			query.setFilter("nome == p_nome && idEmpresa == p_empresa ");
+			query.declareParameters("String p_nome , Long p_empresa");
+			objetos = (List<Cidade>) query.execute(nome,empresa.getId());
+		}	
+		return objetos.size()>0?objetos.get(0):null;
+	}
 	
 }

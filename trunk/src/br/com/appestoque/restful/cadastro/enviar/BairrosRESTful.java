@@ -18,14 +18,16 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.PMF;
+import br.com.appestoque.dao.cadastro.BairroDAO;
 import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dao.cadastro.RepresentanteDAO;
+import br.com.appestoque.dominio.cadastro.Bairro;
 import br.com.appestoque.dominio.cadastro.Cidade;
 import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.cadastro.Representante;
 
 @SuppressWarnings("serial")
-public class CidadesRESTful extends HttpServlet{
+public class BairrosRESTful extends HttpServlet{
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)	throws IOException {
 		processServer(request, response);
@@ -49,10 +51,16 @@ public class CidadesRESTful extends HttpServlet{
 					Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),representante.getIdEmpresa());
 					Empresa empresa = pm.getObjectById(Empresa.class, key);
 					CidadeDAO cidadeDAO  = new CidadeDAO(pm);
-					cidadeDAO.excluir(empresa);
+					BairroDAO bairroDAO  = new BairroDAO(pm);
+					bairroDAO.excluir(empresa);
 					JSONArray objetos = objeto.getJSONArray("objetos");
 					for (int i = 0; i <= objetos.length() - 1; ++i) {
-						cidadeDAO.adicionar(new Cidade(objetos.getJSONObject(i).getString("nome"),empresa));
+						String nome = objetos.getJSONObject(i).getString("nome");
+						String nomeCidade = objetos.getJSONObject(i).getString("cidade");
+						Cidade cidade = cidadeDAO.pesquisar(nomeCidade,empresa);
+						if(cidade!=null){
+							bairroDAO.adicionar(new Bairro(nome, cidade, empresa));
+						}
 					}				
 				}
 			} catch (JSONException e) {

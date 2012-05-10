@@ -31,6 +31,13 @@ public class Cidade implements Serializable{
 		this.nome = nome;
 		this.idEmpresa = idEmpresa;
 	}
+	
+	public Cidade(String nome, Empresa empresa) {
+		super();
+		this.nome = nome;
+		this.idEmpresa = empresa.getId();
+	}
+	
 
 	public Long getId() {
 		return id;
