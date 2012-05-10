@@ -331,6 +331,15 @@
 		<url-pattern>/api/enviar_bairros.json</url-pattern>
 	</servlet-mapping>
 
+    <servlet>
+		<servlet-name>ClientesRESTful</servlet-name>
+		<servlet-class>br.com.appestoque.restful.cadastro.enviar.ClientesRESTful</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ClientesRESTful</servlet-name>
+		<url-pattern>/api/enviar_clientes.json</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>ProdutosRESTful</servlet-name>
 		<servlet-class>br.com.appestoque.restful.suprimento.enviar.ProdutosRESTful</servlet-class>
