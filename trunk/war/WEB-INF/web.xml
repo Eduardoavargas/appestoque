@@ -309,5 +309,35 @@
     <welcome-file-list>
         <welcome-file>apresentacao.jsp</welcome-file>
     </welcome-file-list>
+    
+    
+    
+    <!--RESTful -->
+    <servlet>
+		<servlet-name>CidadesRESTful</servlet-name>
+		<servlet-class>br.com.appestoque.restful.cadastro.enviar.CidadesRESTful</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CidadesRESTful</servlet-name>
+		<url-pattern>/api/enviar_cidades.json</url-pattern>
+	</servlet-mapping>
+    
+    <servlet>
+		<servlet-name>BairrosRESTful</servlet-name>
+		<servlet-class>br.com.appestoque.restful.cadastro.enviar.BairrosRESTful</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BairrosRESTful</servlet-name>
+		<url-pattern>/api/enviar_bairros.json</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ProdutosRESTful</servlet-name>
+		<servlet-class>br.com.appestoque.restful.suprimento.enviar.ProdutosRESTful</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProdutosRESTful</servlet-name>
+		<url-pattern>/api/enviar_produtos.json</url-pattern>
+	</servlet-mapping>
 
 </web-app>
