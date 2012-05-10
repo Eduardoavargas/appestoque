@@ -61,6 +61,25 @@ public class Cliente implements Serializable{
 		this.idEmpresa = idEmpresa;
 		this.endereco = endereco;
 	}
+	
+	public Cliente(	String nome, 
+					String cnpj, 
+					String endereco,
+					String complemento, 
+					Integer numero, 
+					String cep, 
+					Bairro bairro,
+					Empresa empresa) {
+		super();
+		this.nome = nome;
+		this.cnpj = cnpj;
+		this.numero = numero;
+		this.cep = cep;
+		this.complemento = complemento;
+		this.idBairro = bairro.getId();
+		this.idEmpresa = empresa.getId();
+		this.endereco = endereco;
+	}
 
 	public Cliente() {
 		super();

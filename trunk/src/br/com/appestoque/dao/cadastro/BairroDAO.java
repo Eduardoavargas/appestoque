@@ -123,6 +123,14 @@ public class BairroDAO extends DAOGenerico<Bairro, Long>{
 		objetos = (List<Bairro>) query.execute(empresa.getId());
 		getPm().deletePersistentAll(objetos);
 	}
-
+	
+	public Bairro pesquisar(String nome, Empresa empresa){
+		List<Bairro> objetos;
+		Query query = getPm().newQuery(Bairro.class);
+		query.setFilter("nome == p_nome && idEmpresa == p_empresa ");
+		query.declareParameters("String p_nome, Long p_empresa");
+		objetos = (List<Bairro>) query.execute(nome,empresa.getId());
+		return objetos.size()>0?objetos.get(0):null;
+	}
 	
 }
