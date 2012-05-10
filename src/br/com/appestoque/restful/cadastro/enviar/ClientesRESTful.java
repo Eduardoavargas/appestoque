@@ -1,4 +1,4 @@
-package br.com.appestoque.restful.suprimento.enviar;
+package br.com.appestoque.restful.cadastro.enviar;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,14 +18,18 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.PMF;
+import br.com.appestoque.dao.cadastro.BairroDAO;
+import br.com.appestoque.dao.cadastro.ClienteDAO;
 import br.com.appestoque.dao.cadastro.RepresentanteDAO;
 import br.com.appestoque.dao.suprimento.ProdutoDAO;
+import br.com.appestoque.dominio.cadastro.Bairro;
+import br.com.appestoque.dominio.cadastro.Cliente;
 import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.dominio.cadastro.Representante;
 import br.com.appestoque.dominio.suprimento.Produto;
 
 @SuppressWarnings("serial")
-public class ProdutosRESTful extends HttpServlet{
+public class ClientesRESTful extends HttpServlet{
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)	throws IOException {
 		processServer(request, response);
@@ -48,14 +52,22 @@ public class ProdutosRESTful extends HttpServlet{
 				if(representante!=null){
 					Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),representante.getIdEmpresa());
 					Empresa empresa = pm.getObjectById(Empresa.class, key);
-					ProdutoDAO produtoDAO  = new ProdutoDAO(pm);
-					produtoDAO.excluir(empresa);
+					ClienteDAO clienteDAO  = new ClienteDAO(pm);
+					BairroDAO bairroDAO  = new BairroDAO(pm);
+					clienteDAO.excluir(empresa);
 					JSONArray objetos = objeto.getJSONArray("objetos");
 					for (int i = 0; i <= objetos.length() - 1; ++i) {
-						produtoDAO.adicionar( new Produto(objetos.getJSONObject(i).getString("nome"),
-								objetos.getJSONObject(i).getString("numero"),
-								objetos.getJSONObject(i).getDouble("preco"),
-								objetos.getJSONObject(i).getDouble("estoque"),empresa ));			
+						Bairro bairro = bairroDAO.pesquisar(objetos.getJSONObject(i).getString("bairro"), empresa);
+						if(bairro!=null){
+							clienteDAO.adicionar( new Cliente( objetos.getJSONObject(i).getString("nome"), 
+											objetos.getJSONObject(i).getString("cnpj"), 
+											objetos.getJSONObject(i).getString("endereco"),
+											objetos.getJSONObject(i).getString("complemento"), 
+											new Integer(objetos.getJSONObject(i).getInt("numero")), 
+											objetos.getJSONObject(i).getString("cep"), 
+											bairro,
+											empresa));
+						}
 					}				
 				}
 			} catch (JSONException e) {

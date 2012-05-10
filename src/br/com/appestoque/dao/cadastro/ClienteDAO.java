@@ -10,7 +10,9 @@ import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dao.faturamento.PedidoDAO;
 import br.com.appestoque.dominio.cadastro.Bairro;
+import br.com.appestoque.dominio.cadastro.Cidade;
 import br.com.appestoque.dominio.cadastro.Cliente;
+import br.com.appestoque.dominio.cadastro.Empresa;
 
 @SuppressWarnings("unchecked")
 public class ClienteDAO extends DAOGenerico<Cliente, Long>{
@@ -113,5 +115,13 @@ public class ClienteDAO extends DAOGenerico<Cliente, Long>{
 		}
 	}
 
+	public void excluir(Empresa empresa) {
+		Query query = getPm().newQuery(Cliente.class);
+		List<Cliente> objetos = null;
+		query.setFilter("idEmpresa == p_empresa ");
+		query.declareParameters("Long p_empresa");
+		objetos = (List<Cliente>) query.execute(empresa.getId());
+		getPm().deletePersistentAll(objetos);
+	}
 	
 }
