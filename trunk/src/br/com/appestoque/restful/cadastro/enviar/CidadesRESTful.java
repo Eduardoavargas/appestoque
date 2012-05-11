@@ -3,6 +3,7 @@ package br.com.appestoque.restful.cadastro.enviar;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ResourceBundle;
 
 import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServlet;
@@ -54,12 +55,13 @@ public class CidadesRESTful extends HttpServlet{
 					for (int i = 0; i <= objetos.length() - 1; ++i) {
 						cidadeDAO.adicionar(new Cidade(objetos.getJSONObject(i).getString("nome"),empresa));
 					}				
+				}else{
+					ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
+					throw new IOException(bundle.getString("app.mensagem.uuid.invalido"));
 				}
 			} catch (JSONException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}finally{
+				throw new IOException(e);
+			} finally{
 				pm.close();
 			}			
         }
