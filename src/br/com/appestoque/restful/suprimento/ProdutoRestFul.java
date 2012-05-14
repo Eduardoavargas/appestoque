@@ -50,6 +50,7 @@ public class ProdutoRestFul extends HttpServlet{
 				e.printStackTrace();
 			}
 			response.setContentType("application/json;charset=UTF-8");
+			response.setHeader("Content-Encoding", "gzip");
 			PrintWriter out = response.getWriter();
 			out.print(objetos);
 			out.flush();
