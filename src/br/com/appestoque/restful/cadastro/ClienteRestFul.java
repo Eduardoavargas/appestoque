@@ -60,36 +60,5 @@ public class ClienteRestFul extends HttpServlet{
 			out.flush();
 		}
 	}
-	    
 		
 }
-
-
-//
-//		CÓDIGO PARA RECEBER PEDIDO DO SMARTPHONE
-//
-//	     try {
-//	    	 
-//	    	BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
-//			String data = bufferedReader.readLine();
-//			System.out.println(data);
-//		
-//			JSONObject pedido = new JSONObject(data);
-//			System.out.println(pedido.getString("numero"));
-//			System.out.println(pedido.getString("data"));
-//			System.out.println(pedido.getLong("idRepresentante"));
-//			System.out.println(pedido.getLong("idCliente"));
-//			
-//			JSONArray itens = pedido.getJSONArray("itens");
-//			for (int i = 0; i <= itens.length() - 1; ++i) {
-//				System.out.println(itens.getJSONObject(i).getDouble("quantidade"));
-//				System.out.println(itens.getJSONObject(i).getDouble("valor"));
-//				System.out.println(itens.getJSONObject(i).getLong("idPedido"));
-//				System.out.println(itens.getJSONObject(i).getLong("idProduto"));
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		
-
