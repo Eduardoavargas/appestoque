@@ -14,16 +14,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
-import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.PMF;
 import br.com.appestoque.dao.cadastro.CidadeDAO;
-import br.com.appestoque.dao.cadastro.RepresentanteDAO;
+import br.com.appestoque.dao.cadastro.EmpresaDAO;
 import br.com.appestoque.dominio.cadastro.Cidade;
 import br.com.appestoque.dominio.cadastro.Empresa;
-import br.com.appestoque.dominio.cadastro.Representante;
 
 @SuppressWarnings("serial")
 public class CidadesRESTful extends HttpServlet{
@@ -44,11 +39,9 @@ public class CidadesRESTful extends HttpServlet{
 	        try {
 	        	pm = PMF.get().getPersistenceManager();
 				JSONObject objeto = new JSONObject(data);
-				RepresentanteDAO representanteDAO = new RepresentanteDAO(pm);
-				Representante representante = representanteDAO.pesquisar(objeto.getString("uuid"),TipoBusca.PREGUICOSA);
-				if(representante!=null){
-					Key key = KeyFactory.createKey(Empresa.class.getSimpleName(),representante.getIdEmpresa());
-					Empresa empresa = pm.getObjectById(Empresa.class, key);
+				EmpresaDAO empresaDAO = new EmpresaDAO(pm);
+				Empresa empresa = empresaDAO.pesquisar(objeto.getString("uuid"));
+				if(empresa!=null){
 					CidadeDAO cidadeDAO  = new CidadeDAO(pm);
 					cidadeDAO.excluir(empresa);
 					JSONArray objetos = objeto.getJSONArray("objetos");
