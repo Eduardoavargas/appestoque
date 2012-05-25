@@ -82,8 +82,13 @@ public class ProdutoDAO extends DAOGenerico<Produto, Long>{
 		List<Produto> objetos = null;
 		query.setFilter("idEmpresa == p_empresa ");
 		query.declareParameters("Long p_empresa");
+		query.setRange(1, 999);
 		objetos = (List<Produto>) query.execute(empresa.getId());
-		getPm().deletePersistentAll(objetos);
+		while(objetos.size()>0){
+			getPm().deletePersistentAll(objetos);
+			objetos = (List<Produto>) query.execute(empresa.getId());			
+		}
+		
 	}
 	
 }

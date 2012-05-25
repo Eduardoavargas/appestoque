@@ -43,11 +43,11 @@ public class LimparRESTful extends HttpServlet{
 						case 1: BairroDAO bairroDAO  = new BairroDAO(pm);
 								bairroDAO.excluir(empresa);
 								break;		
-						case 2: ClienteDAO clienteDAO  = new ClienteDAO(pm);
-								clienteDAO.excluir(empresa);
-								break;		
-						case 3: ProdutoDAO produtoDAO  = new ProdutoDAO(pm);
+						case 2: ProdutoDAO produtoDAO  = new ProdutoDAO(pm);
 								produtoDAO.excluir(empresa);
+								break;
+						case 3: ClienteDAO clienteDAO  = new ClienteDAO(pm);
+								clienteDAO.excluir(empresa);
 								break;		
 						default:
 							break;
