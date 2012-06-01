@@ -7,12 +7,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.AsyncDatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+
 import br.com.appestoque.dao.PMF;
 import br.com.appestoque.dao.cadastro.BairroDAO;
 import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
 import br.com.appestoque.dao.cadastro.EmpresaDAO;
-import br.com.appestoque.dao.suprimento.ProdutoDAO;
 import br.com.appestoque.dominio.cadastro.Empresa;
 
 @SuppressWarnings("serial")
@@ -43,8 +49,12 @@ public class LimparRESTful extends HttpServlet{
 						case 1: BairroDAO bairroDAO  = new BairroDAO(pm);
 								bairroDAO.excluir(empresa);
 								break;		
-						case 2: ProdutoDAO produtoDAO  = new ProdutoDAO(pm);
-								produtoDAO.excluir(empresa);
+						case 2: AsyncDatastoreService datastore = DatastoreServiceFactory.getAsyncDatastoreService();
+								Query query = new Query("Produto");
+								query.addFilter("idEmpresa", FilterOperator.EQUAL,empresa.getId());
+								for (Entity entity : datastore.prepare(query).asIterable()) {
+									datastore.delete(entity.getKey());
+								}
 								break;
 						case 3: ClienteDAO clienteDAO  = new ClienteDAO(pm);
 								clienteDAO.excluir(empresa);
