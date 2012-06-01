@@ -348,5 +348,17 @@
 		<servlet-name>ProdutosRESTful</servlet-name>
 		<url-pattern>/api/enviar_produtos.json</url-pattern>
 	</servlet-mapping>
+	
+	
+	
+	
+	<servlet>
+		<servlet-name>LimparRESTful</servlet-name>
+		<servlet-class>br.com.appestoque.restful.LimparRESTful</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LimparRESTful</servlet-name>
+		<url-pattern>/api/limpar</url-pattern>
+	</servlet-mapping>
 
 </web-app>
