@@ -79,8 +79,6 @@ public class ProdutosRESTful extends HttpServlet{
 					reader1.endObject();
 					
 					Entity produto = new Entity("Produto");
-					logger.log(Level.SEVERE, "PRODUTO: " + nome);
-					System.out.println("PRODUTO: " + nome);
 					produto.setProperty("nome",nome);
 					produto.setProperty("numero",numero);
 					produto.setProperty("preco", preco);
