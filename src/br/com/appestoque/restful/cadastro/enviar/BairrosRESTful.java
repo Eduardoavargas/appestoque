@@ -1,29 +1,28 @@
 package br.com.appestoque.restful.cadastro.enviar;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import br.com.appestoque.dao.PMF;
-import br.com.appestoque.dao.cadastro.BairroDAO;
-import br.com.appestoque.dao.cadastro.CidadeDAO;
-import br.com.appestoque.dao.cadastro.EmpresaDAO;
-import br.com.appestoque.dominio.cadastro.Bairro;
-import br.com.appestoque.dominio.cadastro.Cidade;
-import br.com.appestoque.dominio.cadastro.Empresa;
+import com.google.appengine.api.datastore.AsyncDatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.gson.stream.JsonReader;
 
 @SuppressWarnings("serial")
 public class BairrosRESTful extends HttpServlet{
+	
+	private static final Logger logger = Logger.getLogger(BairrosRESTful.class.getCanonicalName());
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)	throws IOException {
 		processServer(request, response);
@@ -33,39 +32,83 @@ public class BairrosRESTful extends HttpServlet{
 		processServer(request, response);
 	}
 	
-	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {	
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
-        String data = bufferedReader.readLine();
-        if(data!=null&&!data.equals("")){
-        	PersistenceManager pm = null;
-	        try {
-	        	pm = PMF.get().getPersistenceManager();
-				JSONObject objeto = new JSONObject(data);
-				EmpresaDAO empresaDAO = new EmpresaDAO(pm);
-				Empresa empresa = empresaDAO.pesquisar(objeto.getString("uuid"));
-				if(empresa!=null){
-					CidadeDAO cidadeDAO  = new CidadeDAO(pm);
-					BairroDAO bairroDAO  = new BairroDAO(pm);
-					bairroDAO.excluir(empresa);
-					JSONArray objetos = objeto.getJSONArray("objetos");
-					for (int i = 0; i <= objetos.length() - 1; ++i) {
-						String nome = objetos.getJSONObject(i).getString("nome");
-						String nomeCidade = objetos.getJSONObject(i).getString("cidade");
-						Cidade cidade = cidadeDAO.pesquisar(nomeCidade,empresa);
-						if(cidade!=null){
-							bairroDAO.adicionar(new Bairro(nome, cidade, empresa));
-						}
-					}				
+	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Long id = null;
+		String uuid = null;
+		JsonReader reader = new JsonReader(new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF8")));
+		AsyncDatastoreService datastore = DatastoreServiceFactory.getAsyncDatastoreService();
+		reader.beginObject();
+		while (reader.hasNext()) {
+			String name = reader.nextName();
+			if (name.equals("uuid")) {
+				uuid = reader.nextString();
+				Query query = new Query("Empresa");
+				query.addFilter("uuid",FilterOperator.EQUAL,uuid);
+				Entity empresa = datastore.prepare(query).asSingleEntity();
+				if(empresa!=null){					
+					id = empresa.getKey().getId();
 				}else{
-					ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
-					throw new IOException(bundle.getString("app.mensagem.uuid.invalido"));
+					logger.log(Level.SEVERE,"Tentativa de carreagar bairros com um UUID inválido.");					
+					throw new IOException();
 				}
-			} catch (JSONException e) {
-				throw new IOException(e);
-			}finally{
-				pm.close();
-			}			
-        }
+			} else if (name.equals("objetos")) {
+				String nome = null;
+				String nomeCidade = null;
+				String objetos = reader.nextString();
+				JsonReader reader1 = new JsonReader(new InputStreamReader(new ByteArrayInputStream(objetos.getBytes("UTF8")),"UTF-8"));
+				reader1.beginArray();
+				while (reader1.hasNext()) {
+					reader1.beginObject();
+					while (reader1.hasNext()) {
+						String name1 = reader1.nextName();
+						if (name1.equals("nome")) {
+							nome = reader1.nextString();
+						}else if (name1.equals("cidade")) {
+							nomeCidade = reader1.nextString();
+						}else {
+							reader1.skipValue();
+						}
+					}
+					
+					reader1.endObject();
+					
+					Entity cidade = null;
+					
+					try{
+						Query query = new Query("Cidade");
+						query.addFilter("nome",FilterOperator.EQUAL,nomeCidade);
+						query.addFilter("idEmpresa",FilterOperator.EQUAL,id);
+						cidade = datastore.prepare(query).asSingleEntity();
+					}catch(TooManyResultsException e){
+						Iterable<Entity> produtos = null;
+						Query query = new Query("Cidade");
+						query.addFilter("nome",FilterOperator.EQUAL,nomeCidade);
+						query.addFilter("idEmpresa",FilterOperator.EQUAL,id);
+						produtos = datastore.prepare(query).asIterable();
+						for (Entity entity : produtos) {
+							cidade = entity;
+							break;
+						}
+					}
+					
+					if(cidade!=null){
+						Entity bairro = new Entity("Bairro");
+						bairro.setProperty("nome",nome);
+						bairro.setProperty("idCidade",cidade.getKey().getId());
+						bairro.setProperty("idEmpresa",id);
+					    datastore.put(bairro);
+					}
+					
+				}
+				reader1.endArray();
+
+			} else {
+				reader.skipValue();
+			}
+		}
+		reader.endObject();
+		
 	}
 	
 }

@@ -44,9 +44,9 @@ public class ProdutosRESTful extends HttpServlet{
 				uuid = reader.nextString();
 				Query query = new Query("Empresa");
 				query.addFilter("uuid",FilterOperator.EQUAL,uuid);
-				Entity produto = datastore.prepare(query).asSingleEntity();
-				if(produto!=null){					
-					id = produto.getKey().getId();
+				Entity empresa = datastore.prepare(query).asSingleEntity();
+				if(empresa!=null){					
+					id = empresa.getKey().getId();
 				}else{
 					logger.log(Level.SEVERE,"UUID da empresa não pode ser identificado no envio de produtos");
 					throw new IOException();

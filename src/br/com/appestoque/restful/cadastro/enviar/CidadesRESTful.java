@@ -20,18 +20,6 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.gson.stream.JsonReader;
 
-//import org.json.JSONArray;
-//import org.json.JSONException;
-//import org.json.JSONObject;
-//import javax.jdo.PersistenceManager;
-//import java.util.ResourceBundle;
-//import br.com.appestoque.dao.PMF;
-//import br.com.appestoque.dao.cadastro.CidadeDAO;
-//import br.com.appestoque.dao.cadastro.EmpresaDAO;
-//import br.com.appestoque.dominio.cadastro.Cidade;
-//import br.com.appestoque.dominio.cadastro.Empresa;
-//import br.com.appestoque.restful.suprimento.enviar.ProdutosRESTful;
-
 @SuppressWarnings("serial")
 public class CidadesRESTful extends HttpServlet{
 	
@@ -58,9 +46,9 @@ public class CidadesRESTful extends HttpServlet{
 				uuid = reader.nextString();
 				Query query = new Query("Empresa");
 				query.addFilter("uuid",FilterOperator.EQUAL,uuid);
-				Entity produto = datastore.prepare(query).asSingleEntity();
-				if(produto!=null){					
-					id = produto.getKey().getId();
+				Entity empresa = datastore.prepare(query).asSingleEntity();
+				if(empresa!=null){					
+					id = empresa.getKey().getId();
 				}else{
 					logger.log(Level.SEVERE,"UUID da empresa não pode ser identificado no envio de cidades");
 					throw new IOException();
@@ -96,36 +84,6 @@ public class CidadesRESTful extends HttpServlet{
 			}
 		}
 		reader.endObject();
-		
-		
-		
-//		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream()));
-//        String data = bufferedReader.readLine();
-//        if(data!=null&&!data.equals("")){
-//        	PersistenceManager pm = null;
-//	        try {
-//	        	pm = PMF.get().getPersistenceManager();
-//				JSONObject objeto = new JSONObject(data);
-//				EmpresaDAO empresaDAO = new EmpresaDAO(pm);
-//				Empresa empresa = empresaDAO.pesquisar(objeto.getString("uuid"));
-//				if(empresa!=null){
-//					CidadeDAO cidadeDAO  = new CidadeDAO(pm);
-//					cidadeDAO.excluir(empresa);
-//					JSONArray objetos = objeto.getJSONArray("objetos");
-//					for (int i = 0; i <= objetos.length() - 1; ++i) {
-//						cidadeDAO.adicionar(new Cidade(objetos.getJSONObject(i).getString("nome"),empresa));
-//					}				
-//				}else{
-//					ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
-//					throw new IOException(bundle.getString("app.mensagem.uuid.invalido"));
-//				}
-//			} catch (JSONException e) {
-//				throw new IOException(e);
-//			} finally{
-//				pm.close();
-//			}			
-//        }
-        
         
 	}
 	
