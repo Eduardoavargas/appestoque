@@ -19,7 +19,10 @@
 	<app:texto id="numero" nome="numero" tamanho="20" valor="<%=objeto.getNumero()%>"/></p>
 	
 	<%=bundle.getString("pedido.data")%>:<br/>
-	<fmt:formatDate value="<%=objeto.getData()%>" pattern="dd/MM/yyyy"/>
+	<fmt:formatDate value="<%=objeto.getData()%>" pattern="dd/MM/yyyy"/></p>
+	
+	<%=bundle.getString("pedido.obs")%>:<br/>
+	<app:texto id="obs" nome="obs" tamanho="50" valor="<%=objeto.getObs()%>"/></p>
 	
 <%-- 	<%=bundle.getString("pedido.cliente")%>:<br/> --%>
 <!-- 	<select name="idCliente" id="idCliente" class="text ui-widget-content ui-corner-all" style="cursor:pointer; width: 300px;"> -->
