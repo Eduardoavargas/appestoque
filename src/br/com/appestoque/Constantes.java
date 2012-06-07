@@ -8,7 +8,7 @@ public class Constantes {
 	
 	public static final String VERSAO = "beta 1.0";
 	
-	public static final String URL = "http://2.appestoque.appspot.com";
+	public static final String URL = "http://appestoque.appspot.com";
 	public static final String URI_CONFIRMAR = "/processo?acao=confirmar";
 	public static final String URI_PEDIDO_VENDA = "/RESTFul/relatorioPedido";
 	
