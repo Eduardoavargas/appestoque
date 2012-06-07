@@ -44,7 +44,6 @@ public class ClienteRestFul extends HttpServlet{
 			JSONArray objetos = new JSONArray();
 			try {
 				for (Cliente cliente : clienteDAO.listar(empresa.getId(),TipoBusca.ANSIOSA)) {
-					logger.log(Level.SEVERE,"Cliente: " + cliente.getNome());
 					JSONObject objeto = new JSONObject();
 					objeto.put("_id",cliente.getId());			
 					objeto.put("nome",cliente.getNome());
