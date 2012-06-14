@@ -137,27 +137,34 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 	        font = new Font(pdf,CoreFont.HELVETICA);
 	        font.setSize(7.0);
 	        
-	        textLine = new TextLine(font,"12456-A");  
+	        textLine = new TextLine(font,this.pedido.getNumero());  
 	        textLine.setPosition(left,top);                 
 	        textLine.drawOn(page);
 	        
-	        textLine = new TextLine(font,"29/05/2012");  
+	        
+	        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constantes.MASCARA_DATA_PADRAO);
+			simpleDateFormat.setTimeZone(TimeZone.getTimeZone(Constantes.GMT_BRASIL));
+			
+	        textLine = new TextLine(font,simpleDateFormat.format(this.pedido.getData()));  
 	        textLine.setPosition(left+50,top);                      
 	        textLine.drawOn(page);
 	        
-	        textLine = new TextLine(font,"14:41");  
+	        simpleDateFormat = new SimpleDateFormat(Constantes.MASCARA_HORA_PADRAO);
+			simpleDateFormat.setTimeZone(TimeZone.getTimeZone(Constantes.GMT_BRASIL));
+	        
+	        textLine = new TextLine(font,simpleDateFormat.format(this.pedido.getData()));  
 	        textLine.setPosition(left+100,top);                     
 	        textLine.drawOn(page);
 	        
-	        textLine = new TextLine(font,"Luiz Fernando Henrique Cardoso");  
+	        textLine = new TextLine(font,this.pedido.getCliente().getNome());  
 	        textLine.setPosition(left+150,top);                     
 	        textLine.drawOn(page);
 	        
-	        textLine = new TextLine(font,"Edson Arantes do Nascimento");  
+	        textLine = new TextLine(font,this.pedido.getRepresentante().getNome());  
 	        textLine.setPosition(left+300,top);                     
 	        textLine.drawOn(page);
 	        
-	        textLine = new TextLine(font,"Urgência na entrega");  
+	        textLine = new TextLine(font,this.pedido.getObs());  
 	        textLine.setPosition(left+420,top);                     
 	        textLine.drawOn(page);
 			
