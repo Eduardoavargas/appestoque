@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
 import br.com.appestoque.dao.cadastro.RepresentanteDAO;
@@ -97,5 +98,36 @@ public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 		
 		return objeto;
 	}
+
+	@SuppressWarnings("unchecked")
+	public Pedido pesquisar(Long id , TipoBusca tipoBusca) {
+		Query query = getPm().newQuery(Pedido.class);
+		List<Pedido> objetos = null;
+		query.setFilter("id == p_id ");
+		query.declareParameters("Long p_id");
+		objetos = (List<Pedido>) query.execute(id);
+		
+		Pedido objeto = objetos.get(0);
+		
+		/*localizando cliente*/
+		if(objeto.getIdCliente()!=null&&tipoBusca.equals(TipoBusca.ANSIOSA)){
+			ClienteDAO clientedao = new ClienteDAO(getPm());
+			objeto.setCliente(clientedao.pesquisar(objeto.getIdCliente()));
+		}
+		
+		/*localizando representante*/
+		if(objeto.getIdRepresentante()!=null&&tipoBusca.equals(TipoBusca.ANSIOSA)){
+			RepresentanteDAO representanteDAO = new RepresentanteDAO(getPm());
+			objeto.setRepresentante(representanteDAO.pesquisar(objeto.getIdRepresentante()));
+		}
+		
+		/*localizando itens*/
+		ItemDAO itemDAO = new ItemDAO(getPm());
+		objeto.setItens(itemDAO.pesquisar(objeto)); 
+		
+		return objeto;
+	}
+
+	
 	
 }

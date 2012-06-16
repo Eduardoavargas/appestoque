@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.appestoque.Constantes;
+import br.com.appestoque.TipoBusca;
 import br.com.appestoque.comum.Pagina;
 import br.com.appestoque.controle.BaseControle;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
@@ -96,7 +97,7 @@ public class PedidoControle extends BaseControle{
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_PEDIDO_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
-			objeto = dao.pesquisar(new Long(request.getParameter("id")));
+			objeto = dao.pesquisar(new Long(request.getParameter("id")),TipoBusca.ANSIOSA);
 			request.setAttribute("idCliente",objeto.getIdCliente());
 			request.setAttribute("idRepresentante",objeto.getIdRepresentante());
 			request.setAttribute("objeto",objeto);
