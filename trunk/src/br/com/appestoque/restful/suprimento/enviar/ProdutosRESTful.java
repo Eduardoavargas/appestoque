@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.gson.stream.JsonReader;
 
@@ -78,13 +80,32 @@ public class ProdutosRESTful extends HttpServlet{
 					
 					reader1.endObject();
 					
-					Entity produto = new Entity("Produto");
-					produto.setProperty("nome",nome);
-					produto.setProperty("numero",numero);
-					produto.setProperty("preco", preco);
-					produto.setProperty("estoque", estoque);
-					produto.setProperty("idEmpresa", id);
-				    datastore.put(produto);
+					try{
+					
+						Query query = new Query("Produto");
+						query.addFilter("idEmpresa",FilterOperator.EQUAL,id);
+						query.addFilter("numero",FilterOperator.EQUAL,numero);
+						PreparedQuery preparedQuery = datastore.prepare(query);
+						Entity produto = preparedQuery.asSingleEntity();
+						
+						if(produto==null){
+							produto = new Entity("Produto");
+							produto.setProperty("nome",nome);
+							produto.setProperty("numero",numero);
+							produto.setProperty("preco", preco);
+							produto.setProperty("estoque", estoque);
+							produto.setProperty("idEmpresa", id);
+							datastore.put(produto);
+						}else if(!produto.getProperty("nome").equals(nome)||!produto.getProperty("preco").equals(preco)){
+							produto.setProperty("nome",nome);
+							produto.setProperty("preco", preco);
+							datastore.put(produto);
+						}
+					
+					}catch(TooManyResultsException e){
+						logger.log(Level.SEVERE, "Número do produto: " + numero );
+						throw e;
+					}
 					
 				}
 				reader1.endArray();
