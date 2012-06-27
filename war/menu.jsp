@@ -2,6 +2,9 @@
 
 <div align="center" style="width: 100%;">
 
+
+
+	<!--  
 	<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js">		
 	</script>
 
@@ -124,6 +127,8 @@
 			}).render().setUser('uol_noticias').start();
 		</script>
 	</div>
+	
+	-->
 
 </div>
 <%@include file="/modelo/fim.jspf"%>
