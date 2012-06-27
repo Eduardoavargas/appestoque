@@ -2,10 +2,10 @@
 
 <script type="text/javascript">
 
-	$("#formListar img[title]").tooltip({
-		   offset: [10, 2],
-		   effect: 'slide'	
-	});
+// 	$("#formListar img[title]").tooltip({
+// 		   offset: [10, 2],
+// 		   effect: 'slide'	
+// 	});
 
 	function showRSS(str){
 		if (str.length==0)
