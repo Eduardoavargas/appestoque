@@ -73,7 +73,7 @@
 		<url-pattern>/upload</url-pattern>
 	</filter-mapping>
 	
-	
+	<!--  
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
 		<url-pattern>/RESTFul/produto/*</url-pattern>
@@ -82,6 +82,8 @@
 		<filter-name>filtro</filter-name>
 		<url-pattern>/RESTFul/cliente/*</url-pattern>
 	</filter-mapping>
+	-->
+	
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
 		<url-pattern>/RESTFul/pedido/*</url-pattern>
