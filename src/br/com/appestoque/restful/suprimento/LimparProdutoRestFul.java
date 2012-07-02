@@ -53,9 +53,8 @@ public class LimparProdutoRestFul extends BaseRESTFul{
 			if(empresa!=null){					
 				HashCode hashCode = new HashCode();
 				if(hashCode.processar(empresa.getProperty("cnpj").toString()).equals(hash)){
-					Long idEmpresa = (Long) empresa.getProperty("id");
 					query = new Query("Produto");
-					query.addFilter("idEmpresa", FilterOperator.EQUAL,idEmpresa);
+					query.addFilter("idEmpresa", FilterOperator.EQUAL,empresa.getKey().getId());
 					for (Entity entity : datastore.prepare(query).asIterable()) {
 						datastore.delete(entity.getKey());
 					}
