@@ -5,13 +5,17 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import java.security.InvalidKeyException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-
-import javax.servlet.http.HttpServlet;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import br.com.appestoque.BaseServlet;
+import br.com.appestoque.seguranca.Criptografia;
+import br.com.appestoque.seguranca.HashCode;
 
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -20,37 +24,37 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.gson.stream.JsonReader;
 
-@SuppressWarnings("serial")
-public class CidadesRESTful extends HttpServlet{
-	
-	private static final Logger logger = Logger.getLogger(CidadesRESTful.class.getCanonicalName());
-
-	public void doGet(HttpServletRequest request, HttpServletResponse response)	throws IOException {
-		processServer(request, response);
-	}
-	
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		processServer(request, response);
-	}
+public class CidadesRESTful extends BaseServlet{
 	
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		Long id = null;
 		String uuid = null;
+		Entity empresa = null;
 		JsonReader reader = new JsonReader(new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF8")));
 		AsyncDatastoreService datastore = DatastoreServiceFactory.getAsyncDatastoreService();
 		reader.beginObject();
 		while (reader.hasNext()) {
 			String name = reader.nextName();
-			if (name.equals("uuid")) {
-				uuid = reader.nextString();
+			if (name.equals("cripto")) {
+				Criptografia criptografia = new Criptografia();
+				try {
+					String temp = new String(reader.nextString());
+					uuid = criptografia.descriptografar(temp.getBytes());
+				} catch (InvalidKeyException e) {
+					e.printStackTrace();
+				} catch (BadPaddingException e) {
+					e.printStackTrace();
+				} catch (IllegalBlockSizeException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (name.equals("hash")) {
+				HashCode hashCode = new HashCode();
 				Query query = new Query("Empresa");
 				query.addFilter("uuid",FilterOperator.EQUAL,uuid);
-				Entity empresa = datastore.prepare(query).asSingleEntity();
-				if(empresa!=null){					
-					id = empresa.getKey().getId();
-				}else{
-					logger.log(Level.SEVERE,"UUID da empresa não pode ser identificado no envio de cidades");
+				empresa = datastore.prepare(query).asSingleEntity();
+				if(!reader.nextString().equals(hashCode.processar(empresa.getProperty("cnpj").toString()))){
+					logger.log(Level.SEVERE,bundle.getString("app.mensagem.hash.invalido"));
 					throw new IOException();
 				}
 			} else if (name.equals("objetos")) {
@@ -68,17 +72,13 @@ public class CidadesRESTful extends HttpServlet{
 							reader1.skipValue();
 						}
 					}
-					
 					reader1.endObject();
-					
 					Entity cidade = new Entity("Cidade");
 					cidade.setProperty("nome",nome);
-					cidade.setProperty("idEmpresa", id);
+					cidade.setProperty("idEmpresa",empresa.getKey().getId());
 				    datastore.put(cidade);
-					
 				}
 				reader1.endArray();
-
 			} else {
 				reader.skipValue();
 			}
