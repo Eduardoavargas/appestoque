@@ -78,7 +78,6 @@ public class CidadesRESTful extends BaseServlet{
 						}
 					}
 					reader1.endObject();
-					
 					Query query = new Query("Cidade");
 					query.setFilter(CompositeFilterOperator.and(
 						     new FilterPredicate("nome",FilterOperator.EQUAL,nome),
@@ -97,7 +96,6 @@ public class CidadesRESTful extends BaseServlet{
 			}
 		}
 		reader.endObject();
-        
 	}
 	
 }

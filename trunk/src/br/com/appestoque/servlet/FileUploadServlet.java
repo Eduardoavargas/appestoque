@@ -73,7 +73,6 @@ public class FileUploadServlet extends HttpServlet{
 								produto.setNome(getTagValue("nome", element)!=null?getTagValue("nome", element):"");
 								produto.setNumero(getTagValue("numero", element));
 								produto.setPreco(new Double(getTagValue("preco", element)));
-								produto.setEstoque(new Double(getTagValue("estoque", element)));
 								produto.setIdEmpresa(usuario.getIdEmpresa());
 								System.out.println( produto.getNome() );
 								produtos.add(produto);

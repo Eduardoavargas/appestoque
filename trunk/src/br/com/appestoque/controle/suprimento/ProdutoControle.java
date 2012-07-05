@@ -25,7 +25,6 @@ public class ProdutoControle extends BaseControle{
 	private ProdutoDAO dao = null;	
 	private String nome = null;
 	private Double preco = null;
-	private Double estoque = null;
 	private Produto objeto = null;
 	private List<Produto> objetos = null; 
 
@@ -102,8 +101,7 @@ public class ProdutoControle extends BaseControle{
 			nome = request.getParameter("nome");
 			numero = request.getParameter("numero");
 			preco = Double.parseDouble(request.getParameter("preco").replace(".", "").replace(",", "."));
-			estoque = Double.parseDouble(request.getParameter("estoque").replace(".", "").replace(",", "."));
-			objeto = new Produto(nome,numero,preco,estoque,getId(request));
+			objeto = new Produto(nome,numero,preco,getId(request));
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());

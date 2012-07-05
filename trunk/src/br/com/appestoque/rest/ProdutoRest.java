@@ -33,7 +33,6 @@ public class ProdutoRest extends HttpServlet{
 				objeto.put("nome",produto.getNome());
 				objeto.put("numero",produto.getNumero());
 				objeto.put("preco",produto.getPreco());
-				objeto.put("estoque",produto.getEstoque());
 				objetos.put(objeto);
 			}
 		}catch(JSONException e) {
