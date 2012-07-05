@@ -84,7 +84,7 @@ public class BairrosRESTful extends BaseServlet{
 					query.setFilter(CompositeFilterOperator.and(new FilterPredicate("nome",FilterOperator.EQUAL,nomeCidade),
 							new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())));
 					Entity cidade = datastore.prepare(query).asSingleEntity();
-					if(cidade==null){
+					if(cidade!=null){
 						Long idCidade = cidade.getKey().getId();
 						query = new Query("Bairro");
 						query.setFilter(CompositeFilterOperator.and(
@@ -107,7 +107,6 @@ public class BairrosRESTful extends BaseServlet{
 			}
 		}
 		reader.endObject();
-        
 	}
 	
 }

@@ -28,9 +28,6 @@ public class Produto implements Serializable{
 	private Double preco = new Double(0);
 	
 	@Persistent
-	private Double estoque = new Double(0);
-	
-	@Persistent
 	private Long idEmpresa;
 	
 	public Produto(){
@@ -40,23 +37,20 @@ public class Produto implements Serializable{
 	public Produto(	String nome, 
 					String numero, 
 					Double preco, 
-					Double estoque, 
 					Long idEmpresa) {
 		super();
 		this.nome = nome;
 		this.numero = numero;
 		this.preco = preco;
-		this.estoque = estoque;
 		this.idEmpresa = idEmpresa;
 	}
 	
-	public Produto(String nome, String numero, Double preco, Double estoque,
+	public Produto(String nome, String numero, Double preco, 
 			Empresa empresa) {
 		super();
 		this.nome = nome;
 		this.numero = numero;
 		this.preco = preco;
-		this.estoque = estoque;
 		this.idEmpresa = empresa.getId();
 	}
 
@@ -92,14 +86,6 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 	
-	public Double getEstoque() {
-		return estoque;
-	}
-
-	public void setEstoque(Double estoque) {
-		this.preco = estoque;
-	}
-
 	public Long getIdEmpresa() {
 		return idEmpresa;
 	}
