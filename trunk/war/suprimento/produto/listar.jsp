@@ -41,7 +41,6 @@
 			<td><%=bundle.getString("produto.nome")%></td>
 			<td><%=bundle.getString("produto.numero")%></td>
 			<td align="right"><%=bundle.getString("produto.preco")%></td>
-			<td align="right"><%=bundle.getString("produto.estoque")%></td>
 			<td width="15%"/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
@@ -50,7 +49,6 @@
 				<td><%=objeto.getNome()%></td>
 				<td><%=objeto.getNumero()%></a></td>
 				<td align="right"><fmt:formatNumber value="<%=objeto.getPreco()%>" type="currency" pattern="<%=br.com.appestoque.Constantes.MASCARA_PRECO%>"/></td>
-				<td align="right"><fmt:formatNumber value="<%=objeto.getEstoque()%>" type="currency" pattern="<%=br.com.appestoque.Constantes.MASCARA_ESTOQUE%>"/></td>
 				<td align="center" >
 					<a id="edt" href="/produtoControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
 					<a href="/produtoControle?acao=remover&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.remover")%>" src="img/remover.png" style="border: 0px;"/></a>

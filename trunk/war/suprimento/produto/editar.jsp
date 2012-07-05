@@ -29,9 +29,6 @@
 				}else if(document.getElementById('preco').value.length==0){
 					alert('<%=bundle.getString("produto.mensagem.validar.preco")%>');
 					document.getElementById('preco').focus();
-				}else if(document.getElementById('estoque').value.length==0){
-					alert('<%=bundle.getString("produto.mensagem.validar.estoque")%>');
-					document.getElementById('estoque').focus();
 				}else{
 					document.forms[0].submit();	
 				}
@@ -49,9 +46,6 @@
 	</p>
 	<%=bundle.getString("produto.preco")%>:<br />
 	<app:valor id="preco" nome="preco" tamanho="10" valor="<%=numberFormat.format(objeto.getPreco())%>" precisao="<%=br.com.appestoque.Constantes.PRECISAO_VALOR.toString()%>"/>	
-	</p>
-	<%=bundle.getString("produto.estoque")%>:<br />
-	<app:valor id="estoque" nome="estoque" tamanho="10" valor="<%=numberFormat.format(objeto.getEstoque())%>" precisao="<%=br.com.appestoque.Constantes.PRECISAO_VALOR.toString()%>"/>
 	</p>
 	<hr>
 </form>
