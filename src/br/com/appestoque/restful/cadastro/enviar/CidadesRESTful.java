@@ -24,8 +24,13 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.gson.stream.JsonReader;
 
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
+
 public class CidadesRESTful extends BaseServlet{
 	
+	private static final long serialVersionUID = 1752696538826988071L;
+
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String uuid = null;
 		Entity empresa = null;
@@ -51,7 +56,7 @@ public class CidadesRESTful extends BaseServlet{
 			} else if (name.equals("hash")) {
 				HashCode hashCode = new HashCode();
 				Query query = new Query("Empresa");
-				query.addFilter("uuid",FilterOperator.EQUAL,uuid);
+				query.setFilter(new FilterPredicate("uuid",FilterOperator.EQUAL,uuid));
 				empresa = datastore.prepare(query).asSingleEntity();
 				if(!reader.nextString().equals(hashCode.processar(empresa.getProperty("cnpj").toString()))){
 					logger.log(Level.SEVERE,bundle.getString("app.mensagem.hash.invalido"));
@@ -73,10 +78,18 @@ public class CidadesRESTful extends BaseServlet{
 						}
 					}
 					reader1.endObject();
-					Entity cidade = new Entity("Cidade");
-					cidade.setProperty("nome",nome);
-					cidade.setProperty("idEmpresa",empresa.getKey().getId());
-				    datastore.put(cidade);
+					
+					Query query = new Query("Cidade");
+					query.setFilter(CompositeFilterOperator.and(
+						     new FilterPredicate("nome",FilterOperator.EQUAL,nome),
+						     new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())));
+					Entity cidade = datastore.prepare(query).asSingleEntity();
+					if(cidade==null){
+						cidade = new Entity("Cidade");
+						cidade.setProperty("nome",nome);
+						cidade.setProperty("idEmpresa",empresa.getKey().getId());
+					    datastore.put(cidade);
+					}
 				}
 				reader1.endArray();
 			} else {
