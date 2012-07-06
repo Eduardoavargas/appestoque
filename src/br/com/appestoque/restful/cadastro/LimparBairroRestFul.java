@@ -14,6 +14,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 import br.com.appestoque.restful.BaseRESTFul;
 import br.com.appestoque.seguranca.Criptografia;
@@ -48,13 +49,13 @@ public class LimparBairroRestFul extends BaseRESTFul{
 			
 			AsyncDatastoreService datastore = DatastoreServiceFactory.getAsyncDatastoreService();
 			Query query = new Query("Empresa");
-			query.addFilter("uuid",FilterOperator.EQUAL,uuid);
+			query.setFilter(new FilterPredicate("uuid",FilterOperator.EQUAL,uuid));
 			Entity empresa = datastore.prepare(query).asSingleEntity();
 			if(empresa!=null){					
 				HashCode hashCode = new HashCode();
 				if(hashCode.processar(empresa.getProperty("cnpj").toString()).equals(hash)){
 					query = new Query("Bairro");
-					query.addFilter("idEmpresa", FilterOperator.EQUAL,empresa.getKey().getId());
+					query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId()));
 					for (Entity entity : datastore.prepare(query).asIterable()) {
 						datastore.delete(entity.getKey());
 					}
