@@ -30,7 +30,7 @@ import com.google.gson.stream.JsonReader;
 public class ProdutosRESTful extends BaseServlet{
 	
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+		super.processServer(request, response);
 		String uuid = null;
 		Entity empresa = null;
 		JsonReader reader = new JsonReader(new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF8")));

@@ -29,6 +29,7 @@ import com.google.gson.stream.JsonReader;
 public class BairrosRESTful extends BaseServlet{
 	
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		super.processServer(request, response);
 		String uuid = null;
 		Entity empresa = null;
 		Query query = null;
