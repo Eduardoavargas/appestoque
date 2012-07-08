@@ -20,6 +20,9 @@ public class Cliente implements Serializable{
 	private String nome;
 	
 	@Persistent
+	private String razao;
+	
+	@Persistent
 	private String cnpj;
 	
 	@Persistent
@@ -63,6 +66,7 @@ public class Cliente implements Serializable{
 	}
 	
 	public Cliente(	String nome, 
+					String razao,
 					String cnpj, 
 					String endereco,
 					String complemento, 
@@ -72,6 +76,7 @@ public class Cliente implements Serializable{
 					Empresa empresa) {
 		super();
 		this.nome = nome;
+		this.razao = razao;
 		this.cnpj = cnpj;
 		this.numero = numero;
 		this.cep = cep;
@@ -99,6 +104,14 @@ public class Cliente implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public String getRazao() {
+		return razao;
+	}
+
+	public void setRazao(String razao) {
+		this.razao = razao;
 	}
 
 	public String getCnpj() {

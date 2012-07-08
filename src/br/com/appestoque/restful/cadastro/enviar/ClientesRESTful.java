@@ -69,6 +69,7 @@ public class ClientesRESTful extends BaseServlet{
 				while (reader1.hasNext()) {
 					
 					String nome = null;
+					String razao = null;
 					String cnpj = null;
 					String endereco = null;
 					String complemento = null;
@@ -81,6 +82,8 @@ public class ClientesRESTful extends BaseServlet{
 						String name1 = reader1.nextName();
 						if (name1.equals("nome")) {
 							nome = reader1.nextString();
+						}else if (name1.equals("razao")) {
+							razao = reader1.nextString();
 						}else if (name1.equals("cnpj")) {
 							cnpj = reader1.nextString();
 						}else if (name1.equals("endereco")) {
@@ -118,16 +121,41 @@ public class ClientesRESTful extends BaseServlet{
 						}
 					}
 					
-					Entity cliente = new Entity("Cliente");
-					cliente.setProperty("nome",nome);
-					cliente.setProperty("cnpj",cnpj);
-					cliente.setProperty("endereco",endereco);
-					cliente.setProperty("complemento",complemento);
-					cliente.setProperty("numero",numero);
-					cliente.setProperty("cep",cep);
-					cliente.setProperty("idBairro",bairro.getKey().getId());
-					cliente.setProperty("idEmpresa", empresa.getKey().getId());
-				    datastore.put(cliente);
+					if(bairro!=null){
+						Entity cliente = null;
+						query = new Query("Cliente");
+						query.setFilter(CompositeFilterOperator.and(new FilterPredicate("cnpj",FilterOperator.EQUAL,cnpj),
+								new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())));
+						cliente = datastore.prepare(query).asSingleEntity();
+						if(cliente==null){
+							cliente = new Entity("Cliente");
+							cliente.setProperty("nome",nome);
+							cliente.setProperty("razao",razao);
+							cliente.setProperty("cnpj",cnpj);
+							cliente.setProperty("endereco",endereco);
+							cliente.setProperty("complemento",complemento);
+							cliente.setProperty("numero",numero);
+							cliente.setProperty("cep",cep);
+							cliente.setProperty("idBairro",bairro.getKey().getId());
+							cliente.setProperty("idEmpresa", empresa.getKey().getId());
+						    datastore.put(cliente);
+						}else if(!cliente.getProperty("nome").equals(nome)
+								||!cliente.getProperty("razao").equals(razao)
+								||!cliente.getProperty("endereco").equals(endereco)
+								||!cliente.getProperty("complemento").equals(complemento)
+								||!cliente.getProperty("numero").equals(numero)
+								||!cliente.getProperty("cep").equals(cep)
+								||!cliente.getProperty("idBairro").equals(bairro.getKey().getId())){
+							cliente.setProperty("nome",nome);
+							cliente.setProperty("cnpj",cnpj);
+							cliente.setProperty("endereco",endereco);
+							cliente.setProperty("complemento",complemento);
+							cliente.setProperty("numero",numero);
+							cliente.setProperty("cep",cep);
+							cliente.setProperty("idBairro",bairro.getKey().getId());
+							datastore.put(cliente);
+						}
+					}
 					
 				}
 				reader1.endArray();
