@@ -61,6 +61,16 @@ public class UsuarioDAO extends DAOGenerico<Usuario, Long> {
 		return usuarios;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> listar(Long idEmpresa){
+		Query query = getPm().newQuery(Usuario.class);
+		List<Usuario> usuarios = null;
+		query.setFilter(" idEmpresa == p_empresa ");
+		query.declareParameters("Long p_empresa");
+		usuarios = (List<Usuario>) query.execute(idEmpresa);
+		return usuarios;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public Usuario pesquisar(String serial){
 		Query query = getPm().newQuery(Usuario.class);

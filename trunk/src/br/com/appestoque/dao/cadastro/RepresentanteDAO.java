@@ -57,9 +57,9 @@ public class RepresentanteDAO extends DAOGenerico<Representante, Long>{
 			query.declareParameters("String p_cpf , Long p_empresa");
 		}else {
 			query.setFilter("idEmpresa == p_empresa ");
-			query.declareParameters("String p_empresa");
+			query.declareParameters("Long p_empresa");
 		}
-		objetos = (List<Representante>)(cpf!=null?query.execute(cpf,idEmpresa):query.execute(idEmpresa));		
+		objetos = (List<Representante>)(cpf!=null?query.execute(cpf,idEmpresa):query.execute(idEmpresa));
 		if (tipoBusca.equals(TipoBusca.ANSIOSA)) {
 			BairroDAO bairroDAO = new BairroDAO(this.getPm());
 			for (int i = 0; i < objetos.size(); i++) {

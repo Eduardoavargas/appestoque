@@ -19,6 +19,7 @@ import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.cadastro.BairroDAO;
 import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dao.cadastro.RepresentanteDAO;
+import br.com.appestoque.dao.seguranca.UsuarioDAO;
 import br.com.appestoque.dominio.cadastro.Bairro;
 import br.com.appestoque.dominio.cadastro.Representante;
 
@@ -26,6 +27,7 @@ import br.com.appestoque.dominio.cadastro.Representante;
 public class RepresentanteControle extends BaseControle{
 
 	private CidadeDAO cidadeDAO = null;
+	private UsuarioDAO usuarioDAO = null;
 	private RepresentanteDAO dao = null;
 	private int primeiroRegistro;
 	private List<Representante> objetos = null;
@@ -100,8 +102,11 @@ public class RepresentanteControle extends BaseControle{
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
 			
+			usuarioDAO = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));
+			request.setAttribute("usuarios", usuarioDAO.listar(getId(request)));
+			
 			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
-			request.setAttribute("cidades", cidadeDAO.listar());
+			request.setAttribute("cidades", cidadeDAO.listar(getId(request)));
 			
 			request.setAttribute("bairros", null);
 			
@@ -109,10 +114,14 @@ public class RepresentanteControle extends BaseControle{
 			request.setAttribute("objeto", objeto);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_REPRESENTANTE_EDITAR);
 			dispatcher.forward(request, response);
+			
 		} else if(request.getParameter("acao").equals("editar")) {
 			
+			usuarioDAO = new UsuarioDAO((PersistenceManager) request.getAttribute("pm"));
+			request.setAttribute("usuarios", usuarioDAO.listar(getId(request)));
+			
 			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
-			request.setAttribute("cidades", cidadeDAO.listar());
+			request.setAttribute("cidades", cidadeDAO.listar(getId(request)));
 			
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			
@@ -125,9 +134,12 @@ public class RepresentanteControle extends BaseControle{
 			
 			request.setAttribute("idCidade",objeto.getIdBairro()!=null?objeto.getBairro().getIdCidade():null);
 			
+			request.setAttribute("idUsuario",objeto.getIdUsuario()!=null?objeto.getIdUsuario():null);
+			
 			request.setAttribute("objeto",objeto);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_REPRESENTANTE_EDITAR);
 			dispatcher.forward(request, response);
+			
 		} else if(request.getParameter("acao").equals("modificar")) {
 			nome = request.getParameter("nome");
 			cpf = request.getParameter("cpf");

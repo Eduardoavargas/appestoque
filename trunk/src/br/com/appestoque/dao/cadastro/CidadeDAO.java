@@ -34,6 +34,16 @@ public class CidadeDAO extends DAOGenerico<Cidade, Long>{
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Cidade> listar(Long idEmpresa){
+		Query query = getPm().newQuery(Cidade.class);
+		List<Cidade> objetos = null;
+		query.setFilter(" idEmpresa == p_empresa ");
+		query.declareParameters(" Long p_empresa ");
+		objetos = (List<Cidade>) query.execute(idEmpresa);
+		return objetos;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public int contar(String nome, Long idEmpresa ){
 		Query query = getPm().newQuery(Cidade.class);
 		List<Cidade> objetos = null;

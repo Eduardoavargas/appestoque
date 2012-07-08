@@ -90,7 +90,7 @@ public class BairroControle extends BaseControle {
 		} else if(request.getParameter("acao").equals("criar")) {
 			
 			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
-			request.setAttribute("cidades", cidadeDAO.listar());
+			request.setAttribute("cidades", cidadeDAO.listar(getId(request)));
 			
 			objeto = new Bairro();
 			request.setAttribute("objeto", objeto);			
@@ -99,7 +99,7 @@ public class BairroControle extends BaseControle {
 		} else if(request.getParameter("acao").equals("editar")) {
 			
 			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
-			request.setAttribute("cidades", cidadeDAO.listar());
+			request.setAttribute("cidades", cidadeDAO.listar(getId(request)));
 			
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			request.setAttribute("objeto",objeto);

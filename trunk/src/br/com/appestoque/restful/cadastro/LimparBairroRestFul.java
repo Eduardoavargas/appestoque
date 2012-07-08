@@ -36,7 +36,7 @@ public class LimparBairroRestFul extends BaseRESTFul{
 			String uuid = null;
 			
 			try {
-				uuid = criptografia.descriptografar(cripto.getBytes());
+				uuid = criptografia.descriptografar(cripto);
 			} catch (InvalidKeyException e) {
 				e.printStackTrace();
 			} catch (BadPaddingException e) {
