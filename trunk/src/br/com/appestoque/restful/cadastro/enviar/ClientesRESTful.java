@@ -113,7 +113,6 @@ public class ClientesRESTful extends BaseServlet{
 						query = new Query("Bairro");
 						query.setFilter(CompositeFilterOperator.and(new FilterPredicate("nome",FilterOperator.EQUAL,nomeBairro),
 								new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())));
-						System.out.println(nomeBairro);
 						bairros = datastore.prepare(query).asIterable();
 						for (Entity entity : bairros) {
 							bairro = entity;
