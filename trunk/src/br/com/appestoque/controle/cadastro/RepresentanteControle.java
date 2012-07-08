@@ -33,6 +33,7 @@ public class RepresentanteControle extends BaseControle{
 	private String cpf;
 	private String nome;
 	private Long idBairro;
+	private Long idUsuario;
 	private String cep;
 	private Integer numero;
 	private String complemento;
@@ -136,7 +137,9 @@ public class RepresentanteControle extends BaseControle{
 			complemento = request.getParameter("complemento");
 			endereco = request.getParameter("endereco");
 			uuid = request.getParameter("uuid");
-			objeto = new Representante(nome,cpf,endereco,complemento,numero,cep,idBairro,getId(request),uuid);
+			idBairro = new Long(request.getParameter("idBairro"));
+			idUsuario = new Long(request.getParameter("idUsuario"));
+			objeto = new Representante(nome,cpf,endereco,complemento,numero,cep,idBairro,getId(request),idUsuario,uuid);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			objetos = dao.pesquisar(null,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
