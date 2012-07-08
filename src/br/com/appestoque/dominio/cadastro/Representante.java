@@ -41,6 +41,9 @@ public class Representante implements Serializable{
 	@Persistent
 	private Long idEmpresa;
 	
+	@Persistent
+	private Long idUsuario;
+	
 	@NotPersistent
 	private Bairro bairro;
 	
@@ -64,6 +67,7 @@ public class Representante implements Serializable{
 							String cep,							
 							Long idBairro,
 							Long idEmpresa,
+							Long idUsuario,
 							String uuid) {
 		super();
 		this.nome = nome;
@@ -74,6 +78,7 @@ public class Representante implements Serializable{
 		this.complemento = complemento;
 		this.idBairro = idBairro;
 		this.idEmpresa = idEmpresa;
+		this.idEmpresa = idUsuario;
 		this.uuid = uuid;
 	}
 
@@ -151,6 +156,14 @@ public class Representante implements Serializable{
 
 	public void setIdEmpresa(Long idEmpresa) {
 		this.idEmpresa = idEmpresa;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public Bairro getBairro() {
