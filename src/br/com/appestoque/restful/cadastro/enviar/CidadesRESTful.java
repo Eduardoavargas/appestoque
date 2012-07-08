@@ -43,7 +43,7 @@ public class CidadesRESTful extends BaseServlet{
 				Criptografia criptografia = new Criptografia();
 				try {
 					String temp = new String(reader.nextString());
-					uuid = criptografia.descriptografar(temp.getBytes());
+					uuid = criptografia.descriptografar(temp);
 				} catch (InvalidKeyException e) {
 					e.printStackTrace();
 				} catch (BadPaddingException e) {

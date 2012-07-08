@@ -78,7 +78,7 @@ public class Representante implements Serializable{
 		this.complemento = complemento;
 		this.idBairro = idBairro;
 		this.idEmpresa = idEmpresa;
-		this.idEmpresa = idUsuario;
+		this.idUsuario = idUsuario;
 		this.uuid = uuid;
 	}
 

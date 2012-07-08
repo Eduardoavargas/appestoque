@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,16 +30,16 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 @SuppressWarnings("serial")
 public class ProdutoRestFul extends BaseServlet{
 	
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		super.processServer(request, response);
-		if(request.getParameter("email")!=null){
+	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		super.processServer(request, response);	
+		if(request.getParameter("email")!=null&&request.getParameter("senha")!=null){
 			AsyncDatastoreService datastore = null;
 			Query query = null;
 			datastore = DatastoreServiceFactory.getAsyncDatastoreService();
 			String senha = null;
 			try{
 				Criptografia criptografia = new Criptografia();
-				senha = criptografia.descriptografar(request.getParameter("senha").getBytes());
+				senha = criptografia.descriptografar(request.getParameter("senha"));
 			} catch (InvalidKeyException e) {
 				e.printStackTrace();
 			} catch (BadPaddingException e) {
