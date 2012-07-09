@@ -78,6 +78,16 @@
 		</select>
 	</div>
 	</p>
+	<%=bundle.getString("representante.usuario")%><br/>
+	<div id="usuarios">
+		<select name="idUsuario" id="idUsuario" class="text ui-corner-all" 
+		        style="cursor: pointer;">
+			<c:forEach var="usuario" items="${usuarios}" varStatus="id">
+				<option class="text ui-widget-content ui-corner-all" value="${usuario.id}" <c:if test="${usuario.id == idUsuario}">selected</c:if>>${usuario.nome}</option>
+			</c:forEach>
+		</select>
+	</div>
+	</p>
 	<%=bundle.getString("representante.uuid")%><br />
 	<app:texto id="uuid" nome="uuid" tamanho="50" valor="<%=objeto.getUuid()%>"/>
 	</p>
