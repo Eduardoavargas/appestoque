@@ -18,6 +18,8 @@ import org.json.JSONObject;
 
 import br.com.appestoque.BaseServlet;
 import br.com.appestoque.seguranca.Criptografia;
+import br.com.appestoque.util.Constantes;
+import br.com.appestoque.util.Conversor;
 
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -39,7 +41,7 @@ public class ProdutoRestFul extends BaseServlet{
 			String senha = null;
 			try{
 				Criptografia criptografia = new Criptografia();
-				senha = criptografia.descriptografar(request.getParameter("senha"));
+				senha = criptografia.decifrar(Conversor.stringToByte(request.getParameter("senha"),Constantes.DELIMITADOR));
 			} catch (InvalidKeyException e) {
 				e.printStackTrace();
 			} catch (BadPaddingException e) {
