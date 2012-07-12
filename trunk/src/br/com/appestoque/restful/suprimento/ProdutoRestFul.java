@@ -71,6 +71,7 @@ public class ProdutoRestFul extends BaseServlet{
 					
 					JSONArray objetos = new JSONArray();
 					try {
+						int i = 0;
 						for (Entity produto : produtos) {
 							Map<String,Object> properties = produto.getProperties();						
 							JSONObject objeto = new JSONObject();
@@ -79,6 +80,10 @@ public class ProdutoRestFul extends BaseServlet{
 							objeto.put("numero", properties.get("numero"));
 							objeto.put("preco", properties.get("preco"));
 							objetos.put(objeto);
+							++i;
+							if(i>10){
+								break;
+							}
 						}
 						response.setContentType("application/json;charset=UTF-8");
 						response.setHeader("Content-Encoding", "gzip");
@@ -101,43 +106,6 @@ public class ProdutoRestFul extends BaseServlet{
 				logger.log(Level.SEVERE,bundle.getString("app.mensagem.email.nao.localizado"));
 				throw new IOException();
 			}
-			
-//			query = new Query("Representante");
-//			query.setFilter(new FilterPredicate("uuid",FilterOperator.EQUAL,uuid));
-//			query.addFilter("uuid",FilterOperator.EQUAL,request.getParameter("uuid"));
-//			Entity representante = datastore.prepare(query).asSingleEntity();
-//			
-//			if(representante!=null){
-//				Long idEmpresa = (Long) representante.getProperty("idEmpresa");
-//				
-//				query = new Query("Produto");
-//				query.addFilter("idEmpresa",FilterOperator.EQUAL,idEmpresa);
-//				PreparedQuery preparedQuery = datastore.prepare(query);
-//				Iterable<Entity> produtos = preparedQuery.asIterable();
-//				
-//				JSONArray objetos = new JSONArray();
-//				try {
-//					for (Entity produto : produtos) {
-//						Map<String,Object> properties = produto.getProperties();						
-//						JSONObject objeto = new JSONObject();
-//						objeto.put("_id", produto.getKey().getId());
-//						objeto.put("nome", properties.get("nome"));
-//						objeto.put("numero", properties.get("numero"));
-//						objeto.put("preco", properties.get("preco"));
-//						objetos.put(objeto);
-//					}
-//					response.setContentType("application/json;charset=UTF-8");
-//					response.setHeader("Content-Encoding", "gzip");
-//					PrintWriter out = response.getWriter();
-//					out.print(objetos);
-//					out.flush();
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}
-//			}else{
-//				logger.log(Level.SEVERE,bundle.getString("app.mensagem.uuid.invalido"));
-//				throw new IOException();
-//			}
 			
 		}else{
 			logger.log(Level.SEVERE,bundle.getString("app.mensagem.email.nao.enviado"));
