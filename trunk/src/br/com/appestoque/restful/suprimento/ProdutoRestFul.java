@@ -71,7 +71,6 @@ public class ProdutoRestFul extends BaseServlet{
 					
 					JSONArray objetos = new JSONArray();
 					try {
-						int i = 0;
 						for (Entity produto : produtos) {
 							Map<String,Object> properties = produto.getProperties();						
 							JSONObject objeto = new JSONObject();
@@ -80,10 +79,6 @@ public class ProdutoRestFul extends BaseServlet{
 							objeto.put("numero", properties.get("numero"));
 							objeto.put("preco", properties.get("preco"));
 							objetos.put(objeto);
-							++i;
-							if(i>10){
-								break;
-							}
 						}
 						response.setContentType("application/json;charset=UTF-8");
 						response.setHeader("Content-Encoding", "gzip");

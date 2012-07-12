@@ -2,25 +2,22 @@ package br.com.appestoque.restful.cadastro;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.InvalidKeyException;
 import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.concurrent.Future;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.jdo.PersistenceManager;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.jdo.annotations.NotPersistent;
+import javax.jdo.annotations.Persistent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.appengine.api.datastore.AsyncDatastoreService;
-import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -29,135 +26,197 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 
-import br.com.appestoque.TipoBusca;
-import br.com.appestoque.dao.cadastro.ClienteDAO;
+import br.com.appestoque.BaseServlet;
 import br.com.appestoque.dominio.cadastro.Bairro;
-import br.com.appestoque.dominio.cadastro.Cidade;
-import br.com.appestoque.dominio.cadastro.Cliente;
-import br.com.appestoque.dominio.cadastro.Empresa;
-import br.com.appestoque.restful.cadastro.enviar.ClientesRESTful;
+import br.com.appestoque.seguranca.Criptografia;
+import br.com.appestoque.util.Constantes;
+import br.com.appestoque.util.Conversor;
 
 @SuppressWarnings("serial")
-public class ClienteRestFul extends HttpServlet{
+public class ClienteRestFul extends BaseServlet{
 	
-	private static final Logger logger = Logger.getLogger(ClienteRestFul.class.getCanonicalName());
-	
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		process(request, response);
-	}
+	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		super.processServer(request, response);
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		process(request, response);
-	}
-	
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ResourceBundle bundle = null;
-		bundle = ResourceBundle.getBundle("i18n",request.getLocale());
-		if(request.getParameter("uuid")!=null){
-			DatastoreService datastore = null;
+		if(request.getParameter("email")!=null&&request.getParameter("senha")!=null){
+			AsyncDatastoreService datastore = null;
 			Query query = null;
-			PreparedQuery preparedQuery = null;
+			datastore = DatastoreServiceFactory.getAsyncDatastoreService();
+			String senha = null;
+			try{
+				Criptografia criptografia = new Criptografia();
+				senha = criptografia.decifrar(Conversor.stringToByte(request.getParameter("senha"),Constantes.DELIMITADOR));
+			} catch (InvalidKeyException e) {
+				e.printStackTrace();
+			} catch (BadPaddingException e) {
+				e.printStackTrace();
+			} catch (IllegalBlockSizeException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
-			datastore = DatastoreServiceFactory.getDatastoreService();
+			query = new Query("Usuario");
+			query.setFilter(new FilterPredicate("email",FilterOperator.EQUAL,request.getParameter("email")));
+			Entity usuario = datastore.prepare(query).asSingleEntity();
 			
-			query = new Query("Representante");
-			query.addFilter("uuid",FilterOperator.EQUAL,request.getParameter("uuid"));
-			Entity representante = datastore.prepare(query).asSingleEntity();
-			
-			if(representante!=null){
-				Long idEmpresa = (Long) representante.getProperty("idEmpresa");
-				Long idBairro = null, idCidade = null;
-				query = new Query("Cliente");
-				query.addFilter("idEmpresa",FilterOperator.EQUAL,idEmpresa);
-				preparedQuery = datastore.prepare(query);
-				Iterable<Entity> clientes = preparedQuery.asIterable();
-				JSONArray objetos = new JSONArray();
-				 
-				try {
-					for (Entity cliente : clientes) {
-						Map<String,Object> properties = cliente.getProperties();						
-						JSONObject objeto = new JSONObject();
-						objeto.put("_id", cliente.getKey().getId());
-						objeto.put("nome",properties.get("nome"));
-						objeto.put("cnpj",properties.get("cnpj"));
-						objeto.put("endereco",properties.get("endereco"));
-						objeto.put("numero",properties.get("numero"));
-						objeto.put("cep",properties.get("cep"));
-						objeto.put("complemento",properties.get("complemento"));
-						
-						idBairro = (Long) properties.get("idBairro");
-						
-						Key key = null;
-						key = KeyFactory.createKey(Bairro.class.getSimpleName(),idBairro.intValue());
-						Entity bairro = null;
-						
-						try {
-							bairro = datastore.get(key);
-						} catch (EntityNotFoundException e) {
-						}
-						
-						if(bairro!=null){
-							objeto.put("bairro",bairro.getProperty("nome"));
-							idCidade = (Long) bairro.getProperty("idCidade");
-							key = KeyFactory.createKey(Cidade.class.getSimpleName(),idCidade.intValue());
-							Entity cidade = null;
+			if(usuario!=null&&usuario.getProperty("senha").equals(senha)){
+				
+				query = new Query("Representante");
+				query.setFilter(new FilterPredicate("idUsuario",FilterOperator.EQUAL,usuario.getKey().getId()));
+				Entity representante = datastore.prepare(query).asSingleEntity();
+				
+				if(representante!=null){
+					
+					query = new Query("Cliente");
+					query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,representante.getProperty("idEmpresa")));
+					PreparedQuery preparedQuery = datastore.prepare(query);
+					Iterable<Entity> clientes = preparedQuery.asIterable();
+					
+					JSONArray objetos = new JSONArray();
+					try {
+						for (Entity cliente : clientes) {
+							Map<String,Object> properties = cliente.getProperties();						
+							JSONObject objeto = new JSONObject();
+							objeto.put("_id", cliente.getKey().getId());
+							objeto.put("nome", properties.get("nome"));
+							objeto.put("razao", properties.get("razao"));
+							objeto.put("cnpj", properties.get("cnpj"));
+							objeto.put("endereco", properties.get("endereco"));
+							objeto.put("numero", properties.get("numero"));
+							objeto.put("cep", properties.get("cep"));
+							objeto.put("complemento", properties.get("complemento"));
+							
+							Long idBairro = (Long) properties.get("idBairro");
+							
+							Key key = null;
+							key = KeyFactory.createKey(Bairro.class.getSimpleName(),idBairro.intValue());
+							Entity bairro = null;
+							
 							try {
-								cidade = datastore.get(key);
-								objeto.put("cidade",cidade.getProperty("nome"));
+								bairro = datastore.get(key);
 							} catch (EntityNotFoundException e) {
 							}
-						}						
-						objetos.put(objeto);
+							
+							if(bairro!=null){
+								objeto.put("bairro",bairro.getProperty("nome"));
+								Long idCidade = (Long) bairro.getProperty("idCidade");
+								key = KeyFactory.createKey(Cidade.class.getSimpleName(),idCidade.intValue());
+								Entity cidade = null;
+								try {
+									cidade = datastore.get(key);
+									objeto.put("cidade",cidade.getProperty("nome"));
+								} catch (EntityNotFoundException e) {
+								}
+							}						
+							
+							objetos.put(objeto);
+							
+						}
+						response.setContentType("application/json;charset=UTF-8");
+						response.setHeader("Content-Encoding", "gzip");
+						PrintWriter out = response.getWriter();
+						out.print(objetos);
+						out.flush();
+					} catch (JSONException e) {
+						e.printStackTrace();
 					}
-					response.setContentType("application/json;charset=UTF-8");
-					response.setHeader("Content-Encoding", "gzip");
-					PrintWriter out = response.getWriter();
-					out.print(objetos);
-					out.flush();
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}	
+					
+				}else{
+					logger.log(Level.SEVERE,bundle.getString("app.mensagem.representante.nao.vinculado.usuario"));
+					throw new IOException();
+				}
 				
+			}else if(!usuario.getProperty("senha").equals(senha)){
+				logger.log(Level.SEVERE,bundle.getString("app.mensagem.senha.nao.confere"));
+				throw new IOException();
 			}else{
-				logger.log(Level.SEVERE,bundle.getString("app.mensagem.uuid.invalido"));
+				logger.log(Level.SEVERE,bundle.getString("app.mensagem.email.nao.localizado"));
 				throw new IOException();
 			}
 			
 		}else{
-			logger.log(Level.SEVERE,bundle.getString("app.mensagem.uuid.invalido"));
+			logger.log(Level.SEVERE,bundle.getString("app.mensagem.email.nao.enviado"));
 			throw new IOException();
 		}
+
 		
-//		if(request.getParameter("sincronismo")!=null){
-//			PersistenceManager pm = (PersistenceManager) request.getAttribute("pm");
-//			ClienteDAO clienteDAO = new ClienteDAO(pm);
-//			HttpSession httpSession = request.getSession();
-//			Empresa empresa = (Empresa) httpSession.getAttribute("empresa");
-//			JSONArray objetos = new JSONArray();
-//			try {
-//				for (Cliente cliente : clienteDAO.listar(empresa.getId(),TipoBusca.ANSIOSA)) {
-//					JSONObject objeto = new JSONObject();
-//					objeto.put("_id",cliente.getId());			
-//					objeto.put("nome",cliente.getNome());
-//					objeto.put("cnpj",cliente.getCnpj());
-//					objeto.put("endereco",cliente.getEndereco());
-//					objeto.put("numero",cliente.getNumero());
-//					objeto.put("cep",cliente.getCep());
-//					objeto.put("complemento",cliente.getComplemento());
-//					objeto.put("bairro",cliente.getBairro().getNome());
-//					objeto.put("cidade",cliente.getBairro().getCidade().getNome());
-//					objetos.put(objeto);
-//				}
-//			} catch (JSONException e) {
-//				e.printStackTrace();
+		
+//		if(request.getParameter("uuid")!=null){
+//			AsyncDatastoreService datastore = null;
+//			Query query = null;
+//			PreparedQuery preparedQuery = null;
+//			
+//			datastore = DatastoreServiceFactory.getAsyncDatastoreService();
+//			
+//			query = new Query("Representante");
+//			query.addFilter("uuid",FilterOperator.EQUAL,request.getParameter("uuid"));
+//			Entity representante = datastore.prepare(query).asSingleEntity();
+//			
+//			if(representante!=null){
+//				Long idEmpresa = (Long) representante.getProperty("idEmpresa");
+//				Long idBairro = null, idCidade = null;
+//				query = new Query("Cliente");
+//				query.addFilter("idEmpresa",FilterOperator.EQUAL,idEmpresa);
+//				preparedQuery = datastore.prepare(query);
+//				Iterable<Entity> clientes = preparedQuery.asIterable();
+//				JSONArray objetos = new JSONArray();
+//				 
+//				try {
+//					for (Entity cliente : clientes) {
+//						Map<String,Object> properties = cliente.getProperties();						
+//						JSONObject objeto = new JSONObject();
+//						objeto.put("_id", cliente.getKey().getId());
+//						objeto.put("nome",properties.get("nome"));
+//						objeto.put("cnpj",properties.get("cnpj"));
+//						objeto.put("endereco",properties.get("endereco"));
+//						objeto.put("numero",properties.get("numero"));
+//						objeto.put("cep",properties.get("cep"));
+//						objeto.put("complemento",properties.get("complemento"));
+//						
+//						idBairro = (Long) properties.get("idBairro");
+//						
+//						Key key = null;
+//						key = KeyFactory.createKey(Bairro.class.getSimpleName(),idBairro.intValue());
+//						Entity bairro = null;
+//						
+//						try {
+//							bairro = datastore.get(key);
+//						} catch (EntityNotFoundException e) {
+//						}
+//						
+//						if(bairro!=null){
+//							objeto.put("bairro",bairro.getProperty("nome"));
+//							idCidade = (Long) bairro.getProperty("idCidade");
+//							key = KeyFactory.createKey(Cidade.class.getSimpleName(),idCidade.intValue());
+//							Entity cidade = null;
+//							try {
+//								cidade = datastore.get(key);
+//								objeto.put("cidade",cidade.getProperty("nome"));
+//							} catch (EntityNotFoundException e) {
+//							}
+//						}						
+//						objetos.put(objeto);
+//					}
+//					response.setContentType("application/json;charset=UTF-8");
+//					response.setHeader("Content-Encoding", "gzip");
+//					PrintWriter out = response.getWriter();
+//					out.print(objetos);
+//					out.flush();
+//				} catch (JSONException e) {
+//					e.printStackTrace();
+//				}	
+//				
+//			}else{
+//				logger.log(Level.SEVERE,bundle.getString("app.mensagem.uuid.invalido"));
+//				throw new IOException();
 //			}
-//			response.setContentType("application/json;charset=UTF-8");
-//			response.setHeader("Content-Encoding", "gzip");
-//			PrintWriter out = response.getWriter();
-//			out.print(objetos);
-//			out.flush();
+//			
+//		}else{
+//			logger.log(Level.SEVERE,bundle.getString("app.mensagem.uuid.invalido"));
+//			throw new IOException();
 //		}
 		
 	}
