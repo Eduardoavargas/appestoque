@@ -21,7 +21,6 @@ import br.com.appestoque.util.Conversor;
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
@@ -45,8 +44,6 @@ public class ClientesRESTful extends BaseServlet{
 			if (name.equals("cripto")) {
 				Criptografia criptografia = new Criptografia();
 				try {
-					//String temp = new String(reader.nextString());
-					//uuid = criptografia.descriptografar(temp);
 					uuid = criptografia.decifrar(Conversor.stringToByte(reader.nextString(),Constantes.DELIMITADOR));
 				} catch (InvalidKeyException e) {
 					e.printStackTrace();
