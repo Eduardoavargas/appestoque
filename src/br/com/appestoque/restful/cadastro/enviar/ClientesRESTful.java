@@ -15,10 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.appestoque.BaseServlet;
 import br.com.appestoque.seguranca.Criptografia;
 import br.com.appestoque.seguranca.HashCode;
+import br.com.appestoque.util.Constantes;
+import br.com.appestoque.util.Conversor;
 
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
@@ -28,7 +31,7 @@ import com.google.gson.stream.JsonReader;
 
 @SuppressWarnings("serial")
 public class ClientesRESTful extends BaseServlet{
-
+	
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		super.processServer(request, response);
 		String uuid = null;
@@ -42,8 +45,9 @@ public class ClientesRESTful extends BaseServlet{
 			if (name.equals("cripto")) {
 				Criptografia criptografia = new Criptografia();
 				try {
-					String temp = new String(reader.nextString());
-					uuid = criptografia.descriptografar(temp);
+					//String temp = new String(reader.nextString());
+					//uuid = criptografia.descriptografar(temp);
+					uuid = criptografia.decifrar(Conversor.stringToByte(reader.nextString(),Constantes.DELIMITADOR));
 				} catch (InvalidKeyException e) {
 					e.printStackTrace();
 				} catch (BadPaddingException e) {
@@ -139,7 +143,7 @@ public class ClientesRESTful extends BaseServlet{
 							cliente.setProperty("idEmpresa", empresa.getKey().getId());
 						    datastore.put(cliente);
 						}else if(!cliente.getProperty("nome").equals(nome)
-								||!cliente.getProperty("razao").equals(razao)
+								||(cliente.getProperty("razao")!=null&&!cliente.getProperty("razao").equals(razao))
 								||!cliente.getProperty("endereco").equals(endereco)
 								||!cliente.getProperty("complemento").equals(complemento)
 								||!cliente.getProperty("numero").equals(numero)
