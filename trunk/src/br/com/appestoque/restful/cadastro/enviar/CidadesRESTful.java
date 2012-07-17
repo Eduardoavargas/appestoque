@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.appestoque.BaseServlet;
 import br.com.appestoque.seguranca.Criptografia;
 import br.com.appestoque.seguranca.HashCode;
+import br.com.appestoque.util.Constantes;
+import br.com.appestoque.util.Conversor;
 
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -32,8 +34,10 @@ public class CidadesRESTful extends BaseServlet{
 	private static final long serialVersionUID = 1752696538826988071L;
 
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		super.processServer(request, response);
 		String uuid = null;
 		Entity empresa = null;
+		Query query = null;
 		JsonReader reader = new JsonReader(new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF8")));
 		AsyncDatastoreService datastore = DatastoreServiceFactory.getAsyncDatastoreService();
 		reader.beginObject();
@@ -42,8 +46,7 @@ public class CidadesRESTful extends BaseServlet{
 			if (name.equals("cripto")) {
 				Criptografia criptografia = new Criptografia();
 				try {
-					String temp = new String(reader.nextString());
-					uuid = criptografia.descriptografar(temp);
+					uuid = criptografia.decifrar(Conversor.stringToByte(reader.nextString(),Constantes.DELIMITADOR));
 				} catch (InvalidKeyException e) {
 					e.printStackTrace();
 				} catch (BadPaddingException e) {
@@ -55,7 +58,7 @@ public class CidadesRESTful extends BaseServlet{
 				}
 			} else if (name.equals("hash")) {
 				HashCode hashCode = new HashCode();
-				Query query = new Query("Empresa");
+				query = new Query("Empresa");
 				query.setFilter(new FilterPredicate("uuid",FilterOperator.EQUAL,uuid));
 				empresa = datastore.prepare(query).asSingleEntity();
 				if(!reader.nextString().equals(hashCode.processar(empresa.getProperty("cnpj").toString()))){
@@ -78,7 +81,7 @@ public class CidadesRESTful extends BaseServlet{
 						}
 					}
 					reader1.endObject();
-					Query query = new Query("Cidade");
+					query = new Query("Cidade");
 					query.setFilter(CompositeFilterOperator.and(
 						     new FilterPredicate("nome",FilterOperator.EQUAL,nome),
 						     new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())));
@@ -91,11 +94,81 @@ public class CidadesRESTful extends BaseServlet{
 					}
 				}
 				reader1.endArray();
+
 			} else {
 				reader.skipValue();
 			}
 		}
 		reader.endObject();
+		
 	}
+	
+	
+//	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//		String uuid = null;
+//		Entity empresa = null;
+//		JsonReader reader = new JsonReader(new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF8")));
+//		AsyncDatastoreService datastore = DatastoreServiceFactory.getAsyncDatastoreService();
+//		reader.beginObject();
+//		while (reader.hasNext()) {
+//			String name = reader.nextName();
+//			if (name.equals("cripto")) {
+//				Criptografia criptografia = new Criptografia();
+//				try {
+//					String temp = new String(reader.nextString());
+//					uuid = criptografia.descriptografar(temp);
+//				} catch (InvalidKeyException e) {
+//					e.printStackTrace();
+//				} catch (BadPaddingException e) {
+//					e.printStackTrace();
+//				} catch (IllegalBlockSizeException e) {
+//					e.printStackTrace();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			} else if (name.equals("hash")) {
+//				HashCode hashCode = new HashCode();
+//				Query query = new Query("Empresa");
+//				query.setFilter(new FilterPredicate("uuid",FilterOperator.EQUAL,uuid));
+//				empresa = datastore.prepare(query).asSingleEntity();
+//				if(!reader.nextString().equals(hashCode.processar(empresa.getProperty("cnpj").toString()))){
+//					logger.log(Level.SEVERE,bundle.getString("app.mensagem.hash.invalido"));
+//					throw new IOException();
+//				}
+//			} else if (name.equals("objetos")) {
+//				String nome = null;
+//				String objetos = reader.nextString();
+//				JsonReader reader1 = new JsonReader(new InputStreamReader(new ByteArrayInputStream(objetos.getBytes("UTF8")),"UTF-8"));
+//				reader1.beginArray();
+//				while (reader1.hasNext()) {
+//					reader1.beginObject();
+//					while (reader1.hasNext()) {
+//						String name1 = reader1.nextName();
+//						if (name1.equals("nome")) {
+//							nome = reader1.nextString();
+//						}else {
+//							reader1.skipValue();
+//						}
+//					}
+//					reader1.endObject();
+//					Query query = new Query("Cidade");
+//					query.setFilter(CompositeFilterOperator.and(
+//						     new FilterPredicate("nome",FilterOperator.EQUAL,nome),
+//						     new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())));
+//					Entity cidade = datastore.prepare(query).asSingleEntity();
+//					if(cidade==null){
+//						cidade = new Entity("Cidade");
+//						cidade.setProperty("nome",nome);
+//						cidade.setProperty("idEmpresa",empresa.getKey().getId());
+//					    datastore.put(cidade);
+//					}
+//				}
+//				reader1.endArray();
+//			} else {
+//				reader.skipValue();
+//			}
+//		}
+//		reader.endObject();
+//	}
 	
 }

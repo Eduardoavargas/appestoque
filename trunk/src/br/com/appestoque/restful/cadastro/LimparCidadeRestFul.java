@@ -35,17 +35,17 @@ public class LimparCidadeRestFul extends BaseRESTFul{
 			Criptografia criptografia = new Criptografia();
 			String uuid = null;
 			
-			try {
-				uuid = criptografia.descriptografar(cripto);
-			} catch (InvalidKeyException e) {
-				e.printStackTrace();
-			} catch (BadPaddingException e) {
-				e.printStackTrace();
-			} catch (IllegalBlockSizeException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//			try {
+//				uuid = criptografia.descriptografar(cripto);
+//			} catch (InvalidKeyException e) {
+//				e.printStackTrace();
+//			} catch (BadPaddingException e) {
+//				e.printStackTrace();
+//			} catch (IllegalBlockSizeException e) {
+//				e.printStackTrace();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 			
 			AsyncDatastoreService datastore = DatastoreServiceFactory.getAsyncDatastoreService();
 			Query query = new Query("Empresa");
