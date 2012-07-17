@@ -23,7 +23,7 @@ import br.com.appestoque.util.Constantes;
 import br.com.appestoque.util.Conversor;
 
 @SuppressWarnings("serial")
-public class LimparCidadeRestFul extends BaseRESTFul{
+public class LimparClienteRestFul extends BaseRESTFul{
 
 	@Override
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -54,7 +54,7 @@ public class LimparCidadeRestFul extends BaseRESTFul{
 			if(empresa!=null){					
 				HashCode hashCode = new HashCode();
 				if(hashCode.processar(empresa.getProperty("cnpj").toString()).equals(cnpj)){
-					query = new Query("Cidade");
+					query = new Query("Cliente");
 					query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId()));
 					for (Entity entity : datastore.prepare(query).asIterable()) {
 						datastore.delete(entity.getKey());

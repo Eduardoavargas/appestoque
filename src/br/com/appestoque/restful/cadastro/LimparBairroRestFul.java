@@ -19,33 +19,33 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 import br.com.appestoque.restful.BaseRESTFul;
 import br.com.appestoque.seguranca.Criptografia;
 import br.com.appestoque.seguranca.HashCode;
+import br.com.appestoque.util.Constantes;
+import br.com.appestoque.util.Conversor;
 
 @SuppressWarnings("serial")
 public class LimparBairroRestFul extends BaseRESTFul{
 
 	@Override
-	public void processServer(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		if(request.getParameter("cripto")!=null&&request.getParameter("hash")!=null){
+	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		if(request.getParameter("uuid")!=null&&request.getParameter("cnpj")!=null){
 			super.processServer(request, response);
 			
-			String cripto = request.getParameter("cripto");
-			String hash = request.getParameter("hash");
+			String uuid = request.getParameter("uuid");
+			String cnpj = request.getParameter("cnpj");
 			
 			Criptografia criptografia = new Criptografia();
-			String uuid = null;
 			
-//			try {
-//				uuid = criptografia.descriptografar(cripto);
-//			} catch (InvalidKeyException e) {
-//				e.printStackTrace();
-//			} catch (BadPaddingException e) {
-//				e.printStackTrace();
-//			} catch (IllegalBlockSizeException e) {
-//				e.printStackTrace();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
+			try {
+				uuid = criptografia.decifrar(Conversor.stringToByte(uuid,Constantes.DELIMITADOR));
+			} catch (InvalidKeyException e) {
+				e.printStackTrace();
+			} catch (BadPaddingException e) {
+				e.printStackTrace();
+			} catch (IllegalBlockSizeException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			AsyncDatastoreService datastore = DatastoreServiceFactory.getAsyncDatastoreService();
 			Query query = new Query("Empresa");
@@ -53,7 +53,7 @@ public class LimparBairroRestFul extends BaseRESTFul{
 			Entity empresa = datastore.prepare(query).asSingleEntity();
 			if(empresa!=null){					
 				HashCode hashCode = new HashCode();
-				if(hashCode.processar(empresa.getProperty("cnpj").toString()).equals(hash)){
+				if(hashCode.processar(empresa.getProperty("cnpj").toString()).equals(cnpj)){
 					query = new Query("Bairro");
 					query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId()));
 					for (Entity entity : datastore.prepare(query).asIterable()) {
