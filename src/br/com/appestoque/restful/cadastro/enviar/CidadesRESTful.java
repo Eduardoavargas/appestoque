@@ -61,7 +61,10 @@ public class CidadesRESTful extends BaseServlet{
 				query = new Query("Empresa");
 				query.setFilter(new FilterPredicate("uuid",FilterOperator.EQUAL,uuid));
 				empresa = datastore.prepare(query).asSingleEntity();
-				if(!reader.nextString().equals(hashCode.processar(empresa.getProperty("cnpj").toString()))){
+				if(empresa==null){
+					logger.log(Level.SEVERE,bundle.getString("app.mensagem.empresa.nao.localizada.pelo.uuid"));
+					throw new IOException();
+				}else if(!reader.nextString().equals(hashCode.processar(empresa.getProperty("cnpj").toString()))){
 					logger.log(Level.SEVERE,bundle.getString("app.mensagem.hash.invalido"));
 					throw new IOException();
 				}
