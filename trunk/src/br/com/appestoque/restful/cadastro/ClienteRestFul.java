@@ -135,8 +135,11 @@ public class ClienteRestFul extends BaseServlet{
 				throw new IOException();
 			}
 			
-		}else{
+		}else if(request.getParameter("email")==null){
 			logger.log(Level.SEVERE,bundle.getString("app.mensagem.email.nao.enviado"));
+			throw new IOException();
+		}else if(request.getParameter("uuid")==null){
+			logger.log(Level.SEVERE,bundle.getString("app.mensagem.uuid.nao.enviado"));
 			throw new IOException();
 		}
 		
