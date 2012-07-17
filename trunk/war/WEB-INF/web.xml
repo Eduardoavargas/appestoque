@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" 
-	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	
 	<!--filtro-->
 	<filter>
@@ -362,5 +357,91 @@
 		<servlet-name>LimparRESTful</servlet-name>
 		<url-pattern>/api/limpar</url-pattern>
 	</servlet-mapping>
+	
+	
+	<!-- remover -->
+	<servlet>
+		<servlet-name>LimparProdutoRestFul</servlet-name>
+		<servlet-class>br.com.appestoque.restful.suprimento.LimparProdutoRestFul</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LimparProdutoRestFul</servlet-name>
+		<url-pattern>/api/limpar_produto</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LimparCidadeRestFul</servlet-name>
+		<servlet-class>br.com.appestoque.restful.cadastro.LimparCidadeRestFul</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LimparCidadeRestFul</servlet-name>
+		<url-pattern>/api/limpar_cidade</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LimparClienteRestFul</servlet-name>
+		<servlet-class>br.com.appestoque.restful.cadastro.LimparClienteRestFul</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LimparClienteRestFul</servlet-name>
+		<url-pattern>/api/limpar_cliente</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LimparBairroRestFul</servlet-name>
+		<servlet-class>br.com.appestoque.restful.cadastro.LimparBairroRestFul</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LimparBairroRestFul</servlet-name>
+		<url-pattern>/api/limpar_bairro</url-pattern>
+	</servlet-mapping>
+	<!-- remover -->
+	
+	
+	<servlet>
+		<servlet-name>ServletController</servlet-name>
+		<servlet-class>br.com.appestoque.servlet.ServletController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletController</servlet-name>
+		<url-pattern>/servlet/servletController</url-pattern>
+	</servlet-mapping>
+	
+	
 
+<!--OnPositive Tools-->
+<servlet>
+		<servlet-name>baseViewerServlet</servlet-name>
+		<servlet-class>com.onpositive.gae.tools.servlets.BaseViewerServlet
+		</servlet-class>
+	</servlet>
+<servlet-mapping>
+		<servlet-name>baseViewerServlet</servlet-name>
+		<url-pattern>/appwrench/baseviewer</url-pattern>
+	</servlet-mapping>
+<servlet>
+		<servlet-name>SessionAuth</servlet-name>
+		<servlet-class>com.onpositive.auth.AuthServlet</servlet-class>
+	</servlet>
+<servlet-mapping>
+		<servlet-name>SessionAuth</servlet-name>
+		<url-pattern>/appwrench/auth</url-pattern>
+	</servlet-mapping>
+<servlet>
+		<servlet-name>QueueHandler</servlet-name>
+		<servlet-class>com.onpositive.gae.tools.servlets.QueueHandlerServlet
+		</servlet-class>
+	</servlet>
+<servlet-mapping>
+		<servlet-name>QueueHandler</servlet-name>
+		<url-pattern>/appwrench/queuehandler</url-pattern>
+	</servlet-mapping>
+<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/appwrench/queuehandler</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
 </web-app>
