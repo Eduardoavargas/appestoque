@@ -43,7 +43,7 @@ public class CidadesRESTful extends BaseServlet{
 		reader.beginObject();
 		while (reader.hasNext()) {
 			String name = reader.nextName();
-			if (name.equals("cripto")) {
+			if (name.equals("uuid")) {
 				Criptografia criptografia = new Criptografia();
 				try {
 					uuid = criptografia.decifrar(Conversor.stringToByte(reader.nextString(),Constantes.DELIMITADOR));
@@ -56,7 +56,7 @@ public class CidadesRESTful extends BaseServlet{
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (name.equals("hash")) {
+			} else if (name.equals("cnpj")) {
 				HashCode hashCode = new HashCode();
 				query = new Query("Empresa");
 				query.setFilter(new FilterPredicate("uuid",FilterOperator.EQUAL,uuid));
@@ -102,73 +102,5 @@ public class CidadesRESTful extends BaseServlet{
 		reader.endObject();
 		
 	}
-	
-	
-//	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		String uuid = null;
-//		Entity empresa = null;
-//		JsonReader reader = new JsonReader(new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF8")));
-//		AsyncDatastoreService datastore = DatastoreServiceFactory.getAsyncDatastoreService();
-//		reader.beginObject();
-//		while (reader.hasNext()) {
-//			String name = reader.nextName();
-//			if (name.equals("cripto")) {
-//				Criptografia criptografia = new Criptografia();
-//				try {
-//					String temp = new String(reader.nextString());
-//					uuid = criptografia.descriptografar(temp);
-//				} catch (InvalidKeyException e) {
-//					e.printStackTrace();
-//				} catch (BadPaddingException e) {
-//					e.printStackTrace();
-//				} catch (IllegalBlockSizeException e) {
-//					e.printStackTrace();
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			} else if (name.equals("hash")) {
-//				HashCode hashCode = new HashCode();
-//				Query query = new Query("Empresa");
-//				query.setFilter(new FilterPredicate("uuid",FilterOperator.EQUAL,uuid));
-//				empresa = datastore.prepare(query).asSingleEntity();
-//				if(!reader.nextString().equals(hashCode.processar(empresa.getProperty("cnpj").toString()))){
-//					logger.log(Level.SEVERE,bundle.getString("app.mensagem.hash.invalido"));
-//					throw new IOException();
-//				}
-//			} else if (name.equals("objetos")) {
-//				String nome = null;
-//				String objetos = reader.nextString();
-//				JsonReader reader1 = new JsonReader(new InputStreamReader(new ByteArrayInputStream(objetos.getBytes("UTF8")),"UTF-8"));
-//				reader1.beginArray();
-//				while (reader1.hasNext()) {
-//					reader1.beginObject();
-//					while (reader1.hasNext()) {
-//						String name1 = reader1.nextName();
-//						if (name1.equals("nome")) {
-//							nome = reader1.nextString();
-//						}else {
-//							reader1.skipValue();
-//						}
-//					}
-//					reader1.endObject();
-//					Query query = new Query("Cidade");
-//					query.setFilter(CompositeFilterOperator.and(
-//						     new FilterPredicate("nome",FilterOperator.EQUAL,nome),
-//						     new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())));
-//					Entity cidade = datastore.prepare(query).asSingleEntity();
-//					if(cidade==null){
-//						cidade = new Entity("Cidade");
-//						cidade.setProperty("nome",nome);
-//						cidade.setProperty("idEmpresa",empresa.getKey().getId());
-//					    datastore.put(cidade);
-//					}
-//				}
-//				reader1.endArray();
-//			} else {
-//				reader.skipValue();
-//			}
-//		}
-//		reader.endObject();
-//	}
 	
 }

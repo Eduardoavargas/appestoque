@@ -40,7 +40,7 @@ public class BairrosRESTful extends BaseServlet{
 		reader.beginObject();
 		while (reader.hasNext()) {
 			String name = reader.nextName();
-			if (name.equals("cripto")) {
+			if (name.equals("uuid")) {
 				Criptografia criptografia = new Criptografia();
 				try {
 					uuid = criptografia.decifrar(Conversor.stringToByte(reader.nextString(),Constantes.DELIMITADOR));
@@ -53,7 +53,7 @@ public class BairrosRESTful extends BaseServlet{
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (name.equals("hash")) {
+			} else if (name.equals("cnpj")) {
 				HashCode hashCode = new HashCode();
 				query = new Query("Empresa");
 				query.setFilter(new FilterPredicate("uuid",FilterOperator.EQUAL,uuid));

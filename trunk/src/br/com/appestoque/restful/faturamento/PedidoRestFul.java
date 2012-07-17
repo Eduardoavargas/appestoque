@@ -103,6 +103,7 @@ public class PedidoRestFul extends HttpServlet{
 					corpo.append("</html>");
 					
 					Util.enviarEmail(empresa.getEmailPedido(),Constantes.ASSUNTO_PEDIDO_VENDA + " - " + pedido.getNumero(),corpo);
+					
 				}
 				
 				response.setContentType("application/json;charset=UTF-8");
