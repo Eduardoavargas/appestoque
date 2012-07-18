@@ -51,6 +51,12 @@ public class Pedido implements Serializable{
 	@NotPersistent
 	private List<Item> itens;
 	
+	@Persistent
+	private Double latitude;
+	
+	@Persistent
+	private Double longitude;
+	
 	public Pedido() {
 		super();
 	}
@@ -158,6 +164,22 @@ public class Pedido implements Serializable{
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
 }
