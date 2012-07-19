@@ -80,6 +80,8 @@ public class PedidoRestFul extends BaseServlet{
 						pedido.setProperty("idEmpresa", representante.getProperty("idEmpresa"));
 						pedido.setProperty("obs", json.getString("obs"));
 						pedido.setProperty("uuid", uuid);
+						pedido.setProperty("latitude", json.getDouble("latitude"));
+						pedido.setProperty("longitude", json.getDouble("longitude"));
 						datastore.put(pedido);
 
 						JSONArray itens = json.getJSONArray("itens");

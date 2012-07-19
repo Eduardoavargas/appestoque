@@ -1,9 +1,19 @@
 package br.com.appestoque.dao.faturamento;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
+
+import org.json.JSONArray;
+
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.DAOGenerico;
@@ -17,6 +27,10 @@ public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 	
 	public PedidoDAO(PersistenceManager pm) {
 		this.setPm(pm);
+	}
+	
+	public List<Pedido> pesquisar(Date inicio, Date fim){
+		return null;
 	}
 	
 	@SuppressWarnings("unchecked")
