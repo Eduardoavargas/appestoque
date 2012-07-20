@@ -34,7 +34,6 @@ public class PedidoMensalRESTFul extends BaseServlet{
 	
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		super.processServer(request, response);
-		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Query query = new Query("Pedido");
 		query.setFilter(new FilterPredicate("data",FilterOperator.GREATER_THAN,Tempo.primeiroDiaMes(new Date())));
