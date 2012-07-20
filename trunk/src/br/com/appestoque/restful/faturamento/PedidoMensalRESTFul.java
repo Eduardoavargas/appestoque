@@ -54,12 +54,12 @@ public class PedidoMensalRESTFul extends BaseServlet{
 				objeto.put("cliente",cliente.getProperty("nome"));
 				objeto.put("endereco",cliente.getProperty("endereco"));
 				
-				key = KeyFactory.createKey(Bairro.class.getSimpleName(),Integer.parseInt(properties.get("idBairro").toString()));
+				key = KeyFactory.createKey(Bairro.class.getSimpleName(),Integer.parseInt(cliente.getProperty("idBairro").toString()));
 				Entity bairro = datastore.get(key);
 				
 				objeto.put("bairro",bairro.getProperty("nome"));
 				
-				key = KeyFactory.createKey(Cidade.class.getSimpleName(),Integer.parseInt(properties.get("idCidade").toString()));
+				key = KeyFactory.createKey(Cidade.class.getSimpleName(),Integer.parseInt(bairro.getProperty("idCidade").toString()));
 				Entity cidade = datastore.get(key);
 				
 				objeto.put("cidade",cidade.getProperty("nome"));
@@ -67,7 +67,10 @@ public class PedidoMensalRESTFul extends BaseServlet{
 				objeto.put("latitude", pedido.getProperty("latitude"));		
 				objeto.put("longitude", pedido.getProperty("longitude"));
 				objeto.put("uuid",pedido.getProperty("uuid"));
-				objeto.put("data", Tempo.stringParaData(pedido.getProperty("data").toString()) );
+				
+				//objeto.put("data", Tempo.stringParaData(pedido.getProperty("data").toString()) );
+				
+				objeto.put("data", (Date) pedido.getProperty("data"));
 				
 				query = new Query("Item");
 				query.setFilter(new FilterPredicate("idPedido",FilterOperator.EQUAL,pedido.getKey().getId()));
@@ -99,7 +102,7 @@ public class PedidoMensalRESTFul extends BaseServlet{
 		response.setContentType("application/json;charset=UTF-8");
         PrintWriter printWriter;
 		printWriter = response.getWriter();
-		printWriter.print(pedidos);
+		printWriter.print(objs);
 		printWriter.flush();
 		
 	}

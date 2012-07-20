@@ -74,6 +74,7 @@ public class PedidoRestFul extends BaseServlet{
 						
 						Entity pedido = new Entity("Pedido");
 						pedido.setProperty("numero", json.getString("numero"));
+						
 						pedido.setProperty("data", new Date(json.getLong("data")));
 						pedido.setProperty("idRepresentante", representante.getKey().getId());
 						pedido.setProperty("idCliente", json.getLong("idCliente"));
