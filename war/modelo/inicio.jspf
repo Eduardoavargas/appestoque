@@ -24,6 +24,117 @@
 
 <script type="text/javascript" src="/js/jquery.fixedMenu.js" ></script>
 
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+
+
+	<script type="text/javascript">
+	
+		google.load("visualization", "1", {packages:["corechart"]});
+	    
+		var objetos = null;
+		var mes = new Array(31);
+		for (var i=0; i<mes.length; i++){mes[i] = 0};
+	
+		function iniciar() {
+			var url = "http://localhost:8888/RESTFul/pedidoMensal";
+			if(window.XMLHttpRequest){
+				httpRequest = new XMLHttpRequest();
+			}else if(window.ActiveXObject){
+				httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+	    	httpRequest.open("GET", url, true);
+			httpRequest.onreadystatechange = manipulador;
+			httpRequest.send(null);    		
+		}
+		
+		function manipulador() {
+			if (httpRequest.readyState == 4 && httpRequest.status == 200 ) {
+				objetos = eval('(' + httpRequest.responseText + ')');
+				if(objetos.pedidos.length>0){
+					formatarDados();
+					montarGrafico();
+					montarMapa();
+				}	
+			}
+		}
+		
+		function formatarDados() {
+    		for (var i=0; i<objetos.pedidos.length; i++){
+    			console.log(objetos.pedidos[i].data);
+    			console.log(objetos.pedidos[i].valor);
+    			var data = new Date(objetos.pedidos[i].data);
+    			mes[data.getDate()-1] = mes[data.getDate()-1] + objetos.pedidos[i].valor;
+			}
+    	}	
+		
+		function montarGrafico(){
+			var matriz = new Array(1);
+	    	matriz[0] = ['Dia','Valor'];
+			for (var i=0; i<mes.length; i++){
+				if(mes[i]!=0){
+					matriz.length = matriz.length + 1; 
+					matriz[matriz.length-1] = [i+1,mes[i]];
+				}
+			}	
+			var dados = google.visualization.arrayToDataTable(matriz);
+			var options = {
+				title: 'Pedido de Venda'
+			};
+			var chart = new google.visualization.LineChart(document.getElementById('grafico'));
+			chart.draw(dados, options);	
+		}
+		
+		function montarMapa(){
+			var myLatlng = new google.maps.LatLng(-20.061091, -40.847168);
+			var myOptions = {
+				        zoom: 8,
+				        center: myLatlng,
+				        mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+		      
+	    	var map = new google.maps.Map(document.getElementById("mapa"),myOptions);
+
+		  	var infowindow = new google.maps.InfoWindow();
+		  	var marker, i;
+
+			for (var i=0; i<objetos.pedidos.length; i++){
+				marker = new google.maps.Marker({
+		             position: new google.maps.LatLng(objetos.pedidos[i].latitude, objetos.pedidos[i].longitude),
+		             map: map,
+		             animation: google.maps.Animation.DROP,
+		             title: objetos.pedidos[i].cliente,
+		             icon: 'http://localhost:8888/img/pin-red.png'
+		        });
+
+				google.maps.event.addListener(marker, 'click', 
+						(function(marker, i) {
+			        		return function() {
+												
+			        			 			  var contentString = 
+				        			 	      '<div>'+
+			        						  '<b>'+objetos.pedidos[i].cliente+'</b><br/>'+
+			        						  objetos.pedidos[i].endereco+'<br/>'+
+			        						  objetos.pedidos[i].bairro+' - '+objetos.pedidos[i].cidade+'<br/>'+
+			        						  '<a target="_blank" href="http://appestoque.appspot.com/RESTFul/relatorioPedido?uuid='+objetos.pedidos[i].uuid+'">Imprimir Pedido</a>'+
+			        						  '</div>';
+				        		
+									          infowindow.setContent( contentString );
+									          infowindow.open(map, marker);
+									          if (marker.getAnimation() != null) {
+									              marker.setAnimation(null);
+									            } else {
+									              marker.setAnimation(google.maps.Animation.BOUNCE);
+									           }
+									        }
+			      })(marker, i));
+				
+			}
+			
+		}
+	
+	</script>
+
 <title><%=bundle.getString("app.titulo")%></title>
 </head>
 <body>
