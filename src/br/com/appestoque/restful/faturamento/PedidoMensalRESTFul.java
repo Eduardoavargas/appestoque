@@ -66,9 +66,6 @@ public class PedidoMensalRESTFul extends BaseServlet{
 				objeto.put("latitude", pedido.getProperty("latitude"));		
 				objeto.put("longitude", pedido.getProperty("longitude"));
 				objeto.put("uuid",pedido.getProperty("uuid"));
-				
-				//objeto.put("data", Tempo.stringParaData(pedido.getProperty("data").toString()) );
-				
 				objeto.put("data", (Date) pedido.getProperty("data"));
 				
 				query = new Query("Item");
