@@ -54,7 +54,7 @@
 	<div id="conteudo">
 		
 		<div align="center" style="width: 100%;">
-			<a href="/menu.jsp"><img  style="border: none" src="img/logo.jpg"/></a>
+			<a href="/menu.jsp"><img  style="border: none" src="http://localhost:8888/img/logo.jpg"/></a>
 		</div>
 		<br/>
 	
@@ -91,6 +91,11 @@
 		<li><a href="#" onmouseover="mopen('m4')" onmouseout="mclosetime()">Suprimento</a>
 			<div id="m4" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
 				<a href="/produtoControle?acao=iniciar">Produto</a>
+			</div>
+		</li>
+		<li><a href="#" onmouseover="mopen('m5')" onmouseout="mclosetime()">Ferramenta</a>
+			<div id="m5" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
+				<a href="/ferramenta/painelBordo.jsp">Painel de Bordo</a>
 			</div>
 		</li>
 	</ul>
