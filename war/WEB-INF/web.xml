@@ -77,12 +77,12 @@
 		<filter-name>filtro</filter-name>
 		<url-pattern>/RESTFul/cliente/*</url-pattern>
 	</filter-mapping>
-	-->
 	
 	<filter-mapping>
 		<filter-name>filtro</filter-name>
 		<url-pattern>/RESTFul/pedido/*</url-pattern>
 	</filter-mapping>
+	-->
 
 	
 	<!--servlet-->
@@ -282,6 +282,15 @@
 	<servlet>
 		<servlet-name>PedidoRestFul</servlet-name>
 		<servlet-class>br.com.appestoque.restful.faturamento.PedidoRestFul</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PedidoMensalRESTFul</servlet-name>
+		<url-pattern>/RESTFul/pedidoMensal</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>PedidoMensalRESTFul</servlet-name>
+		<servlet-class>br.com.appestoque.restful.faturamento.PedidoMensalRESTFul</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
