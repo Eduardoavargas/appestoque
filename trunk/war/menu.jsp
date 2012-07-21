@@ -2,7 +2,8 @@
 
 <div align="center" style="width: 100%;">
 
-
+	<div id="corpo">	
+	</div>
 
 	<!--  
 	<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js">		
