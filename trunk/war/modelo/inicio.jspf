@@ -61,28 +61,36 @@
 		
 		function formatarDados() {
     		for (var i=0; i<objetos.pedidos.length; i++){
-    			console.log(objetos.pedidos[i].data);
-    			console.log(objetos.pedidos[i].valor);
     			var data = new Date(objetos.pedidos[i].data);
     			mes[data.getDate()-1] = mes[data.getDate()-1] + objetos.pedidos[i].valor;
 			}
     	}	
 		
 		function montarGrafico(){
-			var matriz = new Array(1);
-	    	matriz[0] = ['Dia','Valor'];
+			
+			var dataTable = new google.visualization.DataTable();
+			
+			dataTable.addColumn('string', 'Dia');
+			dataTable.addColumn('number', 'Valor');
+	    	var number = null;
 			for (var i=0; i<mes.length; i++){
-				if(mes[i]!=0){
-					matriz.length = matriz.length + 1; 
-					matriz[matriz.length-1] = [i+1,mes[i]];
+				if(mes[i]!=0){				
+					number = new Number(i+1);
+					dataTable.addRow([ number.toFixed(0) , mes[i] ]);
 				}
-			}	
-			var dados = google.visualization.arrayToDataTable(matriz);
+			}
 			var options = {
 				title: 'Pedido de Venda'
 			};
+			
+			var formatter1 = new google.visualization.NumberFormat({fractionDigits: 0});
+			formatter1.format(dataTable, 0);
+			
+			var formatter = new google.visualization.NumberFormat({prefix: 'R$ ', negativeColor: 'red', negativeParens: true});
+			formatter.format(dataTable, 1);
+			
 			var chart = new google.visualization.LineChart(document.getElementById('grafico'));
-			chart.draw(dados, options);	
+			chart.draw(dataTable, options);	
 		}
 		
 		function montarMapa(){
@@ -110,23 +118,22 @@
 				google.maps.event.addListener(marker, 'click', 
 						(function(marker, i) {
 			        		return function() {
-												
 			        			 			  var contentString = 
 				        			 	      '<div>'+
 			        						  '<b>'+objetos.pedidos[i].cliente+'</b><br/>'+
 			        						  objetos.pedidos[i].endereco+'<br/>'+
 			        						  objetos.pedidos[i].bairro+' - '+objetos.pedidos[i].cidade+'<br/>'+
-			        						  '<a target="_blank" href="http://appestoque.appspot.com/RESTFul/relatorioPedido?uuid='+objetos.pedidos[i].uuid+'">Imprimir Pedido</a>'+
+			        						  '<a target="_blank" href="http://localhost:8888/RESTFul/relatorioPedido?uuid='+objetos.pedidos[i].uuid+'">Imprimir Pedido</a>'+
 			        						  '</div>';
 				        		
 									          infowindow.setContent( contentString );
 									          infowindow.open(map, marker);
-									          if (marker.getAnimation() != null) {
-									              marker.setAnimation(null);
-									            } else {
-									              marker.setAnimation(google.maps.Animation.BOUNCE);
-									           }
-									        }
+// 									          if (marker.getAnimation() != null) {
+// 									              marker.setAnimation(null);
+// 									          } else {
+// 									              marker.setAnimation(google.maps.Animation.BOUNCE);
+// 									          }
+							}
 			      })(marker, i));
 				
 			}
