@@ -113,7 +113,7 @@ public class PedidoRestFul extends BaseServlet{
 							corpo.append("<body>");
 							corpo.append("<body>");
 							corpo.append("<div style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; margin: 14px';>");
-							corpo.append("<img src='http://www.appestoque.com.br/img/logo.jpg'/>");
+							corpo.append("<img src='http://appestoque.appspot.com/img/logo.jpg'/>");
 							corpo.append("<h2 style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin: 0 0 16px; font-size: 18px; font-weight: normal'>Olá, "+empresa.getProperty("nome")+".</h2>");
 							
 							corpo.append("<p>Por favor, clique no link abaixo para imprimir o pedido de venda:<br>");
