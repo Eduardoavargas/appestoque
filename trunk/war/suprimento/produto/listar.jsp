@@ -17,17 +17,17 @@
 		
 		<script>
 			$("#buscar").click(function () {
-		      if(document.getElementById('numero').value.length==0){
-		    	  alert('<%=bundle.getString("pesquisa.semFiltro")%>');
-		    	  document.getElementById('numero').focus();
-		      }else{
-		    	  document.forms[0].submit();		  
-		      }
+		      //if(document.getElementById('numero').value.length==0){
+		      //	  alert('<%=bundle.getString("pesquisa.semFiltro")%>');
+		      //	  document.getElementById('numero').focus();
+		      //}else{
+		      //}
+		      document.forms[0].submit();
 		    });
 	    </script>
 		
-		<span class="heading"><%=bundle.getString("produto.nome")%></span><br/>
-		<input type="text" id="numero" name="numero" class="text ui-widget-content ui-corner-all" style="width: 300px" value="<%=request.getAttribute("numero")!=null?request.getAttribute("numero"):""%>"/>	
+		<span class="heading"><%=bundle.getString("produto.numero")%></span><br/>
+		<input type="text" id="numero" name="numero" class="text ui-widget-content ui-corner-all" style="width: 150px" value="<%=request.getAttribute("numero")!=null?request.getAttribute("numero"):""%>"/>	
 	<%
 		List<Produto> objetos = new ArrayList<Produto>();
 		if(request.getAttribute("objetos")!=null){
@@ -39,16 +39,16 @@
 		<p/>
 		<table border="0" cellspacing="1" cellpadding="5" class="ui-widget" width="100%">
 		<tr class="ui-widget-header ">
-			<td><%=bundle.getString("produto.nome")%></td>
 			<td><%=bundle.getString("produto.numero")%></td>
+			<td><%=bundle.getString("produto.nome")%></td>
 			<td align="right"><%=bundle.getString("produto.preco")%></td>
 			<td width="15%"/>
 		</tr>
 		<% for (int i = 0;i<objetos.size();i++) { %>
 			<% Produto objeto = (Produto) objetos.get(i); %>
 			<tr>
-				<td><%=objeto.getNome()%></td>
 				<td><%=objeto.getNumero()%></a></td>
+				<td><%=objeto.getNome()%></td>
 				<td align="right"><fmt:formatNumber value="<%=objeto.getPreco()%>" type="currency" pattern="<%=br.com.appestoque.Constantes.MASCARA_PRECO%>"/></td>
 				<td align="center" >
 					<a id="edt" href="/produtoControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
