@@ -9,7 +9,8 @@
 
 <span class="title"><%=bundle.getString("produto.pesquisar.titulo")%></span>
 
-	<form id="formListar" method="post" action="/produtoControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
+<%-- 	<form id="formListar" method="post" action="/produtoControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&totalRegistros=<%=request.getAttribute("totalRegistros")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>"> --%>
+	<form id="formListar" method="post" action="/produtoControle?acao=pesquisar&primeiroRegistro=<%=request.getAttribute("primeiroRegistro")%>&registrosPorPagina=<%=request.getAttribute("registrosPorPagina")%>">
 	
 		<app:parametrosListar/>
 		<app:barraListar acao="/produtoControle"/>
