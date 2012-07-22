@@ -54,30 +54,32 @@ public class UsuarioControle extends BaseControle {
 			primeiroRegistro = Integer.parseInt(request.getParameter("primeiroRegistro"));			
 			objetos = null;
 			if(request.getParameter("paginar")==null){
-				totalRegistros = dao.contar(email,getId(request));				
 				objetos = dao.pesquisar(email,getId(request),primeiroRegistro,Constantes.REGISTROS_POR_PAGINA);
-				request.setAttribute("totalRegistros",totalRegistros);
+				request.setAttribute("totalRegistros",objetos.size());
 				request.setAttribute("primeiroRegistro",primeiroRegistro);
 			}else if(request.getParameter("paginar").equals("proximo")){
 				primeiroRegistro += Constantes.REGISTROS_POR_PAGINA;
 				objetos = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
+				request.setAttribute("totalRegistros",objetos.size());
 			}else if(request.getParameter("paginar").equals("anterior")){
 				primeiroRegistro -= Constantes.REGISTROS_POR_PAGINA;
 				objetos = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
+				request.setAttribute("totalRegistros",objetos.size());
 			}else if(request.getParameter("paginar").equals("ultimo")){
-				primeiroRegistro = totalRegistros - ((totalRegistros % Constantes.REGISTROS_POR_PAGINA != 0) ? totalRegistros % Constantes.REGISTROS_POR_PAGINA : Constantes.REGISTROS_POR_PAGINA);
-				objetos = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
-				paginar(primeiroRegistro);
-				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
+//				primeiroRegistro = totalRegistros - ((totalRegistros % Constantes.REGISTROS_POR_PAGINA != 0) ? totalRegistros % Constantes.REGISTROS_POR_PAGINA : Constantes.REGISTROS_POR_PAGINA);
+//				objetos = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
+//				paginar(primeiroRegistro);
+//				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
 			}else if(request.getParameter("paginar").equals("primeiro")){
 				primeiroRegistro = 0;
 				objetos = dao.pesquisar(email,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA);
 				paginar(primeiroRegistro);
 				request.setAttribute("primeiroRegistro",getPrimeiroRegistro());
+				request.setAttribute("totalRegistros",objetos.size());
 			}
 			request.setAttribute("objetos", objetos);
 			request.setAttribute("email", email);
