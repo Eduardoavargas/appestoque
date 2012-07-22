@@ -38,10 +38,16 @@ public class PedidoRestFul extends BaseServlet{
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		super.processServer(request, response);
 		if(request.getParameter("email")!=null&&request.getParameter("senha")!=null){
+			
+			logger.log(Level.INFO,"EMAIL E SENHA");
+			
 			DatastoreService datastore = null;
 			Query query = null;
 			datastore = DatastoreServiceFactory.getDatastoreService();
 			String senha = null;
+			
+			logger.log(Level.INFO,"DECIFRANDO SENHA");
+			
 			try{
 				Criptografia criptografia = new Criptografia();
 				senha = criptografia.decifrar(Conversor.stringToByte(request.getParameter("senha"),Constantes.DELIMITADOR));
@@ -55,11 +61,17 @@ public class PedidoRestFul extends BaseServlet{
 				e.printStackTrace();
 			}
 			
+			logger.log(Level.INFO,"LOCALIZANDO USUARIO");
+			
 			query = new Query("Usuario");
 			query.setFilter(new FilterPredicate("email",FilterOperator.EQUAL,request.getParameter("email")));
 			Entity usuario = datastore.prepare(query).asSingleEntity();
 			
+			logger.log(Level.INFO,"VALIDANDO SENHA");
+			
 			if(usuario!=null&&usuario.getProperty("senha").equals(senha)){
+				
+				logger.log(Level.INFO,"LOCALIZANDO REPRESENTANTE");
 				
 				query = new Query("Representante");
 				query.setFilter(new FilterPredicate("idUsuario",FilterOperator.EQUAL,usuario.getKey().getId()));
@@ -67,6 +79,8 @@ public class PedidoRestFul extends BaseServlet{
 				
 				if(representante!=null){
 
+					
+					
 					try{
 						
 						String uuid = UUID.randomUUID().toString();
@@ -83,8 +97,10 @@ public class PedidoRestFul extends BaseServlet{
 						pedido.setProperty("uuid", uuid);
 						pedido.setProperty("latitude", json.getDouble("latitude"));
 						pedido.setProperty("longitude", json.getDouble("longitude"));
+						
+						logger.log(Level.INFO,"INCLUINDO PEDIDO");	
 						datastore.put(pedido);
-
+						
 						JSONArray itens = json.getJSONArray("itens");
 						for (int i = 0; i <= itens.length() - 1; ++i) {
 							Entity item = new Entity("Item");
@@ -92,19 +108,25 @@ public class PedidoRestFul extends BaseServlet{
 							item.setProperty("idPedido", pedido.getKey().getId());
 							item.setProperty("quantidade", itens.getJSONObject(i).getDouble("quantidade"));
 							item.setProperty("valor", itens.getJSONObject(i).getDouble("valor"));
+							logger.log(Level.INFO,"INCLUINDO ITEM");
 							datastore.put(item);
 						}
 						
+						
+						logger.log(Level.INFO,"LOCALIZANDO EMPRESA");
 						Key key = null;
 						key = KeyFactory.createKey(Empresa.class.getSimpleName(),(Long)representante.getProperty("idEmpresa"));
 						Entity empresa = null;
 						try {
 							empresa = datastore.get(key);
 						} catch (EntityNotFoundException e) {
+							e.printStackTrace();
 						}
 						
 						if(empresa.getProperty("emailPedido")!=null&&!empresa.getProperty("emailPedido").equals("")){
 						
+							logger.log(Level.INFO,"ENCAMINHANDO EMAIL SENHA");
+							
 							StringBuffer corpo = new StringBuffer();
 							
 							corpo.append("<html>");
@@ -128,9 +150,9 @@ public class PedidoRestFul extends BaseServlet{
 							corpo.append(" <a href='mailto:suporte@appestoque.com.br?subject=[Cadastro]Mensagem por engano&&body='target='_blank'>não é minha conta</a>.</p>");
 							
 							corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
-							corpo.append("Por favor não responda esta mensagem; ela foi enviada por um endereço");
-							corpo.append("de e-mail não monitorado. Esta mensagem é relacionada ao seu uso do");
-							corpo.append(" Appestoque. Para mais informações sobre a sua conta, por");
+							corpo.append("Por favor não responda esta mensagem; ela foi enviada por um endereço ");
+							corpo.append("de e-mail não monitorado. Esta mensagem é relacionada ao seu uso do ");
+							corpo.append("Appestoque. Para mais informações sobre a sua conta, por ");
 							corpo.append("favor encaminhe um e-mail para o");
 							corpo.append(" <a href='mailto:suporte@appestoque.com.br' target='_blank'>Suporte do Appestoque</a>.</p>");
 							
@@ -143,6 +165,8 @@ public class PedidoRestFul extends BaseServlet{
 							
 						}
 						
+						logger.log(Level.INFO,"RESPONDENDO REQUISIÇÃO");
+						
 						response.setContentType("application/json;charset=UTF-8");
 						PrintWriter out = response.getWriter();
 						json = new JSONObject();
@@ -151,6 +175,7 @@ public class PedidoRestFul extends BaseServlet{
 						out.flush();
 					
 					} catch (JSONException e) {
+						e.printStackTrace();
 						response.setContentType("application/json;charset=UTF-8");
 						PrintWriter out = response.getWriter();
 						String json = "{'erro':'"+e.getMessage()+"'}";
