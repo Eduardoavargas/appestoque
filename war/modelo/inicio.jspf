@@ -113,7 +113,7 @@
 		             map: map,
 		             animation: google.maps.Animation.DROP,
 		             title: objetos.pedidos[i].cliente,
-		             icon: 'http://localhost:8888/img/pin-red.png'
+		             icon: '<%=Constantes.URL%>/img/pin-red.png'
 		        });
 
 				google.maps.event.addListener(marker, 'click', 
@@ -124,7 +124,7 @@
 			        						  '<b>'+objetos.pedidos[i].cliente+'</b><br/>'+
 			        						  objetos.pedidos[i].endereco+'<br/>'+
 			        						  objetos.pedidos[i].bairro+' - '+objetos.pedidos[i].cidade+'<br/>'+
-			        						  '<a target="_blank" href="http://appestoque.appspot.com/RESTFul/relatorioPedido?uuid='+objetos.pedidos[i].uuid+'">Imprimir Pedido</a>'+
+			        						  '<a target="_blank" href="<%=Constantes.URL%>/RESTFul/relatorioPedido?uuid='+objetos.pedidos[i].uuid+'">Imprimir Pedido</a>'+
 			        						  '</div>';
 				        		
 									          infowindow.setContent( contentString );
