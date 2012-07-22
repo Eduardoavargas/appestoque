@@ -123,16 +123,11 @@
 			        						  '<b>'+objetos.pedidos[i].cliente+'</b><br/>'+
 			        						  objetos.pedidos[i].endereco+'<br/>'+
 			        						  objetos.pedidos[i].bairro+' - '+objetos.pedidos[i].cidade+'<br/>'+
-			        						  '<a target="_blank" href="http://localhost:8888/RESTFul/relatorioPedido?uuid='+objetos.pedidos[i].uuid+'">Imprimir Pedido</a>'+
+			        						  '<a target="_blank" href="http://appestoque.appspot.com/RESTFul/relatorioPedido?uuid='+objetos.pedidos[i].uuid+'">Imprimir Pedido</a>'+
 			        						  '</div>';
 				        		
 									          infowindow.setContent( contentString );
 									          infowindow.open(map, marker);
-// 									          if (marker.getAnimation() != null) {
-// 									              marker.setAnimation(null);
-// 									          } else {
-// 									              marker.setAnimation(google.maps.Animation.BOUNCE);
-// 									          }
 							}
 			      })(marker, i));
 				
