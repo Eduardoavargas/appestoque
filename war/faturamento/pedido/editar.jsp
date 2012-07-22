@@ -24,17 +24,17 @@
 	<%=bundle.getString("pedido.representante")%>:<br/>
 	<app:texto id="cliente" nome="cliente" tamanho="50" valor="<%=objeto.getRepresentante().getNome()%>"/></p>
 	
-	
 	<%=bundle.getString("pedido.obs")%>:<br/>
 	<app:texto id="obs" nome="obs" tamanho="50" valor="<%=objeto.getObs()%>"/></p>
 	
-	<%=bundle.getString("produto.numero")%>:<br />
-	<app:texto id="numero" nome="numero" valor="<%=objeto.getNumero()%>" />
+	
+<%-- 	<%=bundle.getString("produto.numero")%>:<br /> --%>
+<%-- 	<app:texto id="numero" nome="numero" valor="<%=objeto.getNumero()%>" /> --%>
 	
 	<%
-	NumberFormat numberFormat = NumberFormat.getInstance();
-	numberFormat.setMaximumFractionDigits(br.com.appestoque.Constantes.PRECISAO_VALOR);
-	numberFormat.setMinimumFractionDigits(br.com.appestoque.Constantes.PRECISAO_VALOR);
+		NumberFormat numberFormat = NumberFormat.getInstance();
+		numberFormat.setMaximumFractionDigits(br.com.appestoque.Constantes.PRECISAO_VALOR);
+		numberFormat.setMinimumFractionDigits(br.com.appestoque.Constantes.PRECISAO_VALOR);
 	%>
 	
 	<p/>	

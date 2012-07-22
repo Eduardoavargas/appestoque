@@ -24,7 +24,7 @@
 	    </script>
 		
 		<span class="heading"><%=bundle.getString("pedido.numero")%></span><br/>
-		<input type="text" id="numero" name="numero" class="text ui-widget-content ui-corner-all" style="width: 300px" value="<%=request.getAttribute("numero")!=null?request.getAttribute("numero"):""%>"/>	
+		<input type="text" id="numero" name="numero" class="text ui-widget-content ui-corner-all" style="width: 150px" value="<%=request.getAttribute("numero")!=null?request.getAttribute("numero"):""%>"/>	
 	<%
 		List<Pedido> objetos = new ArrayList<Pedido>();
 		if(request.getAttribute("objetos")!=null){
@@ -37,6 +37,7 @@
 		<table border="0" cellspacing="1" cellpadding="5" class="ui-widget" width="100%">
 		<tr class="ui-widget-header">
 			<td><%=bundle.getString("pedido.numero")%></td>
+			<td><%=bundle.getString("pedido.cliente")%></td>
 			<td><%=bundle.getString("pedido.data")%></td>
 			<td width="15%"/>
 		</tr>
@@ -44,6 +45,7 @@
 			<% Pedido objeto = (Pedido) objetos.get(i); %>
 			<tr>
 				<td><%=objeto.getNumero()%></td>
+				<td><%=objeto.getCliente().getNome()%></td>
 				<td><fmt:formatDate value="<%=objeto.getData()%>" pattern="dd/MM/yyyy"/></td>
 				<td align="center" >
 					<a id="edt" href="/pedidoControle?acao=editar&id=<%=objeto.getId()%>"><img title="<%=bundle.getString("link.titulo.editar")%>" src="img/editar.png" style="border: 0px;"/></a>
