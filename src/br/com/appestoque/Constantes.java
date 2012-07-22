@@ -6,7 +6,7 @@ public class Constantes {
 
 	public static final String CONTENT_TYPE_PDF = "application/pdf";
 	
-	public static final String VERSAO = "beta 1.0";
+	public static final String VERSAO = "Beta 1.0.0";
 	
 	public static final String URL = "http://appestoque.appspot.com";
 	public static final String URI_CONFIRMAR = "/processo?acao=confirmar";
