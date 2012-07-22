@@ -266,7 +266,6 @@ form#formCadastro label { /* 	display: block; */
 	text-align:left; /* alinha o texto à esquerda */
 	width:100%; /* definimos uma largura de 700px */
 	background-color:#FFFFFF; /* definimos a cor de fundo da div */
-	/* border:1px solid #CCCCCC; definimos os atributos da borda da div */
 	padding-bottom:12px; /* definimos o espaçamento da base */
 	height:320px;
 }
@@ -286,3 +285,10 @@ form#formCadastro label { /* 	display: block; */
 	margin:10px 0px 0px 10px; /* margem no sentido horário(topo,direita,base,esquerda) */
 	float: right;
 }
+
+#versao{
+	width: 100%;
+	margin:0px 0px 0px 0px;
+	font-size: 12px;
+	font-weight: bold;
+}	
