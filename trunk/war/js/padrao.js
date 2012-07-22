@@ -41,20 +41,14 @@ document.onclick = mclose;
 // -->
 
 function paginar(obj, primeiroRegistro, registrosPorPagina, totalRegistros){
-	var msg = 'Procedimento nao permitido';
-	if ((obj.name == 'primeiro') && (parseInt(primeiroRegistro) == 0)) {
-		alert(msg);
+	if ((obj.name == 'primeiro' || obj.name == 'anterior') && (parseInt(primeiroRegistro) == 0)) {
+		alert('Nao existe mais informacao para paginar para tras.');
 		return false;
-	} if ((obj.name == 'anterior') && (parseInt(primeiroRegistro) == 0)) {
-		alert(msg);
+	} else if ((obj.name == 'proximo')&&(parseInt(totalRegistros)<parseInt(registrosPorPagina))) {	
+		alert('Nao existe mais informacao para paginar a frente.');
 		return false;
-	} if ((obj.name == 'proximo')
-			&& ((parseInt(primeiroRegistro) + parseInt(registrosPorPagina)) >= parseInt(totalRegistros))) {
-		alert(msg);
-		return false;
-	} if ((obj.name == 'ultimo')
-			&& ((parseInt(primeiroRegistro) + parseInt(registrosPorPagina)) >= parseInt(totalRegistros))) {
-		alert(msg);
+	} else if (obj.name == 'ultimo') {
+		alert('Procedimento nao permitido.');
 		return false;
 	} else {
 		return true;
