@@ -42,10 +42,10 @@ document.onclick = mclose;
 
 function paginar(obj, primeiroRegistro, registrosPorPagina, totalRegistros){
 	if ((obj.name == 'primeiro' || obj.name == 'anterior') && (parseInt(primeiroRegistro) == 0)) {
-		alert('Nao existe mais informacao para paginar para tras.');
+		alert('Nao existe mais informacao para paginar.');
 		return false;
 	} else if ((obj.name == 'proximo')&&(parseInt(totalRegistros)<parseInt(registrosPorPagina))) {	
-		alert('Nao existe mais informacao para paginar a frente.');
+		alert('Nao existe mais informacao para paginar.');
 		return false;
 	} else if (obj.name == 'ultimo') {
 		alert('Procedimento nao permitido.');
