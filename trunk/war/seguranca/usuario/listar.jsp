@@ -10,12 +10,12 @@
 		<app:barraListar acao="/usuarioControle"/>
 		<script>
 			$("#buscar").click(function () {
-		      if(document.getElementById('email').value.length==0){
-		    	  alert('<%=bundle.getString("pesquisa.semFiltro")%>');
-		    	  document.getElementById('email').focus();
-		      }else{
-		    	  document.forms[0].submit();		  
-		      }
+		      //if(document.getElementById('email').value.length==0){
+		      //	  alert('<%=bundle.getString("pesquisa.semFiltro")%>');
+		      //	  document.getElementById('email').focus();
+		      //}else{
+		      //}
+		      document.forms[0].submit();
 		    });
 	    </script>
 		<span class="heading"><%=bundle.getString("usuario.nome")%></span><br/>
