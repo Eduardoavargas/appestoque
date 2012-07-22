@@ -88,10 +88,6 @@
 		</select>
 	</div>
 	</p>
-	<%=bundle.getString("representante.uuid")%><br />
-	<app:texto id="uuid" nome="uuid" tamanho="50" valor="<%=objeto.getUuid()%>"/>
-	</p>
-	
 	<hr>
 </form>
 <%@include file="../../modelo/fim.jspf"%>
