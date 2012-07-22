@@ -169,7 +169,7 @@
 		
 		<div align="center" style="width: 100%;">
 			<div id="versao" align="left">Versão <%=Constantes.VERSAO%></div>
-			<a href="/menu.jsp"><img style="border: none" src="http://localhost:8888/img/logo.jpg"/></a>
+			<a href="/menu.jsp"><img style="border: none" src="http://appestoque.appspot/img/logo.jpg"/></a>
 		</div>
 		<br/>
 	
