@@ -17,6 +17,7 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.DAOGenerico;
+import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
 import br.com.appestoque.dao.cadastro.RepresentanteDAO;
 import br.com.appestoque.dominio.cadastro.Cliente;
@@ -34,7 +35,7 @@ public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Pedido> pesquisar(String numero, Long idEmpresa, long ini, long qtd){
+	public List<Pedido> pesquisar(String numero, Long idEmpresa, long ini, long qtd, TipoBusca tipoBusca){
 		Query query = getPm().newQuery(Pedido.class);
 		query.setRange(ini, qtd);
 		List<Pedido> objetos = null;
@@ -46,7 +47,15 @@ public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 			query.setFilter("idEmpresa == p_empresa ");
 			query.declareParameters("Long p_empresa");
 			objetos = (List<Pedido>) query.execute(idEmpresa);
-		}	
+		}
+		
+		if (tipoBusca.equals(TipoBusca.ANSIOSA)) {
+			ClienteDAO clienteDAO = new ClienteDAO(this.getPm());
+			for (int i = 0; i < objetos.size(); i++) {
+				objetos.get(i).setCliente(clienteDAO.pesquisar(objetos.get(i).getIdCliente()));
+			}
+		}
+		
 		return objetos;
 	}
 	
