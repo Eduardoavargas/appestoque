@@ -3,7 +3,7 @@
   <application>appestoque</application>
   <version>3</version>
   <threadsafe>true</threadsafe>
-  <precompilation-enabled>false</precompilation-enabled>
+  <precompilation-enabled>true</precompilation-enabled>
   <static-files>
     <include path="**" />
     <include path="**.nocache.*" expiration="0s" />
