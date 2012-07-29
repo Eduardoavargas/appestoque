@@ -285,10 +285,3 @@ form#formCadastro label { /* 	display: block; */
 	margin:10px 0px 0px 10px; /* margem no sentido horário(topo,direita,base,esquerda) */
 	float: right;
 }
-
-#versao{
-	width: 100%;
-	margin:0px 0px 0px 0px;
-	font-size: 12px;
-	font-weight: bold;
-}	
