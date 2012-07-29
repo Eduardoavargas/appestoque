@@ -39,14 +39,10 @@ public class PedidoRestFul extends BaseServlet{
 		super.processServer(request, response);
 		if(request.getParameter("email")!=null&&request.getParameter("senha")!=null){
 			
-			logger.log(Level.INFO,"EMAIL E SENHA");
-			
 			DatastoreService datastore = null;
 			Query query = null;
 			datastore = DatastoreServiceFactory.getDatastoreService();
 			String senha = null;
-			
-			logger.log(Level.INFO,"DECIFRANDO SENHA");
 			
 			try{
 				Criptografia criptografia = new Criptografia();
@@ -61,17 +57,11 @@ public class PedidoRestFul extends BaseServlet{
 				e.printStackTrace();
 			}
 			
-			logger.log(Level.INFO,"LOCALIZANDO USUARIO");
-			
 			query = new Query("Usuario");
 			query.setFilter(new FilterPredicate("email",FilterOperator.EQUAL,request.getParameter("email")));
 			Entity usuario = datastore.prepare(query).asSingleEntity();
 			
-			logger.log(Level.INFO,"VALIDANDO SENHA");
-			
 			if(usuario!=null&&usuario.getProperty("senha").equals(senha)){
-				
-				logger.log(Level.INFO,"LOCALIZANDO REPRESENTANTE");
 				
 				query = new Query("Representante");
 				query.setFilter(new FilterPredicate("idUsuario",FilterOperator.EQUAL,usuario.getKey().getId()));
@@ -98,7 +88,6 @@ public class PedidoRestFul extends BaseServlet{
 						pedido.setProperty("latitude", json.getDouble("latitude"));
 						pedido.setProperty("longitude", json.getDouble("longitude"));
 						
-						logger.log(Level.INFO,"INCLUINDO PEDIDO");	
 						datastore.put(pedido);
 						
 						JSONArray itens = json.getJSONArray("itens");
@@ -108,12 +97,10 @@ public class PedidoRestFul extends BaseServlet{
 							item.setProperty("idPedido", pedido.getKey().getId());
 							item.setProperty("quantidade", itens.getJSONObject(i).getDouble("quantidade"));
 							item.setProperty("valor", itens.getJSONObject(i).getDouble("valor"));
-							logger.log(Level.INFO,"INCLUINDO ITEM");
 							datastore.put(item);
 						}
 						
 						
-						logger.log(Level.INFO,"LOCALIZANDO EMPRESA");
 						Key key = null;
 						key = KeyFactory.createKey(Empresa.class.getSimpleName(),(Long)representante.getProperty("idEmpresa"));
 						Entity empresa = null;
@@ -125,8 +112,6 @@ public class PedidoRestFul extends BaseServlet{
 						
 						if(empresa.getProperty("emailPedido")!=null&&!empresa.getProperty("emailPedido").equals("")){
 						
-							logger.log(Level.INFO,"ENCAMINHANDO EMAIL SENHA");
-							
 							StringBuffer corpo = new StringBuffer();
 							
 							corpo.append("<html>");
@@ -161,11 +146,9 @@ public class PedidoRestFul extends BaseServlet{
 							corpo.append("</html>");
 							
 							String assunto = Constantes.ASSUNTO_PEDIDO_VENDA + " - " + pedido.getProperty("numero");
-							br.com.appestoque.Util.enviarEmail(empresa.getProperty("emailPedido").toString(),assunto,corpo);
+							br.com.appestoque.Util.enviarEmail(empresa.getProperty("email").toString(),assunto,corpo);
 							
 						}
-						
-						logger.log(Level.INFO,"RESPONDENDO REQUISIÇÃO");
 						
 						response.setContentType("application/json;charset=UTF-8");
 						PrintWriter out = response.getWriter();
@@ -205,91 +188,5 @@ public class PedidoRestFul extends BaseServlet{
 		}
 		
 	}
-
-	
-//	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String data = request.getParameter("json");
-//		if(data!=null&&!data.equals("")){
-//			HttpSession httpSession = request.getSession();
-//			Empresa empresa = (Empresa) httpSession.getAttribute("empresa");
-//			Representante representante = (Representante) httpSession.getAttribute("representante");
-//			PersistenceManager pm = PMF.get().getPersistenceManager();		
-//			try {
-//				String uuid = UUID.randomUUID().toString();
-//				JSONObject json = new JSONObject(data);
-//				Pedido pedido = new Pedido( json.getString("numero"),
-//											new Date(json.getLong("data")),										
-//											representante.getId(),
-//											json.getLong("idCliente"),
-//											empresa.getId(),
-//											json.getString("obs"),
-//											uuid);
-//				PedidoDAO pedidoDAO = new PedidoDAO(pm);
-//				pedidoDAO.criar(pedido);
-//				
-//				ItemDAO itemDAO = new ItemDAO(pm);
-//				JSONArray itens = json.getJSONArray("itens");
-//				for (int i = 0; i <= itens.length() - 1; ++i) {
-//					Item item = new Item(pedido.getId(), 
-//							itens.getJSONObject(i).getLong("idProduto"), 
-//							itens.getJSONObject(i).getDouble("quantidade"), 
-//							itens.getJSONObject(i).getDouble("valor"));
-//					itemDAO.criar(item);
-//				}
-//				
-//				if(empresa.getEmailPedido()!=null&&!empresa.getEmailPedido().equals("")){
-//				
-//					StringBuffer corpo = new StringBuffer();
-//					
-//					corpo.append("<html>");
-//					corpo.append("<head>");
-//					corpo.append("</head>");
-//					corpo.append("<body>");
-//					corpo.append("<body>");
-//					corpo.append("<div style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; margin: 14px';>");
-//					corpo.append("<img src='http://www.appestoque.com.br/img/logo.jpg'/>");
-//					corpo.append("<h2 style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin: 0 0 16px; font-size: 18px; font-weight: normal'>Olá, "+empresa.getNome()+".</h2>");
-//					
-//					corpo.append("<p>Por favor, clique no link abaixo para imprimir o pedido de venda:<br>");
-//					corpo.append("<a href='"+Constantes.URL+Constantes.URI_PEDIDO_VENDA+"?uuid="+uuid+"'");
-//					corpo.append("target='_blank'>"+Constantes.URL+Constantes.URI_PEDIDO_VENDA+"?uuid="+uuid+"</a></p>");
-//					
-//					corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; line-height: 18px; border-bottom: 1px solid rgb(238, 238, 238); padding-bottom: 10px; margin: 0 0 10px'>");
-//					corpo.append("<span style='font: italic 13px Georgia, serif; color: rgb(102, 102, 102)'>Equipe do Appestoque</span></p>");
-//					
-//					corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
-//					corpo.append("Se você recebeu essa mensagem por engano e não criou uma conta do Appestoque, clique"); 
-//					corpo.append(" <a href='mailto:suporte@appestoque.com.br?subject=[Cadastro]Mensagem por engano&&body='target='_blank'>não é minha conta</a>.</p>");
-//					
-//					corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
-//					corpo.append("Por favor não responda esta mensagem; ela foi enviada por um endereço");
-//					corpo.append("de e-mail não monitorado. Esta mensagem é relacionada ao seu uso do");
-//					corpo.append(" Appestoque. Para mais informações sobre a sua conta, por");
-//					corpo.append("favor encaminhe um e-mail para o");
-//					corpo.append(" <a href='mailto:suporte@appestoque.com.br' target='_blank'>Suporte do Appestoque</a>.</p>");
-//					
-//					corpo.append("</div>");
-//					corpo.append("</body>");
-//					corpo.append("</html>");
-//					
-//					Util.enviarEmail(empresa.getEmailPedido(),Constantes.ASSUNTO_PEDIDO_VENDA + " - " + pedido.getNumero(),corpo);
-//					
-//				}
-//				
-//				response.setContentType("application/json;charset=UTF-8");
-//				PrintWriter out = response.getWriter();
-//				json = new JSONObject();
-//				json.put("id",pedido.getId());
-//				out.print(json);
-//				out.flush();
-//			} catch (JSONException e) {
-//				response.setContentType("application/json;charset=UTF-8");
-//				PrintWriter out = response.getWriter();
-//				String json = "{'erro':'"+e.getMessage()+"'}";
-//				out.print(json);
-//				out.flush();
-//			}
-//		}
-//	}	
 
 }
