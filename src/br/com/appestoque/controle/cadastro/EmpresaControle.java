@@ -117,28 +117,59 @@ public class EmpresaControle extends BaseControle {
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("modificar")) {
 			
-//			private String complemento;
-//			private String endereco;
-//			private String nome;
-//			private String bairro;
-//			private String cep;
+			Empresa empresa = dao.pesquisar(new Long(request.getParameter("id")));
+			boolean modificar = false;
+			Integer numero = new Integer(request.getParameter("numero"));
+
+			modificar = (!empresa.getEndereco().equals(request.getParameter("endereco")))||
+						(!empresa.getNumero().equals(numero))||
+						(!empresa.getCep().equals(request.getParameter("cep")))||
+						(!empresa.getComplemento().equals(request.getParameter("complemento")))||
+						(!empresa.getBairro().equals(request.getParameter("bairro")))||
+						(!empresa.getCidade().equals(request.getParameter("cidade")));
 			
-//			String nome = request.getParameter("nome");
-//			cnpj = request.getParameter("cnpj");
-//			String bairro = request.getParameter("bairro");
-//			String cep = request.getParameter("cep");
-//			numero = new Integer(request.getParameter("numero"));
-//			String complemento = request.getParameter("complemento");
-//			String endereco = request.getParameter("endereco");
+			if (modificar) {
+
+				if (!empresa.getEndereco().equals(
+						request.getParameter("endereco"))) {
+					empresa.setEndereco(request.getParameter("endereco"));
+				}
+
+				if (!empresa.getNumero().equals(numero)) {
+					empresa.setNumero(numero);
+				}
+
+				if (!empresa.getCep().equals(request.getParameter("cep"))) {
+					empresa.setCep(request.getParameter("cep"));
+				}
+
+				if (!empresa.getComplemento().equals(
+						request.getParameter("complemento"))) {
+					empresa.setComplemento(request.getParameter("complemento"));
+				}
+
+				if (!empresa.getBairro().equals(request.getParameter("bairro"))) {
+					empresa.setBairro(request.getParameter("bairro"));
+				}
+
+				if (!empresa.getCidade().equals(request.getParameter("cidade"))) {
+					empresa.setCidade(request.getParameter("cidade"));
+				}
+
+				dao.adicionar(empresa);
+				
+				HttpServletRequest req = (HttpServletRequest) request;
+		        HttpSession session = req.getSession();
+		        session.setAttribute("empresa", empresa);
+				
+			}
 			
-			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
-			dao.criar(objeto);
 			ResourceBundle bundle = ResourceBundle.getBundle("i18n",request.getLocale());
 			request.setAttribute("mensagem",bundle.getString("app.mensagem.sucesso"));
 			request.setAttribute("primeiroRegistro",0);
 			request.setAttribute("totalRegistros",0);
 			request.setAttribute("registrosPorPagina",Constantes.REGISTROS_POR_PAGINA);
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_EMPRESA_LISTAR);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_MENU);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("remover")) {
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));

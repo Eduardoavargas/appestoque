@@ -95,7 +95,7 @@ public class Processo extends HttpServlet{
 			
 			String uuid = UUID.randomUUID().toString();
 			
-			Empresa empresa = new Empresa(nome,razao,email,email,cnpj,endereco,numero,cep,complemento,bairro,cidade,uuid);
+			Empresa empresa = new Empresa(nome,razao,email,cnpj,endereco,numero,cep,complemento,bairro,cidade,uuid);
 			
 			if(!emailEncontrado&&!cnpjEncontrado){
 				
