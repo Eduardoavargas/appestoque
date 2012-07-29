@@ -36,7 +36,7 @@
 		value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
 	<hr>
 		<label><%=bundle.getString("parametro.email")%><span class="obrigatorio">*</span></label><br/>
-		<app:texto id="email" nome="email" tamanho="50" valor="<%=objeto.getEmailPedido()%>"/></p>
+<%-- 		<app:texto id="email" nome="email" tamanho="50" valor="<%=objeto.getEmailPedido()%>"/></p> --%>
 	<hr>
 </form>
 <%@include file="../../modelo/fim.jspf"%>
