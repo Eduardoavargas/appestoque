@@ -121,7 +121,8 @@ public class EmpresaControle extends BaseControle {
 			boolean modificar = false;
 			Integer numero = new Integer(request.getParameter("numero"));
 
-			modificar = (!empresa.getEndereco().equals(request.getParameter("endereco")))||
+			modificar = (!empresa.getEmail().equals(request.getParameter("email")))||
+						(!empresa.getEndereco().equals(request.getParameter("endereco")))||
 						(!empresa.getNumero().equals(numero))||
 						(!empresa.getCep().equals(request.getParameter("cep")))||
 						(!empresa.getComplemento().equals(request.getParameter("complemento")))||
@@ -130,6 +131,11 @@ public class EmpresaControle extends BaseControle {
 			
 			if (modificar) {
 
+				if (!empresa.getEmail().equals(
+						request.getParameter("email"))) {
+					empresa.setEmail(request.getParameter("email"));
+				}
+				
 				if (!empresa.getEndereco().equals(
 						request.getParameter("endereco"))) {
 					empresa.setEndereco(request.getParameter("endereco"));
