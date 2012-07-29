@@ -50,7 +50,7 @@
 </script>
 -->
 
-<div id="rodape" align="center">© 2012 appestoque - <a href="<%=Constantes.URL%>/politica.html" title="Política de Privacidade">Política de Privacidade</a></div>
+<div id="rodape" align="center">Versão <%=Constantes.VERSAO%>&nbsp;&nbsp;|&nbsp;&nbsp;© 2012 appestoque - <a href="<%=Constantes.URL%>/politica.html" title="Política de Privacidade">Política de Privacidade</a></div>
 
 </body>
 </html>
