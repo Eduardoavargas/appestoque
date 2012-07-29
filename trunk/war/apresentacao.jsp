@@ -398,7 +398,7 @@ h2 {
 
 
 </head>
-<body>
+<body onload="document.getElementById('email').focus()" >
 		
 		
 	<div id="boxes">	
