@@ -24,24 +24,24 @@
 	<script type="text/javascript">
 	
 			$("#salvar").click(function () {
-				if(document.getElementById('nome').value.length==0){
-					alert('<%=bundle.getString("mensagem.validar.nome")%>');
-					document.getElementById('nome').focus();
-				}else if(document.getElementById('cnpj').value.length==0){
-					alert('<%=bundle.getString("mensagem.validar.cnpj")%>');
-					document.getElementById('cnpj').focus();
+				if(document.getElementById('email').value.length==0){
+					alert('<%=bundle.getString("mensagem.validar.email")%>');
+					document.getElementById('email').focus();
+				}if(document.getElementById('numero').value.length==0){
+					alert('<%=bundle.getString("mensagem.validar.numero")%>');
+					document.getElementById('numero').focus();
 				}else if(document.getElementById('endereco').value.length==0){
 					alert('<%=bundle.getString("mensagem.validar.endereco")%>');
 					document.getElementById('endereco').focus();
 				}else if(document.getElementById('cep').value.length==0){
 					alert('<%=bundle.getString("mensagem.validar.cep")%>');
 					document.getElementById('cep').focus();
-				}else if(document.getElementById('idBairro').value.length==0){
+				}else if(document.getElementById('bairro').value.length==0){
 					alert('<%=bundle.getString("mensagem.validar.bairro")%>');
-					document.getElementById('idBairro').focus();
-				}else if(document.getElementById('idCidade').value.length==0){
+					document.getElementById('bairro').focus();
+				}else if(document.getElementById('cidade').value.length==0){
 					alert('<%=bundle.getString("mensagem.validar.cidade")%>');
-					document.getElementById('idCidade').focus();
+					document.getElementById('cidade').focus();
 				}else{
 					document.forms[0].submit();	
 				}
@@ -51,6 +51,8 @@
 
 	<input type="hidden" name="id"
 		value="<%=objeto.getId() != null ? objeto.getId() : ""%>" />
+	<input type="hidden" name="uuid"
+		value="<%=objeto.getUuid() != null ? objeto.getUuid() : ""%>" />	
 	<hr>
 	
 			<label><%=bundle.getString("empresa.nome")%><span class="obrigatorio">*</span></label><br/>
@@ -60,7 +62,7 @@
 			<app:texto id="razao" nome="razao" desativar="true" tamanho="50" valor="<%=objeto.getRazao()%>"/></p>
 			
 			<label><%=bundle.getString("email")%><span class="obrigatorio">*</span></label><br/>
-			<app:email nome="email" desativar="true" tamanho="50" valor="<%=objeto.getEmail()%>"/></p>
+			<app:email nome="email" tamanho="50" valor="<%=objeto.getEmail()%>"/></p>
 			
 			<label><%=bundle.getString("cnpj")%><span class="obrigatorio">*</span></label><br/>
 			<app:cnpj nome="cnpj" desativar="true" valor="<%=objeto.getCnpj()%>"></app:cnpj></p>
@@ -82,7 +84,7 @@
 			
 			<label><%=bundle.getString("cidade")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="cidade" nome="cidade" tamanho="50" valor="<%=objeto.getCidade()%>"/></p>
-
+			
 	<hr>
 </form>
 <%@include file="../../modelo/fim.jspf"%>
