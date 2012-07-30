@@ -15,10 +15,12 @@
 <link rel="stylesheet" type="text/css" href="/css/padrao.css" />
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery.tools.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
+
 <script type="text/javascript" src="/js/padrao.js"></script>	
-<script type="text/javascript" src="/js/jquery.tools.min.js"></script>
+
 
 <script type="text/javascript" src="/js/jquery.maskMoney.js" ></script>
 <script type="text/javascript" src="/js/jquery.maskedinput-1.3.min.js" ></script>
@@ -120,7 +122,7 @@
 						(function(marker, i) {
 			        		return function() {
 			        			 			  var contentString = 
-				        			 	      '<div>'+
+				        			 	      '<div id="marcador">'+
 			        						  '<b>'+objetos.pedidos[i].cliente+'</b><br/>'+
 			        						  objetos.pedidos[i].endereco+'<br/>'+
 			        						  objetos.pedidos[i].bairro+' - '+objetos.pedidos[i].cidade+'<br/>'+
@@ -143,19 +145,22 @@
 <body>
 
 	<script>
-		$('document').ready(function() {
-			$('.menu').fixedMenu();
-			$("input:text:eq(0):visible").focus();
-		});
+		$('document').ready(
+			function() {
+				$('.menu').fixedMenu();
+				$("input:text:eq(0):visible").focus();
+				$( "#tabs" ).tabs();
+			}
+		);
 	</script>
 
 	<div class="menu">
         <ul>
             <li>
                 <a href="#"><%=((Usuario)request.getSession().getAttribute("usuario")).getEmail()%><span class="arrow"></span></a>
-                <ul style="width: 159px;" >                
-<!--                     <li><a href="/empresaControle?acao=iniciar&tipo=configuracao">Configuração</a></li> -->
-                    <li><a href="/empresaControle?acao=iniciar&tipo=empresa">Empresa</a></li>
+                <ul style="width: 159px;" >
+                    <li><a href="<%=Constantes.URL%>/empresaControle?acao=iniciar&tipo=empresa">Empresa</a></li>
+                    <li><a href="<%=Constantes.URL%>/ferramenta/painelBordo.jsp">Painel de Bordo</a></li>
                     <li><a href="/logout">Sair</a></li>
                 </ul>
             </li>
@@ -187,30 +192,25 @@
 	<ul id="sddm">
 		<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Cadastro</a>
 			<div id="m1" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
-				<a href="/bairroControle?acao=iniciar">Bairro</a>
-				<a href="/cidadeControle?acao=iniciar">Cidade</a>
-				<a href="/clienteControle?acao=iniciar">Cliente</a>
-				<a href="/representanteControle?acao=iniciar">Representante</a>
+				<a href="<%=Constantes.URL%>/bairroControle?acao=iniciar">Bairro</a>
+				<a href="<%=Constantes.URL%>/cidadeControle?acao=iniciar">Cidade</a>
+				<a href="<%=Constantes.URL%>/clienteControle?acao=iniciar">Cliente</a>
+				<a href="<%=Constantes.URL%>/representanteControle?acao=iniciar">Representante</a>
 			</div>
 		</li>
 		<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Faturamento</a>
 			<div id="m2" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
-				<a href="/pedidoControle?acao=iniciar">Pedido</a>
+				<a href="<%=Constantes.URL%>/pedidoControle?acao=iniciar">Pedido</a>
 			</div>
 		</li>
 		<li><a href="#" onmouseover="mopen('m3')" onmouseout="mclosetime()">Segurança</a>
 			<div id="m3" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
-				<a href="/usuarioControle?acao=iniciar">Usuário</a>
+				<a href="<%=Constantes.URL%>/usuarioControle?acao=iniciar">Usuário</a>
 			</div>
 		</li>
 		<li><a href="#" onmouseover="mopen('m4')" onmouseout="mclosetime()">Suprimento</a>
 			<div id="m4" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
-				<a href="/produtoControle?acao=iniciar">Produto</a>
-			</div>
-		</li>
-		<li><a href="#" onmouseover="mopen('m5')" onmouseout="mclosetime()">Ferramenta</a>
-			<div id="m5" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
-				<a href="/ferramenta/painelBordo.jsp">Painel de Bordo</a>
+				<a href="<%=Constantes.URL%>/produtoControle?acao=iniciar">Produto</a>
 			</div>
 		</li>
 	</ul>
