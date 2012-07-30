@@ -265,23 +265,35 @@ form#formCadastro label { /* 	display: block; */
 	margin: 0px auto; /* centraliza a div na página */
 	text-align:left; /* alinha o texto à esquerda */
 	width:100%; /* definimos uma largura de 700px */
-	background-color:#FFFFFF; /* definimos a cor de fundo da div */
 	padding-bottom:12px; /* definimos o espaçamento da base */
-	height:320px;
+	height:300px;
 }
 
 #grafico{			
-	width:47%;
+	width:65%;
 	height:300px;
-	border:1px solid #CCCCCC; /* definimos os atributos da borda da div */
-	margin:10px 0px 0px 10px; /* margem no sentido horário(topo,direita,base,esquerda) */
 	float: left;
 }
 
 #mapa{
-	width:47%; 
+	width:65%; 
 	height:300px;
-	border:1px solid #CCCCCC; /* definimos os atributos da borda da div */
-	margin:10px 0px 0px 10px; /* margem no sentido horário(topo,direita,base,esquerda) */
+	float: left;
+}
+
+#texto{
+	width:30%; 
+	height:300px;
 	float: right;
 }
+
+#marcador{
+	color: #000;
+	margin: 0px auto; /* centraliza a div na página */
+	text-align:left; /* alinha o texto à esquerda */
+	padding-bottom:12px; /* definimos o espaçamento da base */
+}
+
+#marcador a{
+	color: #000;
+}	
