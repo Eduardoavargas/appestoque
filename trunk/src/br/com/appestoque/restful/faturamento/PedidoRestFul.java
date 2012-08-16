@@ -68,8 +68,6 @@ public class PedidoRestFul extends BaseServlet{
 				Entity representante = datastore.prepare(query).asSingleEntity();
 				
 				if(representante!=null){
-
-					
 					
 					try{
 						
