@@ -79,7 +79,50 @@ public class PedidoRestFul extends BaseServlet{
 						
 						pedido.setProperty("data", new Date(json.getLong("data")));
 						pedido.setProperty("idRepresentante", representante.getKey().getId());
-						pedido.setProperty("idCliente", json.getLong("idCliente"));
+						
+						/*
+						 * identificando cliente 
+						 */
+						if(json.getBoolean("sincronizado")){
+							pedido.setProperty("idCliente", json.getLong("idCliente"));
+						}else{
+							
+							Entity cliente = new Entity("Cliente");
+							cliente.setProperty("nome",json.getString("nome"));
+							cliente.setProperty("razao",json.getString("nome"));
+							cliente.setProperty("cnpj",json.getString("cnpj"));
+							cliente.setProperty("endereco",json.getString("endereco"));
+							cliente.setProperty("numero",Integer.parseInt(json.getString("num").toString()));
+							cliente.setProperty("cep",json.getString("cep"));
+							cliente.setProperty("complemento",json.getString("complemento"));							
+							cliente.setProperty("idEmpresa",Long.parseLong(representante.getProperty("idEmpresa").toString()));
+							
+							try{
+							
+								query = new Query("Cidade");
+								query.setFilter(new FilterPredicate("nome",FilterOperator.EQUAL,json.getString("cidade")));
+								query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,representante.getProperty("idEmpresa")));							
+								Entity cidade = datastore.prepare(query).asSingleEntity();
+								
+								query = new Query("Bairro");
+								query.setFilter(new FilterPredicate("nome",FilterOperator.EQUAL,json.getString("bairro")));
+								query.setFilter(new FilterPredicate("idCidade",FilterOperator.EQUAL,cidade.getKey().getId()));
+								query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,representante.getProperty("idEmpresa")));
+								Entity bairro = datastore.prepare(query).asSingleEntity();
+								
+								cliente.setProperty("idBairro",bairro.getKey().getId());
+							
+							}catch(Exception e){
+								logger.log(Level.SEVERE,bundle.getString("app.mensagem.cliente.erro.cadastro.cidade.bairro"));
+								e.printStackTrace();
+							}
+							
+							datastore.put(cliente);
+							
+							pedido.setProperty("idCliente", cliente.getKey().getId());
+							
+						}
+						
 						pedido.setProperty("idEmpresa", representante.getProperty("idEmpresa"));
 						pedido.setProperty("obs", json.getString("obs"));
 						pedido.setProperty("uuid", uuid);
