@@ -92,7 +92,7 @@ public class PedidoRestFul extends BaseServlet{
 							cliente.setProperty("razao",json.getString("nome"));
 							cliente.setProperty("cnpj",json.getString("cnpj"));
 							cliente.setProperty("endereco",json.getString("endereco"));
-							cliente.setProperty("numero",Integer.parseInt(json.getString("num").toString()));
+							cliente.setProperty("numero",json.getLong("num"));
 							cliente.setProperty("cep",json.getString("cep"));
 							cliente.setProperty("complemento",json.getString("complemento"));							
 							cliente.setProperty("idEmpresa",Long.parseLong(representante.getProperty("idEmpresa").toString()));
