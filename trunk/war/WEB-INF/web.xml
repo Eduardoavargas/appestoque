@@ -407,6 +407,18 @@
 	<!-- remover -->
 	
 	
+	<!-- pagseguro -->
+	<servlet>
+		<servlet-name>NotificacaoRESTful</servlet-name>
+		<servlet-class>br.com.appestoque.restful.pagseguro.NotificacaoRESTful</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NotificacaoRESTful</servlet-name>
+		<url-pattern>/api/notificacao</url-pattern>
+	</servlet-mapping>
+	<!-- pagseguro -->
+	
+	
 	<servlet>
 		<servlet-name>ServletController</servlet-name>
 		<servlet-class>br.com.appestoque.servlet.ServletController</servlet-class>
