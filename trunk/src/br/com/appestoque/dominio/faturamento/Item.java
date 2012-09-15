@@ -32,16 +32,21 @@ public class Item implements Serializable{
 	
 	@NotPersistent
 	private Produto produto;
+	
+	@Persistent
+	private String obs;
 
 	public Item( Long idPedido, 
 				 Long idProduto, 
 				 Double quantidade, 
-				 Double valor) {
+				 Double valor,
+				 String obs) {
 		super();
 		this.quantidade = quantidade;
 		this.valor = valor;
 		this.idPedido = idPedido;
 		this.idProduto = idProduto;
+		this.obs = obs;
 	}
 
 	public Long getId() {
@@ -90,6 +95,14 @@ public class Item implements Serializable{
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public String getObs() {
+		return obs;
+	}
+
+	public void setObs(String obs) {
+		this.obs = obs;
 	}
 	
 }

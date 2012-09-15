@@ -90,12 +90,18 @@ public class ClienteRestFul extends BaseServlet{
 							Long idBairro = (Long) properties.get("idBairro");
 							
 							Key key = null;
-							key = KeyFactory.createKey(Bairro.class.getSimpleName(),idBairro.intValue());
+							
+							try {
+								key = KeyFactory.createKey(Bairro.class.getSimpleName(),idBairro.intValue());
+							}catch(NullPointerException e){
+							}
+							
 							Entity bairro = null;
 							
 							try {
 								bairro = datastore.get(key);
 							} catch (EntityNotFoundException e) {
+							}catch(NullPointerException e){
 							}
 							
 							if(bairro!=null){
