@@ -138,6 +138,7 @@ public class PedidoRestFul extends BaseServlet{
 							item.setProperty("idPedido", pedido.getKey().getId());
 							item.setProperty("quantidade", itens.getJSONObject(i).getDouble("quantidade"));
 							item.setProperty("valor", itens.getJSONObject(i).getDouble("valor"));
+							item.setProperty("obs", itens.getJSONObject(i).getString("obs"));
 							datastore.put(item);
 						}
 						

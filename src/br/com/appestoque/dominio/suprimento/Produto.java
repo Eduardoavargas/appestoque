@@ -28,6 +28,9 @@ public class Produto implements Serializable{
 	private Double preco = new Double(0);
 	
 	@Persistent
+	private Double minimo = new Double(0);
+	
+	@Persistent
 	private Long idEmpresa;
 	
 	public Produto(){
@@ -86,6 +89,14 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 	
+	public Double getMinimo() {
+		return minimo;
+	}
+
+	public void setMinimo(Double minimo) {
+		this.minimo = minimo;
+	}
+
 	public Long getIdEmpresa() {
 		return idEmpresa;
 	}
