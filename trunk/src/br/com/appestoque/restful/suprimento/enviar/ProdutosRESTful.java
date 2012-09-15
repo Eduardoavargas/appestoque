@@ -67,6 +67,7 @@ public class ProdutosRESTful extends BaseServlet{
 				String nome = null;
 				String numero = null;
 				Double preco = null;
+				Double minimo = null;
 				String objetos = reader.nextString();
 				JsonReader reader1 = new JsonReader(new InputStreamReader(new ByteArrayInputStream(objetos.getBytes("UTF8")),"UTF-8"));
 				reader1.beginArray();
@@ -80,6 +81,8 @@ public class ProdutosRESTful extends BaseServlet{
 							numero = reader1.nextString();
 						} else if (name1.equals("preco")) {
 							preco = reader1.nextDouble();
+						} else if (name1.equals("minimo")) {
+							minimo = reader1.nextDouble();
 						} else {
 							reader1.skipValue();
 						}
@@ -96,11 +99,13 @@ public class ProdutosRESTful extends BaseServlet{
 							produto.setProperty("nome",nome);
 							produto.setProperty("numero",numero);
 							produto.setProperty("preco", preco);
+							produto.setProperty("minimo", minimo);
 							produto.setProperty("idEmpresa",empresa.getKey().getId());
 							datastore.put(produto);
 						}else if(!produto.getProperty("nome").equals(nome)||!produto.getProperty("preco").equals(preco)){
 							produto.setProperty("nome",nome);
 							produto.setProperty("preco", preco);
+							produto.setProperty("minimo", minimo);
 							datastore.put(produto);
 						}
 					
