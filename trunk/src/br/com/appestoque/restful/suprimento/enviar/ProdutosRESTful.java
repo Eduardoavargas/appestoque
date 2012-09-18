@@ -31,6 +31,7 @@ import com.google.gson.stream.JsonReader;
 @SuppressWarnings("serial")
 public class ProdutosRESTful extends BaseServlet{
 	
+	@SuppressWarnings("unused")
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		super.processServer(request, response);
 		String uuid = null;
@@ -94,6 +95,7 @@ public class ProdutosRESTful extends BaseServlet{
 						query.setFilter(new FilterPredicate("numero",FilterOperator.EQUAL,numero));
 						PreparedQuery preparedQuery = datastore.prepare(query);
 						Entity produto = preparedQuery.asSingleEntity();
+						Double min = (produto.getProperty("minimo")!=null?Double.parseDouble(produto.getProperty("minimo").toString().replace(".", "").replace(",", ".")):0d);
 						if(produto==null){
 							produto = new Entity("Produto");
 							produto.setProperty("nome",nome);
@@ -102,7 +104,9 @@ public class ProdutosRESTful extends BaseServlet{
 							produto.setProperty("minimo", minimo);
 							produto.setProperty("idEmpresa",empresa.getKey().getId());
 							datastore.put(produto);
-						}else if(!produto.getProperty("nome").equals(nome)||!produto.getProperty("preco").equals(preco)){
+						}else if(!produto.getProperty("nome").equals(nome)
+								||!produto.getProperty("preco").equals(preco)
+								||min!=minimo){
 							produto.setProperty("nome",nome);
 							produto.setProperty("preco", preco);
 							produto.setProperty("minimo", minimo);
