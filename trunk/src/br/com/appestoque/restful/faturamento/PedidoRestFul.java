@@ -22,6 +22,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
@@ -87,39 +88,50 @@ public class PedidoRestFul extends BaseServlet{
 							pedido.setProperty("idCliente", json.getLong("idCliente"));
 						}else{
 							
-							Entity cliente = new Entity("Cliente");
-							cliente.setProperty("nome",json.getString("nome"));
-							cliente.setProperty("razao",json.getString("nome"));
-							cliente.setProperty("cnpj",json.getString("cnpj"));
-							cliente.setProperty("endereco",json.getString("endereco"));
-							cliente.setProperty("numero",json.getLong("num"));
-							cliente.setProperty("cep",json.getString("cep"));
-							cliente.setProperty("complemento",json.getString("complemento"));							
-							cliente.setProperty("idEmpresa",Long.parseLong(representante.getProperty("idEmpresa").toString()));
-							
 							try{
+								
+								Entity cliente = new Entity("Cliente");
+								cliente.setProperty("nome",json.getString("nome"));
+								cliente.setProperty("razao",json.getString("nome"));
+								cliente.setProperty("cnpj",json.getString("cnpj"));
+								cliente.setProperty("endereco",json.getString("endereco"));
+								cliente.setProperty("numero",json.getLong("num"));
+								cliente.setProperty("cep",json.getString("cep"));
+								cliente.setProperty("complemento",json.getString("complemento"));							
+								cliente.setProperty("idEmpresa",Long.parseLong(representante.getProperty("idEmpresa").toString()));
 							
+								PreparedQuery preparedQuery = null;
+								
 								query = new Query("Cidade");
 								query.setFilter(new FilterPredicate("nome",FilterOperator.EQUAL,json.getString("cidade")));
-								query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,representante.getProperty("idEmpresa")));							
-								Entity cidade = datastore.prepare(query).asSingleEntity();
+								query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,representante.getProperty("idEmpresa")));
+								preparedQuery = datastore.prepare(query);
+								Iterable<Entity> cidades = preparedQuery.asIterable();
+								Entity cidade = null;
+								for (Entity c : cidades) { cidade = c; break; }
 								
 								query = new Query("Bairro");
 								query.setFilter(new FilterPredicate("nome",FilterOperator.EQUAL,json.getString("bairro")));
 								query.setFilter(new FilterPredicate("idCidade",FilterOperator.EQUAL,cidade.getKey().getId()));
 								query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,representante.getProperty("idEmpresa")));
-								Entity bairro = datastore.prepare(query).asSingleEntity();
+								preparedQuery = datastore.prepare(query);
+								Iterable<Entity> bairros = preparedQuery.asIterable();
+								Entity bairro = null;
+								for (Entity b : bairros) { bairro = b; break; }
 								
 								cliente.setProperty("idBairro",bairro.getKey().getId());
+								
+								datastore.put(cliente);
+								
+								pedido.setProperty("idCliente", cliente.getKey().getId());
+								
+								throw new Exception();
 							
 							}catch(Exception e){
-								logger.log(Level.SEVERE,bundle.getString("app.mensagem.cliente.erro.cadastro.cidade.bairro"));
+								//logger.log(Level.SEVERE,bundle.getString("app.mensagem.cliente.erro.cadastro.cidade.bairro"));
 								e.printStackTrace();
+								throw new IOException();
 							}
-							
-							datastore.put(cliente);
-							
-							pedido.setProperty("idCliente", cliente.getKey().getId());
 							
 						}
 						
@@ -142,7 +154,6 @@ public class PedidoRestFul extends BaseServlet{
 							datastore.put(item);
 						}
 						
-						
 						Key key = null;
 						key = KeyFactory.createKey(Empresa.class.getSimpleName(),(Long)representante.getProperty("idEmpresa"));
 						Entity empresa = null;
@@ -163,7 +174,7 @@ public class PedidoRestFul extends BaseServlet{
 							corpo.append("<body>");
 							corpo.append("<div style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; margin: 14px';>");
 							corpo.append("<img src='http://appestoque.appspot.com/img/logo.jpg'/>");
-							corpo.append("<h2 style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin: 0 0 16px; font-size: 18px; font-weight: normal'>Olá, "+empresa.getProperty("nome")+".</h2>");
+							corpo.append("<h2 style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin: 0 0 16px; font-size: 18px; font-weight: normal'>Olï¿½, "+empresa.getProperty("nome")+".</h2>");
 							
 							corpo.append("<p>Por favor, clique no link abaixo para imprimir o pedido de venda:<br>");
 							corpo.append("<a href='"+Constantes.URL+Constantes.URI_PEDIDO_VENDA+"?uuid="+uuid+"'");
@@ -173,13 +184,13 @@ public class PedidoRestFul extends BaseServlet{
 							corpo.append("<span style='font: italic 13px Georgia, serif; color: rgb(102, 102, 102)'>Equipe do Appestoque</span></p>");
 							
 							corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
-							corpo.append("Se você recebeu essa mensagem por engano e não criou uma conta do Appestoque, clique"); 
-							corpo.append(" <a href='mailto:suporte@appestoque.com.br?subject=[Cadastro]Mensagem por engano&&body='target='_blank'>não é minha conta</a>.</p>");
+							corpo.append("Se vocï¿½ recebeu essa mensagem por engano e nï¿½o criou uma conta do Appestoque, clique"); 
+							corpo.append(" <a href='mailto:suporte@appestoque.com.br?subject=[Cadastro]Mensagem por engano&&body='target='_blank'>nï¿½o ï¿½ minha conta</a>.</p>");
 							
 							corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
-							corpo.append("Por favor não responda esta mensagem; ela foi enviada por um endereço ");
-							corpo.append("de e-mail não monitorado. Esta mensagem é relacionada ao seu uso do ");
-							corpo.append("Appestoque. Para mais informações sobre a sua conta, por ");
+							corpo.append("Por favor nï¿½o responda esta mensagem; ela foi enviada por um endereï¿½o ");
+							corpo.append("de e-mail nï¿½o monitorado. Esta mensagem ï¿½ relacionada ao seu uso do ");
+							corpo.append("Appestoque. Para mais informaÃ§Ãµes sobre a sua conta, por ");
 							corpo.append("favor encaminhe um e-mail para o");
 							corpo.append(" <a href='mailto:suporte@appestoque.com.br' target='_blank'>Suporte do Appestoque</a>.</p>");
 							
