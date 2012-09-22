@@ -108,7 +108,7 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 			font = new Font(pdf,CoreFont.HELVETICA_BOLD);			
 			font.setSize(7.0);
 			
-	        textLine = new TextLine(font,"Número");  
+	        textLine = new TextLine(font,"NÃºmero");  
 	        textLine.setPosition(left,top);                 
 	        textLine.drawOn(page);
 	        
@@ -128,7 +128,7 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 	        textLine.setPosition(left+300,top);                     
 	        textLine.drawOn(page);
 	        
-	        textLine = new TextLine(font,"Observação");  
+	        textLine = new TextLine(font,"ObservaÃ§Ã£o");  
 	        textLine.setPosition(left+420,top);                     
 	        textLine.drawOn(page);
 	        
@@ -191,7 +191,7 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 		            List<List<Cell>> dados = null;
 		            List<Cell> registro = null;
 		            
-		            Cell coluna1 = null, coluna2 = null, coluna3 = null, coluna4 = null;
+		            Cell coluna0 = null, coluna1 = null, coluna2 = null, coluna3 = null, coluna4 = null;
 					
 					pdf = new PDF(outStream);			
 					page = new Page(pdf,A4.PORTRAIT);
@@ -211,16 +211,19 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 		            font = new Font(pdf,CoreFont.HELVETICA_BOLD);            
 					font.setSize(7.0);
 		            
+					coluna0 = new Cell(font,bundle.getString("item.numero"));
 					coluna1 = new Cell(font,bundle.getString("item.produto"));
 					coluna2 = new Cell(font,bundle.getString("item.quantidade"));
 					coluna3 = new Cell(font,bundle.getString("item.valor"));
 					coluna4 = new Cell(font,bundle.getString("item.total"));
 		            
-		            coluna1.setWidth(250.00);
+					coluna0.setWidth( 50.00);
+		            coluna1.setWidth(200.00);
 		            coluna2.setWidth(100.00);
 		            coluna3.setWidth(100.00);
 		            coluna4.setWidth(100.00);
 		            
+		            coluna0.setNoBorders();
 		            coluna1.setNoBorders();
 		            coluna2.setNoBorders();
 		            coluna3.setNoBorders();
@@ -231,6 +234,7 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 		            coluna4.setTextAlignment(Align.RIGHT);
 		            
 		            registro = new ArrayList<Cell>();
+		            registro.add(coluna0);
 		            registro.add(coluna1);
 		            registro.add(coluna2);
 		            registro.add(coluna3);
@@ -247,18 +251,21 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 						qtdTotal += item.getQuantidade();
 						vlrTotal += (item.getQuantidade()*item.getValor());
 						
+						coluna0 = new Cell(font,item.getProduto().getNumero());
 						coluna1 = new Cell(font,item.getProduto().getNome());
 						coluna2 = new Cell(font,Util.doubleToString(item.getQuantidade(),Constantes.MASCARA_VALOR_TRES_CASAS_DECIMAIS));
 						coluna3 = new Cell(font,Util.doubleToString(item.getValor(),Constantes.MASCARA_VALOR_TRES_CASAS_DECIMAIS));
 						coluna4 = new Cell(font,Util.doubleToString((item.getQuantidade()*item.getValor()),Constantes.MASCARA_VALOR_DUAS_CASAS_DECIMAIS));
 						
-						coluna1.setWidth(250.00);
+						coluna0.setWidth( 50.00);
+						coluna1.setWidth(200.00);
 		                coluna2.setWidth(100.00);
 		                coluna3.setWidth(100.00);
 		                coluna4.setWidth(100.00);
 		                
 		                registro = new ArrayList<Cell>();
 		                
+		                coluna0.setNoBorders();
 		                coluna1.setNoBorders();
 		                coluna2.setNoBorders();
 		                coluna3.setNoBorders();
@@ -268,6 +275,7 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 		                coluna3.setTextAlignment(Align.RIGHT);
 		                coluna4.setTextAlignment(Align.RIGHT);
 		                
+		                registro.add(coluna0);
 		                registro.add(coluna1);
 		                registro.add(coluna2);
 		                registro.add(coluna3);
@@ -277,16 +285,19 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 						
 					}
 					
+					coluna0 = new Cell(font,"");
 		            coluna1 = new Cell(font,"");
 		            coluna2 = new Cell(font,"-------------------------");
 		            coluna3 = new Cell(font,"");
 		            coluna4 = new Cell(font,"-------------------------");
 		            
-		            coluna1.setWidth(250.00);
+		            coluna0.setWidth( 50.00);
+		            coluna1.setWidth(200.00);
 		            coluna2.setWidth(100.00);
 		            coluna3.setWidth(100.00);
 		            coluna4.setWidth(100.00);
 		            
+		            coluna0.setNoBorders();
 		            coluna1.setNoBorders();
 		            coluna2.setNoBorders();
 		            coluna3.setNoBorders();
@@ -297,6 +308,7 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 		            coluna4.setTextAlignment(Align.RIGHT);
 		            
 		            registro = new ArrayList<Cell>();
+		            registro.add(coluna0);
 		            registro.add(coluna1);
 		            registro.add(coluna2);
 		            registro.add(coluna3);
@@ -306,16 +318,19 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 		            font = new Font(pdf,CoreFont.HELVETICA_BOLD);            
 					font.setSize(7.0);
 		            
+					coluna0 = new Cell(font,"");
 		            coluna1 = new Cell(font,"");
 		            coluna2 = new Cell(font,Util.doubleToString(qtdTotal,Constantes.MASCARA_VALOR_DUAS_CASAS_DECIMAIS));
 		            coluna3 = new Cell(font,"");
 		            coluna4 = new Cell(font,Util.doubleToString(vlrTotal,Constantes.MASCARA_VALOR_DUAS_CASAS_DECIMAIS));
 		            
-		            coluna1.setWidth(250.00);
+		            coluna0.setWidth( 50.00);
+		            coluna1.setWidth(200.00);
 		            coluna2.setWidth(100.00);
 		            coluna3.setWidth(100.00);
 		            coluna4.setWidth(100.00);
 		            
+		            coluna0.setNoBorders();
 		            coluna1.setNoBorders();
 		            coluna2.setNoBorders();
 		            coluna3.setNoBorders();
@@ -326,6 +341,7 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 		            coluna4.setTextAlignment(Align.RIGHT);
 		            
 		            registro = new ArrayList<Cell>();
+		            registro.add(coluna0);
 		            registro.add(coluna1);
 		            registro.add(coluna2);
 		            registro.add(coluna3);
@@ -400,171 +416,6 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 			logger.log(Level.SEVERE,bundle.getString("app.mensagem.uuid.invalido"));
 			throw new IOException();
 		}
-		
-//		if(request.getParameter("uuid")!=null&&!request.getParameter("uuid").equals("")){
-//			OutputStream outStream;	
-//			PersistenceManager pm = null;
-//			ResourceBundle bundle = ResourceBundle.getBundle(Constantes.I18N,request.getLocale());
-//			try {
-//				pm = PMF.get().getPersistenceManager();
-//				PedidoDAO dao = new PedidoDAO(pm);
-//				Pedido pedido = dao.pesquisar(request.getParameter("uuid"));
-//				if(pedido!=null){
-//	
-//					outStream = response.getOutputStream();
-//					response.setContentType("application/pdf");
-//					PDF pdf = new PDF(outStream);
-//					Page page = new Page(pdf, Letter.PORTRAIT);
-//					
-//					Font fontTitulo = new Font(pdf, "Helvetica");
-//					fontTitulo.setSize(10.0);
-//					
-//					Font font = new Font(pdf, "Helvetica");
-//					font.setSize(7.0);		
-//					
-//					TextLine textLine = null;
-//					
-//					textLine = new TextLine(fontTitulo,"Pedido de Venda");  
-//					textLine.setPosition(70.0,30.00);			
-//					textLine.drawOn(page);
-//					
-//					Double top = 30d;
-//					Double left = 70d;
-//					
-//					top += 20.00;
-//					
-//					textLine = new TextLine(font,bundle.getString("pedido.numero"));  
-//					textLine.setPosition(left,top);			
-//					textLine.drawOn(page);
-//					
-//					textLine = new TextLine(font,bundle.getString("pedido.data"));  
-//					textLine.setPosition(left+50,top);			
-//					textLine.drawOn(page);
-//					
-//					textLine = new TextLine(font,bundle.getString("pedido.hora"));  
-//					textLine.setPosition(left+100,top);			
-//					textLine.drawOn(page);
-//					
-//					textLine = new TextLine(font,bundle.getString("pedido.cliente"));  
-//					textLine.setPosition(left+150,top);			
-//					textLine.drawOn(page);
-//					
-//					textLine = new TextLine(font,bundle.getString("pedido.representante"));  
-//					textLine.setPosition(left+250,top);			
-//					textLine.drawOn(page);
-//					
-//					textLine = new TextLine(font,bundle.getString("pedido.obs"));  
-//					textLine.setPosition(left+350,top);			
-//					textLine.drawOn(page);
-//					
-//					top += 10.00;
-//					
-//					textLine = new TextLine(font,pedido.getNumero());  
-//					textLine.setPosition(left,top);			
-//					textLine.drawOn(page);
-//					
-//					textLine = new TextLine(font,Util.dateToStr(Constantes.MASCARA_DATA_PADRAO,pedido.getData()));  
-//					textLine.setPosition(left+50,top);			
-//					textLine.drawOn(page);
-//					
-//					textLine = new TextLine(font,Util.dateToStr(Constantes.MASCARA_HORA_PADRAO,pedido.getData()));  
-//					textLine.setPosition(left+100,top);			
-//					textLine.drawOn(page);
-//					
-//					textLine = new TextLine(font,pedido.getCliente().getNome());  
-//					textLine.setPosition(left+150,top);			
-//					textLine.drawOn(page);
-//					
-//					textLine = new TextLine(font,pedido.getRepresentante().getNome());  
-//					textLine.setPosition(left+250,top);			
-//					textLine.drawOn(page);
-//					
-//					textLine = new TextLine(font,pedido.getObs());  
-//					textLine.setPosition(left+350,top);			
-//					textLine.drawOn(page);
-//					
-//					top += 10.00;
-//					
-//					Table tabela = new Table(font,font);
-//					
-//					List<List<Cell>> dados = new ArrayList<List<Cell>>();
-//					List<Cell> registro = null;
-//					
-//					Cell coluna1 = null;
-//					Cell coluna2 = null;
-//					Cell coluna3 = null;
-//					Cell coluna4 = null;
-//					
-//					coluna1 = new Cell(font,bundle.getString("item.produto"));
-//					coluna2 = new Cell(font,bundle.getString("item.quantidade"));
-//					coluna3 = new Cell(font,bundle.getString("item.valor"));
-//					coluna4 = new Cell(font,bundle.getString("item.total"));
-//					
-//					coluna1.setNoBorders();
-//					coluna2.setNoBorders();
-//					coluna3.setNoBorders();
-//					coluna4.setNoBorders();
-//					
-//					coluna2.setTextAlignment(Align.RIGHT);
-//					coluna3.setTextAlignment(Align.RIGHT);
-//					coluna4.setTextAlignment(Align.RIGHT);
-//					
-//					registro = new ArrayList<Cell>();
-//					registro.add(coluna1);
-//					registro.add(coluna2);
-//					registro.add(coluna3);
-//					registro.add(coluna4);
-//					dados.add(registro);
-//					
-//					for(Item item : pedido.getItens()){
-//						coluna1 = new Cell(font,item.getProduto().getNome());
-//						coluna2 = new Cell(font,Util.doubleToString(item.getQuantidade(),Constantes.MASCARA_VALOR_TRES_CASAS_DECIMAIS));
-//						coluna3 = new Cell(font,Util.doubleToString(item.getValor(),Constantes.MASCARA_VALOR_TRES_CASAS_DECIMAIS));
-//						coluna4 = new Cell(font,Util.doubleToString((item.getQuantidade()*item.getValor()),Constantes.MASCARA_VALOR_DUAS_CASAS_DECIMAIS));
-//						registro = new ArrayList<Cell>();
-//						coluna1.setNoBorders();
-//						coluna2.setNoBorders();
-//						coluna3.setNoBorders();
-//						coluna4.setNoBorders();
-//						registro.add(coluna1);
-//						registro.add(coluna2);
-//						registro.add(coluna3);
-//						registro.add(coluna4);
-//						dados.add(registro);
-//					}
-//					
-//					tabela.setData(dados,Table.DATA_HAS_1_HEADER_ROWS);
-//					
-//					tabela.setPosition(left,top);			
-//					tabela.autoAdjustColumnWidths();
-//					tabela.setColumnWidth(0,120);
-//					tabela.setColumnWidth(1,120);
-//					tabela.setColumnWidth(2,120);
-//					tabela.setColumnWidth(3,120);
-//					tabela.rightAlignNumbers();
-//					
-//					int numOfPages = tabela.getNumberOfPages(page);
-//					while (true) {
-//						textLine.drawOn(page);
-//						Point point = tabela.drawOn(page);
-//						if (!tabela.hasMoreData())
-//							break;
-//						page = new Page(pdf, Letter.PORTRAIT);
-//					}
-//					
-//					pdf.flush();
-//				
-//				}
-//				
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} finally{
-//				pm.close();
-//			}
-//		
-//		}
 		
 	}
 	
