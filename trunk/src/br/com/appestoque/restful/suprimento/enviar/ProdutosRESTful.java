@@ -95,7 +95,6 @@ public class ProdutosRESTful extends BaseServlet{
 						query.setFilter(new FilterPredicate("numero",FilterOperator.EQUAL,numero));
 						PreparedQuery preparedQuery = datastore.prepare(query);
 						Entity produto = preparedQuery.asSingleEntity();
-						Double min = (produto.getProperty("minimo")!=null?Double.parseDouble(produto.getProperty("minimo").toString().replace(".", "").replace(",", ".")):0d);
 						if(produto==null){
 							produto = new Entity("Produto");
 							produto.setProperty("nome",nome);
@@ -104,17 +103,19 @@ public class ProdutosRESTful extends BaseServlet{
 							produto.setProperty("minimo", minimo);
 							produto.setProperty("idEmpresa",empresa.getKey().getId());
 							datastore.put(produto);
-						}else if(!produto.getProperty("nome").equals(nome)
+						}else{ 
+							Double min = (produto.getProperty("minimo")!=null?Double.parseDouble(produto.getProperty("minimo").toString().replace(".", "").replace(",", ".")):0d);
+							if(!produto.getProperty("nome").equals(nome)
 								||!produto.getProperty("preco").equals(preco)
 								||min!=minimo){
-							produto.setProperty("nome",nome);
-							produto.setProperty("preco", preco);
-							produto.setProperty("minimo", minimo);
-							datastore.put(produto);
+								produto.setProperty("nome",nome);
+								produto.setProperty("preco", preco);
+								produto.setProperty("minimo", minimo);
+								datastore.put(produto);
+							}
 						}
-					
 					}catch(TooManyResultsException e){
-						logger.log(Level.SEVERE, "Número do produto: " + numero );
+						logger.log(Level.SEVERE, "Nï¿½mero do produto: " + numero );
 						throw e;
 					}
 					
