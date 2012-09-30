@@ -69,6 +69,7 @@ public class ProdutosRESTful extends BaseServlet{
 				String numero = null;
 				Double preco = null;
 				Double minimo = null;
+				Double quantidade = null;
 				String objetos = reader.nextString();
 				JsonReader reader1 = new JsonReader(new InputStreamReader(new ByteArrayInputStream(objetos.getBytes("UTF8")),"UTF-8"));
 				reader1.beginArray();
@@ -84,6 +85,8 @@ public class ProdutosRESTful extends BaseServlet{
 							preco = reader1.nextDouble();
 						} else if (name1.equals("minimo")) {
 							minimo = reader1.nextDouble();
+						} else if (name1.equals("quantidade")) {
+							quantidade = reader1.nextDouble();
 						} else {
 							reader1.skipValue();
 						}
@@ -101,10 +104,12 @@ public class ProdutosRESTful extends BaseServlet{
 							produto.setProperty("numero",numero);
 							produto.setProperty("preco", preco);
 							produto.setProperty("minimo", minimo);
+							produto.setProperty("quantidade", quantidade);
 							produto.setProperty("idEmpresa",empresa.getKey().getId());
 							datastore.put(produto);
 						}else{ 
 							Double min = (produto.getProperty("minimo")!=null?Double.parseDouble(produto.getProperty("minimo").toString().replace(".", "").replace(",", ".")):0d);
+							Double quant = (produto.getProperty("quantidade")!=null?Double.parseDouble(produto.getProperty("quantidade").toString().replace(".", "").replace(",", ".")):0d);
 							if(!produto.getProperty("nome").equals(nome)
 								||!produto.getProperty("preco").equals(preco)
 								||min!=minimo){
@@ -115,7 +120,7 @@ public class ProdutosRESTful extends BaseServlet{
 							}
 						}
 					}catch(TooManyResultsException e){
-						logger.log(Level.SEVERE, "N�mero do produto: " + numero );
+						logger.log(Level.SEVERE, "Número do produto: " + numero );
 						throw e;
 					}
 					
