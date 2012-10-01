@@ -112,10 +112,12 @@ public class ProdutosRESTful extends BaseServlet{
 							Double quant = (produto.getProperty("quantidade")!=null?Double.parseDouble(produto.getProperty("quantidade").toString().replace(".", "").replace(",", ".")):0d);
 							if(!produto.getProperty("nome").equals(nome)
 								||!produto.getProperty("preco").equals(preco)
-								||min!=minimo){
+								||min!=minimo
+								||quant!=quantidade){
 								produto.setProperty("nome",nome);
 								produto.setProperty("preco", preco);
 								produto.setProperty("minimo", minimo);
+								produto.setProperty("quantidade", quantidade);
 								datastore.put(produto);
 							}
 						}
