@@ -79,6 +79,7 @@ public class ProdutoRestFul extends BaseServlet{
 							objeto.put("numero", properties.get("numero"));
 							objeto.put("preco", properties.get("preco"));
 							objeto.put("minimo", properties.get("minimo"));
+							objeto.put("quantidade", properties.get("quantidade"));
 							objetos.put(objeto);
 						}
 						response.setContentType("application/json;charset=UTF-8");
