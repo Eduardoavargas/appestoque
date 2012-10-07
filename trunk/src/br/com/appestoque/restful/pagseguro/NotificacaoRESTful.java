@@ -25,9 +25,9 @@ public class NotificacaoRESTful extends HttpServlet {
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
-			br.com.appestoque.Util.enviarEmail("andre.tricano@gmail.com","Notificaçãp Pagseguro",request.getParameter("notificationCode"));
+			br.com.appestoque.Util.enviarEmail("cristiano.biancardi@gmail.com","NotifiÃ§Ã£o Pagseguro",request.getParameter("notificationCode"));
 		}catch(Exception e){
-			logger.log(Level.SEVERE,"ERRO NOTIFICAÇÃO PAGSEGURO");
+			logger.log(Level.SEVERE,"ERRO NOTIFICAO PAGSEGURO");
 			e.printStackTrace();
 		}
 	}
