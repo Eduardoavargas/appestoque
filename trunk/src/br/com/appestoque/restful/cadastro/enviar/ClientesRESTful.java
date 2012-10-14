@@ -77,6 +77,7 @@ public class ClientesRESTful extends BaseServlet{
 					Integer numero = null;
 					String cep = null;
 					String nomeBairro = null;
+					String nomeCidade = null;
 					
 					reader1.beginObject();
 					while (reader1.hasNext()) {
@@ -97,64 +98,122 @@ public class ClientesRESTful extends BaseServlet{
 							cep = reader1.nextString();
 						}else if (name1.equals("bairro")) {
 							nomeBairro = reader1.nextString();
+						}else if (name1.equals("cidade")) {
+							nomeCidade = reader1.nextString();
 						}else {
 							reader1.skipValue();
 						}
 					}
 					reader1.endObject();
 					
-					Entity bairro = null;
+					Entity cidade = null;
 					try{
-						query = new Query("Bairro");
-						query.setFilter(CompositeFilterOperator.and(new FilterPredicate("nome",FilterOperator.EQUAL,nomeBairro),
+						query = new Query("Cidade");
+						query.setFilter(CompositeFilterOperator.and(new FilterPredicate("nome",FilterOperator.EQUAL,nomeCidade),
 								new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())));
-						bairro = datastore.prepare(query).asSingleEntity();
+						cidade = datastore.prepare(query).asSingleEntity();
 					}catch(TooManyResultsException e){
-						Iterable<Entity> bairros = null;
-						query = new Query("Bairro");
-						query.setFilter(CompositeFilterOperator.and(new FilterPredicate("nome",FilterOperator.EQUAL,nomeBairro),
+						Iterable<Entity> cidades = null;
+						query = new Query("Cidade");
+						query.setFilter(CompositeFilterOperator.and(new FilterPredicate("nome",FilterOperator.EQUAL,nomeCidade),
 								new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())));
-						bairros = datastore.prepare(query).asIterable();
-						for (Entity entity : bairros) {
-							bairro = entity;
+						cidades = datastore.prepare(query).asIterable();
+						for (Entity entity : cidades) {
+							cidade = entity;
 							break;
 						}
 					}
 					
+					Entity bairro = null;
+					if(cidade!=null){
+						try{
+							query = new Query("Bairro");
+							query.setFilter(
+									CompositeFilterOperator.and(
+										new FilterPredicate("nome",FilterOperator.EQUAL,nomeBairro),
+										new FilterPredicate("idCidade",FilterOperator.EQUAL,cidade.getKey().getId()),
+										new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())
+									) );
+							bairro = datastore.prepare(query).asSingleEntity();
+						}catch(TooManyResultsException e){
+							Iterable<Entity> bairros = null;
+							query = new Query("Bairro");
+							query.setFilter(
+									CompositeFilterOperator.and(
+											new FilterPredicate("nome",FilterOperator.EQUAL,nomeBairro),
+											new FilterPredicate("idCidade",FilterOperator.EQUAL,cidade.getKey().getId()),
+											new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())
+									) );
+							bairros = datastore.prepare(query).asIterable();
+							for (Entity entity : bairros) {
+								bairro = entity;
+								break;
+							}
+						}
+					}else{
+						logger.log(Level.SEVERE,bundle.getString("app.mensagem.cliente.cidade.nao.localizada"));
+						logger.log(Level.INFO,"CLIENTE NOME........: " + nome);
+						logger.log(Level.INFO,"CLIENTE RAZÃO SOCIAL: " + razao);
+						logger.log(Level.INFO,"CLIENTE CNPJ........: " + cnpj);
+						logger.log(Level.INFO,"CLIENTE BAIRRO......: " + nomeBairro);
+						logger.log(Level.INFO,"CLIENTE CIDADE......: " + nomeCidade);
+					}
+					
 					if(bairro!=null){
 						Entity cliente = null;
-						query = new Query("Cliente");
-						query.setFilter(CompositeFilterOperator.and(new FilterPredicate("cnpj",FilterOperator.EQUAL,cnpj),
-								new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())));
-						cliente = datastore.prepare(query).asSingleEntity();
-						if(cliente==null){
-							cliente = new Entity("Cliente");
-							cliente.setProperty("nome",nome);
-							cliente.setProperty("razao",razao);
-							cliente.setProperty("cnpj",cnpj);
-							cliente.setProperty("endereco",endereco);
-							cliente.setProperty("complemento",complemento);
-							cliente.setProperty("numero",numero);
-							cliente.setProperty("cep",cep);
-							cliente.setProperty("idBairro",bairro.getKey().getId());
-							cliente.setProperty("idEmpresa", empresa.getKey().getId());
-						    datastore.put(cliente);
-						}else if(!cliente.getProperty("nome").equals(nome)
-								||(cliente.getProperty("razao")!=null&&!cliente.getProperty("razao").equals(razao))
-								||!cliente.getProperty("endereco").equals(endereco)
-								||!cliente.getProperty("complemento").equals(complemento)
-								||!cliente.getProperty("numero").equals(numero)
-								||!cliente.getProperty("cep").equals(cep)
-								||!cliente.getProperty("idBairro").equals(bairro.getKey().getId())){
-							cliente.setProperty("nome",nome);
-							cliente.setProperty("cnpj",cnpj);
-							cliente.setProperty("endereco",endereco);
-							cliente.setProperty("complemento",complemento);
-							cliente.setProperty("numero",numero);
-							cliente.setProperty("cep",cep);
-							cliente.setProperty("idBairro",bairro.getKey().getId());
-							datastore.put(cliente);
+						try{
+							query = new Query("Cliente");
+							query.setFilter(
+									CompositeFilterOperator.and(
+											new FilterPredicate("cnpj",FilterOperator.EQUAL,cnpj),
+											new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getKey().getId())
+									) );						
+							cliente = datastore.prepare(query).asSingleEntity();
+							if(cliente==null){
+								cliente = new Entity("Cliente");
+								cliente.setProperty("nome",nome);
+								cliente.setProperty("razao",razao);
+								cliente.setProperty("cnpj",cnpj);
+								cliente.setProperty("endereco",endereco);
+								cliente.setProperty("complemento",complemento);
+								cliente.setProperty("numero",numero);
+								cliente.setProperty("cep",cep);
+								cliente.setProperty("idBairro",bairro.getKey().getId());
+								cliente.setProperty("idEmpresa", empresa.getKey().getId());
+							    datastore.put(cliente);
+							}else if(!cliente.getProperty("nome").equals(nome)
+									||(cliente.getProperty("razao")!=null&&!cliente.getProperty("razao").equals(razao))
+									||!cliente.getProperty("endereco").equals(endereco)
+									||!cliente.getProperty("complemento").equals(complemento)
+									||!cliente.getProperty("numero").equals(numero)
+									||!cliente.getProperty("cep").equals(cep)
+									||!cliente.getProperty("idBairro").equals(bairro.getKey().getId())){
+								cliente.setProperty("nome",nome);
+								cliente.setProperty("cnpj",cnpj);
+								cliente.setProperty("endereco",endereco);
+								cliente.setProperty("complemento",complemento);
+								cliente.setProperty("numero",numero);
+								cliente.setProperty("cep",cep);
+								cliente.setProperty("idBairro",bairro.getKey().getId());
+								datastore.put(cliente);
+							}
+						}catch(TooManyResultsException e){
+							logger.log(Level.SEVERE,bundle.getString("app.mensagem.cliente.cnpj.duplicado"));
+							logger.log(Level.INFO,"CLIENTE NOME........: " + nome);
+							logger.log(Level.INFO,"CLIENTE RAZÃO SOCIAL: " + razao);
+							logger.log(Level.INFO,"CLIENTE CNPJ........: " + cnpj);
+							logger.log(Level.INFO,"CLIENTE BAIRRO......: " + nomeBairro);
+							logger.log(Level.INFO,"CLIENTE CIDADE......: " + nomeCidade);
 						}
+						
+						
+					}else{
+						logger.log(Level.SEVERE,bundle.getString("app.mensagem.cliente.bairro.nao.localizada"));
+						logger.log(Level.INFO,"CLIENTE NOME........: " + nome);
+						logger.log(Level.INFO,"CLIENTE RAZÃO SOCIAL: " + razao);
+						logger.log(Level.INFO,"CLIENTE CNPJ........: " + cnpj);
+						logger.log(Level.INFO,"CLIENTE BAIRRO......: " + nomeBairro);
+						logger.log(Level.INFO,"CLIENTE CIDADE......: " + nomeCidade);
 					}
 					
 				}

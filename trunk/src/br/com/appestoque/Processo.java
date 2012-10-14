@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.PrintWriter;
 
 import com.pdfjet.*;
-import com.d_project.qrcode.*;
+//import com.d_project.qrcode.*;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -114,25 +114,25 @@ public class Processo extends HttpServlet{
 				corpo.append("<body>");
 				corpo.append("<div style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; margin: 14px';>");
 				corpo.append("<img src='http://www.appestoque.com.br/img/logo.jpg'/>");
-				corpo.append("<h2 style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin: 0 0 16px; font-size: 18px; font-weight: normal'>Olá, "+empresa.getNome()+".</h2>");
+				corpo.append("<h2 style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin: 0 0 16px; font-size: 18px; font-weight: normal'>Olï¿½, "+empresa.getNome()+".</h2>");
 				
 				corpo.append("<p>Por favor, confirme sua conta do Appestoque clicando nesse link:<br>");
 				corpo.append("<a href='"+Constantes.URL+Constantes.URI_CONFIRMAR+"&&uuid="+empresa.getUuid()+"'");
 				corpo.append("target='_blank'>"+Constantes.URL+Constantes.URI_CONFIRMAR+"&&uuid="+empresa.getUuid()+"</a></p>");
 				
-				corpo.append("<p>Quando você confirmar, você terá acesso total ao Appestoque e todas as notificações futuras serão enviadas para este endereço de e-mail.</p>");
+				corpo.append("<p>Quando vocï¿½ confirmar, vocï¿½ terï¿½ acesso total ao Appestoque e todas as notificaï¿½ï¿½es futuras serï¿½o enviadas para este endereï¿½o de e-mail.</p>");
 				
 				corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; line-height: 18px; border-bottom: 1px solid rgb(238, 238, 238); padding-bottom: 10px; margin: 0 0 10px'>");
 				corpo.append("<span style='font: italic 13px Georgia, serif; color: rgb(102, 102, 102)'>Equipe do Appestoque</span></p>");
 				
 				corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
-				corpo.append("Se você recebeu essa mensagem por engano e não criou uma conta do Appestoque, clique"); 
-				corpo.append(" <a href='mailto:suporte@appestoque.com.br?subject=[Cadastro]Mensagem por engano&&body='target='_blank'>não é minha conta</a>.</p>");
+				corpo.append("Se vocï¿½ recebeu essa mensagem por engano e nï¿½o criou uma conta do Appestoque, clique"); 
+				corpo.append(" <a href='mailto:suporte@appestoque.com.br?subject=[Cadastro]Mensagem por engano&&body='target='_blank'>nï¿½o ï¿½ minha conta</a>.</p>");
 				
 				corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
-				corpo.append("Por favor não responda esta mensagem; ela foi enviada por um endereço");
-				corpo.append("de e-mail não monitorado. Esta mensagem é relacionada ao seu uso do");
-				corpo.append(" Appestoque. Para mais informações sobre a sua conta, por");
+				corpo.append("Por favor nï¿½o responda esta mensagem; ela foi enviada por um endereï¿½o");
+				corpo.append("de e-mail nï¿½o monitorado. Esta mensagem ï¿½ relacionada ao seu uso do");
+				corpo.append(" Appestoque. Para mais informaï¿½ï¿½es sobre a sua conta, por");
 				corpo.append("favor encaminhe um e-mail para o");
 				corpo.append(" <a href='mailto:suporte@appestoque.com.br' target='_blank'>Suporte do Appestoque</a>.</p>");
 				
@@ -184,10 +184,10 @@ public class Processo extends HttpServlet{
 				   if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				      Element eElement = (Element) nNode;
 				      out.print(getTagValue("title", eElement)+"<br/><br/>");
-//				      System.out.println("Data de Publicação : " + getTagValue("pubDate", eElement));
+//				      System.out.println("Data de Publicaï¿½ï¿½o : " + getTagValue("pubDate", eElement));
 //				      System.out.println("Titulo : " + getTagValue("title", eElement));
 //				      System.out.println("link : " + getTagValue("link", eElement));
-//			          System.out.println("Descrição : " + getTagValue("description", eElement));
+//			          System.out.println("Descriï¿½ï¿½o : " + getTagValue("description", eElement));
 				   }
 				}
 		  } catch (Exception e) {
@@ -201,23 +201,23 @@ public class Processo extends HttpServlet{
 				response.setContentType("application/pdf");
 				Page page = new Page(pdf, Letter.PORTRAIT);
 				
-				QRCode qr = null;
-				
-				qr = new QRCode();
-				qr.setTypeNumber(Mode.MODE_8BIT_BYTE);
-		        qr.setErrorCorrectLevel(ErrorCorrectLevel.M);
-		        qr.addData("André Silva Tricano");
-		        qr.make();
-		        qr.setPosition(200, 100);
-		        qr.drawOn(page);
-		        
-		        qr = new QRCode();
-				qr.setTypeNumber(Mode.MODE_8BIT_BYTE);
-		        qr.setErrorCorrectLevel(ErrorCorrectLevel.M);
-		        qr.addData("Alan Silva Tricano");
-		        qr.make();
-		        qr.setPosition(400, 100);
-		        qr.drawOn(page);
+//				QRCode qr = null;
+//				
+//				qr = new QRCode();
+//				qr.setTypeNumber(Mode.MODE_8BIT_BYTE);
+//		        qr.setErrorCorrectLevel(ErrorCorrectLevel.M);
+//		        qr.addData("Andrï¿½ Silva Tricano");
+//		        qr.make();
+//		        qr.setPosition(200, 100);
+//		        qr.drawOn(page);
+//		        
+//		        qr = new QRCode();
+//				qr.setTypeNumber(Mode.MODE_8BIT_BYTE);
+//		        qr.setErrorCorrectLevel(ErrorCorrectLevel.M);
+//		        qr.addData("Alan Silva Tricano");
+//		        qr.make();
+//		        qr.setPosition(400, 100);
+//		        qr.drawOn(page);
 		        
 		        pdf.flush();
 		        servletOutputStream.close();
