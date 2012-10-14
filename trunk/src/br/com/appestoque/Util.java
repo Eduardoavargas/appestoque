@@ -26,6 +26,7 @@ public class Util {
 			Message msg = new MimeMessage(mailSession);
 			msg.setFrom(new InternetAddress("appestoque@gmail.com"));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("leila@perfilmec.com.br"));
 			msg.setSubject(assunto);
 			Multipart mp = new MimeMultipart();
 			MimeBodyPart htmlPart = new MimeBodyPart();
