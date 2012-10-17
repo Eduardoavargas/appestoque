@@ -113,11 +113,11 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 	        textLine.drawOn(page);
 	        
 	        textLine = new TextLine(font,"Data");  
-	        textLine.setPosition(left+50,top);                      
+	        textLine.setPosition(left+65,top);                      
 	        textLine.drawOn(page);
 	        
 	        textLine = new TextLine(font,"Hora");  
-	        textLine.setPosition(left+100,top);                     
+	        textLine.setPosition(left+110,top);                     
 	        textLine.drawOn(page);
 	        
 	        textLine = new TextLine(font,"Cliente");  
@@ -141,22 +141,21 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 	        textLine.setPosition(left,top);                 
 	        textLine.drawOn(page);
 	        
-	        
 	        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constantes.MASCARA_DATA_PADRAO);
 			simpleDateFormat.setTimeZone(TimeZone.getTimeZone(Constantes.GMT_BRASIL));
 			
 	        textLine = new TextLine(font,simpleDateFormat.format(this.pedido.getData()));  
-	        textLine.setPosition(left+50,top);                      
+	        textLine.setPosition(left+65,top);                      
 	        textLine.drawOn(page);
 	        
 	        simpleDateFormat = new SimpleDateFormat(Constantes.MASCARA_HORA_PADRAO);
 			simpleDateFormat.setTimeZone(TimeZone.getTimeZone(Constantes.GMT_BRASIL));
 	        
 	        textLine = new TextLine(font,simpleDateFormat.format(this.pedido.getData()));  
-	        textLine.setPosition(left+100,top);                     
+	        textLine.setPosition(left+110,top);                     
 	        textLine.drawOn(page);
 	        
-	        textLine = new TextLine(font,this.pedido.getCliente().getNome());  
+	        textLine = new TextLine(font,this.pedido.getCliente().getNome().substring(0,30));  
 	        textLine.setPosition(left+150,top);                     
 	        textLine.drawOn(page);
 	        
@@ -166,6 +165,40 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 	        
 	        textLine = new TextLine(font,this.pedido.getObs());  
 	        textLine.setPosition(left+420,top);                     
+	        textLine.drawOn(page);
+	        
+	        top += 10.00;
+	        
+	        font = new Font(pdf,CoreFont.HELVETICA_BOLD);			
+			font.setSize(7.0);
+			
+			textLine = new TextLine(font,"Endereço");  
+	        textLine.setPosition(left,top);                 
+	        textLine.drawOn(page);
+			
+	        textLine = new TextLine(font,"Bairro");  
+	        textLine.setPosition(left+300,top);                 
+	        textLine.drawOn(page);
+	        
+	        textLine = new TextLine(font,"Cidade");  
+	        textLine.setPosition(left+420,top);                 
+	        textLine.drawOn(page);
+	        
+	        top += 10.00;
+	        
+	        font = new Font(pdf,CoreFont.HELVETICA);
+	        font.setSize(7.0);
+	        
+	        textLine = new TextLine(font,this.pedido.getCliente().getEndereco());  
+	        textLine.setPosition(left,top);                 
+	        textLine.drawOn(page);
+	        
+	        textLine = new TextLine(font,this.pedido.getCliente().getBairro().getNome());  
+	        textLine.setPosition(left+300,top);                 
+	        textLine.drawOn(page);
+	        
+	        textLine = new TextLine(font,this.pedido.getCliente().getBairro().getCidade().getNome());  
+	        textLine.setPosition(left+420,top);                 
 	        textLine.drawOn(page);
 			
 		} catch (Exception e) {
@@ -202,7 +235,7 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 					
 					imprimirMestre();
 					
-					top += 10.00;
+					top += 2.00;
 		            
 		            table = new Table(font,font);
 		            
@@ -217,8 +250,8 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 					coluna3 = new Cell(font,bundle.getString("item.valor"));
 					coluna4 = new Cell(font,bundle.getString("item.total"));
 		            
-					coluna0.setWidth( 50.00);
-		            coluna1.setWidth(200.00);
+					coluna0.setWidth( 65.00);
+		            coluna1.setWidth(185.00);
 		            coluna2.setWidth(100.00);
 		            coluna3.setWidth(100.00);
 		            coluna4.setWidth(100.00);
@@ -257,8 +290,8 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 						coluna3 = new Cell(font,Util.doubleToString(item.getValor(),Constantes.MASCARA_VALOR_TRES_CASAS_DECIMAIS));
 						coluna4 = new Cell(font,Util.doubleToString((item.getQuantidade()*item.getValor()),Constantes.MASCARA_VALOR_DUAS_CASAS_DECIMAIS));
 						
-						coluna0.setWidth( 50.00);
-						coluna1.setWidth(200.00);
+						coluna0.setWidth( 65.00);
+						coluna1.setWidth(185.00);
 		                coluna2.setWidth(100.00);
 		                coluna3.setWidth(100.00);
 		                coluna4.setWidth(100.00);
@@ -362,8 +395,8 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 			            
 						table.drawOn(page);
 						
-						point1 = new Point(20, 35);
-				        point2 = new Point(550,35);
+						point1 = new Point(20, 36);
+				        point2 = new Point(550,36);
 				        line = new Line( point1.getX(), point1.getY() + point2.getY(), point1.getX() + point2.getX(),
 				        		point1.getY() + point2.getY());
 				        line.drawOn(page);

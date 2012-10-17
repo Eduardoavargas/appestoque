@@ -17,6 +17,7 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 import br.com.appestoque.TipoBusca;
 import br.com.appestoque.dao.DAOGenerico;
+import br.com.appestoque.dao.cadastro.BairroDAO;
 import br.com.appestoque.dao.cadastro.CidadeDAO;
 import br.com.appestoque.dao.cadastro.ClienteDAO;
 import br.com.appestoque.dao.cadastro.RepresentanteDAO;
@@ -106,7 +107,7 @@ public class PedidoDAO extends DAOGenerico<Pedido, Long>{
 		/*localizando cliente*/
 		if(objeto.getIdCliente()!=null){
 			ClienteDAO clientedao = new ClienteDAO(getPm());
-			objeto.setCliente(clientedao.pesquisar(objeto.getIdCliente()));
+			objeto.setCliente(clientedao.pesquisar(objeto.getIdCliente(),TipoBusca.ANSIOSA));
 		}
 		
 		/*localizando representante*/
