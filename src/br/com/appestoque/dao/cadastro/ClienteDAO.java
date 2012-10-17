@@ -10,7 +10,6 @@ import br.com.appestoque.dao.DAOException;
 import br.com.appestoque.dao.DAOGenerico;
 import br.com.appestoque.dao.faturamento.PedidoDAO;
 import br.com.appestoque.dominio.cadastro.Bairro;
-import br.com.appestoque.dominio.cadastro.Cidade;
 import br.com.appestoque.dominio.cadastro.Cliente;
 import br.com.appestoque.dominio.cadastro.Empresa;
 
@@ -22,11 +21,7 @@ public class ClienteDAO extends DAOGenerico<Cliente, Long>{
 	}
 	
 	public Cliente pesquisar(Long id, TipoBusca tipoBusca){
-		Cliente objeto = null;
-		Query query = getPm().newQuery(Cliente.class);
-		query.setFilter("id == p_id");
-		query.declareParameters("Long p_id");
-		objeto = (Cliente) query.execute(id);
+		Cliente objeto = this.pesquisar(id);
 		if(tipoBusca.equals(TipoBusca.ANSIOSA)){
 			BairroDAO bairroDAO = new BairroDAO(getPm());
 			objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(),TipoBusca.ANSIOSA));
