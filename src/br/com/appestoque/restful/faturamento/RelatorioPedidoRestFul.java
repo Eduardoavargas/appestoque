@@ -155,7 +155,7 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 	        textLine.setPosition(left+110,top);                     
 	        textLine.drawOn(page);
 	        
-	        textLine = new TextLine(font,this.pedido.getCliente().getNome().substring(0,30));  
+	        textLine = new TextLine(font,this.pedido.getCliente().getNome());  
 	        textLine.setPosition(left+150,top);                     
 	        textLine.drawOn(page);
 	        
