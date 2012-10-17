@@ -430,7 +430,7 @@
 	
 	
 
-<!--OnPositive Tools-->
+<!--OnPositive Tools
 
 <servlet>
 		<servlet-name>baseViewerServlet</servlet-name>
@@ -458,7 +458,7 @@
 		<servlet-name>QueueHandler</servlet-name>
 		<url-pattern>/appwrench/queuehandler</url-pattern>
 	</servlet-mapping>
-<security-constraint>
+	<security-constraint>
 		<web-resource-collection>
 			<url-pattern>/appwrench/queuehandler</url-pattern>
 		</web-resource-collection>
@@ -478,5 +478,7 @@
   <servlet-name>SystemServiceServlet</servlet-name>
   <url-pattern>/_ah/spi/*</url-pattern>
  </servlet-mapping>
+ -->
+ 
  
 </web-app>
