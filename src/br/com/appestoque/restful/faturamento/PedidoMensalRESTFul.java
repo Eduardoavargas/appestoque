@@ -8,6 +8,7 @@ import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +28,7 @@ import br.com.appestoque.BaseServlet;
 import br.com.appestoque.dominio.cadastro.Bairro;
 import br.com.appestoque.dominio.cadastro.Cidade;
 import br.com.appestoque.dominio.cadastro.Cliente;
+import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.util.Tempo;
 
 @SuppressWarnings("serial")
@@ -34,10 +36,17 @@ public class PedidoMensalRESTFul extends BaseServlet{
 	
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		super.processServer(request, response);
+		
+		HttpSession session = request.getSession();
+		Empresa empresa = (Empresa) session.getAttribute("empresa");
+		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Query query = new Query("Pedido");
+		
 		query.setFilter(new FilterPredicate("data",FilterOperator.GREATER_THAN,Tempo.primeiroDiaMes(new Date())));
 		query.setFilter(new FilterPredicate("data",FilterOperator.LESS_THAN,Tempo.ultimoDiaMes(new Date())));
+		query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getId()));
+		
 		Iterable<Entity> pedidos = datastore.prepare(query).asIterable();
 		JSONArray objetos = new JSONArray();
 		for (Entity pedido : pedidos) {

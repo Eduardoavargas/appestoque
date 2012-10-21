@@ -100,16 +100,22 @@ public class ClienteControle extends BaseControle{
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_LISTAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("criar")) {
+			
 			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
-			request.setAttribute("cidades", cidadeDAO.listar());
+			//request.setAttribute("cidades", cidadeDAO.listar());
+			request.setAttribute("cidades", cidadeDAO.listar(getId(request)));
+			
 			request.setAttribute("bairros", null);
 			objeto = new Cliente();
 			request.setAttribute("objeto", objeto);			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Pagina.PAGINA_CLIENTE_EDITAR);
 			dispatcher.forward(request, response);
 		} else if(request.getParameter("acao").equals("editar")) {
+			
 			cidadeDAO = new CidadeDAO((PersistenceManager) request.getAttribute("pm"));
-			request.setAttribute("cidades", cidadeDAO.listar());
+			//request.setAttribute("cidades", cidadeDAO.listar());
+			request.setAttribute("cidades", cidadeDAO.listar(getId(request)));
+			
 			objeto = dao.pesquisar(new Long(request.getParameter("id")));
 			BairroDAO bairroDAO = new BairroDAO((PersistenceManager) request.getAttribute("pm"));
 			objeto.setBairro(bairroDAO.pesquisar(objeto.getIdBairro(), TipoBusca.ANSIOSA));
