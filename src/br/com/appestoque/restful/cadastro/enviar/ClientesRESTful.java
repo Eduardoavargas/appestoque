@@ -189,12 +189,14 @@ public class ClientesRESTful extends BaseServlet{
 									||!cliente.getProperty("cep").equals(cep)
 									||!cliente.getProperty("idBairro").equals(bairro.getKey().getId())){
 								cliente.setProperty("nome",nome);
+								cliente.setProperty("razao",razao);
 								cliente.setProperty("cnpj",cnpj);
 								cliente.setProperty("endereco",endereco);
 								cliente.setProperty("complemento",complemento);
 								cliente.setProperty("numero",numero);
 								cliente.setProperty("cep",cep);
 								cliente.setProperty("idBairro",bairro.getKey().getId());
+								cliente.setProperty("idEmpresa", empresa.getKey().getId());
 								datastore.put(cliente);
 							}
 						}catch(TooManyResultsException e){

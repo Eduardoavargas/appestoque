@@ -31,7 +31,6 @@ import com.google.gson.stream.JsonReader;
 @SuppressWarnings("serial")
 public class ProdutosRESTful extends BaseServlet{
 	
-	@SuppressWarnings("unused")
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		super.processServer(request, response);
 		String uuid = null;
@@ -118,6 +117,7 @@ public class ProdutosRESTful extends BaseServlet{
 								produto.setProperty("preco", preco);
 								produto.setProperty("minimo", minimo);
 								produto.setProperty("quantidade", quantidade);
+								produto.setProperty("idEmpresa",empresa.getKey().getId());
 								datastore.put(produto);
 							}
 						}
