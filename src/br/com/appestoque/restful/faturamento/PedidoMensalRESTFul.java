@@ -1,6 +1,7 @@
 package br.com.appestoque.restful.faturamento;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Map;
@@ -21,8 +22,11 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import com.google.appengine.api.datastore.PreparedQuery;
 
 import br.com.appestoque.BaseServlet;
 import br.com.appestoque.dominio.cadastro.Bairro;
@@ -43,13 +47,35 @@ public class PedidoMensalRESTFul extends BaseServlet{
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Query query = new Query("Pedido");
 		
-		query.setFilter(new FilterPredicate("data",FilterOperator.GREATER_THAN,Tempo.primeiroDiaMes(new Date())));
-		query.setFilter(new FilterPredicate("data",FilterOperator.LESS_THAN,Tempo.ultimoDiaMes(new Date())));
-		query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getId()));
+//		query.setFilter(new FilterPredicate("data",FilterOperator.GREATER_THAN_OR_EQUAL,Tempo.primeiroDiaMes(new Date())));
+//		query.setFilter(new FilterPredicate("data",FilterOperator.LESS_THAN_OR_EQUAL,Tempo.ultimoDiaMes(new Date())));
+//		query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,empresa.getId()));
 		
-		Iterable<Entity> pedidos = datastore.prepare(query).asIterable();
+		Filter heightMinFilter =
+			  new FilterPredicate("data",
+			                      FilterOperator.GREATER_THAN_OR_EQUAL,
+			                      Tempo.primeiroDiaMes(new Date()));
+
+			Filter heightMaxFilter =
+			  new FilterPredicate("data",
+			                      FilterOperator.LESS_THAN_OR_EQUAL,
+			                      Tempo.ultimoDiaMes(new Date()));
+			
+			Filter empresaFilter =
+				  new FilterPredicate("idEmpresa",
+				                      FilterOperator.EQUAL,
+				                      empresa.getId());
+
+			//Use CompositeFilter to combine multiple filters
+			Filter heightRangeFilter = CompositeFilterOperator.and(heightMinFilter, heightMaxFilter,empresaFilter);
+
+		Query q = new Query("Pedido").setFilter(heightRangeFilter);
+		
+		PreparedQuery pq = datastore.prepare(q);
+		
+		//Iterable<Entity> pedidos = datastore.prepare(query).asIterable();
 		JSONArray objetos = new JSONArray();
-		for (Entity pedido : pedidos) {
+		for (Entity pedido : pq.asIterable()) {
 			Map<String,Object> properties = pedido.getProperties();
 			
 			Key key = KeyFactory.createKey(Cliente.class.getSimpleName(),Integer.parseInt(properties.get("idCliente").toString()));
@@ -59,6 +85,7 @@ public class PedidoMensalRESTFul extends BaseServlet{
 				
 				JSONObject objeto = new JSONObject();
 				cliente = datastore.get(key);
+				
 				objeto.put("cliente",cliente.getProperty("nome"));
 				objeto.put("endereco",cliente.getProperty("endereco"));
 				

@@ -163,7 +163,7 @@ public class PedidoRestFul extends BaseServlet{
 							e.printStackTrace();
 						}
 						
-						if(empresa.getProperty("emailPedido")!=null&&!empresa.getProperty("emailPedido").equals("")){
+						if(empresa.getProperty("email")!=null&&!empresa.getProperty("email").equals("")){
 						
 							StringBuffer corpo = new StringBuffer();
 							
@@ -174,7 +174,7 @@ public class PedidoRestFul extends BaseServlet{
 							corpo.append("<body>");
 							corpo.append("<div style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 13px; margin: 14px';>");
 							corpo.append("<img src='http://appestoque.appspot.com/img/logo.jpg'/>");
-							corpo.append("<h2 style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin: 0 0 16px; font-size: 18px; font-weight: normal'>Ol�, "+empresa.getProperty("nome")+".</h2>");
+							corpo.append("<h2 style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin: 0 0 16px; font-size: 18px; font-weight: normal'>Olá, "+empresa.getProperty("nome")+".</h2>");
 							
 							corpo.append("<p>Por favor, clique no link abaixo para imprimir o pedido de venda:<br>");
 							corpo.append("<a href='"+Constantes.URL+Constantes.URI_PEDIDO_VENDA+"?uuid="+uuid+"'");
@@ -184,12 +184,12 @@ public class PedidoRestFul extends BaseServlet{
 							corpo.append("<span style='font: italic 13px Georgia, serif; color: rgb(102, 102, 102)'>Equipe do Appestoque</span></p>");
 							
 							corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
-							corpo.append("Se voc� recebeu essa mensagem por engano e n�o criou uma conta do Appestoque, clique"); 
+							corpo.append("Se você recebeu essa mensagem por engano e não criou uma conta do Appestoque, clique"); 
 							corpo.append(" <a href='mailto:suporte@appestoque.com.br?subject=[Cadastro]Mensagem por engano&&body='target='_blank'>n�o � minha conta</a>.</p>");
 							
 							corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
-							corpo.append("Por favor n�o responda esta mensagem; ela foi enviada por um endere�o ");
-							corpo.append("de e-mail n�o monitorado. Esta mensagem � relacionada ao seu uso do ");
+							corpo.append("Por favor não responda esta mensagem; ela foi enviada por um endereço ");
+							corpo.append("de e-mail não monitorado. Esta mensagem é relacionada ao seu uso do ");
 							corpo.append("Appestoque. Para mais informações sobre a sua conta, por ");
 							corpo.append("favor encaminhe um e-mail para o");
 							corpo.append(" <a href='mailto:suporte@appestoque.com.br' target='_blank'>Suporte do Appestoque</a>.</p>");

@@ -20,13 +20,18 @@ import javax.mail.internet.MimeMultipart;
 public class Util {
 
 	public static void enviarEmail(String email, String assunto,CharSequence corpo) {
-		try {
+		try {			
+			String[] emails = email.split(Constantes.DELIMITADOR_EMAIL);
 			Properties props = new Properties();
 			Session mailSession = Session.getDefaultInstance(props, null);
 			Message msg = new MimeMessage(mailSession);
-			msg.setFrom(new InternetAddress("appestoque@gmail.com"));
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("leila@perfilmec.com.br"));
+			msg.setFrom(new InternetAddress("appestoque@gmail.com"));		
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(emails[0]));
+			if(emails.length>1){
+				msg.addRecipient(Message.RecipientType.CC, new InternetAddress(emails[1]));
+			}
+//			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+//			msg.addRecipient(Message.RecipientType.CC, new InternetAddress("leila@perfilmec.com.br"));
 			msg.setSubject(assunto);
 			Multipart mp = new MimeMultipart();
 			MimeBodyPart htmlPart = new MimeBodyPart();
