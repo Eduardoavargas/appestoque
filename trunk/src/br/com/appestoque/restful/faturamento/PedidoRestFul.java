@@ -125,7 +125,7 @@ public class PedidoRestFul extends BaseServlet{
 								
 								pedido.setProperty("idCliente", cliente.getKey().getId());
 								
-								throw new Exception();
+								//throw new Exception();
 							
 							}catch(Exception e){
 								//logger.log(Level.SEVERE,bundle.getString("app.mensagem.cliente.erro.cadastro.cidade.bairro"));
