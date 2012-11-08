@@ -9,9 +9,9 @@ public class Constantes {
 	public static final String VERSAO = "Beta 1.0.3";
 	
 	//public static final String URL = "http://www.appestoque.com.br";
-	//public static final String URL = "http://localhost:8888";
+	public static final String URL = "http://localhost:8888";
 	//public static final String URL = "http://4.appestoque.appspot.com/";
-	public static final String URL = "http://appestoque.appspot.com";
+	//public static final String URL = "http://appestoque.appspot.com";
 	
 	public static final String URI_CONFIRMAR = "/processo?acao=confirmar";
 	public static final String URI_PEDIDO_VENDA = "/RESTFul/relatorioPedido";
