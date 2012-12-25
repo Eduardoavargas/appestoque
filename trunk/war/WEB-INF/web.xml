@@ -435,68 +435,15 @@
 	</servlet-mapping>
 	
 	
+	
+	<servlet>
+		<servlet-name>labRESTful</servlet-name>
+		<servlet-class>br.com.appestoque.restful.LabRESTful</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>labRESTful</servlet-name>
+		<url-pattern>/json/lab</url-pattern>
+	</servlet-mapping>
 
-<!--OnPositive Tools
-
-<servlet>
-		<servlet-name>baseViewerServlet</servlet-name>
-		<servlet-class>com.onpositive.gae.tools.servlets.BaseViewerServlet
-		</servlet-class>
-	</servlet>
-<servlet-mapping>
-		<servlet-name>baseViewerServlet</servlet-name>
-		<url-pattern>/appwrench/baseviewer</url-pattern>
-	</servlet-mapping>
-<servlet>
-		<servlet-name>SessionAuth</servlet-name>
-		<servlet-class>com.onpositive.auth.AuthServlet</servlet-class>
-	</servlet>
-<servlet-mapping>
-		<servlet-name>SessionAuth</servlet-name>
-		<url-pattern>/appwrench/auth</url-pattern>
-	</servlet-mapping>
-<servlet>
-		<servlet-name>QueueHandler</servlet-name>
-		<servlet-class>com.onpositive.gae.tools.servlets.QueueHandlerServlet
-		</servlet-class>
-	</servlet>
-<servlet-mapping>
-		<servlet-name>QueueHandler</servlet-name>
-		<url-pattern>/appwrench/queuehandler</url-pattern>
-	</servlet-mapping>
-	<security-constraint>
-		<web-resource-collection>
-			<url-pattern>/appwrench/queuehandler</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>admin</role-name>
-		</auth-constraint>
-	</security-constraint>
- <servlet>
-  <servlet-name>SystemServiceServlet</servlet-name>
-  <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
-  <init-param>
-   <param-name>services</param-name>
-   <param-value/>
-  </init-param>
- </servlet>
- <servlet-mapping>
-  <servlet-name>SystemServiceServlet</servlet-name>
-  <url-pattern>/_ah/spi/*</url-pattern>
- </servlet-mapping>
- -->
- 
- 
- <servlet>
-  <servlet-name>SystemServiceServlet</servlet-name>
-  <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
-  <init-param>
-   <param-name>services</param-name>
-   <param-value/>
-  </init-param>
- </servlet>
- <servlet-mapping>
-  <servlet-name>SystemServiceServlet</servlet-name>
-  <url-pattern>/_ah/spi/*</url-pattern>
- </servlet-mapping>
+	
 </web-app>
