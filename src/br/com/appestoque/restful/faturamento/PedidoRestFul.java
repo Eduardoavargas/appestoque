@@ -1,5 +1,6 @@
 package br.com.appestoque.restful.faturamento;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.InvalidKeyException;
@@ -26,6 +27,8 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 
 import br.com.appestoque.BaseServlet;
 import br.com.appestoque.dominio.cadastro.Empresa;
@@ -102,18 +105,14 @@ public class PedidoRestFul extends BaseServlet{
 							
 								PreparedQuery preparedQuery = null;
 								
-								query = new Query("Cidade");
-								query.setFilter(new FilterPredicate("nome",FilterOperator.EQUAL,json.getString("cidade")));
-								query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,representante.getProperty("idEmpresa")));
-								preparedQuery = datastore.prepare(query);
-								Iterable<Entity> cidades = preparedQuery.asIterable();
-								Entity cidade = null;
-								for (Entity c : cidades) { cidade = c; break; }
-								
 								query = new Query("Bairro");
-								query.setFilter(new FilterPredicate("nome",FilterOperator.EQUAL,json.getString("bairro")));
-								query.setFilter(new FilterPredicate("idCidade",FilterOperator.EQUAL,cidade.getKey().getId()));
-								query.setFilter(new FilterPredicate("idEmpresa",FilterOperator.EQUAL,representante.getProperty("idEmpresa")));
+								
+								Filter filter = CompositeFilterOperator.and(
+										new FilterPredicate("nome",FilterOperator.EQUAL,json.getString("bairro")),
+										new FilterPredicate("idEmpresa",FilterOperator.EQUAL,representante.getProperty("idEmpresa")));
+								
+								query.setFilter(filter);
+								
 								preparedQuery = datastore.prepare(query);
 								Iterable<Entity> bairros = preparedQuery.asIterable();
 								Entity bairro = null;
@@ -124,8 +123,6 @@ public class PedidoRestFul extends BaseServlet{
 								datastore.put(cliente);
 								
 								pedido.setProperty("idCliente", cliente.getKey().getId());
-								
-								//throw new Exception();
 							
 							}catch(Exception e){
 								//logger.log(Level.SEVERE,bundle.getString("app.mensagem.cliente.erro.cadastro.cidade.bairro"));
@@ -185,7 +182,7 @@ public class PedidoRestFul extends BaseServlet{
 							
 							corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
 							corpo.append("Se você recebeu essa mensagem por engano e não criou uma conta do Appestoque, clique"); 
-							corpo.append(" <a href='mailto:suporte@appestoque.com.br?subject=[Cadastro]Mensagem por engano&&body='target='_blank'>n�o � minha conta</a>.</p>");
+							corpo.append(" <a href='mailto:suporte@appestoque.com.br?subject=[Cadastro]Mensagem por engano&&body='target='_blank'>não à minha conta</a>.</p>");
 							
 							corpo.append("<p style='font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif; margin-top: 5px; font-size: 10px; color: #888888'>");
 							corpo.append("Por favor não responda esta mensagem; ela foi enviada por um endereço ");
