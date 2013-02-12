@@ -127,7 +127,7 @@ public class PedidoRestFul extends BaseServlet{
 							}catch(Exception e){
 								//logger.log(Level.SEVERE,bundle.getString("app.mensagem.cliente.erro.cadastro.cidade.bairro"));
 								e.printStackTrace();
-								throw new IOException();
+								//throw new IOException();
 							}
 							
 						}
