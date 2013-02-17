@@ -2,6 +2,7 @@ package br.com.appestoque.restful.faturamento;
 
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.security.InvalidKeyException;
 import java.util.Date;
@@ -12,6 +13,10 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.swisstech.bitly.BitlyClient;
+import net.swisstech.bitly.model.Response;
+import net.swisstech.bitly.model.v3.ShortenResponse;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,15 +36,27 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 
 import br.com.appestoque.BaseServlet;
+import br.com.appestoque.Util;
 import br.com.appestoque.dominio.cadastro.Empresa;
 import br.com.appestoque.seguranca.Criptografia;
 import br.com.appestoque.util.Constantes;
 import br.com.appestoque.util.Conversor;
 
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
+
 @SuppressWarnings("serial")
 public class PedidoRestFul extends BaseServlet{
 	
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		StringBuilder tweet = new StringBuilder();
+		boolean twittar = false;
+		
+		
+		
 		super.processServer(request, response);
 		if(request.getParameter("email")!=null&&request.getParameter("senha")!=null){
 			
@@ -81,7 +98,8 @@ public class PedidoRestFul extends BaseServlet{
 						Entity pedido = new Entity("Pedido");
 						pedido.setProperty("numero", json.getString("numero"));
 						
-						pedido.setProperty("data", new Date(json.getLong("data")));
+						Date data = new Date(json.getLong("data"));
+						pedido.setProperty("data", data);
 						pedido.setProperty("idRepresentante", representante.getKey().getId());
 						
 						/*
@@ -156,6 +174,12 @@ public class PedidoRestFul extends BaseServlet{
 						Entity empresa = null;
 						try {
 							empresa = datastore.get(key);
+							
+							twittar = ((empresa.getProperty("twitterConsumerKey")!=null&&!empresa.getProperty("twitterConsumerKey").equals(""))&&
+									  (empresa.getProperty("twitterConsumerSecret")!=null&&!empresa.getProperty("twitterConsumerSecret").equals(""))&&
+									  (empresa.getProperty("twitterAccessToken")!=null&&!empresa.getProperty("twitterAccessToken").equals(""))&&
+									  (empresa.getProperty("twitterAccessTokenSecret")!=null&&!empresa.getProperty("twitterAccessTokenSecret").equals("")));
+							
 						} catch (EntityNotFoundException e) {
 							e.printStackTrace();
 						}
@@ -198,6 +222,44 @@ public class PedidoRestFul extends BaseServlet{
 							String assunto = Constantes.ASSUNTO_PEDIDO_VENDA + " - " + pedido.getProperty("numero");
 							br.com.appestoque.Util.enviarEmail(empresa.getProperty("email").toString(),assunto,corpo);
 							
+						}
+						
+						if(twittar){
+							try {
+								
+								BitlyClient client = new BitlyClient(Constantes.TOKEN_BITLY);
+								Response<ShortenResponse> respShort = client.shorten().setLongUrl(Constantes.URL+
+										Constantes.URI_PEDIDO_VENDA+"?uuid="+uuid).call();
+								
+								if(representante.getProperty("twitter")!=null&&!representante.getProperty("twitter").equals("")){
+									tweet.append(Constantes.UM_ESPACAO_BRANCO);
+									tweet.append(representante.getProperty("twitter").toString());
+								}
+								
+								tweet.append(Constantes.UM_ESPACAO_BRANCO);
+								tweet.append(Constantes.HASHTAG+Constantes.SIGLA_REFERENCIA+
+										Util.dateToStr(Constantes.MASCARA_MES_ANO_PADRAO,data));
+								
+								tweet.append(Constantes.UM_ESPACAO_BRANCO);
+								tweet.append(pedido.getProperty("numero"));
+								
+								tweet.append(Constantes.UM_ESPACAO_BRANCO);
+								tweet.append(respShort.data.url);
+								
+								ConfigurationBuilder cb = new ConfigurationBuilder();
+								cb.setDebugEnabled(true)
+								  .setOAuthConsumerKey(empresa.getProperty("twitterConsumerKey").toString())
+								  .setOAuthConsumerSecret(empresa.getProperty("twitterConsumerSecret").toString())
+								  .setOAuthAccessToken(empresa.getProperty("twitterAccessToken").toString())
+								  .setOAuthAccessTokenSecret(empresa.getProperty("twitterAccessTokenSecret").toString());
+								TwitterFactory tf = new TwitterFactory(cb.build());
+								Twitter twitter = tf.getInstance();
+								twitter.updateStatus(tweet.toString());
+							} catch (TwitterException e) {
+								e.printStackTrace();
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 						
 						response.setContentType("application/json;charset=UTF-8");

@@ -127,7 +127,11 @@ public class EmpresaControle extends BaseControle {
 						(!empresa.getCep().equals(request.getParameter("cep")))||
 						(!empresa.getComplemento().equals(request.getParameter("complemento")))||
 						(!empresa.getBairro().equals(request.getParameter("bairro")))||
-						(!empresa.getCidade().equals(request.getParameter("cidade")));
+						(!empresa.getCidade().equals(request.getParameter("cidade")))||
+						(empresa.getTwitterConsumerKey()==null||!empresa.getTwitterConsumerKey().equals(request.getParameter("twitterConsumerKey")))||
+						(empresa.getTwitterConsumerSecret()==null||!empresa.getTwitterConsumerSecret().equals(request.getParameter("twitterConsumerSecret")))||
+						(empresa.getTwitterAccessToken()==null||!empresa.getTwitterAccessToken().equals(request.getParameter("twitterAccessToken")))||
+						(empresa.getTwitterAccessTokenSecret()==null||!empresa.getTwitterAccessTokenSecret().equals(request.getParameter("twitterAccessTokenSecret")));
 			
 			if (modificar) {
 
@@ -161,7 +165,23 @@ public class EmpresaControle extends BaseControle {
 				if (!empresa.getCidade().equals(request.getParameter("cidade"))) {
 					empresa.setCidade(request.getParameter("cidade"));
 				}
-
+				
+				if (empresa.getTwitterConsumerKey()==null||!empresa.getTwitterConsumerKey().equals(request.getParameter("consumerKey"))) {
+					empresa.setTwitterConsumerKey(request.getParameter("consumerKey"));
+				}
+				
+				if (empresa.getTwitterConsumerSecret()==null||!empresa.getTwitterConsumerSecret().equals(request.getParameter("consumerSecret"))) {
+					empresa.setTwitterConsumerSecret(request.getParameter("consumerSecret"));
+				}
+				
+				if (empresa.getTwitterAccessToken()==null||!empresa.getTwitterAccessToken().equals(request.getParameter("accessToken"))) {
+					empresa.setTwitterAccessToken(request.getParameter("accessToken"));
+				}
+				
+				if (empresa.getTwitterAccessTokenSecret()==null||!empresa.getTwitterAccessTokenSecret().equals(request.getParameter("accessTokenSecret"))) {
+					empresa.setTwitterAccessTokenSecret(request.getParameter("accessTokenSecret"));
+				}
+				
 				dao.adicionar(empresa);
 				
 				HttpServletRequest req = (HttpServletRequest) request;

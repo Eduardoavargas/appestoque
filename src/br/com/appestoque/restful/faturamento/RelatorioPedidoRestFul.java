@@ -326,15 +326,10 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 		                	
 		                	final int divisor = 70;
 		                	
-		                	//dividendo = item.getObs().length(), 
-		                	int resto = item.getObs().length()%divisor; 
-		                	double quociente = item.getObs().length()/divisor;
-		                	
-		                	int i = 1, pos = 0;		                	
-		                	while(i<=quociente){
+		                	if(item.getObs().length()<=divisor){
 		                		
 		                		coluna0 = new Cell(fontePequena);
-								coluna1 = new Cell(fontePequena,item.getObs().substring(pos,pos+divisor));
+								coluna1 = new Cell(fontePequena,item.getObs());
 								coluna2 = new Cell(fontePequena);
 								coluna3 = new Cell(fontePequena);
 								coluna4 = new Cell(fontePequena);
@@ -365,11 +360,17 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 				                
 				                dados.add(registro);
 		                		
-		                		pos+=divisor;
-		                		++i;
-		                		if(i>quociente&&resto>0){
-		                			coluna0 = new Cell(fontePequena);
-									coluna1 = new Cell(fontePequena,item.getObs().substring(item.getObs().length()-resto,item.getObs().length()));
+		                	}else{
+		                	
+			                	//dividendo = item.getObs().length(), 
+			                	int resto = item.getObs().length()%divisor; 
+			                	double quociente = item.getObs().length()/divisor;
+			                	
+			                	int i = 1, pos = 0;		                	
+			                	while(i<=quociente){
+			                		
+			                		coluna0 = new Cell(fontePequena);
+									coluna1 = new Cell(fontePequena,item.getObs().substring(pos,pos+divisor));
 									coluna2 = new Cell(fontePequena);
 									coluna3 = new Cell(fontePequena);
 									coluna4 = new Cell(fontePequena);
@@ -399,7 +400,44 @@ public class RelatorioPedidoRestFul extends HttpServlet{
 					                registro.add(coluna4);
 					                
 					                dados.add(registro);
-		                		}
+			                		
+			                		pos+=divisor;
+			                		++i;
+			                		if(i>quociente&&resto>0){
+			                			coluna0 = new Cell(fontePequena);
+										coluna1 = new Cell(fontePequena,item.getObs().substring(item.getObs().length()-resto,item.getObs().length()));
+										coluna2 = new Cell(fontePequena);
+										coluna3 = new Cell(fontePequena);
+										coluna4 = new Cell(fontePequena);
+										
+										coluna0.setWidth( 65.00);
+										coluna1.setWidth(185.00);
+						                coluna2.setWidth(100.00);
+						                coluna3.setWidth(100.00);
+						                coluna4.setWidth(100.00);
+						                
+						                registro = new ArrayList<Cell>();
+						                
+						                coluna0.setNoBorders();
+						                coluna1.setNoBorders();
+						                coluna2.setNoBorders();
+						                coluna3.setNoBorders();
+						                coluna4.setNoBorders();
+						                
+						                coluna2.setTextAlignment(Align.RIGHT);
+						                coluna3.setTextAlignment(Align.RIGHT);
+						                coluna4.setTextAlignment(Align.RIGHT);
+						                
+						                registro.add(coluna0);
+						                registro.add(coluna1);
+						                registro.add(coluna2);
+						                registro.add(coluna3);
+						                registro.add(coluna4);
+						                
+						                dados.add(registro);
+			                		}
+			                	}
+		                	
 		                	}
 		                	
 		                }

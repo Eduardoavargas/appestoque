@@ -55,6 +55,18 @@ public class Empresa implements Serializable{
 	@Persistent
 	private Date dataCadastro = new Date();
 	
+	@Persistent
+	private String twitterConsumerKey;
+	
+	@Persistent
+	private String twitterConsumerSecret;
+	
+	@Persistent
+	private String twitterAccessToken;
+	
+	@Persistent
+	private String twitterAccessTokenSecret;
+	
 	public Empresa() {
 		super();
 	}
@@ -170,9 +182,43 @@ public class Empresa implements Serializable{
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	
-	public Empresa(String nome, String razao, String email, String cnpj, String endereco, Integer numero,
-			String cep, String complemento, String bairro, String cidade, String uuid) {
+
+	public String getTwitterConsumerKey() {
+		return twitterConsumerKey;
+	}
+
+	public void setTwitterConsumerKey(String twitterConsumerKey) {
+		this.twitterConsumerKey = twitterConsumerKey;
+	}
+
+	public String getTwitterConsumerSecret() {
+		return twitterConsumerSecret;
+	}
+
+	public void setTwitterConsumerSecret(String twitterConsumerSecret) {
+		this.twitterConsumerSecret = twitterConsumerSecret;
+	}
+
+	public String getTwitterAccessToken() {
+		return twitterAccessToken;
+	}
+
+	public void setTwitterAccessToken(String twitterAccessToken) {
+		this.twitterAccessToken = twitterAccessToken;
+	}
+
+	public String getTwitterAccessTokenSecret() {
+		return twitterAccessTokenSecret;
+	}
+
+	public void setTwitterAccessTokenSecret(String twitterAccessTokenSecret) {
+		this.twitterAccessTokenSecret = twitterAccessTokenSecret;
+	}
+
+	public Empresa(String nome, String razao, String email, String cnpj,
+			String endereco, Integer numero, String cep, String complemento,
+			String bairro, String cidade, String uuid,
+			String twitterConsumerKey, String twitterConsumerSecret, String twitterAccessToken, String twitterAccessTokenSecret) {
 		super();
 		this.nome = nome;
 		this.razao = razao;
@@ -185,6 +231,10 @@ public class Empresa implements Serializable{
 		this.bairro = bairro;
 		this.cidade = cidade;
 		this.uuid = uuid;
+		this.twitterConsumerKey = twitterConsumerKey;
+		this.twitterConsumerSecret = twitterConsumerSecret;
+		this.twitterAccessToken = twitterAccessToken;
+		this.twitterAccessTokenSecret = twitterAccessTokenSecret;
 	}
 	
 }

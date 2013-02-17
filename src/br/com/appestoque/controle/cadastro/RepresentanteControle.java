@@ -41,6 +41,7 @@ public class RepresentanteControle extends BaseControle{
 	private String complemento;
 	private String endereco;
 	private String uuid;
+	private String twitter;
 	private Representante objeto;
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -153,7 +154,8 @@ public class RepresentanteControle extends BaseControle{
 			uuid = request.getParameter("uuid");
 			idBairro = new Long(request.getParameter("idBairro"));
 			idUsuario = new Long(request.getParameter("idUsuario"));
-			objeto = new Representante(nome,cpf,endereco,complemento,numero,cep,idBairro,getId(request),idUsuario,uuid);
+			twitter = request.getParameter("twitter");
+			objeto = new Representante(nome,cpf,endereco,complemento,numero,cep,idBairro,getId(request),idUsuario,uuid,twitter);
 			objeto.setId(  request.getParameter("id")==null||request.getParameter("id").equals("")?null:new Long(request.getParameter("id")));
 			dao.criar(objeto);
 			objetos = dao.pesquisar(null,getId(request),primeiroRegistro,primeiroRegistro+Constantes.REGISTROS_POR_PAGINA,TipoBusca.ANSIOSA);
