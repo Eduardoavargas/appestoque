@@ -26,6 +26,7 @@ public class Constantes {
 	public static String MASCARA_DATA_PADRAO = "dd/MM/yyyy";
 	public static String MASCARA_HORA_PADRAO = "hh:mm:ss";
 	public static String MASCARA_DATA_HORA_PADRAO = "dd/MM/yyyy hh:mm:ss a";
+	
 	public static final String GMT_BRASIL = "GMT-3:00"; 
 	
 	public static final Integer PRECISAO_PRECO = 3;

@@ -58,33 +58,9 @@ public class Representante implements Serializable{
 	
 	@Persistent
 	private Date dataUltimaAtualizacao;
-
-	public Representante(	String nome, 
-							String cpf, 
-							String endereco,
-							String complemento,
-							Integer numero, 
-							String cep,							
-							Long idBairro,
-							Long idEmpresa,
-							Long idUsuario,
-							String uuid) {
-		super();
-		this.nome = nome;
-		this.cpf = cpf;
-		this.endereco = endereco;
-		this.numero = numero;
-		this.cep = cep;
-		this.complemento = complemento;
-		this.idBairro = idBairro;
-		this.idEmpresa = idEmpresa;
-		this.idUsuario = idUsuario;
-		this.uuid = uuid;
-	}
-
-	public Representante() {
-		super();
-	}
+	
+	@Persistent
+	private String twitter;
 
 	public Long getId() {
 		return id;
@@ -204,6 +180,43 @@ public class Representante implements Serializable{
 
 	public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao) {
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+	}
+	
+	public String getTwitter() {
+		return twitter;
+	}
+
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+
+	public Representante(	String nome, 
+			String cpf, 
+			String endereco,
+			String complemento,
+			Integer numero, 
+			String cep,							
+			Long idBairro,
+			Long idEmpresa,
+			Long idUsuario,
+			String uuid,
+			String twitter) {
+		super();
+		this.nome = nome;
+		this.cpf = cpf;
+		this.endereco = endereco;
+		this.numero = numero;
+		this.cep = cep;
+		this.complemento = complemento;
+		this.idBairro = idBairro;
+		this.idEmpresa = idEmpresa;
+		this.idUsuario = idUsuario;
+		this.uuid = uuid;
+		this.twitter = twitter;
+	}
+	
+	public Representante() {
+		super();
 	}
 	
 }
