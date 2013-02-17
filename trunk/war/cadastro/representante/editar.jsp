@@ -59,6 +59,10 @@
 	<%=bundle.getString("numero")%><br />
 	<app:numero id="numero" nome="numero" valor="<%=objeto.getNumero().toString()%>"/>
 	</p>
+	<p>
+		<%=bundle.getString("twitter")%><br />
+		<app:texto id="twitter" nome="twitter" tamanho="50" valor="<%=objeto.getTwitter()%>"/>
+	</p>
 	<%=bundle.getString("cidade")%><br/>
 	<select name="idCidade" id="idCidade" class="text ui-corner-all" 
 	        style="cursor:pointer;" 

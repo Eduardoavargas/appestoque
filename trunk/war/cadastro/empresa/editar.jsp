@@ -85,6 +85,23 @@
 			<label><%=bundle.getString("cidade")%><span class="obrigatorio">*</span></label><br/>
 			<app:texto id="cidade" nome="cidade" tamanho="50" valor="<%=objeto.getCidade()%>"/></p>
 			
+			<p>
+				<label><%=bundle.getString("twitterConsumerKey")%><span class="obrigatorio">*</span></label><br/>
+				<app:texto id="consumerKey" nome="consumerKey" tamanho="50" valor="<%=objeto.getTwitterConsumerKey()%>"/>
+			</p>
+			<p>
+				<label><%=bundle.getString("twitterConsumerSecret")%><span class="obrigatorio">*</span></label><br/>
+				<app:texto id="consumerSecret" nome="consumerSecret" tamanho="50" valor="<%=objeto.getTwitterConsumerSecret()%>"/>
+			</p>
+			<p>
+				<label><%=bundle.getString("twitterAccessToken")%><span class="obrigatorio">*</span></label><br/>
+				<app:texto id="accessToken" nome="accessToken" tamanho="50" valor="<%=objeto.getTwitterAccessToken()%>"/>
+			</p>
+			<p>
+				<label><%=bundle.getString("twitterAccessTokenSecret")%><span class="obrigatorio">*</span></label><br/>
+				<app:texto id="accessTokenSecret" nome="accessTokenSecret" tamanho="50" valor="<%=objeto.getTwitterAccessTokenSecret()%>"/>
+			</p>
+			
 	<hr>
 </form>
 <%@include file="../../modelo/fim.jspf"%>
