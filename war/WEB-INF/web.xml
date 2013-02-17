@@ -461,7 +461,8 @@
  
  
  
-<!--OnPositive Tools
+<!--OnPositive Tools-->	
+
 <servlet>
 		<servlet-name>baseViewerServlet</servlet-name>
 		<servlet-class>com.onpositive.gae.tools.servlets.BaseViewerServlet
@@ -496,6 +497,6 @@
 			<role-name>admin</role-name>
 		</auth-constraint>
 	</security-constraint>
--->	
+
 
 </web-app>
