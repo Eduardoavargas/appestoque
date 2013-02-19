@@ -45,9 +45,6 @@ public class PedidoRestFul extends BaseServlet{
 	
 	public void processServer(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-//		StringBuilder tweet = new StringBuilder();
-//		boolean twittar = false;
-		
 		super.processServer(request, response);
 		if(request.getParameter("email")!=null&&request.getParameter("senha")!=null){
 			
@@ -234,12 +231,21 @@ public class PedidoRestFul extends BaseServlet{
 								
 								tweet.append(Constantes.UM_ESPACAO_BRANCO);
 								tweet.append(Miscelanea.encurtarURL(Constantes.URL+Constantes.URI_PEDIDO_VENDA+"?uuid="+uuid));
-										   
-								RedeSocial.twittar(empresa.getProperty("twitterConsumerKey").toString(), 
-										empresa.getProperty("twitterConsumerSecret").toString(), 
-										empresa.getProperty("twitterAccessToken").toString(), 
-										empresa.getProperty("twitterAccessTokenSecret").toString(), 
-										tweet.toString());
+								
+								if(pedido.getProperty("latitude")!=null&&pedido.getProperty("longitude")!=null){
+									RedeSocial.twittar(empresa.getProperty("twitterConsumerKey").toString(), 
+											empresa.getProperty("twitterConsumerSecret").toString(), 
+											empresa.getProperty("twitterAccessToken").toString(), 
+											empresa.getProperty("twitterAccessTokenSecret").toString(), 
+											tweet.toString(),Double.parseDouble(pedido.getProperty("latitude").toString()),
+											Double.parseDouble(pedido.getProperty("longitude").toString()));
+								}else{
+									RedeSocial.twittar(empresa.getProperty("twitterConsumerKey").toString(), 
+											empresa.getProperty("twitterConsumerSecret").toString(), 
+											empresa.getProperty("twitterAccessToken").toString(), 
+											empresa.getProperty("twitterAccessTokenSecret").toString(), 
+											tweet.toString());
+								}
 								
 							} catch (Exception e) {
 								e.printStackTrace();
