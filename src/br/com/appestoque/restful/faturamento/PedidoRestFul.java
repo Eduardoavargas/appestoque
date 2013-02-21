@@ -231,7 +231,6 @@ public class PedidoRestFul extends BaseServlet{
 								
 								tweet.append(Constantes.UM_ESPACAO_BRANCO);
 								tweet.append(Constantes.URL+Constantes.URI_PEDIDO_VENDA+"?uuid="+uuid);
-								//tweet.append(Miscelanea.encurtarURL(Constantes.URL+Constantes.URI_PEDIDO_VENDA+"?uuid="+uuid));
 								
 								if(pedido.getProperty("latitude")!=null&&pedido.getProperty("longitude")!=null){
 									RedeSocial.twittar(empresa.getProperty("twitterConsumerKey").toString(), 
